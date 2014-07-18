@@ -57,12 +57,13 @@
                                 <textarea class="form-control" id="dpt_description" name="dpt_description" placeholder=""></textarea>
                             </div>
                         </div>
+                        <input type="hidden" id="dpt_id" name="dpt_id" value="">
                     </form>
                 </div>
 
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
+                    <button type="button" class="btn btn-primary" id="save_dpt">Save changes</button>
                 </div>
             </div>
         </div>
