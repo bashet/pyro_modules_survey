@@ -43,7 +43,7 @@
                 </div>
 
                 <div class="modal-body">
-                    <form class="form-horizontal" role="form" id="man">
+                    <form class="form-horizontal" role="form" id="frm_manage_dpt" method="post" action="{{url:site}}survey/save_dpt">
                         <div class="form-group">
                             <label for="dpt_name" class="col-sm-4 control-label">Depart Name</label>
                             <div class="col-sm-8">
@@ -58,6 +58,7 @@
                             </div>
                         </div>
                         <input type="hidden" id="dpt_id" name="dpt_id" value="">
+                        <input type="hidden" id="user_id" name="user_id" value="{{ user:id }}">
                     </form>
                 </div>
 

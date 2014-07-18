@@ -43,6 +43,20 @@ class survey extends Public_Controller
             ->build('dpt');
     }
 
+    public function save_dpt(){
+        $posted_data = $this->input->post();
+
+        if($posted_data['dpt_id']){
+            // we are here to edit the data.
+            $data = $this->survey_m->update_dpt($posted_data);
+        }else{
+            // we here to ad new data
+            $data = $this->survey_m->insert_dpt($posted_data);
+        }
+
+        echo json_encode($data);
+    }
+
     public function peers(){
         $this->load->view('peers');
     }
