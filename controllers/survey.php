@@ -57,6 +57,12 @@ class survey extends Public_Controller
         echo json_encode($data);
     }
 
+    public function delete_dpt($id = ''){
+
+        $this->db->delete('survey_dpt', array('id' => $id));
+        redirect('survey/dpt');
+    }
+
     public function peers(){
         $this->load->view('peers');
     }

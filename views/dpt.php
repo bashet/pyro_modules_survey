@@ -23,8 +23,8 @@
             echo '<td>'.$i.'</td>';
             echo '<td>'.$d->name.'</td>';
             echo '<td>'.$d->description.'</td>';
-            echo '<td style="text-align: center"><a class="" title="Edit this item" href="#"><span class="icon-edit icon-2x"></span></a></td>';
-            echo '<td style="text-align: center"><a class="" title="Delete this item" href="#"><span class="icon-trash icon-2x"></span></a></td>';
+            echo '<td style="text-align: center"><button class="" title="Edit this item"><i class="fa fa-pencil-square-o fa-lg"></i></button></td>';
+            echo '<td style="text-align: center"><button delete_dpt id="dpt-'.$d->id.'" title="Delete this item"><i class="fa fa-trash-o fa-lg"></i></button></td>';
             echo '</tr>';
             $i++;
         }
@@ -69,5 +69,18 @@
             </div>
         </div>
     </div>
+
+    <div id="dialog-confirm" class="hide">
+        <div class="alert alert-info bigger-110">
+            These items will be permanently deleted and cannot be recovered.
+        </div>
+
+        <div class="space-6"></div>
+
+        <p class="bigger-110 bolder center grey">
+            <i class="ace-icon fa fa-hand-o-right blue bigger-120"></i>
+            Are you sure?
+        </p>
+    </div><!-- #dialog-confirm -->
 
 </div>

@@ -21,4 +21,33 @@ $(function(){
         });
         event.preventDefault();
     });
+
+    $('button[delete_dpt]').button().click(function(){
+        var button_id = this.id;
+        var button_id_array = button_id.split('-');
+        var dpt_id = button_id_array[1];
+        $( "#dialog-confirm" ).removeClass('hide').dialog({
+            resizable: false,
+            modal: true,
+            title: "<div class='widget-header'><h4 class='smaller'><i class='ace-icon fa fa-exclamation-triangle red'></i> Delete Department?</h4></div>",
+            title_html: true,
+            buttons: [
+                {
+                    html: "<i class='ace-icon fa fa-trash-o bigger-110'></i>&nbsp; Delete all items",
+                    "class" : "btn btn-danger btn-xs",
+                    click: function() {
+                        window.location.href = base_url + 'index.php/survey/delete_dpt/'+dpt_id;
+                    }
+                }
+                ,
+                {
+                    html: "<i class='ace-icon fa fa-times bigger-110'></i>&nbsp; Cancel",
+                    "class" : "btn btn-xs",
+                    click: function() {
+                        $( this ).dialog( "close" );
+                    }
+                }
+            ]
+        });
+    });
 });
