@@ -7,7 +7,7 @@
  * @package 	PyroCMS
  * @subpackage 	survey Module
  */
-class survey extends Public_Controller
+class Survey extends Public_Controller
 {
 	public function __construct()
 	{
