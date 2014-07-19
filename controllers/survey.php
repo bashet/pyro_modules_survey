@@ -57,9 +57,18 @@ class survey extends Public_Controller
         echo json_encode($data);
     }
 
+    public function get_dpt_by_id($id = ''){
+        if($id){
+            $query = $this->db->get_where('survey_dpt', array('id' => $id));
+            echo json_encode($query->result());
+        }
+    }
+
     public function delete_dpt($id = ''){
 
-        $this->db->delete('survey_dpt', array('id' => $id));
+        if($id){
+            $this->db->delete('survey_dpt', array('id' => $id));
+        }
         redirect('survey/dpt');
     }
 

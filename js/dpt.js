@@ -22,6 +22,31 @@ $(function(){
         event.preventDefault();
     });
 
+    $('#dpt_popup_close').button().click(function(){
+        $('#dpt_id').val('');
+    });
+
+    $('button[edit_dpt]').button().click(function(){
+        var button_id = this.id;
+        var button_id_array = button_id.split('-');
+        var dpt_id = button_id_array[1];
+        $.ajax({
+            url: base_url + 'index.php/survey/get_dpt_by_id/'+dpt_id,
+
+            success: function(data,status) {
+                if(data){
+                    var msg = jQuery.parseJSON( data );
+                    $('#dpt_name').val(msg[0].name);
+                    $('#dpt_description').val(msg[0].description);
+                    $('#dpt_id').val(msg[0].id);
+
+                    $('#update_dpt').modal('show');
+                }
+                //window.location.href = base_url + 'index.php/survey/dpt';
+            }
+        });
+
+    });
     $('button[delete_dpt]').button().click(function(){
         var button_id = this.id;
         var button_id_array = button_id.split('-');

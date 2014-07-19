@@ -44,6 +44,17 @@ class survey_m extends MY_Model {
         return $query->result();
     }
 
+    public function update_dpt($data){
+        $dpt = array(
+            'name'          => $data['dpt_name'],
+            'description'   => $data['dpt_description'],
+            'created_by'    => $data['user_id'],
+            'create_date'   => time(),
+        );
+        $this->db->where('id', $data['dpt_id']);
+        return $this->db->update('survey_dpt', $dpt);
+    }
+
     public function insert_dpt($data){
         $dpt = array(
             'name'          => $data['dpt_name'],

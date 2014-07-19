@@ -23,8 +23,8 @@
             echo '<td>'.$i.'</td>';
             echo '<td>'.$d->name.'</td>';
             echo '<td>'.$d->description.'</td>';
-            echo '<td style="text-align: center"><button class="" title="Edit this item"><i class="fa fa-pencil-square-o fa-lg"></i></button></td>';
-            echo '<td style="text-align: center"><button delete_dpt id="dpt-'.$d->id.'" title="Delete this item"><i class="fa fa-trash-o fa-lg"></i></button></td>';
+            echo '<td style="text-align: center"><button edit_dpt id="edit_dpt-'.$d->id.'" title="Edit this item"><i class="fa fa-pencil-square-o fa-lg"></i></button></td>';
+            echo '<td style="text-align: center"><button delete_dpt id="del_dpt-'.$d->id.'" title="Delete this item"><i class="fa fa-trash-o fa-lg"></i></button></td>';
             echo '</tr>';
             $i++;
         }
@@ -63,7 +63,7 @@
                 </div>
 
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-default" id="dpt_popup_close" data-dismiss="modal">Close</button>
                     <button type="button" class="btn btn-primary" id="save_dpt">Save changes</button>
                 </div>
             </div>
