@@ -27,11 +27,43 @@ class survey extends Public_Controller
 	 */
 	public function index($offset = 0)
 	{
-        $dpt = $this->survey_m->get_all_dtp();
+        $survey = $this->survey_m->get_all_survey();
 
-        $this->load->view('survey',array('dpt'=>$dpt));
+        $this->template
+            ->title($this->module_details['name'], 'the rest of the page title')
+            ->set('survey', $survey)
+            ->build('index');
 	}
 
+    public function save_survey(){
+        $posted_data = $this->input->post();
+
+        if($posted_data['survey_id']){
+            // we are here to edit the data.
+            $data = $this->survey_m->update_survey($posted_data);
+        }else{
+            // we here to ad new data
+            $data = $this->survey_m->insert_survey($posted_data);
+        }
+
+        echo json_encode($data);
+    }
+
+    public function get_survey_by_id($id = ''){
+        if($id){
+            $query = $this->db->get_where('survey', array('id' => $id));
+            echo json_encode($query->result());
+        }
+    }
+
+    public function delete_survey($id = ''){
+
+        if($id){
+            $this->db->delete('survey', array('id' => $id));
+        }
+        redirect('survey');
+    }
+    // start of dpt ===============================
     public function dpt(){
 
         $dpt = $this->survey_m->get_all_dtp();

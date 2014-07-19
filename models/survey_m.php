@@ -19,24 +19,36 @@ class survey_m extends MY_Model {
 		 */
 		$this->_table = 'survey';
 	}
-	
-	//create a new item
-	public function create($input){
-		$to_insert = array(
-			'name' => $input['name'],
-			'slug' => $this->_check_slug($input['slug'])
-		);
 
-		return $this->db->insert('survey', $to_insert);
-	}
+    public function get_all_survey(){
+        $query = $this->db->get('survey');
 
-	//make sure the slug is valid
-	public function _check_slug($slug){
-		$slug = strtolower($slug);
-		$slug = preg_replace('/\s+/', '-', $slug);
+        return $query->result();
+    }
 
-		return $slug;
-	}
+    public function update_survey($data){
+        $survey = array(
+            'name'          => $data['survey_name'],
+            'description'   => $data['survey_description'],
+            'modified_by'   => $data['user_id'],
+            'modified_date' => time(),
+        );
+        $this->db->where('id', $data['survey_id']);
+        return $this->db->update('survey', $survey);
+    }
+
+    public function insert_survey($data){
+        $survey = array(
+            'name'          => $data['survey_name'],
+            'description'   => $data['survey_description'],
+            'created_by'    => $data['user_id'],
+            'create_date'   => time(),
+        );
+
+        return $this->db->insert('survey', $survey);
+    }
+
+// Survey finished and dpt started ===============================================================================
 
     public function get_all_dtp(){
         $query = $this->db->get('survey_dpt');
