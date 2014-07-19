@@ -72,7 +72,7 @@
 
     <div id="dialog-confirm" class="hide">
         <div class="alert alert-info bigger-110">
-            These items will be permanently deleted and cannot be recovered.
+            <span id="item_name"></span> department will be permanently deleted and cannot be recovered.
         </div>
 
         <div class="space-6"></div>
