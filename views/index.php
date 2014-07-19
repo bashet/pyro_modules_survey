@@ -71,7 +71,7 @@
 
     <div id="dialog-confirm" class="hide">
         <div class="alert alert-info bigger-110">
-            These items will be permanently deleted and cannot be recovered.
+            Survey "<span id="item_name"></span>" will be permanently deleted and cannot be recovered.
         </div>
 
         <div class="space-6"></div>
