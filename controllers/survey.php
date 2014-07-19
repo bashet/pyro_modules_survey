@@ -47,10 +47,16 @@ class Survey extends Public_Controller
         echo json_encode($data);
     }
 
-    public function get_survey_by_id($id = ''){
+    public function get_survey_by_id($id = '', $output = 'json'){
         if($id){
             $query = $this->db->get_where('survey', array('id' => $id));
-            echo json_encode($query->result());
+            if($output == 'json'){
+                echo json_encode($query->result());
+            }else{
+                // expected output object
+                return $query->result();
+            }
+
         }
     }
 
@@ -104,14 +110,12 @@ class Survey extends Public_Controller
 // ============================================= Manage questions ======================================================
 
     public function questions($survey_id = ''){
-        $survey_selected = true;
         if($survey_id){
             // we will go ahead to do the next job
             $questions = $this->survey_m->get_all_questions($survey_id);
         }else{
             // wrong entry kick to ass
             $questions = '';
-            $survey_selected = false;
         }
 
 
@@ -119,7 +123,27 @@ class Survey extends Public_Controller
         $this->template
             ->title($this->module_details['name'], 'manage questions')
             ->set('questions', $questions)
-            ->set('survey_selected', $survey_selected)
+            ->set('survey_id', $survey_id)
+            ->append_js('module::question.js')
+            ->build('questions');
+    }
+
+    public function add_new_question($survey_id = ''){
+        if($survey_id){
+            // we will go ahead to do the next job
+            $survey     = $this->get_survey_by_id($survey_id, $output = 'object');
+            $questions  = $this->survey_m->get_all_questions($survey_id);
+        }else{
+            // wrong entry kick to ass
+            $questions  = '';
+            $survey     = '';
+        }
+
+        $this->template
+            ->title($this->module_details['name'], 'manage questions')
+            ->set('questions', $questions)
+            ->set('survey_id', $survey_id)
+            ->set('survey', $survey)
             ->append_js('module::question.js')
             ->build('questions');
     }
