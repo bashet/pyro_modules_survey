@@ -28,7 +28,7 @@ $(function(){
         $('#survey_description').val('');
     });
 
-    $('button[edit_survey]').button().click(function(){
+    $('a[edit_survey]').button().click(function(){
         var button_id = this.id;
         var button_id_array = button_id.split('-');
         var survey_id = button_id_array[1];
@@ -49,7 +49,7 @@ $(function(){
         });
 
     });
-    $('button[delete_survey]').button().click(function(){
+    $('a[delete_survey]').button().click(function(){
         var button_id = this.id;
         var button_id_array = button_id.split('-');
         var survey_id = button_id_array[1];
