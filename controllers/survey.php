@@ -118,8 +118,6 @@ class Survey extends Public_Controller
             $questions = '';
         }
 
-
-
         $this->template
             ->title($this->module_details['name'], 'manage questions')
             ->set('questions', $questions)
@@ -143,7 +141,12 @@ class Survey extends Public_Controller
             ->set('survey', $survey)
             ->append_css('module::question.css')
             ->append_js('module::question.js')
-            ->build('questions');
+            ->build('add_new_question');
+    }
+
+    public function save_question(){
+        $posted_data = $this->input->post();
+        var_dump($posted_data);
     }
 
 // ============================================= Manage peers ==========================================================

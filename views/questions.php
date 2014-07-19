@@ -1,35 +1,60 @@
 <div id="questions-container">
 
-    <form class="form-horizontal" role="form" id="save_question" method="post" action="{{ url:site }}survey/save_question">
-        <legend>Question Text</legend>
-        <div class="form-group">
-            <label for="question_text1" class="col-sm-2 control-label">Question text for 1st person</label>
-            <div class="col-sm-10">
-                <textarea class="form-control" id="question_text1" name="question_text1"></textarea>
-            </div>
+    <div style="">
+        <?php
+        if($survey_id){
+            echo '<a href="{{ url:site }}survey/add_new_question" class="btn btn-primary" ><span class="icon-plus"></span> Add new question</a>';
+        }else{
+            echo '<a class="btn btn-primary" ><span class="icon-plus"></span> Add new question</a>';
+        }
+        ?>
+    </div>
+
+    <table id="all_question" class="table table-bordered table-hover" style="width:100%">
+        <thead>
+        <tr>
+            <th style="width: 8%">SN</th>
+            <th style="width: 25%">Name</th>
+            <th style="width: 35%">Description</th>
+            <th style="width: 10%">Edit</th>
+            <th style="width: 10%">Delete</th>
+            <th style="width: 10%">Questions</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <?php
+        $i = 1;
+        if($survey_id){
+            foreach($questions as $d){
+                echo '<tr>';
+                echo '<td>'.$i.'</td>';
+                echo '<td>'.$d->name.'</td>';
+                echo '<td>'.$d->description.'</td>';
+                echo '<td style="text-align: center"><a href="#" edit_question id="edit_question-'.$d->id.'" title="Edit '.$d->name.'"><i class="fa fa-pencil-square-o fa-lg"></i></a></td>';
+                echo '<td style="text-align: center"><a href="#" delete_question id="del_question-'.$d->id.'" title="Delete '.$d->name.'"><i class="fa fa-trash-o fa-lg"></i></a></td>';
+                echo '<td style="text-align: center"><a href="{{url:site}}question/questions/'.$d->id.'" title="Manage questions for '.$d->name.'"><i class="fa fa-list-alt fa-lg"></i></a></td>';
+                echo '</tr>';
+                $i++;
+            }
+        }else{
+            echo '<span style="color: red">You did not chose any survey to manage questions. Please chose a survey from manage survey screen.</span>';
+        }
+        ?>
+        </tbody>
+    </table>
+
+    <div id="dialog-confirm" class="hide">
+        <div class="alert alert-info bigger-110">
+            question "<span id="item_name"></span>" will be permanently deleted and cannot be recovered.
         </div>
 
-        <div class="form-group">
-            <label for="question_text2" class="col-sm-2 control-label">Question text for 3rd person</label>
-            <div class="col-sm-10">
-                <textarea class="form-control" id="question_text2" name="question_text2"></textarea>
-            </div>
-        </div>
+        <div class="space-6"></div>
 
-        <legend>Answer Options</legend>
-        <div id="question_options">
-            <div class="form-group">
-                <div class="col-sm-offset-2 col-sm-10">
-                    <button type="button" class="btn btn-primary">Add an option</button>
-                </div>
-            </div>
-        </div>
-        <legend>Save Changes</legend>
-        <div class="form-group">
-            <div class="col-sm-offset-2 col-sm-10">
-                <button type="submit" class="btn btn-inverse">Save</button>
-            </div>
-        </div>
-    </form>
+        <p class="bigger-110 bolder center grey">
+            <i class="ace-icon fa fa-hand-o-right blue bigger-120"></i>
+            Are you sure?
+        </p>
+    </div><!-- #dialog-confirm -->
 
 </div>
