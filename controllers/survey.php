@@ -22,15 +22,13 @@ class Survey extends Public_Controller
 			->append_js('module::survey.js');
 	}
 
-	/**
-	 * All items
-	 */
+
 	public function index($offset = 0)
 	{
         $survey = $this->survey_m->get_all_survey();
 
         $this->template
-            ->title($this->module_details['name'], 'the rest of the page title')
+            ->title($this->module_details['name'], 'manage survey')
             ->set('survey', $survey)
             ->build('index');
 	}
@@ -63,13 +61,13 @@ class Survey extends Public_Controller
         }
         redirect('survey');
     }
-    // start of dpt ===============================
+// ============================================= Manage department =====================================================
     public function dpt(){
 
         $dpt = $this->survey_m->get_all_dtp();
 
         $this->template
-            ->title($this->module_details['name'], 'the rest of the page title')
+            ->title($this->module_details['name'], 'manage departments')
             ->set('dpt', $dpt)
             ->append_js('module::dpt.js')
             ->build('dpt');
@@ -103,7 +101,30 @@ class Survey extends Public_Controller
         }
         redirect('survey/dpt');
     }
+// ============================================= Manage questions ======================================================
 
+    public function questions($survey_id = ''){
+        $survey_selected = true;
+        if($survey_id){
+            // we will go ahead to do the next job
+            $questions = $this->survey_m->get_all_questions($survey_id);
+        }else{
+            // wrong entry kick to ass
+            $questions = '';
+            $survey_selected = false;
+        }
+
+
+
+        $this->template
+            ->title($this->module_details['name'], 'manage questions')
+            ->set('questions', $questions)
+            ->set('survey_selected', $survey_selected)
+            ->append_js('module::question.js')
+            ->build('questions');
+    }
+
+// ============================================= Manage peers ==========================================================
     public function peers(){
         $this->load->view('peers');
     }
