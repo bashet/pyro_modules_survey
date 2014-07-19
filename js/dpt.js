@@ -24,6 +24,8 @@ $(function(){
 
     $('#dpt_popup_close').button().click(function(){
         $('#dpt_id').val('');
+        $('#dpt_name').val('');
+        $('#dpt_description').val('');
     });
 
     $('button[edit_dpt]').button().click(function(){
