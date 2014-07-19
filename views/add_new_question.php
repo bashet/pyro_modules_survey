@@ -24,7 +24,11 @@
                 </div>
             </div>
         </div>
-        <input type="hidden" name="survey_id" value="">
+
+        <input type="hidden" name="survey_id" value="<?php echo $survey_id;?>">
+        <input type="hidden" name="user_id" value="{{ user:id }}">
+
+
         <legend>Save Changes</legend>
         <div class="form-group">
             <div class="col-sm-offset-2 col-sm-10">

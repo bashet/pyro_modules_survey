@@ -3,7 +3,7 @@
     <div style="">
         <?php
         if($survey_id){
-            echo '<a href="{{ url:site }}survey/add_new_question" class="btn btn-primary" ><span class="icon-plus"></span> Add new question</a>';
+            echo '<a href="{{ url:site }}survey/add_new_question/'.$survey_id.'" class="btn btn-primary" ><span class="icon-plus"></span> Add new question</a>';
         }else{
             echo '<a class="btn btn-primary" ><span class="icon-plus"></span> Add new question</a>';
         }
