@@ -141,6 +141,7 @@ class Survey extends Public_Controller
             ->title($this->module_details['name'], 'manage questions')
             ->set('survey_id', $survey_id)
             ->set('survey', $survey)
+            ->append_css('module::question.css')
             ->append_js('module::question.js')
             ->build('questions');
     }
