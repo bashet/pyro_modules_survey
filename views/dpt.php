@@ -23,8 +23,8 @@
             echo '<td>'.$i.'</td>';
             echo '<td>'.$d->name.'</td>';
             echo '<td>'.$d->description.'</td>';
-            echo '<td style="text-align: center"><button edit_dpt id="edit_dpt-'.$d->id.'" title="Edit this item"><i class="fa fa-pencil-square-o fa-lg"></i></button></td>';
-            echo '<td style="text-align: center"><button delete_dpt id="del_dpt-'.$d->id.'" title="Delete this item"><i class="fa fa-trash-o fa-lg"></i></button></td>';
+            echo '<td style="text-align: center"><button edit_dpt id="edit_dpt-'.$d->id.'" title="Edit '.$d->name.'"><i class="fa fa-pencil-square-o fa-lg"></i></button></td>';
+            echo '<td style="text-align: center"><button delete_dpt id="del_dpt-'.$d->id.'" title="Delete '.$d->name.'"><i class="fa fa-trash-o fa-lg"></i></button></td>';
             echo '</tr>';
             $i++;
         }
