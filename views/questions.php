@@ -1,5 +1,7 @@
 <div id="questions-container">
 
-    this is adding question page
+    <?php
+    var_dump($survey);
+    ?>
 
 </div>

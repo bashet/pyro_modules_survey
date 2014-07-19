@@ -132,16 +132,13 @@ class Survey extends Public_Controller
         if($survey_id){
             // we will go ahead to do the next job
             $survey     = $this->get_survey_by_id($survey_id, $output = 'object');
-            $questions  = $this->survey_m->get_all_questions($survey_id);
         }else{
             // wrong entry kick to ass
-            $questions  = '';
             $survey     = '';
         }
 
         $this->template
             ->title($this->module_details['name'], 'manage questions')
-            ->set('questions', $questions)
             ->set('survey_id', $survey_id)
             ->set('survey', $survey)
             ->append_js('module::question.js')
