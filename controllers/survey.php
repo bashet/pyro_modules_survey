@@ -145,8 +145,20 @@ class Survey extends Public_Controller
     }
 
     public function save_question(){
-        $posted_data = $this->input->post();
-        var_dump($posted_data);
+        $data = $this->input->post();
+
+        $question = array(
+            'survey_id'     => $data['survey_id'],
+            'text1'         => $data['question_text1'],
+            'text2'         => $data['question_text2'],
+            'created_by'    => $data['user_id'],
+            'create_date'   => time(),
+        );
+
+        $this->db->insert('survey_questions', $question);
+
+        redirect('survey/questions/'.$data['survey_id']);
+
     }
 
 // ============================================= Manage peers ==========================================================

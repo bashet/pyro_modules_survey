@@ -84,23 +84,4 @@ class survey_m extends MY_Model {
         return $query->result();
     }
 
-    public function update_question($data){
-        $question = array(
-            'text'          => $data['question_text'],
-            'modified_by'   => $data['user_id'],
-            'modified_date' => time(),
-        );
-        $this->db->where('id', $data['question_id']);
-        return $this->db->update('survey_questions', $question);
-    }
-
-    public function insert_question($data){
-        $question = array(
-            'name'          => $data['$question_text'],
-            'created_by'    => $data['user_id'],
-            'create_date'   => time(),
-        );
-
-        return $this->db->insert('survey_questions', $question);
-    }
 }
