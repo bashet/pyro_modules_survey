@@ -1,6 +1,6 @@
 <div id="questions-container">
 
-    <form class="form-horizontal" role="form" id="save_question" method="post" action="{{ url:site }}survey/save_question">
+    <form class="form-horizontal" role="form" id="frm_save_question" method="post" action="{{ url:site }}survey/save_question">
         <legend>General Information About Question</legend>
         <div class="form-group">
             <label for="question_category" class="col-sm-2 control-label">Question category</label>
@@ -23,7 +23,21 @@
             </div>
         </div>
 
-        <legend>Question Text</legend>
+        <div class="form-group">
+            <label for="description" class="col-sm-2 control-label">Question description</label>
+            <div class="col-sm-10">
+                <textarea class="form-control" id="description" name="description"></textarea>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="matter" class="col-sm-2 control-label">Why it matters</label>
+            <div class="col-sm-10">
+                <textarea class="form-control" id="matter" name="matter"></textarea>
+            </div>
+        </div>
+
+        <legend>Key question</legend>
         <div class="form-group">
             <label for="question_text1" class="col-sm-2 control-label">Question text for 1st person</label>
             <div class="col-sm-10">
@@ -81,6 +95,27 @@
         </div>
     </form>
 
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="q_form_validate_popup" tabindex="-1" role="dialog" aria-labelledby="update_dptLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="update_dptLabel">Validation message</h4>
+            </div>
+
+            <div class="modal-body">
+                <span style="color: red"><i class="fa fa-warning fa-3x"></i>  Please check again, all the fields are required to input correctly.</span>
+
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
 </div>
 
 <script>

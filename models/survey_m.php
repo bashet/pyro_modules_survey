@@ -123,4 +123,19 @@ class survey_m extends MY_Model {
         return $query->result();
     }
 
+    public function question_form_validate($data){
+        $validate = true;
+        foreach($data as $field=>$value){
+            if($field == 'survey_id' || $field == 'user_id'){
+
+            }else{
+                if($value == ''){
+                    $validate = false;
+                }
+            }
+        }
+
+        return $validate;
+    }
+
 }

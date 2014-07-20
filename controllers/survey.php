@@ -189,33 +189,39 @@ class Survey extends Public_Controller
     public function save_question(){
         $data = $this->input->post();
 
-        $question = array(
-            'survey_id'     => $data['survey_id'],
-            'text1'         => $data['question_text1'],
-            'text2'         => $data['question_text2'],
-            'created_by'    => $data['user_id'],
-            'create_date'   => time(),
-        );
-
-
-        if($this->db->insert('survey_questions', $question)){
-            $q_id = $this->db->insert_id();
-
-            $answers = array(
-                'question_id'   => $q_id,
-                'option_1'      => $data['option_1'],
-                'option_2'      => $data['option_2'],
-                'option_3'      => $data['option_3'],
-                'option_4'      => $data['option_4'],
+        if($this->survey_m->question_form_validate($data)){
+            $question = array(
+                'survey_id'     => $data['survey_id'],
+                'cat_id'        => $data['question_category'],
+                'title'         => $data['question_title'],
+                'description'   => $data['description'],
+                'matter'        => $data['matter'],
+                'text1'         => $data['question_text1'],
+                'text2'         => $data['question_text2'],
                 'created_by'    => $data['user_id'],
                 'create_date'   => time(),
             );
 
-            $this->db->insert('survey_answer_options', $answers);
+
+            if($this->db->insert('survey_questions', $question)){
+                $q_id = $this->db->insert_id();
+
+                $answers = array(
+                    'question_id'   => $q_id,
+                    'option_1'      => $data['option_1'],
+                    'option_2'      => $data['option_2'],
+                    'option_3'      => $data['option_3'],
+                    'option_4'      => $data['option_4'],
+                    'created_by'    => $data['user_id'],
+                    'create_date'   => time(),
+                );
+
+                $this->db->insert('survey_answer_options', $answers);
+            }
+            echo json_encode(array('survey_id'=>$data['survey_id'], 'validate'=>true));
+        }else{
+            echo json_encode(array('survey_id'=>$data['survey_id'], 'validated'=>false));
         }
-
-
-        redirect('survey/questions/'.$data['survey_id']);
 
     }
 // ============================================= default options =======================================================
