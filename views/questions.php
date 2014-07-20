@@ -20,11 +20,11 @@
                     echo '<h4 class="panel-title" data-toggle="collapse" data-target="#cat-'.$cat->id.'">'.$cat->name.'</h4>';
                     echo '</div>';
                     echo '<div id="cat-'.$cat->id.'" class="panel-collapse collapse">';
-                    echo '<div class="panel-body">
-// question will come here====================================================================================
-                                Questions will come here.
-// question end come here====================================================================================
-                        </div>';
+                    echo '<div class="panel-body">';
+/* question will come here====================================================================================*/
+                    echo 'Questions will come here.';
+/* question end come here====================================================================================*/
+                    echo '</div>';
                     echo '</div>';
                     echo '</div>';
                 }
