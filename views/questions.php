@@ -11,10 +11,6 @@
         <button id="collapse-init" class="btn btn-primary">Disable accordion behavior</button>
     </div>
     <div id="question_categories">
-        <!--========================================================================================================-->
-
-
-
         <div class="panel-group" id="accordion">
             <?php
             if($categories){
@@ -25,7 +21,9 @@
                     echo '</div>';
                     echo '<div id="cat-'.$cat->id.'" class="panel-collapse collapse">';
                     echo '<div class="panel-body">
+// question will come here====================================================================================
                                 Questions will come here.
+// question end come here====================================================================================
                         </div>';
                     echo '</div>';
                     echo '</div>';
@@ -34,8 +32,6 @@
             ?>
         </div>
 
-
-        <!--========================================================================================================-->
     </div>
 
     <div id="questions">
