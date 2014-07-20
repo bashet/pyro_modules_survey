@@ -155,7 +155,23 @@ class Survey extends Public_Controller
             'create_date'   => time(),
         );
 
-        $this->db->insert('survey_questions', $question);
+
+        if($this->db->insert('survey_questions', $question)){
+            $q_id = $this->db->insert_id();
+
+            $answers = array(
+                'question_id'   => $q_id,
+                'option_1'      => $data['option_1'],
+                'option_2'      => $data['option_2'],
+                'option_3'      => $data['option_3'],
+                'option_4'      => $data['option_4'],
+                'created_by'    => $data['user_id'],
+                'create_date'   => time(),
+            );
+
+            $this->db->insert('survey_answer_options', $answers);
+        }
+
 
         redirect('survey/questions/'.$data['survey_id']);
 
