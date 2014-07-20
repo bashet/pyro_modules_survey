@@ -77,6 +77,36 @@ class survey_m extends MY_Model {
 
         return $this->db->insert('survey_dpt', $dpt);
     }
+
+    // dpt finished and question_categories started ===============================================================================
+
+    public function get_all_question_categories(){
+        $query = $this->db->get('survey_question_categories');
+
+        return $query->result();
+    }
+
+    public function update_question_categories($data){
+        $dpt = array(
+            'name'          => $data['question_categories_name'],
+            'description'   => $data['question_categories_description'],
+            'modified_by'   => $data['user_id'],
+            'modified_date' => time(),
+        );
+        $this->db->where('id', $data['question_categories_id']);
+        return $this->db->update('survey_question_categories', $dpt);
+    }
+
+    public function insert_question_categories($data){
+        $dpt = array(
+            'name'          => $data['question_categories_name'],
+            'description'   => $data['question_categories_description'],
+            'created_by'    => $data['user_id'],
+            'create_date'   => time(),
+        );
+
+        return $this->db->insert('survey_question_categories', $dpt);
+    }
     // for managing question ==========================================
 
     public function get_all_questions($survey_id = ''){

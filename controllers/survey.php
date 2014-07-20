@@ -107,6 +107,46 @@ class Survey extends Public_Controller
         }
         redirect('survey/dpt');
     }
+ //============================================= Manage question categories=============================================
+    public function question_categories(){
+
+        $question_categories = $this->survey_m->get_all_question_categories();
+
+        $this->template
+            ->title($this->module_details['name'], 'manage question categories')
+            ->set('question_categories', $question_categories)
+            ->append_js('module::question_categories.js')
+            ->build('question_categories');
+    }
+
+    public function save_question_categories(){
+        $posted_data = $this->input->post();
+
+        if($posted_data['question_categories_id']){
+            // we are here to edit the data.
+            $data = $this->survey_m->update_question_categories($posted_data);
+        }else{
+            // we here to ad new data
+            $data = $this->survey_m->insert_question_categories($posted_data);
+        }
+
+        echo json_encode($data);
+    }
+
+    public function get_question_categories_by_id($id = ''){
+        if($id){
+            $query = $this->db->get_where('survey_question_categories', array('id' => $id));
+            echo json_encode($query->result());
+        }
+    }
+
+    public function delete_question_categories($id = ''){
+
+        if($id){
+            $this->db->delete('survey_question_categories', array('id' => $id));
+        }
+        redirect('survey/question_categories');
+    }
 // ============================================= Manage questions ======================================================
 
     public function questions($survey_id = ''){
