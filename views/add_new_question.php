@@ -19,8 +19,30 @@
         <legend>Answer Options</legend>
         <div id="question_options">
             <div class="form-group">
-                <div class="col-sm-offset-2 col-sm-10">
-                    <button type="button" class="btn btn-primary">Add an option</button>
+                <label for="option_1" class="col-sm-2 control-label">Option 1</label>
+                <div class="col-sm-10">
+                    <textarea class="form-control" id="option_1" name="option_1"></textarea>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="option_2" class="col-sm-2 control-label">Option 2</label>
+                <div class="col-sm-10">
+                    <textarea class="form-control" id="option_2" name="option_2"></textarea>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="option_3" class="col-sm-2 control-label">Option 3</label>
+                <div class="col-sm-10">
+                    <textarea class="form-control" id="option_3" name="option_3"></textarea>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="option_4" class="col-sm-2 control-label">Option 4</label>
+                <div class="col-sm-10">
+                    <textarea class="form-control" id="option_4" name="option_4"></textarea>
                 </div>
             </div>
         </div>
@@ -32,7 +54,7 @@
         <legend>Save Changes</legend>
         <div class="form-group">
             <div class="col-sm-offset-2 col-sm-10">
-                <button type="submit" class="btn btn-inverse">Save</button>
+                <button type="submit" class="btn btn-primary btn-block">Save</button>
             </div>
         </div>
     </form>
