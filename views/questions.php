@@ -10,28 +10,31 @@
         ?>
         <button id="collapse-init" class="btn btn-primary">Disable accordion behavior</button>
     </div>
-    <div id="question_categories">
-        <div class="panel-group" id="accordion">
-            <?php
-            if($categories){
-                foreach($categories as $cat){
-                    echo '<div class="panel panel-default">';
-                    echo '<div class="panel-heading">';
-                    echo '<h4 class="panel-title" data-toggle="collapse" data-target="#cat-'.$cat->id.'">'.$cat->name.'</h4>';
-                    echo '</div>';
-                    echo '<div id="cat-'.$cat->id.'" class="panel-collapse collapse">';
-                    echo '<div class="panel-body">';
-/* question will come here====================================================================================*/
-                    echo 'Questions will come here.';
-/* question end come here====================================================================================*/
-                    echo '</div>';
-                    echo '</div>';
-                    echo '</div>';
-                }
-            }
-            ?>
-        </div>
 
+    <div id="question_categories">
+        <?php
+        if($categories){
+            foreach($categories as $cat){
+                echo '<h3>'.$cat->name.'</h3>';
+                echo '<div><p>';
+                echo '<div question id="q_cat-'.$cat->id.'">';
+                if($questions){
+                    foreach($questions as $q){
+                        if($cat->id == $q->cat_id){
+                            echo '<h3>'.$q->title.'</h3>';
+                            echo '<div>';
+                            echo $q->text1;
+                            echo '</div>';
+                        }else{
+
+                        }
+                    }
+                }
+                echo '</div>';
+                echo '</p></div>';
+            }
+        }
+        ?>
     </div>
 
     <div id="questions">
