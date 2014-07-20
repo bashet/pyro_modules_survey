@@ -1,6 +1,28 @@
 <div id="questions-container">
 
     <form class="form-horizontal" role="form" id="save_question" method="post" action="{{ url:site }}survey/save_question">
+        <legend>General Information About Question</legend>
+        <div class="form-group">
+            <label for="question_category" class="col-sm-2 control-label">Question category</label>
+            <div class="col-sm-10">
+                <select class="form-control" id="question_category" name="question_category">
+                    <option value="">Select category</option>
+                    <?php
+                    foreach($question_categories as $cat){
+                        echo '<option value="'.$cat->id.'">'.$cat->name.'</option>';
+                    }
+                    ?>
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="question_title" class="col-sm-2 control-label">Question title</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="question_title" name="question_title">
+            </div>
+        </div>
+
         <legend>Question Text</legend>
         <div class="form-group">
             <label for="question_text1" class="col-sm-2 control-label">Question text for 1st person</label>
@@ -70,7 +92,7 @@
             "searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking",
             "save table contextmenu directionality emoticons template paste textcolor"
         ],
-        toolbar: "insertfile undo redo | styleselect | sizeselect | bold italic | fontselect |  fontsizeselect |alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | l      ink image | print preview media fullpage | forecolor backcolor emoticons",
+        toolbar: "undo redo | styleselect | sizeselect | bold italic | fontsizeselect |alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link | fullpage | forecolor backcolor emoticons",
         style_formats: [
             {title: 'Bold text', inline: 'b'},
             {title: 'Red text', inline: 'span', styles: {color: '#ff0000'}},

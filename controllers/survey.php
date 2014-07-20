@@ -174,11 +174,13 @@ class Survey extends Public_Controller
             // wrong entry kick to ass
             $survey     = '';
         }
+        $question_categories = $this->survey_m->get_all_question_categories();
 
         $this->template
             ->title($this->module_details['name'], 'manage questions')
             ->set('survey_id', $survey_id)
             ->set('survey', $survey)
+            ->set('question_categories', $question_categories)
             ->append_css('module::question.css')
             ->append_js('module::question.js')
             ->build('add_new_question');
