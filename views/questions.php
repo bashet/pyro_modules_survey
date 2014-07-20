@@ -8,7 +8,7 @@
             echo '<a class="btn btn-primary" ><span class="icon-plus"></span> Add new question</a>';
         }
         ?>
-        <button id="collapse-init" class="btn btn-primary">Disable accordion behavior</button>
+
     </div>
 
     <div id="question_categories">
@@ -19,12 +19,14 @@
                 echo '<div><p>';
                 echo '<div question id="q_cat-'.$cat->id.'">';
                 if($questions){
+                    $i = 1;
                     foreach($questions as $q){
                         if($cat->id == $q->cat_id){
-                            echo '<h3>'.$q->title.'</h3>';
+                            echo '<h3>'.$i.' - '.$q->title.'</h3>';
                             echo '<div>';
                             echo $q->text1;
                             echo '</div>';
+                            $i++;
                         }else{
 
                         }
