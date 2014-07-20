@@ -218,6 +218,37 @@ class Survey extends Public_Controller
         redirect('survey/questions/'.$data['survey_id']);
 
     }
+// ============================================= default options =======================================================
+
+    public function default_options(){
+
+        $options = $this->survey_m->get_all_options();
+
+        $this->template
+            ->title($this->module_details['name'], 'manage default options')
+            ->set('options', $options)
+            ->build('default_options');
+    }
+
+    public function update_options(){
+        $data = $this->input->post();
+
+        $option = array(
+            'option_1'      => $data['option_1'],
+            'option_2'      => $data['option_2'],
+            'option_3'      => $data['option_3'],
+            'option_4'      => $data['option_4'],
+            'modified_by'   => $data['user_id'],
+            'modified_date' => time(),
+        );
+
+        $this->db->where('id', 1);
+        $this->db->update('survey_default_options', $option);
+
+        redirect('survey/default_options');
+    }
+
+
 
 // ============================================= Manage peers ==========================================================
     public function peers(){

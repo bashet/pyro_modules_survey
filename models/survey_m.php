@@ -107,6 +107,15 @@ class survey_m extends MY_Model {
 
         return $this->db->insert('survey_question_categories', $dpt);
     }
+
+    // default options ============================================
+
+    public function get_all_options(){
+        $query = $this->db->get_where('survey_default_options', array('id'=>1));
+
+        return $query->row();
+    }
+
     // for managing question ==========================================
 
     public function get_all_questions($survey_id = ''){
