@@ -9,8 +9,21 @@
         }
         ?>
     </div>
-
-
+    <div id="questions">
+        <?php
+        if($survey_id){
+            if($questions){
+                foreach($questions as $q){
+                    var_dump($q);
+                }
+            }else{
+                echo 'There is no question available to show!';
+            }
+        }else{
+            echo 'There is no question available to show!';
+        }
+        ?>
+    </div>
 
     <div id="dialog-confirm" class="hide">
         <div class="alert alert-info bigger-110">
