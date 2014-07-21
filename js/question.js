@@ -15,6 +15,10 @@ $(function(){
     });
 
 
+    $('#submit_question_form').click(function(event){
+        tinyMCE.triggerSave();
+        $('#frm_save_question').submit();
+    });
     $('#frm_save_question').on('submit', function(event){
         var $form = $(this);
         $.ajax({

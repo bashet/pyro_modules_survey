@@ -223,7 +223,7 @@ class Survey extends Public_Controller
             }
             echo json_encode(array('survey_id'=>$data['survey_id'], 'validate'=>true));
         }else{
-            echo json_encode(array('survey_id'=>$data['survey_id'], 'validated'=>false));
+            echo json_encode(array('survey_id'=>$data['survey_id'], 'validated'=>false, 'data'=>$data));
         }
 
     }

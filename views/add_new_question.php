@@ -90,7 +90,7 @@
         <legend>Save Changes</legend>
         <div class="form-group">
             <div class="col-sm-offset-2 col-sm-10">
-                <button type="submit" class="btn btn-primary btn-block">Save</button>
+                <button type="button" id="submit_question_form" class="btn btn-primary btn-block">Save</button>
             </div>
         </div>
     </form>
