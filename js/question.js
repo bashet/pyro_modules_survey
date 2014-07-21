@@ -39,6 +39,11 @@ $(function(){
         event.preventDefault();
     });
 
+    $('#update_question_form').click(function(event){
+        tinyMCE.triggerSave();
+        $('#frm_update_question').submit();
+    });
+
     $('#frm_update_question').on('submit', function(event){
         var $form = $(this);
         $.ajax({

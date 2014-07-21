@@ -94,7 +94,7 @@
         <legend>Save Changes</legend>
         <div class="form-group">
             <div class="col-sm-offset-2 col-sm-10">
-                <button type="submit" class="btn btn-primary btn-block">Update Now</button>
+                <button type="button" id="update_question_form" class="btn btn-primary btn-block">Update Now</button>
             </div>
         </div>
     </form>
