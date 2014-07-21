@@ -2,7 +2,7 @@
     <?php
     //var_dump($question);
     ?>
-    <form class="form-horizontal" role="form" id="frm_save_question" method="post" action="{{ url:site }}survey/save_question">
+    <form class="form-horizontal" role="form" id="frm_update_question" method="post" action="{{ url:site }}survey/update_question">
         <legend>General Information About Question</legend>
         <div class="form-group">
             <label for="question_category" class="col-sm-2 control-label">Question category</label>
@@ -85,15 +85,16 @@
             </div>
         </div>
 
-        <input type="hidden" name="survey_id" value="<?php echo $survey_id;?>">
-        <input type="hidden" name="q_id" value="<?php echo $question->id;?>">
+        <input type="hidden" name="survey_id" value="<?=$survey_id;?>">
+        <input type="hidden" name="q_id" value="<?=$question->id;?>">
+        <input type="hidden" name="option_id" value="<?=$options->id;?>">
         <input type="hidden" name="user_id" value="{{ user:id }}">
 
 
         <legend>Save Changes</legend>
         <div class="form-group">
             <div class="col-sm-offset-2 col-sm-10">
-                <button type="submit" class="btn btn-primary btn-block">Save</button>
+                <button type="submit" class="btn btn-primary btn-block">Update Now</button>
             </div>
         </div>
     </form>

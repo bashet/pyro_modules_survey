@@ -185,7 +185,6 @@ class Survey extends Public_Controller
             ->set('survey_id', $survey_id)
             ->set('survey', $survey)
             ->set('question_categories', $question_categories)
-            ->append_css('module::question.css')
             ->append_js('module::question.js')
             ->build('add_new_question');
     }
@@ -228,6 +227,45 @@ class Survey extends Public_Controller
         }
 
     }
+    public function update_question(){
+        $data = $this->input->post();
+
+        if($this->survey_m->question_form_validate($data)){
+            $q_id = $data['q_id'];
+            $question = array(
+                'survey_id'     => $data['survey_id'],
+                'cat_id'        => $data['question_category'],
+                'title'         => $data['question_title'],
+                'description'   => $data['description'],
+                'matter'        => $data['matter'],
+                'text1'         => $data['question_text1'],
+                'text2'         => $data['question_text2'],
+                'modified_by'   => $data['user_id'],
+                'modified_date' => time(),
+            );
+
+            $this->db->where('id', $q_id);
+            if($this->db->update('survey_questions', $question)){
+
+                $answers = array(
+                    'question_id'   => $q_id,
+                    'option_1'      => $data['option_1'],
+                    'option_2'      => $data['option_2'],
+                    'option_3'      => $data['option_3'],
+                    'option_4'      => $data['option_4'],
+                    'modified_by'   => $data['user_id'],
+                    'modified_date' => time(),
+                );
+
+                $this->db->where('id', $data['option_id']);
+                $this->db->update('survey_answer_options', $answers);
+            }
+            echo json_encode(array('survey_id'=>$data['survey_id'], 'validate'=>true));
+        }else{
+            echo json_encode(array('survey_id'=>$data['survey_id'], 'validated'=>false, 'data'=>$data));
+        }
+
+    }
     public function edit_question($survey_id = '', $q_id = ''){
         $survey     = $this->get_survey_by_id($survey_id, $output = 'object');
         $question   = $this->get_question_by_id($q_id, $output = 'object');
@@ -241,6 +279,7 @@ class Survey extends Public_Controller
             ->set('options', $options)
             ->set('survey', $survey)
             ->set('q_cat', $q_cat)
+            ->append_js('module::question.js')
             ->build('edit_question');
     }
 
