@@ -16,6 +16,7 @@ class Survey extends Public_Controller
 		// Load the required classes
 		$this->load->model('survey_m');
 		$this->lang->load('survey');
+        $this->load->helper('survey');
 
 		$this->template
 			->append_css('module::survey.css')

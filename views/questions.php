@@ -16,7 +16,7 @@
         if($categories){
             foreach($categories as $cat){
                 echo '<h3>'.$cat->name.'</h3>';
-                echo '<div><p>';
+                echo '<div>';
                 echo '<div question id="q_cat-'.$cat->id.'">';
                 if($questions){
                     $i = 1;
@@ -24,7 +24,41 @@
                         if($cat->id == $q->cat_id){
                             echo '<h3>'.$i.' - '.$q->title.'</h3>';
                             echo '<div>';
-                            echo $q->text1;
+                            ?>
+                            <div class="row">
+                                <div class="col-sm-2">Description</div>
+                                <div class="col-sm-10"><p class="form-control-static"><?=$q->description?></p></div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-2">Key Matters</div>
+                                <div class="col-sm-10"><p class="form-control-static"><?=$q->matter?></p></div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-2">Text for 1st person</div>
+                                <div class="col-sm-10"><p class="form-control-static"><?=$q->text1?></p></div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-2">Text for 3rd person</div>
+                                <div class="col-sm-10"><p class="form-control-static"><?=$q->text2?></p></div>
+                            </div>
+                            <?php $options = get_option_by_question_id($q->id)?>
+                            <div class="row">
+                                <div class="col-sm-2">Option 1</div>
+                                <div class="col-sm-10"><p class="form-control-static"><?=$options->option_1?></p></div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-2">Option 2</div>
+                                <div class="col-sm-10"><p class="form-control-static"><?=$options->option_2?></p></div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-2">Option 3</div>
+                                <div class="col-sm-10"><p class="form-control-static"><?=$options->option_3?></p></div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-2">Option 4</div>
+                                <div class="col-sm-10"><p class="form-control-static"><?=$options->option_4?></p></div>
+                            </div>
+                            <?php
                             echo '</div>';
                             $i++;
                         }else{
@@ -33,27 +67,12 @@
                     }
                 }
                 echo '</div>';
-                echo '</p></div>';
+                echo '</div>';
             }
         }
         ?>
     </div>
 
-    <div id="questions">
-        <?php
-        if($survey_id){
-            if($questions){
-                foreach($questions as $q){
-                    //var_dump($q);
-                }
-            }else{
-                echo 'There is no question available to show!';
-            }
-        }else{
-            echo 'There is no question available to show!';
-        }
-        ?>
-    </div>
 
     <div id="dialog-confirm" class="hide">
         <div class="alert alert-info bigger-110">
