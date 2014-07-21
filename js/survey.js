@@ -38,9 +38,9 @@ $(function(){
             success: function(data,status) {
                 if(data){
                     var msg = jQuery.parseJSON( data );
-                    $('#survey_name').val(msg[0].name);
-                    $('#survey_description').val(msg[0].description);
-                    $('#survey_id').val(msg[0].id);
+                    $('#survey_name').val(msg.name);
+                    $('#survey_description').val(msg.description);
+                    $('#survey_id').val(msg.id);
 
                     $('#update_survey').modal('show');
                 }
@@ -60,7 +60,7 @@ $(function(){
             success: function(data,status) {
                 if(data){
                     var msg = jQuery.parseJSON( data );
-                    $('#item_name').html(msg[0].name);
+                    $('#item_name').html(msg.name);
 
                     $( "#dialog-confirm" ).removeClass('hide').dialog({
                         resizable: false,

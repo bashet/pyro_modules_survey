@@ -52,10 +52,10 @@ class Survey extends Public_Controller
         if($id){
             $query = $this->db->get_where('survey', array('id' => $id));
             if($output == 'json'){
-                echo json_encode($query->result());
+                echo json_encode($query->row());
             }else{
                 // expected output object
-                return $query->result();
+                return $query->row();
             }
 
         }
@@ -227,6 +227,34 @@ class Survey extends Public_Controller
             echo json_encode(array('survey_id'=>$data['survey_id'], 'validated'=>false));
         }
 
+    }
+    public function edit_question($survey_id = '', $q_id = ''){
+        $survey     = $this->get_survey_by_id($survey_id, $output = 'object');
+        $question   = $this->get_question_by_id($q_id, $output = 'object');
+        $q_cat      = $this->survey_m->get_all_question_categories();
+        $options    = get_option_by_question_id($q_id);
+
+        $this->template
+            ->title($this->module_details['name'], 'Edit question')
+            ->set('survey_id', $survey_id)
+            ->set('question',$question)
+            ->set('options', $options)
+            ->set('survey', $survey)
+            ->set('q_cat', $q_cat)
+            ->build('edit_question');
+    }
+
+    public function get_question_by_id($q_id = '', $output = 'json'){
+        if($q_id){
+            $query = $this->db->get_where('survey_questions', array('id' => $q_id));
+            if($output == 'json'){
+                echo json_encode($query->row());
+            }else{
+                // expected output object
+                return $query->row();
+            }
+
+        }
     }
 // ============================================= default options =======================================================
 
