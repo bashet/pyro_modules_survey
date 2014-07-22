@@ -32,3 +32,19 @@ if ( ! function_exists('get_manager') ){
         }
     }
 }
+
+if(! function_exists('get_all_manager')){
+    function get_all_manager(){
+        $ci =& get_instance();
+
+        $sql = 'select p.display_name as display_name, u.id as id
+                from default_users u
+                join default_profiles p
+                on p.user_id = u.id
+                where u.group_id = 3';
+
+        $query = $ci->db->query($sql);
+
+        return $query->result();
+    }
+}

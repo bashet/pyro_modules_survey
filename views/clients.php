@@ -37,7 +37,7 @@
 
 
     <!-- Modal -->
-    <div class="modal fade" id="update_clients" tabindex="-1" role="dialog" aria-labelledby="update_clientsLabel" aria-hidden="true">
+    <div class="modal fade" id="update_manager_modal" tabindex="-1" role="dialog" aria-labelledby="update_clientsLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -46,11 +46,19 @@
                 </div>
 
                 <div class="modal-body">
-                    <form class="form-horizontal" role="form" id="frm_manage_clients" method="post" action="{{url:site}}survey/save_clients">
+                    <form class="form-horizontal" role="form" id="frm_update_manager" method="post" action="{{url:site}}survey/save_clients">
                         <div class="form-group">
                             <label for="client_name" class="col-sm-2 control-label">Name</label>
                             <div class="col-sm-10">
-                                <input type="text" class="form-control" id="client_name" name="client_name" placeholder="">
+                                <select name="client_name" id="client_name" class="form-control">
+                                    <option value=""></option>
+                                    <?php
+                                    $managers = get_all_manager();
+                                    foreach($managers as $man){
+                                        echo '<option value="'.$man->id.'">'.$man->display_name.'</option>';
+                                    }
+                                    ?>
+                                </select>
                             </div>
                         </div>
 
@@ -61,7 +69,7 @@
 
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" id="clients_popup_close" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary" id="save_clients">Save changes</button>
+                    <button type="button" class="btn btn-primary" id="update_manager">Save changes</button>
                 </div>
             </div>
         </div>
