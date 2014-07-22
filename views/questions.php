@@ -28,7 +28,7 @@
                             <?php $options = get_option_by_question_id($q->id)?>
                             <div style="float: right">
                                 <a href="{{url:site}}survey/edit_question/<?=$survey_id.'/'.$q->id?>" class="btn btn-warning" title="Edit"><span class="fa fa-edit fa-2x"></span></a>
-                                <a href="#" class="btn btn-danger" title="Delete"><span class="fa fa-trash-o fa-2x"></span></a>
+                                <a delete_question id="delete_question-<?=$q->id?>" class="btn btn-danger" title="Delete"><span class="fa fa-trash-o fa-2x"></span></a>
                             </div>
                             <table class="table q_table">
                                 <tr>

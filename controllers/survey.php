@@ -295,6 +295,14 @@ class Survey extends Public_Controller
 
         }
     }
+    public function delete_question($survey_id = '', $q_id = ''){
+
+        if($q_id){
+            $this->db->delete('survey_answer_options', array('question_id' => $q_id));
+            $this->db->delete('survey_questions', array('id' => $q_id));
+        }
+        redirect('survey/questions/'.$survey_id);
+    }
 // ============================================= default options =======================================================
 
     public function default_options(){
