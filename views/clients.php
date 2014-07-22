@@ -21,7 +21,11 @@
             echo '<td>'.$i.'</td>';
             echo '<td>'.$d->name.'</td>';
             echo '<td style="text-align: center"><a href="#" edit_clients id="edit_clients-'.$d->id.'" title="Edit '.$d->name.'"><i class="fa fa-pencil-square-o fa-lg"></i></a></td>';
-            echo '<td style="text-align: center"><a href="#" delete_clients id="del_clients-'.$d->id.'" title="Delete '.$d->name.'"><i class="fa fa-trash-o fa-lg"></i></a></td>';
+            if($d->active){
+                echo '<td style="text-align: center"><a href="{{ url:site }}survey/update_client_status/'.$d->id.'" id="del_clients-'.$d->id.'" title="Delete '.$d->name.'"><i class="fa fa-thumbs-up fa-lg"></i></a></td>';
+            }else{
+                echo '<td style="text-align: center"><a href="{{ url:site }}survey/update_client_status/'.$d->id.'" id="del_clients-'.$d->id.'" title="Delete '.$d->name.'"><i class="fa fa-thumbs-down fa-lg"></i></a></td>';
+            }
             echo '</tr>';
             $i++;
         }

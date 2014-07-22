@@ -385,4 +385,18 @@ class Survey extends Public_Controller
 
         }
     }
+
+    public function update_client_status($client_id = ''){
+        $client = $this->get_client_by_id($client_id, 'object');
+        if($client->active){
+            // need to de-activate
+            $new_client = array('active'=>0);
+        }else{
+            // need to activate
+            $new_client = array('active'=>1);
+        }
+        $this->db->where('id', $client_id);
+        $this->db->update('survey_clients', $new_client);
+        redirect('survey/clients');
+    }
 }
