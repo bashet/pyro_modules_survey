@@ -31,6 +31,7 @@ class Survey extends Public_Controller
         $this->template
             ->title($this->module_details['name'], 'manage survey')
             ->set('survey', $survey)
+            ->set_breadcrumb('Survey')
             ->build('index');
 	}
 
@@ -165,6 +166,8 @@ class Survey extends Public_Controller
             ->set('questions', $questions)
             ->set('categories', $categories)
             ->set('survey_id', $survey_id)
+            ->set_breadcrumb('Survey', '/survey')
+            ->set_breadcrumb('Question')
             ->append_css('module::question.css')
             ->append_js('module::question.js')
             ->build('questions');
@@ -186,6 +189,8 @@ class Survey extends Public_Controller
             ->set('survey', $survey)
             ->set('question_categories', $question_categories)
             ->append_js('module::question.js')
+            ->set_breadcrumb('Survey', '/survey/'.$survey_id)
+            ->set_breadcrumb('Add new question')
             ->build('add_new_question');
     }
 
@@ -280,6 +285,8 @@ class Survey extends Public_Controller
             ->set('survey', $survey)
             ->set('q_cat', $q_cat)
             ->append_js('module::question.js')
+            ->set_breadcrumb('Survey', '/survey/'.$survey_id)
+            ->set_breadcrumb('Edit question')
             ->build('edit_question');
     }
 
