@@ -78,7 +78,7 @@ $(function(){
                     $('#item_name').html(msg.title);
 
                     $( "#dialog-confirm" ).removeClass('hide').dialog({
-                        resizable: false,
+                        resizable: true,
                         modal: true,
                         title: "<div class='widget-header'><h4 class='smaller'><i class='ace-icon fa fa-exclamation-triangle red'></i> Delete Question?</h4></div>",
                         title_html: true,
