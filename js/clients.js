@@ -48,4 +48,25 @@ $(function(){
 
     });
 
+    $('a[assign_manager]').button().click(function(){
+        var button_id = this.id;
+        var button_id_array = button_id.split('-');
+        var clients_id = button_id_array[1];
+        $.ajax({
+            url: base_url + 'index.php/survey/get_client_by_id/'+clients_id,
+
+            success: function(data,status) {
+                if(data){
+                    var msg = jQuery.parseJSON( data );
+                    $('#client_name').val(msg.name);
+                    $('#client_id').val(msg.id);
+
+                    $('#update_clients').modal('show');
+                }
+                //window.location.href = base_url + 'index.php/clients/clients';
+            }
+        });
+
+    });
+
 });

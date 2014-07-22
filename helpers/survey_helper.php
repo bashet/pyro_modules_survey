@@ -19,3 +19,16 @@ if ( ! function_exists('get_option_by_question_id') ){
 
     }
 }
+
+if ( ! function_exists('get_manager') ){
+    function get_manager($u_id = ''){
+        $ci =& get_instance();
+        if($u_id){
+            $query = $ci->db->get_where('profiles', array('user_id'=>$u_id));
+            $manager = $query->row();
+            return $manager->display_name;
+        }else{
+            return '';
+        }
+    }
+}
