@@ -399,4 +399,12 @@ class Survey extends Public_Controller
         $this->db->update('survey_clients', $new_client);
         redirect('survey/clients');
     }
+    public function update_manager(){
+        $data = $this->input->post();
+
+        $client = array('manager_uid'=>$data['manager_id']);
+        $this->db->where('id', $data['client_id']);
+        $this->db->update('survey_clients', $client);
+        redirect('survey/clients');
+    }
 }

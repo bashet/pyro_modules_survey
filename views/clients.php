@@ -21,7 +21,7 @@
             echo '<tr>';
             echo '<td>'.$i.'</td>';
             echo '<td>'.$d->name.'</td>';
-            echo '<td style="text-align: center"><a href="#" assign_manager id="assign_manager-'.$d->id.'" title="Assign Manager"><i class="fa fa-sitemap fa-lg"></i>&nbsp;&nbsp; '.get_manager($d->manager_uid).'</a></td>';
+            echo '<td style="text-align: center"><a href="#" assign_manager id="assign_manager-'.$d->id.'" title="Assign Manager" style="text-decoration:none"><i class="fa fa-sitemap fa-lg"></i>&nbsp;&nbsp; '.get_manager($d->manager_uid).'</a></td>';
             echo '<td style="text-align: center"><a href="#" edit_clients id="edit_clients-'.$d->id.'" title="Edit '.$d->name.'"><i class="fa fa-pencil-square-o fa-lg"></i></a></td>';
             if($d->active){
                 echo '<td style="text-align: center"><a href="{{ url:site }}survey/update_client_status/'.$d->id.'" id="del_clients-'.$d->id.'" title="Delete '.$d->name.'"><i class="fa fa-thumbs-up fa-lg"></i></a></td>';
@@ -46,11 +46,11 @@
                 </div>
 
                 <div class="modal-body">
-                    <form class="form-horizontal" role="form" id="frm_update_manager" method="post" action="{{url:site}}survey/save_clients">
+                    <form class="form-horizontal" role="form" id="frm_update_manager" method="post" action="{{url:site}}survey/update_manager">
                         <div class="form-group">
-                            <label for="client_name" class="col-sm-2 control-label">Name</label>
+                            <label for="manager_id" class="col-sm-2 control-label">Name</label>
                             <div class="col-sm-10">
-                                <select name="client_name" id="client_name" class="form-control">
+                                <select name="manager_id" id="manager_id" class="form-control">
                                     <option value=""></option>
                                     <?php
                                     $managers = get_all_manager();
@@ -69,7 +69,7 @@
 
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" id="clients_popup_close" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary" id="update_manager">Save changes</button>
+                    <button type="button" class="btn btn-primary" id="btn_update_manager">Save changes</button>
                 </div>
             </div>
         </div>

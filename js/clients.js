@@ -58,15 +58,33 @@ $(function(){
             success: function(data,status) {
                 if(data){
                     var msg = jQuery.parseJSON( data );
-                    $('#client_name').val(msg.name);
+                    $('#manager_id').val(msg.name);
                     $('#client_id').val(msg.id);
 
-                    $('#update_clients').modal('show');
+                    $('#update_manager_modal').modal('show');
                 }
                 //window.location.href = base_url + 'index.php/clients/clients';
             }
         });
 
+    });
+
+    $('#btn_update_manager').button().click(function(){
+        $('#frm_update_manager').submit();
+    });
+
+    $('#frm_update_manager').on('submit',function(event){
+        var $form = $(this);
+        $.ajax({
+            type: $form.attr('method'),
+            url: $form.attr('action'),
+            data: $form.serialize(),
+
+            success: function(data,status) {
+                window.location.href = base_url + 'index.php/survey/clients';
+            }
+        });
+        event.preventDefault();
     });
 
 });
