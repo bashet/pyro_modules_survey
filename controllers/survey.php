@@ -346,4 +346,43 @@ class Survey extends Public_Controller
     public function peers(){
         $this->load->view('peers');
     }
+
+// ============================================= Clients ===============================================================
+    public function clients(){
+        $clients = $this->survey_m->get_all_clients();
+
+        $this->template
+            ->title($this->module_details['name'], 'manage clients')
+            ->set('clients', $clients)
+            ->set_breadcrumb('Clients')
+            ->append_js('module::clients.js')
+            ->build('clients');
+    }
+
+    public function save_clients(){
+        $posted_data = $this->input->post();
+
+        if($posted_data['client_id']){
+            // we are here to edit the data.
+            $data = $this->survey_m->update_client($posted_data);
+        }else{
+            // we here to ad new data
+            $data = $this->survey_m->insert_client($posted_data);
+        }
+
+        echo json_encode($data);
+    }
+
+    public function get_client_by_id($id = '', $output = 'json'){
+        if($id){
+            $query = $this->db->get_where('survey_clients', array('id' => $id));
+            if($output == 'json'){
+                echo json_encode($query->row());
+            }else{
+                // expected output object
+                return $query->row();
+            }
+
+        }
+    }
 }

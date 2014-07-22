@@ -138,4 +138,32 @@ class survey_m extends MY_Model {
         return $validate;
     }
 
+    // =============================== clients ====================================
+
+    public function get_all_clients(){
+        $query = $this->db->get('survey_clients');
+
+        return $query->result();
+    }
+
+    public function update_client($data){
+        $client = array(
+            'name'          => $data['client_name'],
+            'modified_by'   => $data['user_id'],
+            'modified_date' => time(),
+        );
+        $this->db->where('id', $data['client_id']);
+        return $this->db->update('survey_clients', $client);
+    }
+
+    public function insert_client($data){
+        $client = array(
+            'name'          => $data['client_name'],
+            'created_by'    => $data['user_id'],
+            'create_date'   => time(),
+        );
+
+        return $this->db->insert('survey_clients', $client);
+    }
+
 }
