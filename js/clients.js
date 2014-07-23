@@ -5,8 +5,8 @@ $(function(){
     } );
 
     $('#save_clients').button().click(function(){
+        $('#update_clients').modal('hide');
         $body = $("body");
-        $('#update_manager_modal').modal('hide');
         $body.addClass("loading");
         $('#frm_manage_clients').submit();
     });
