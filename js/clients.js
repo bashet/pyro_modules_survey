@@ -5,6 +5,9 @@ $(function(){
     } );
 
     $('#save_clients').button().click(function(){
+        $body = $("body");
+        $('#update_manager_modal').modal('hide');
+        $body.addClass("loading");
         $('#frm_manage_clients').submit();
     });
 
@@ -70,8 +73,8 @@ $(function(){
 
     $('#btn_update_manager').button().click(function(){
         $body = $("body");
-        $body.addClass("loading");
         $('#update_manager_modal').modal('hide');
+        $body.addClass("loading");
         $('#frm_update_manager').submit();
     });
 
@@ -88,8 +91,8 @@ $(function(){
         });
         event.preventDefault();
     });
-
-
-
-
+    $('a[activate]').button().click(function(){
+        $body = $("body");
+        $body.addClass("loading");
+    });
 });
