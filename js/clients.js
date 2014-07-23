@@ -5,10 +5,10 @@ $(function(){
     } );
 
     $('#save_clients').button().click(function(){
-        $('#frm_update_manager').submit();
+        $('#frm_manage_clients').submit();
     });
 
-    $('#frm_update_manager').on('submit',function(event){
+    $('#frm_manage_clients').on('submit',function(event){
         var $form = $(this);
         $.ajax({
             type: $form.attr('method'),
@@ -48,10 +48,6 @@ $(function(){
 
     });
 
-    $('#btn_update_manager').button().click(function(){
-        $('#frm_update_manager').submit();
-    });
-
     $('a[assign_manager]').button().click(function(){
         var button_id = this.id;
         var button_id_array = button_id.split('-');
@@ -70,6 +66,24 @@ $(function(){
             }
         });
 
+    });
+
+    $('#btn_update_manager').button().click(function(){
+        $('#frm_update_manager').submit();
+    });
+
+    $('#frm_update_manager').on('submit',function(event){
+        var $form = $(this);
+        $.ajax({
+            type: $form.attr('method'),
+            url: $form.attr('action'),
+            data: $form.serialize(),
+
+            success: function(data,status) {
+                window.location.href = base_url + 'index.php/survey/clients';
+            }
+        });
+        event.preventDefault();
     });
 
 
