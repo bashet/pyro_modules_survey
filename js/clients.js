@@ -38,7 +38,7 @@ $(function(){
                 if(data){
                     var msg = jQuery.parseJSON( data );
                     $('#client_name').val(msg.name);
-                    $('#client_id').val(msg.id);
+                    $('#client_id_to_edit').val(msg.id);
 
                     $('#update_clients').modal('show');
                 }

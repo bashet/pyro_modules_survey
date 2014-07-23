@@ -46,7 +46,7 @@
                 </div>
 
                 <div class="modal-body">
-                    <form class="form-horizontal" role="form" id="frm_update_manager" method="post" action="{{url:site}}survey/update_manager">
+                    <form class="form-horizontal" role="form" id="frm_manage_clients" method="post" action="{{url:site}}survey/update_manager">
                         <div class="form-group">
                             <label for="manager_id" class="col-sm-2 control-label">Name</label>
                             <div class="col-sm-10">
@@ -84,7 +84,7 @@
                 </div>
 
                 <div class="modal-body">
-                    <form class="form-horizontal" role="form" id="frm_manage_clients" method="post" action="{{url:site}}survey/save_clients">
+                    <form class="form-horizontal" role="form" id="frm_update_manager" method="post" action="{{url:site}}survey/save_clients">
                         <div class="form-group">
                             <label for="client_name" class="col-sm-2 control-label">Name</label>
                             <div class="col-sm-10">
