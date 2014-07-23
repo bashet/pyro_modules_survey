@@ -29,6 +29,12 @@ class Plugin_survey extends Plugin
 						->get('survey_items')
 						->result_array();
 	}
+
+    function clients(){
+        $query = $this->db->get_where('survey_clients', array('active'=>1));
+
+        return $query->result();
+    }
 }
 
 /* End of file plugin.php */

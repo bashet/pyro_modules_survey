@@ -48,3 +48,13 @@ if(! function_exists('get_all_manager')){
         return $query->result();
     }
 }
+
+if(! function_exists('get_all_clients')){
+    function get_all_clients(){
+        $ci =& get_instance();
+
+        $query = $ci->db->get_where('survey_clients', array('active'=>1));
+
+        return $query->result();
+    }
+}
