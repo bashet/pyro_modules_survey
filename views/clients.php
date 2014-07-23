@@ -92,7 +92,7 @@
                             </div>
                         </div>
 
-                        <input type="hidden" id="client_id" name="client_id" value="">
+                        <input type="hidden" id="client_id_to_edit" name="client_id" value="">
                         <input type="hidden" id="user_id" name="user_id" value="{{ user:id }}">
                     </form>
                 </div>
