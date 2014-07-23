@@ -69,6 +69,9 @@ $(function(){
     });
 
     $('#btn_update_manager').button().click(function(){
+        $body = $("body");
+        $body.addClass("loading");
+        $('#update_manager_modal').modal('hide');
         $('#frm_update_manager').submit();
     });
 
