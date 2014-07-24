@@ -412,10 +412,10 @@ class Survey extends Public_Controller
         $clients = $this->survey_m->get_all_clients();
 
         $this->template
-            ->title($this->module_details['name'], 'manage clients')
+            ->title($this->module_details['name'], 'manage users')
             ->set('clients', $clients)
-            ->set_breadcrumb('Clients')
-            ->append_js('module::clients.js')
+            ->set_breadcrumb('Manage Users')
+            ->append_js('module::manage_users.js')
             ->build('clients');
     }
 }
