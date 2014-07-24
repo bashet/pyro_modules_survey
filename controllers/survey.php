@@ -409,10 +409,12 @@ class Survey extends Public_Controller
     }
 
     public function manage_users(){
-        var_dump($this->current_user);
-        /*$client = $this->survey_m->get_client_by_manager_id($this->current_user->id);
+        if($this->current_user->group_id == 1){
+            $users = $this->survey_m->get_all_users_for_admin();
+        }
+        $client = $this->survey_m->get_client_by_manager_id($this->current_user->id);
         $users = $this->survey_m->get_all_users_by_client($client->id);
-        //get_all_users_for_admin
+
 
         $this->template
             ->title($this->module_details['name'], 'manage users')
@@ -421,7 +423,7 @@ class Survey extends Public_Controller
             ->set_breadcrumb('Manage Users')
             ->append_js('module::manage_users.js')
             ->build('manage_users');
-        */
+
     }
 
     public function activate_user($user_id = '', $active = 0){
