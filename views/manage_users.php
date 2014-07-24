@@ -17,5 +17,6 @@
 
         </tbody>
     </table>
+    <?=$user_id?>
 
 </div>
