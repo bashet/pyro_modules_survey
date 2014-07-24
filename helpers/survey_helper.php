@@ -58,3 +58,9 @@ if(! function_exists('get_all_clients')){
         return $query->result();
     }
 }
+
+if(! function_exists('register_user_for_specific_uni')){
+    function register_user_for_specific_uni($data){
+
+    }
+}
