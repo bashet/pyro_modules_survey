@@ -1,5 +1,7 @@
 <div id="clients-container">
+    {{ if user:group == 'manager' }}
     <h2><?php echo $client->name?></h2>
+    {{ endif }}
     <table id="all_users" class="table table-bordered table-hover" style="width:100%">
         <thead>
         <tr>
