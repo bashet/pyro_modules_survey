@@ -421,4 +421,21 @@ class Survey extends Public_Controller
             ->append_js('module::manage_users.js')
             ->build('manage_users');
     }
+
+    public function activate_user($user_id = '', $activate = 0){
+        if($user_id){
+            if($activate){
+                // need to de-activate
+                $user = array('active'=>0);
+            }else{
+                // need to activate
+                $user = array('active'=>1);
+            }
+
+            $this->db->where('id', $user_id);
+            return $this->db->update('users', $user);
+
+        }
+        redirect('survey/manage_users');
+    }
 }

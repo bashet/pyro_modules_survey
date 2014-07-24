@@ -23,9 +23,9 @@
                 echo '<td>'.$user->display_name.'</td>';
                 echo '<td>'.$user->email.'</td>';
                 if($user->active){
-                    echo '<td style="text-align: center">Yes</td>';
+                    echo '<td style="text-align: center"><a activate href="{{ url:site }}survey/activate_user/'.$$user->id.'/0"><span class="glyphicon glyphicon-ok"></span></td>';
                 }else{
-                    echo '<td style="text-align: center">No</td>';
+                    echo '<td style="text-align: center"><a activate href="{{ url:site }}survey/activate_user/'.$$user->id.'/1"><span class="glyphicon glyphicon-remove"></span></td>';
                 }
                 echo '<td style="text-align: center"><a href="{{ url:site }}survey/history/'.$user->id.'"><span class="glyphicon glyphicon-list-alt"></span></td>';
                 echo '<td style="text-align: center">'.date('d/m/Y', $user->last_login).'</td>';
