@@ -416,6 +416,6 @@ class Survey extends Public_Controller
             ->set('clients', $clients)
             ->set_breadcrumb('Manage Users')
             ->append_js('module::manage_users.js')
-            ->build('clients');
+            ->build('manage_users');
     }
 }
