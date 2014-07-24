@@ -185,4 +185,16 @@ class survey_m extends MY_Model {
         return $quuery->result();
     }
 
+    public function get_all_users_for_admin(){
+
+        $sql = 'select u.id as id, u.email as email, u.active as active, u.last_login as last_login, p.display_name as display_name
+                from default_users u
+                join default_profiles p
+                on p.user_id = u.id
+                join default_survey_participant sp
+                on sp.uid = u.id';
+        $quuery = $this->db->query($sql);
+        return $quuery->result();
+    }
+
 }
