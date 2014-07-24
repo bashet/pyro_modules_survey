@@ -166,4 +166,8 @@ class survey_m extends MY_Model {
         return $this->db->insert('survey_clients', $client);
     }
 
+    public function get_all_users_by_manager(){
+        return '';
+    }
+
 }
