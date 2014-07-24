@@ -422,18 +422,38 @@ class Survey extends Public_Controller
             ->build('manage_users');
     }
 
-    public function activate_user($user_id = '', $activate = 0){
+    public function activate_user($user_id = ''){
+        $user       = get_user_by_id($user_id);
+        $profile    = get_profile_by_user_id($user_id);
+        $client     = $this->survey_m->get_client_by_manager_id($this->current_user->id);
+
+        $data = array();
         if($user_id){
-            if($activate){
+            if($user->active){
                 // need to de-activate
-                $user = array('active'=>1);
+                $new_user = array('active'=>1);
+                $slug = 'user-activate';
             }else{
                 // need to activate
-                $user = array('active'=>0);
+                $new_user = array('active'=>0);
+                $slug = 'user-de-activate';
             }
 
             $this->db->where('id', $user_id);
-            $this->db->update('users', $user);
+            if($this->db->update('users', $new_user)){
+                // send email notification to the user about the status changes
+
+                $data['subject']			= Settings::get('site_name') . ' - User Activation'; // No translation needed as this is merely a fallback to Email Template subject
+                $data['slug'] 				= $slug;
+                $data['to'] 				= $user->email;
+                $data['name']               = $profile->first_name . ' ' . $profile->last_name;
+                $data['client']             = $client->name;
+                $data['from'] 				= Settings::get('server_email');
+                $data['name']				= Settings::get('site_name');
+                $data['reply-to']			= Settings::get('contact_email');
+
+                Events::trigger('email', $data, 'array');
+            }
 
         }
         redirect('survey/manage_users');

@@ -50,6 +50,19 @@ if ( ! function_exists('get_user_by_id') ){
     }
 }
 
+if ( ! function_exists('get_profile_by_user_id') ){
+    function get_profile_by_user_id($id = ''){
+        $ci =& get_instance();
+        if($id){
+            $query = $ci->db->get_where('profiles', array('user_id'=>$id));
+            $user = $query->row();
+            return $user;
+        }else{
+            return '';
+        }
+    }
+}
+
 if(! function_exists('get_all_manager')){
     function get_all_manager(){
         $ci =& get_instance();
