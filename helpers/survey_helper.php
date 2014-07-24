@@ -114,7 +114,7 @@ if(! function_exists('register_user_for_specific_uni')){
             $mail = array();
             $mail['subject']			= Settings::get('site_name') . ' - Registration Approval'; // No translation needed as this is merely a fallback to Email Template subject
             $mail['slug'] 				= 'email-to-manager-for-approval';
-            $mail['to'] 				= 'a_bashet@hotmail.com';
+            $mail['to'] 				= 'a_bashet@yahoo.com';
             $mail['manager_name']       = 'Mr. Mark';
             $mail['from'] 				= Settings::get('server_email');
             $mail['name']				= Settings::get('site_name');
