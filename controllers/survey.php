@@ -410,11 +410,13 @@ class Survey extends Public_Controller
 
     public function manage_users(){
 
-        $users = $this->survey_m->get_all_users_by_manager($this->current_user->id);
+        $client = $this->survey_m->get_client_by_manager_id($this->current_user->id);
+        $users = $this->survey_m->get_all_users_by_client($client->id);
 
         $this->template
             ->title($this->module_details['name'], 'manage users')
             ->set('users', $users)
+            ->set('client', $client)
             ->set_breadcrumb('Manage Users')
             ->append_js('module::manage_users.js')
             ->build('manage_users');

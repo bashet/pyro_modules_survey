@@ -172,9 +172,7 @@ class survey_m extends MY_Model {
         return $query->row();
     }
 
-    public function get_all_users_by_manager($manager_id){
-
-        $client = $this->get_client_by_manager_id($manager_id); // got all the information as object
+    public function get_all_users_by_client($client_id){
 
         $sql = 'select u.id as id, u.email as email, u.active as active, u.last_login as last_login, p.display_name as display_name
                 from default_users u
@@ -182,7 +180,7 @@ class survey_m extends MY_Model {
                 on p.user_id = u.id
                 join default_survey_participant sp
                 on sp.uid = u.id
-                where sp.cid = '.$client->id;
+                where sp.cid = '.$client_id;
         $quuery = $this->db->query($sql);
         return $quuery->result();
     }
