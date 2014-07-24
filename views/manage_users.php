@@ -28,7 +28,7 @@
                     echo '<td style="text-align: center"><a activate href="{{ url:site }}survey/activate_user/'.$user->id.'/1"><span class="glyphicon glyphicon-remove"></span></td>';
                 }
                 echo '<td style="text-align: center"><a href="{{ url:site }}survey/history/'.$user->id.'"><span class="glyphicon glyphicon-list-alt"></span></td>';
-                echo '<td style="text-align: center">'.date('d/m/Y', $user->last_login).'</td>';
+                echo '<td style="text-align: center">'.date('d/m/Y : h:i:s', $user->last_login).'</td>';
                 echo '</tr>';
                 $i++;
             }
