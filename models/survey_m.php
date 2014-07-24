@@ -166,8 +166,25 @@ class survey_m extends MY_Model {
         return $this->db->insert('survey_clients', $client);
     }
 
-    public function get_all_users_by_manager(){
-        return '';
+    public function get_client_by_manager_id($manager_id){
+        $query = $this->db->get_where('survey_clients', array('manager_uid'));
+
+        return $query->row();
+    }
+
+    public function get_all_users_by_manager($manager_id){
+
+        $client = $this->get_client_by_manager_id($manager_id); // got all the information as object
+
+        $sql = 'select u.id as id, u.email as email, u.active as active, u.last_login as last_login, p.display_name as display_name
+                from default_users u
+                join default_profiles p
+                on p.user_id = u.id
+                join default_survey_participant sp
+                on sp.uid = u.id
+                where sp.cid = '.$client->id;
+        $quuery = $this->db->query($sql);
+        return $quuery->result();
     }
 
 }

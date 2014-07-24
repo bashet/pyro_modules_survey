@@ -17,6 +17,9 @@
 
         </tbody>
     </table>
-    <?=$user_id?>
+
+    <?php
+    var_dump($users);
+    ?>
 
 </div>
