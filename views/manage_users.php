@@ -17,16 +17,16 @@
             $i = 1;
             foreach($users as $user){
                 echo '<tr>';
-                echo '<td>'.$i.'</td>';
+                echo '<td style="text-align: center">'.$i.'</td>';
                 echo '<td>'.$user->display_name.'</td>';
                 echo '<td>'.$user->email.'</td>';
                 if($user->active){
-                    echo "<td>Yes</td>";
+                    echo '<td style="text-align: center">Yes</td>';
                 }else{
-                    echo "<td>No</td>";
+                    echo '<td style="text-align: center">No</td>';
                 }
-                echo '<td><a href="{{ url:site }}survey/history/'.$user->id.'"><i class="fa fa-cubes"></i></a></td>';
-                echo '<td>'.date('d/m/Y', $user->last_login).'</td>';
+                echo '<td style="text-align: center"><a href="{{ url:site }}survey/history/'.$user->id.'"><span class="glyphicon glyphicon-list-alt"></span></td>';
+                echo '<td style="text-align: center">'.date('d/m/Y', $user->last_login).'</td>';
                 echo '</tr>';
                 $i++;
             }
