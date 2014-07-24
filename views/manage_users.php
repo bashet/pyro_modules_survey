@@ -20,7 +20,11 @@
                 echo '<td>'.$i.'</td>';
                 echo '<td>'.$user->display_name.'</td>';
                 echo '<td>'.$user->email.'</td>';
-                echo "<td>".($user->active)?'Yes':'No'."</td>";
+                if($user->active){
+                    echo "<td>Yes</td>";
+                }else{
+                    echo "<td>No</td>";
+                }
                 echo '<td><a href="{{ url:site }}survey/history/'.$user->id.'"><i class="fa fa-cubes"></i></a></td>';
                 echo '<td>'.date('d/m/Y', $user->last_login).'</td>';
                 echo '</tr>';
