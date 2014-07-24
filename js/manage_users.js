@@ -3,7 +3,7 @@ $(function(){
         $('#all_users').dataTable();
     } );
 
-    $('button[delete_dpt]').button().click(function(){
+    $('button[activate]').button().click(function(){
         var button_id       = this.id;
         var button_id_array = button_id.split('-');
         var user_id         = button_id_array[1];
