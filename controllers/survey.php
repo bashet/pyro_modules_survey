@@ -407,4 +407,15 @@ class Survey extends Public_Controller
         $this->db->update('survey_clients', $client);
         redirect('survey/clients');
     }
+
+    public function manage_users(){
+        $clients = $this->survey_m->get_all_clients();
+
+        $this->template
+            ->title($this->module_details['name'], 'manage clients')
+            ->set('clients', $clients)
+            ->set_breadcrumb('Clients')
+            ->append_js('module::clients.js')
+            ->build('clients');
+    }
 }
