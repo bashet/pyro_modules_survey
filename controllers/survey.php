@@ -446,7 +446,7 @@ class Survey extends Public_Controller
                 $data['subject']			= Settings::get('site_name') . ' - User Activation'; // No translation needed as this is merely a fallback to Email Template subject
                 $data['slug'] 				= $slug;
                 $data['to'] 				= $user->email;
-                $data['name']               = $profile->first_name . ' ' . $profile->last_name;
+                $data['user_name']          = $profile->first_name . ' ' . $profile->last_name;
                 $data['client']             = $client->name;
                 $data['from'] 				= Settings::get('server_email');
                 $data['name']				= Settings::get('site_name');
