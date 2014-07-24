@@ -26,7 +26,11 @@ if ( ! function_exists('get_manager') ){
         if($u_id){
             $query = $ci->db->get_where('profiles', array('user_id'=>$u_id));
             $manager = $query->row();
-            return $manager->display_name;
+            if($manager){
+                return $manager->display_name;
+            }else{
+                return '';
+            }
         }else{
             return '';
         }
