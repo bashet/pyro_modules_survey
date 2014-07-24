@@ -422,14 +422,14 @@ class Survey extends Public_Controller
             ->build('manage_users');
     }
 
-    public function activate_user($user_id = ''){
+    public function activate_user($user_id = '', $active = 0){
         $data = array();
         if($user_id){
             $user       = get_user_by_id($user_id);
             $profile    = get_profile_by_user_id($user_id);
             $client     = $this->survey_m->get_client_by_manager_id($this->current_user->id);
 
-            if($user->active){
+            if($active){
                 // need to de-activate
                 $new_user = array('active'=>1);
                 $slug = 'user-activate';
