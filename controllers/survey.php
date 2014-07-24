@@ -433,7 +433,7 @@ class Survey extends Public_Controller
             }
 
             $this->db->where('id', $user_id);
-            return $this->db->update('users', $user);
+            $this->db->update('users', $user);
 
         }
         redirect('survey/manage_users');
