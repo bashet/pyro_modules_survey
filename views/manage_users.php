@@ -1,5 +1,5 @@
 <div id="clients-container">
-    <h2><?=$client->name?></h2>
+    <h2><?php echo $client->name?></h2>
     <table id="all_users" class="table table-bordered table-hover" style="width:100%">
         <thead>
         <tr>
