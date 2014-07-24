@@ -8,18 +8,28 @@
             <th>Email</th>
             <th>Active</th>
             <th>History</th>
-            <th>Joining Date</th>
             <th>Last Login</th>
         </tr>
         </thead>
-
         <tbody>
-
+        <?php
+        if($users){
+            $i = 1;
+            foreach($users as $user){
+                echo '<tr>';
+                echo '<td>'.$i.'</td>';
+                echo '<td>'.$user->display_name.'</td>';
+                echo '<td>'.$user->email.'</td>';
+                echo '<td>'.($user->active)?'Yes':'No'.'</td>';
+                echo '<td><a href="{{ url:site }}survey/history/'.$user->id.'"><i class="fa fa-cubes"></i></a></td>';
+                echo '<td>'.date('d/m/Y', $user->last_login).'</td>';
+                echo '</tr>';
+                $i++;
+            }
+        }
+        ?>
         </tbody>
     </table>
 
-    <?php
-    var_dump($users);
-    ?>
 
 </div>
