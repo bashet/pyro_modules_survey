@@ -426,10 +426,10 @@ class Survey extends Public_Controller
         if($user_id){
             if($activate){
                 // need to de-activate
-                $user = array('active'=>0);
+                $user = array('active'=>1);
             }else{
                 // need to activate
-                $user = array('active'=>1);
+                $user = array('active'=>0);
             }
 
             $this->db->where('id', $user_id);
