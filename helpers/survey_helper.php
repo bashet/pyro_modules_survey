@@ -33,6 +33,19 @@ if ( ! function_exists('get_manager') ){
     }
 }
 
+if ( ! function_exists('get_user_by_id') ){
+    function get_user_by_id($id = ''){
+        $ci =& get_instance();
+        if($id){
+            $query = $ci->db->get_where('users', array('id'=>$id));
+            $user = $query->row();
+            return $user;
+        }else{
+            return '';
+        }
+    }
+}
+
 if(! function_exists('get_all_manager')){
     function get_all_manager(){
         $ci =& get_instance();
@@ -59,8 +72,50 @@ if(! function_exists('get_all_clients')){
     }
 }
 
+if(! function_exists('get_client_by_id')){
+    function get_client_by_id($id){
+        $ci =& get_instance();
+
+        $query = $ci->db->get_where('survey_clients', array('id'=> $id));
+        return $query->row();
+    }
+}
+
+if(! function_exists('get_manager_by_uni')){
+    function get_manager_by_uni($client_id){
+        $ci =& get_instance();
+
+        $client         = get_client_by_id($client_id);
+        $manager_name   = get_manager($client->manager_uid);
+        $user           = get_user_by_id($client->manager_uid);
+
+        $manager = array(
+            'name'  => $manager_name,
+            'email' => $user->email,
+        );
+
+        return $manager;
+    }
+}
+
 if(! function_exists('register_user_for_specific_uni')){
-    function register_user_for_specific_uni($data){
+    function register_user_for_specific_uni($uid, $data){
+        $participant = array(
+            'uid'   => $uid,
+            'cid'   => $data['uni']
+        );
+        $ci =& get_instance();
+
+        if($ci->db->insert('survey_participant', $participant)){
+            $manager = get_manager_by_uni($data['uni']);
+
+            // now send email to manager about new registration.
+
+            $mail = array();
+
+            Events::trigger('email', $mail, 'array');
+
+        }
 
     }
 }
