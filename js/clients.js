@@ -91,8 +91,48 @@ $(function(){
         });
         event.preventDefault();
     });
+
     $('a[activate]').button().click(function(){
         $body = $("body");
         $body.addClass("loading");
+
+        var button_id       = this.id;
+        var button_id_array = button_id.split('-');
+        var client_id       = button_id_array[1];
+        var active          = button_id_array[2];
+
+        if(active == '1'){
+            $('#client_activation').html('activate');
+        }else{
+            $('#client_activation').html('de-activate');
+        }
+
+        $( "#dialog-confirm" ).removeClass('hide').dialog({
+            resizable: false,
+            modal: true,
+            title: "<div class='widget-header'><h4 class='smaller'><i class='ace-icon fa fa-exclamation-triangle red'></i> Institute Activation!</h4></div>",
+            title_html: true,
+            buttons: [
+                {
+                    html: "<i class='glyphicon glyphicon-ok'></i>&nbsp; Proceed",
+                    "class" : "btn btn-danger btn-xs",
+                    click: function() {
+                        $( this ).dialog( "close" );
+                        $body = $("body");
+                        $body.addClass("loading");
+                        window.location.href = base_url + 'index.php/survey/update_client_status/' + client_id + '/' + active;
+                    }
+                }
+                ,
+                {
+                    html: "<i class='ace-icon fa fa-times bigger-110'></i>&nbsp; Cancel",
+                    "class" : "btn btn-xs",
+                    click: function() {
+                        $( this ).dialog( "close" );
+                    }
+                }
+            ]
+        });
+
     });
 });
