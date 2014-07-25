@@ -1,7 +1,7 @@
 <div id="clients-container">
 
     <div style="">
-        <button class="btn btn-primary" data-toggle="modal" data-target="#update_clients"><span class="icon-plus"></span> Add new clients</button>
+        <button class="btn btn-primary" data-toggle="modal" data-target="#update_clients"><span class="icon-plus"></span> Add new institute</button>
     </div>
     <table id="all_clients" class="table table-bordered table-hover" style="width:100%">
         <thead>
@@ -42,7 +42,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                    <h4 class="modal-title" id="update_clientsLabel">Update clients information</h4>
+                    <h4 class="modal-title" id="update_clientsLabel">Update institutes information</h4>
                 </div>
 
                 <div class="modal-body">
