@@ -37,7 +37,7 @@ if ( ! function_exists('get_manager') ){
     }
 }
 
-if ( ! function_exists('get_manager') ){
+if ( ! function_exists('get_user_full_name') ){
     function get_user_full_name($u_id = ''){
         $ci =& get_instance();
         if($u_id){
