@@ -5,6 +5,9 @@ $(function(){
     } );
 
     $('#save_survey').button().click(function(){
+        $('#update_survey').modal('hide');
+        $body = $("body");
+        $body.addClass("loading");
         $('#frm_manage_survey').submit();
     });
 
@@ -65,13 +68,16 @@ $(function(){
                     $( "#dialog-confirm" ).removeClass('hide').dialog({
                         resizable: false,
                         modal: true,
-                        title: "<div class='widget-header'><h4 class='smaller'><i class='ace-icon fa fa-exclamation-triangle red'></i> Delete Department?</h4></div>",
+                        title: "<div class='widget-header'><h4 class='smaller'><i class='ace-icon fa fa-exclamation-triangle red'></i> Delete Survey?</h4></div>",
                         title_html: true,
                         buttons: [
                             {
-                                html: "<i class='ace-icon fa fa-trash-o bigger-110'></i>&nbsp; Delete all items",
+                                html: "<i class='ace-icon fa fa-trash-o bigger-110'></i>&nbsp; Delete selected items",
                                 "class" : "btn btn-danger btn-xs",
                                 click: function() {
+                                    $( this ).dialog( "close" );
+                                    $body = $("body");
+                                    $body.addClass("loading");
                                     window.location.href = base_url + 'index.php/survey/delete_survey/'+survey_id;
                                 }
                             }
