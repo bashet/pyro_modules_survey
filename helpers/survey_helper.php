@@ -37,6 +37,23 @@ if ( ! function_exists('get_manager') ){
     }
 }
 
+if ( ! function_exists('get_manager') ){
+    function get_user_full_name($u_id = ''){
+        $ci =& get_instance();
+        if($u_id){
+            $query = $ci->db->get_where('profiles', array('user_id'=>$u_id));
+            $user = $query->row();
+            if($user){
+                return $user->first_name . ' ' . $user->last_name;
+            }else{
+                return '';
+            }
+        }else{
+            return '';
+        }
+    }
+}
+
 if ( ! function_exists('get_user_by_id') ){
     function get_user_by_id($id = ''){
         $ci =& get_instance();
@@ -167,7 +184,7 @@ if(! function_exists('register_user_for_specific_uni')){
             $user_email['subject']			= Settings::get('site_name') . ' - Registration Approval'; // No translation needed as this is merely a fallback to Email Template subject
             $user_email['slug'] 		    = 'first-registration';
             $user_email['to'] 				= $user->email;
-            $user_email['user_name']        = $user->first_name . ' ' . $user->last_name;
+            $user_email['user_name']        = get_user_full_name($uid);
             $user_email['client']           = $client->name;
             $user_email['from'] 			= Settings::get('server_email');
             $user_email['name']				= Settings::get('site_name');
