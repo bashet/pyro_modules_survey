@@ -20,6 +20,9 @@ $(function(){
         $('#frm_save_question').submit();
     });
     $('#frm_save_question').on('submit', function(event){
+        $body = $("body");
+        $body.addClass("loading");
+
         var $form = $(this);
         $.ajax({
             type: $form.attr('method'),
@@ -45,6 +48,8 @@ $(function(){
     });
 
     $('#frm_update_question').on('submit', function(event){
+        $body = $("body");
+        $body.addClass("loading");
         var $form = $(this);
         $.ajax({
             type: $form.attr('method'),
@@ -84,9 +89,12 @@ $(function(){
                         title_html: true,
                         buttons: [
                             {
-                                html: "<i class='ace-icon fa fa-trash-o bigger-110'></i>&nbsp; Delete all items",
+                                html: "<i class='ace-icon fa fa-trash-o bigger-110'></i>&nbsp; Delete selected items",
                                 "class" : "btn btn-danger btn-xs",
                                 click: function() {
+                                    $( this ).dialog( "close" );
+                                    $body = $("body");
+                                    $body.addClass("loading");
                                     window.location.href = base_url + 'index.php/survey/delete_question/'+ msg.survey_id + '/' +q_id;
                                 }
                             }
