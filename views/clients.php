@@ -55,7 +55,9 @@
                                     <?php
                                     $managers = get_all_manager();
                                     foreach($managers as $man){
-                                        echo '<option value="'.$man->id.'">'.$man->display_name.'</option>';
+                                        if(is_valid_manager($man->id)){
+                                            echo '<option value="'.$man->id.'">'.$man->display_name.'</option>';
+                                        }
                                     }
                                     ?>
                                 </select>

@@ -185,3 +185,17 @@ if ( ! function_exists('get_survey_name_by_id') ){
         }
     }
 }
+
+if(! function_exists('is_valid_manager')){
+    function is_valid_manager($id = ''){
+        $clients = get_all_clients();
+        $valid = true;
+        foreach($clients as $client){
+            if($id == $client->manager_uid){
+                $valid = false;
+            }
+        }
+
+        return $valid;
+    }
+}
