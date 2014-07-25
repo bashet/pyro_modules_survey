@@ -139,6 +139,21 @@ if(! function_exists('register_user_for_specific_uni')){
 
             Events::trigger('email', $mail, 'array');
 
+            $user   = get_user_by_id($uid);
+            $client = get_client_by_id($data['uni']);
+            $user_email = array();
+
+            $user_email['subject']			= Settings::get('site_name') . ' - Registration Approval'; // No translation needed as this is merely a fallback to Email Template subject
+            $user_email['slug'] 		    = 'first-registration';
+            $user_email['to'] 				= $user->email;
+            $user_email['user_name']        = $user->first_name . ' ' . $user->last_name;
+            $user_email['client']           = $client->name;
+            $user_email['from'] 			= Settings::get('server_email');
+            $user_email['name']				= Settings::get('site_name');
+            $user_email['reply-to']			= Settings::get('contact_email');
+
+            Events::trigger('email', $user_email, 'array');
+
         }
 
     }
