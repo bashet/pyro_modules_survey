@@ -7,12 +7,12 @@
     <table id="all_dpt" class="table table-bordered table-hover" style="width:100%">
         <thead>
         <tr>
-            <th style="width: 5%">SN</th>
-            <th style="width: 30%">Name</th>
-            <th style="width: 35%">Description</th>
-            <th style="width: 15%">Survey</th>
-            <th style="width: 7%">Edit</th>
-            <th style="width: 7%">Delete</th>
+            <th style="width: 8%">SN</th>
+            <th style="width: 20%">Name</th>
+            <th style="width: 25%">Description</th>
+            <th style="width: 20%">Survey</th>
+            <th style="width: 8%">Edit</th>
+            <th style="width: 8%">Delete</th>
         </tr>
         </thead>
 
