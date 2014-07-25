@@ -76,6 +76,7 @@ $(function(){
                                 html: "<i class='ace-icon fa fa-trash-o bigger-110'></i>&nbsp; Delete all items",
                                 "class" : "btn btn-danger btn-xs",
                                 click: function() {
+                                    $( this ).dialog( "close" );
                                     $body = $("body");
                                     $body.addClass("loading");
                                     window.location.href = base_url + 'index.php/survey/delete_dpt/'+dpt_id;
