@@ -5,6 +5,9 @@ $(function(){
     } );
 
     $('#save_dpt').button().click(function(){
+        $('#update_dpt').modal('hide');
+        $body = $("body");
+        $body.addClass("loading");
         $('#frm_manage_dpt').submit();
     });
 
@@ -73,6 +76,8 @@ $(function(){
                                 html: "<i class='ace-icon fa fa-trash-o bigger-110'></i>&nbsp; Delete all items",
                                 "class" : "btn btn-danger btn-xs",
                                 click: function() {
+                                    $body = $("body");
+                                    $body.addClass("loading");
                                     window.location.href = base_url + 'index.php/survey/delete_dpt/'+dpt_id;
                                 }
                             }
