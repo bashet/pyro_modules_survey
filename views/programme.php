@@ -9,11 +9,11 @@
         <tr>
             <th style="width: 8%">SN</th>
             <th style="width: 20%">Name</th>
-            <th style="width: 25%">Description</th>
+            <th>Description</th>
             <th style="width: 15%">Survey</th>
             <th style="width: 8%">Edit</th>
             <th style="width: 8%">Delete</th>
-            <th style="width: 5%">Active</th>
+            <th style="width: 8%">Active</th>
         </tr>
         </thead>
 
@@ -29,9 +29,9 @@
             echo '<td style="text-align: center"><button edit_programme id="edit_programme-'.$d->id.'" title="Edit '.$d->name.'"><i class="fa fa-pencil-square-o fa-lg"></i></button></td>';
             echo '<td style="text-align: center"><button delete_programme id="del_programme-'.$d->id.'" title="Delete '.$d->name.'"><i class="fa fa-trash-o fa-lg"></i></button></td>';
             if($d->active){
-                echo '<td style="text-align: center"><a activate href="{{ url:site }}survey/update_programme_status/'.$d->id.'" id="active_programme-'.$d->id.'" title="Click to de-activate '.$d->name.'"><span class="glyphicon glyphicon-ok"></span></a></td>';
+                echo '<td style="text-align: center"><button activate id="active_programme-'.$d->id.'/'.$d->active.'" title="Click to de-activate '.$d->name.'"><span class="glyphicon glyphicon-ok"></span></button></td>';
             }else{
-                echo '<td style="text-align: center"><a activate href="{{ url:site }}survey/update_programme_status/'.$d->id.'" id="active_programme-'.$d->id.'" title="Click to activate '.$d->name.'"><span class="glyphicon glyphicon-remove"></span></a></td>';
+                echo '<td style="text-align: center"><button activate id="active_programme-'.$d->id.'/'.$d->active.'" title="Click to activate '.$d->name.'"><span class="glyphicon glyphicon-remove"></span></button></td>';
             }
             echo '</tr>';
             $i++;
@@ -46,7 +46,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                    <h4 class="modal-title" id="update_clientsLabel">Link level between survey</h4>
+                    <h4 class="modal-title" id="update_clientsLabel">Link programme between survey</h4>
                 </div>
 
                 <div class="modal-body">
@@ -86,7 +86,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                    <h4 class="modal-title" id="update_programmeLabel">Update level information</h4>
+                    <h4 class="modal-title" id="update_programmeLabel">Update programme information</h4>
                 </div>
 
                 <div class="modal-body">
@@ -119,7 +119,7 @@
 
     <div id="dialog-confirm" class="hide">
         <div class="alert alert-info bigger-110">
-            <span id="item_name"></span> level will be permanently deleted and cannot be recovered.
+            <span id="item_name"></span>
         </div>
 
         <div class="space-6"></div>

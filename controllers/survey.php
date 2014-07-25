@@ -98,7 +98,7 @@ class Survey extends Public_Controller
     public function get_programme_by_id($id = ''){
         if($id){
             $query = $this->db->get_where('survey_programme', array('id' => $id));
-            echo json_encode($query->result());
+            echo json_encode($query->row());
         }
     }
 
@@ -107,6 +107,23 @@ class Survey extends Public_Controller
         if($id){
             $this->db->delete('survey_programme', array('id' => $id));
         }
+        redirect('survey/programme');
+    }
+
+    public function update_programme_status($id = '', $active = ''){
+        $programme = '';
+        if($id){
+            if($active){
+                // need to de-activate
+                $programme = array('active'=>0);
+            }else{
+                // need to activate
+                $programme = array('active'=>1);
+            }
+        }
+
+        $this->db->where('id', $id);
+        $this->db->update('survey_programme', $programme);
         redirect('survey/programme');
     }
  //============================================= Manage question categories=============================================

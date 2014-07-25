@@ -63,23 +63,76 @@ $(function(){
             success: function(data,status) {
                 if(data){
                     var msg = jQuery.parseJSON( data );
-                    $('#item_name').html(msg[0].name);
+                    $('#item_name').html(msg.name + ' programme will be permanently deleted and cannot be recovered.');
 
 
                     $( "#dialog-confirm" ).removeClass('hide').dialog({
                         resizable: false,
                         modal: true,
-                        title: "<div class='widget-header'><h4 class='smaller'><i class='ace-icon fa fa-exclamation-triangle red'></i> Delete Level?</h4></div>",
+                        title: "<div class='widget-header'><h4 class='smaller'><i class='ace-icon fa fa-exclamation-triangle red'></i> Delete programme?</h4></div>",
                         title_html: true,
                         buttons: [
                             {
-                                html: "<i class='ace-icon fa fa-trash-o bigger-110'></i>&nbsp; Delete all items",
+                                html: "<i class='ace-icon fa fa-trash-o bigger-110'></i>&nbsp; Delete programme",
                                 "class" : "btn btn-danger btn-xs",
                                 click: function() {
                                     $( this ).dialog( "close" );
                                     $body = $("body");
                                     $body.addClass("loading");
                                     window.location.href = base_url + 'index.php/survey/delete_programme/'+programme_id;
+                                }
+                            }
+                            ,
+                            {
+                                html: "<i class='ace-icon fa fa-times bigger-110'></i>&nbsp; Cancel",
+                                "class" : "btn btn-xs",
+                                click: function() {
+                                    $( this ).dialog( "close" );
+                                }
+                            }
+                        ]
+                    });
+                }
+                //window.location.href = base_url + 'index.php/survey/programme';
+            }
+        });
+
+
+    });
+
+    $('button[activate]').button().click(function(){
+        var button_id       = this.id;
+        var button_id_array = button_id.split('-');
+        var programme_id    = button_id_array[1];
+        var active          = button_id_array[2];
+
+        $.ajax({
+            url: base_url + 'index.php/survey/get_programme_by_id/'+programme_id,
+
+            success: function(data,status) {
+                if(data){
+                    var msg = jQuery.parseJSON( data );
+                    if(active){
+                        $('#item_name').html(msg.name + ' programme will be de-activated.');
+                    }else{
+                        $('#item_name').html(msg.name + ' programme will be activated.');
+                    }
+
+
+                    $( "#dialog-confirm" ).removeClass('hide').dialog({
+                        resizable: false,
+                        modal: true,
+                        title: "<div class='widget-header'><h4 class='smaller'><i class='ace-icon fa fa-exclamation-triangle red'></i> Programme Activation!</h4></div>",
+                        title_html: true,
+                        buttons: [
+                            {
+                                html: "<i class='glyphicon glyphicon-ok'></i>&nbsp; Proceed",
+                                "class" : "btn btn-danger btn-xs",
+                                click: function() {
+                                    $( this ).dialog( "close" );
+                                    $body = $("body");
+                                    $body.addClass("loading");
+                                    window.location.href = base_url + 'index.php/survey/update_programme_status/' + programme_id + '/' + active;
                                 }
                             }
                             ,
