@@ -143,3 +143,20 @@ if(! function_exists('register_user_for_specific_uni')){
 
     }
 }
+
+if ( ! function_exists('get_survey_name_by_id') ){
+    function get_survey_name_by_id($id = ''){
+        $ci =& get_instance();
+        if($id){
+            $query = $ci->db->get_where('survey', array('user_id'=>$id));
+            $survey = $query->row();
+            if($survey){
+                return $survey->name;
+            }else{
+                return '';
+            }
+        }else{
+            return '';
+        }
+    }
+}
