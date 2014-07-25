@@ -493,4 +493,11 @@ class Survey extends Public_Controller
         }
         redirect('survey/manage_users');
     }
+
+    public function user_survey(){
+        $this->template
+            ->title($this->module_details['name'], 'manage users')
+            ->set_breadcrumb('User survey')
+            ->build('user_survey');
+    }
 }
