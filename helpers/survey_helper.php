@@ -89,6 +89,16 @@ if(! function_exists('get_all_clients')){
     }
 }
 
+if(! function_exists('get_all_clients_all')){
+    function get_all_clients_all(){
+        $ci =& get_instance();
+
+        $query = $ci->db->get('survey_clients');
+
+        return $query->result();
+    }
+}
+
 if(! function_exists('get_all_programme')){ // programme is called programme
     function get_all_programme(){
         $ci =& get_instance();
@@ -188,7 +198,7 @@ if ( ! function_exists('get_survey_name_by_id') ){
 
 if(! function_exists('is_valid_manager')){
     function is_valid_manager($id = ''){
-        $clients = get_all_clients();
+        $clients = get_all_clients_all();
         $valid = true;
         foreach($clients as $client){
             if($id == $client->manager_uid){
