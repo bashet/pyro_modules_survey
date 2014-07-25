@@ -2,7 +2,7 @@
 <div id="programme-container">
 
     <div style="">
-        <button class="btn btn-primary" data-toggle="modal" data-target="#update_programme"><span class="icon-plus"></span> Add new level</button>
+        <button class="btn btn-primary" data-toggle="modal" data-target="#update_programme"><span class="icon-plus"></span> Add new programme</button>
     </div>
     <table id="all_programme" class="table table-bordered table-hover" style="width:100%">
         <thead>
@@ -10,9 +10,10 @@
             <th style="width: 8%">SN</th>
             <th style="width: 20%">Name</th>
             <th style="width: 25%">Description</th>
-            <th style="width: 20%">Survey</th>
+            <th style="width: 15%">Survey</th>
             <th style="width: 8%">Edit</th>
             <th style="width: 8%">Delete</th>
+            <th style="width: 5%">Active</th>
         </tr>
         </thead>
 
@@ -27,6 +28,11 @@
             echo '<td style="text-align: center"><button edit_survey id="edit_survey-'.$d->id.'" title="Change Survey"><i class="fa fa-comments"></i>'.get_survey_name_by_id($d->survey).'</button></td>';
             echo '<td style="text-align: center"><button edit_programme id="edit_programme-'.$d->id.'" title="Edit '.$d->name.'"><i class="fa fa-pencil-square-o fa-lg"></i></button></td>';
             echo '<td style="text-align: center"><button delete_programme id="del_programme-'.$d->id.'" title="Delete '.$d->name.'"><i class="fa fa-trash-o fa-lg"></i></button></td>';
+            if($d->active){
+                echo '<td style="text-align: center"><a activate href="{{ url:site }}survey/update_programme_status/'.$d->id.'" id="active_programme-'.$d->id.'" title="Click to de-activate '.$d->name.'"><span class="glyphicon glyphicon-ok"></span></a></td>';
+            }else{
+                echo '<td style="text-align: center"><a activate href="{{ url:site }}survey/update_programme_status/'.$d->id.'" id="active_programme-'.$d->id.'" title="Click to activate '.$d->name.'"><span class="glyphicon glyphicon-remove"></span></a></td>';
+            }
             echo '</tr>';
             $i++;
         }

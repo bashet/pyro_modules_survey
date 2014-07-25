@@ -19,4 +19,10 @@ $lang['survey:delete']			=	'Delete';
 //buttons
 $lang['survey:custom_button']	=	'Custom Button';
 $lang['survey:items']			=	'Items';
+$lang['survey:close']           =   'Close';
+$lang['survey:save_change']     =   'Save change';
+
+$lang['survey:add_new_programme']   = 'Add new programme';
+$lang['survey:update_programme']    = 'Update programme';
+
 ?>

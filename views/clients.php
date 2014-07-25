@@ -24,9 +24,9 @@
             echo '<td style="text-align: center"><a href="#" assign_manager id="assign_manager-'.$d->id.'" title="Assign Manager" style="text-decoration:none"><i class="fa fa-sitemap fa-lg"></i>&nbsp;&nbsp; '.get_manager($d->manager_uid).'</a></td>';
             echo '<td style="text-align: center"><a href="#" edit_clients id="edit_clients-'.$d->id.'" title="Edit '.$d->name.'"><i class="fa fa-pencil-square-o fa-lg"></i></a></td>';
             if($d->active){
-                echo '<td style="text-align: center"><a activate href="{{ url:site }}survey/update_client_status/'.$d->id.'" id="del_clients-'.$d->id.'" title="Click to de-activate '.$d->name.'"><i class="fa fa-thumbs-up fa-lg"></i></a></td>';
+                echo '<td style="text-align: center"><a activate href="{{ url:site }}survey/update_client_status/'.$d->id.'" id="del_clients-'.$d->id.'" title="Click to de-activate '.$d->name.'"><span class="glyphicon glyphicon-ok"></span></a></td>';
             }else{
-                echo '<td style="text-align: center"><a activate href="{{ url:site }}survey/update_client_status/'.$d->id.'" id="del_clients-'.$d->id.'" title="Click to activate '.$d->name.'"><i class="fa fa-thumbs-down fa-lg"></i></a></td>';
+                echo '<td style="text-align: center"><a activate href="{{ url:site }}survey/update_client_status/'.$d->id.'" id="del_clients-'.$d->id.'" title="Click to activate '.$d->name.'"><span class="glyphicon glyphicon-remove"></span></a></td>';
             }
             echo '</tr>';
             $i++;
