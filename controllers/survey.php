@@ -72,7 +72,7 @@ class Survey extends Public_Controller
 // ============================================= Manage department =====================================================
     public function programme(){
 
-        $programme = $this->survey_m->get_all_dtp();
+        $programme = $this->survey_m->get_all_programme();
 
         $this->template
             ->title($this->module_details['name'], 'manage departments')

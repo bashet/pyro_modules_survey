@@ -90,10 +90,10 @@ if(! function_exists('get_all_clients')){
 }
 
 if(! function_exists('get_all_programme')){ // programme is called programme
-    function get_all_clients(){
+    function get_all_programme(){
         $ci =& get_instance();
 
-        $query = $ci->db->get_where('survey_clients', array('active'=>1));
+        $query = $ci->db->get_where('survey_programme', array('active'=>1));
 
         return $query->result();
     }

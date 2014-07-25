@@ -50,7 +50,7 @@ class survey_m extends MY_Model {
 
 // Survey finished and programme started ===============================================================================
 
-    public function get_all_dtp(){
+    public function get_all_programme(){
         $query = $this->db->get('survey_programme');
 
         return $query->result();
