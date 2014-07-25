@@ -74,6 +74,13 @@ $(function(){
 
     });
 
+    $('#btn_update_survey').button().click(function(){
+        $('#update_survey_modal').modal('hide');
+        $body = $("body");
+        $body.addClass("loading");
+        $('#frm_link_programme').submit();
+    });
+
 
     $('button[delete_programme]').button().click(function(){
         var button_id = this.id;

@@ -128,6 +128,18 @@ class Survey extends Public_Controller
         $this->db->update('survey_programme', $programme);
         redirect('survey/programme');
     }
+
+    public function link_programme(){
+        $data = $this->input->post();
+
+        $new_data = array(
+            'survey'    => $data['survey_id']
+        );
+
+        $this->db->where('id', $data['programme_id']);
+        $this->db->update('survey_programme', $new_data);
+        redirect('survey/programme');
+    }
  //============================================= Manage question categories=============================================
     public function question_categories(){
 

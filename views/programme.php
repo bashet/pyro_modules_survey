@@ -25,7 +25,7 @@
             echo '<td>'.$i.'</td>';
             echo '<td>'.$d->name.'</td>';
             echo '<td>'.$d->description.'</td>';
-            echo '<td style="text-align: center"><button edit_survey id="edit_survey-'.$d->id.'" title="Change Survey"><i class="fa fa-comments"></i>'.get_survey_name_by_id($d->survey).'</button></td>';
+            echo '<td style="text-align: center"><button edit_survey id="edit_survey-'.$d->id.'" title="Change Survey"><i class="fa fa-comments"></i> '.get_survey_name_by_id($d->survey).'</button></td>';
             echo '<td style="text-align: center"><button edit_programme id="edit_programme-'.$d->id.'" title="Edit '.$d->name.'"><i class="fa fa-pencil-square-o fa-lg"></i></button></td>';
             echo '<td style="text-align: center"><button delete_programme id="del_programme-'.$d->id.'" title="Delete '.$d->name.'"><i class="fa fa-trash-o fa-lg"></i></button></td>';
             if($d->active){
@@ -50,7 +50,7 @@
                 </div>
 
                 <div class="modal-body">
-                    <form class="form-horizontal" role="form" id="frm_link_level" method="post" action="{{url:site}}survey/link_programme">
+                    <form class="form-horizontal" role="form" id="frm_link_programme" method="post" action="{{url:site}}survey/link_programme">
                         <div class="form-group">
                             <label for="manager_id" class="col-sm-4 control-label">Programme</label>
                             <div class="col-sm-8">
@@ -58,10 +58,10 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="manager_id" class="col-sm-4 control-label">Select survey</label>
+                            <label for="survey_id" class="col-sm-4 control-label">Select survey</label>
                             <div class="col-sm-8">
-                                <select name="manager_id" id="manager_id" class="form-control">
-                                    <option value=""></option>
+                                <select name="survey_id" id="survey_id" class="form-control">
+                                    <option value="0"></option>
                                     <?php
                                     foreach($survey as $s){
                                         echo '<option value="'.$s->id.'">'.$s->name.'</option>';
@@ -78,7 +78,7 @@
 
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" id="clients_popup_close" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary" id="btn_update_manager">Save changes</button>
+                    <button type="button" class="btn btn-primary" id="btn_update_survey">Save changes</button>
                 </div>
             </div>
         </div>
