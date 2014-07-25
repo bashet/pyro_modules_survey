@@ -2,16 +2,17 @@
 <div id="dpt-container">
 
     <div style="">
-        <button class="btn btn-primary" data-toggle="modal" data-target="#update_dpt"><span class="icon-plus"></span> Add new department</button>
+        <button class="btn btn-primary" data-toggle="modal" data-target="#update_dpt"><span class="icon-plus"></span> Add new level</button>
     </div>
     <table id="all_dpt" class="table table-bordered table-hover" style="width:100%">
         <thead>
         <tr>
-            <th style="width: 8%">SN</th>
+            <th style="width: 5%">SN</th>
             <th style="width: 30%">Name</th>
-            <th style="width: 40%">Description</th>
-            <th style="width: 10%">Edit</th>
-            <th style="width: 10%">Delete</th>
+            <th style="width: 35%">Description</th>
+            <th style="width: 15%">Survey</th>
+            <th style="width: 7%">Edit</th>
+            <th style="width: 7%">Delete</th>
         </tr>
         </thead>
 
@@ -23,6 +24,7 @@
             echo '<td>'.$i.'</td>';
             echo '<td>'.$d->name.'</td>';
             echo '<td>'.$d->description.'</td>';
+            echo '<td style="text-align: center"><button edit_survey id="edit_survey-'.$d->id.'" title="Change Survey"><i class="fa fa-comments"></i></button></td>';
             echo '<td style="text-align: center"><button edit_dpt id="edit_dpt-'.$d->id.'" title="Edit '.$d->name.'"><i class="fa fa-pencil-square-o fa-lg"></i></button></td>';
             echo '<td style="text-align: center"><button delete_dpt id="del_dpt-'.$d->id.'" title="Delete '.$d->name.'"><i class="fa fa-trash-o fa-lg"></i></button></td>';
             echo '</tr>';
@@ -39,20 +41,20 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                    <h4 class="modal-title" id="update_dptLabel">Update department information</h4>
+                    <h4 class="modal-title" id="update_dptLabel">Update level information</h4>
                 </div>
 
                 <div class="modal-body">
                     <form class="form-horizontal" role="form" id="frm_manage_dpt" method="post" action="{{url:site}}survey/save_dpt">
                         <div class="form-group">
-                            <label for="dpt_name" class="col-sm-4 control-label">Depart Name</label>
+                            <label for="dpt_name" class="col-sm-4 control-label">Level Name</label>
                             <div class="col-sm-8">
                                 <input type="text" class="form-control" id="dpt_name" name="dpt_name" placeholder="">
                             </div>
                         </div>
 
                         <div class="form-group">
-                            <label for="dpt_description" class="col-sm-4 control-label">Depart Description</label>
+                            <label for="dpt_description" class="col-sm-4 control-label">Level Description</label>
                             <div class="col-sm-8">
                                 <textarea class="form-control" id="dpt_description" name="dpt_description" placeholder=""></textarea>
                             </div>
@@ -72,7 +74,7 @@
 
     <div id="dialog-confirm" class="hide">
         <div class="alert alert-info bigger-110">
-            <span id="item_name"></span> department will be permanently deleted and cannot be recovered.
+            <span id="item_name"></span> level will be permanently deleted and cannot be recovered.
         </div>
 
         <div class="space-6"></div>

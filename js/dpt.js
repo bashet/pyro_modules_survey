@@ -66,7 +66,7 @@ $(function(){
                     $( "#dialog-confirm" ).removeClass('hide').dialog({
                         resizable: false,
                         modal: true,
-                        title: "<div class='widget-header'><h4 class='smaller'><i class='ace-icon fa fa-exclamation-triangle red'></i> Delete Department?</h4></div>",
+                        title: "<div class='widget-header'><h4 class='smaller'><i class='ace-icon fa fa-exclamation-triangle red'></i> Delete Level?</h4></div>",
                         title_html: true,
                         buttons: [
                             {
