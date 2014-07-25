@@ -139,7 +139,8 @@ if(! function_exists('register_user_for_specific_uni')){
     function register_user_for_specific_uni($uid, $data){
         $participant = array(
             'uid'   => $uid,
-            'cid'   => $data['uni']
+            'cid'   => $data['uni'],
+            'pid'   => $data['programme']
         );
         $ci =& get_instance();
 
