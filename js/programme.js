@@ -52,6 +52,29 @@ $(function(){
         });
 
     });
+
+    $('button[edit_survey]').button().click(function(){
+        var button_id = this.id;
+        var button_id_array = button_id.split('-');
+        var programme_id = button_id_array[1];
+        $.ajax({
+            url: base_url + 'index.php/survey/get_programme_by_id/'+programme_id,
+
+            success: function(data,status) {
+                if(data){
+                    var msg = jQuery.parseJSON( data );
+                    $('#programme_id').val(msg.id);
+                    $('#programme_name_modal').html(msg.name);
+
+                    $('#update_survey_modal').modal('show');
+                }
+                //window.location.href = base_url + 'index.php/survey/programme';
+            }
+        });
+
+    });
+
+
     $('button[delete_programme]').button().click(function(){
         var button_id = this.id;
         var button_id_array = button_id.split('-');

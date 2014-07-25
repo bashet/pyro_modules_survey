@@ -72,11 +72,13 @@ class Survey extends Public_Controller
 // ============================================= Manage department =====================================================
     public function programme(){
 
-        $programme = $this->survey_m->get_all_programme();
+        $programme  = $this->survey_m->get_all_programme();
+        $survey     = $this->survey_m->get_all_survey();
 
         $this->template
             ->title($this->module_details['name'], 'manage departments')
             ->set('programme', $programme)
+            ->set('survey', $survey)
             ->append_js('module::programme.js')
             ->build('programme');
     }

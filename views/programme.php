@@ -50,23 +50,28 @@
                 </div>
 
                 <div class="modal-body">
-                    <form class="form-horizontal" role="form" id="frm_link_level" method="post" action="{{url:site}}survey/link_level">
+                    <form class="form-horizontal" role="form" id="frm_link_level" method="post" action="{{url:site}}survey/link_programme">
                         <div class="form-group">
-                            <label for="manager_id" class="col-sm-2 control-label">Name</label>
-                            <div class="col-sm-10">
+                            <label for="manager_id" class="col-sm-4 control-label">Programme</label>
+                            <div class="col-sm-8">
+                                <p class="form-control-static"><span id="programme_name_modal"></span></p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="manager_id" class="col-sm-4 control-label">Select survey</label>
+                            <div class="col-sm-8">
                                 <select name="manager_id" id="manager_id" class="form-control">
                                     <option value=""></option>
                                     <?php
-                                    $managers = get_all_manager();
-                                    foreach($managers as $man){
-                                        echo '<option value="'.$man->id.'">'.$man->display_name.'</option>';
+                                    foreach($survey as $s){
+                                        echo '<option value="'.$s->id.'">'.$s->name.'</option>';
                                     }
                                     ?>
                                 </select>
                             </div>
                         </div>
 
-                        <input type="hidden" id="client_id" name="client_id" value="">
+                        <input type="hidden" id="programme_id" name="programme_id" value="">
                         <input type="hidden" id="user_id" name="user_id" value="{{ user:id }}">
                     </form>
                 </div>
