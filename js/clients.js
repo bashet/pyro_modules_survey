@@ -93,9 +93,6 @@ $(function(){
     });
 
     $('button[activate]').button().click(function(){
-        $body = $("body");
-        $body.addClass("loading");
-
         var button_id       = this.id;
         var button_id_array = button_id.split('-');
         var client_id       = button_id_array[1];
