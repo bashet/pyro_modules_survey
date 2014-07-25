@@ -70,44 +70,44 @@ class Survey extends Public_Controller
         redirect('survey');
     }
 // ============================================= Manage department =====================================================
-    public function dpt(){
+    public function programme(){
 
-        $dpt = $this->survey_m->get_all_dtp();
+        $programme = $this->survey_m->get_all_dtp();
 
         $this->template
             ->title($this->module_details['name'], 'manage departments')
-            ->set('dpt', $dpt)
-            ->append_js('module::dpt.js')
-            ->build('dpt');
+            ->set('programme', $programme)
+            ->append_js('module::programme.js')
+            ->build('programme');
     }
 
-    public function save_dpt(){
+    public function save_programme(){
         $posted_data = $this->input->post();
 
-        if($posted_data['dpt_id']){
+        if($posted_data['programme_id']){
             // we are here to edit the data.
-            $data = $this->survey_m->update_dpt($posted_data);
+            $data = $this->survey_m->update_programme($posted_data);
         }else{
             // we here to ad new data
-            $data = $this->survey_m->insert_dpt($posted_data);
+            $data = $this->survey_m->insert_programme($posted_data);
         }
 
         echo json_encode($data);
     }
 
-    public function get_dpt_by_id($id = ''){
+    public function get_programme_by_id($id = ''){
         if($id){
-            $query = $this->db->get_where('survey_dpt', array('id' => $id));
+            $query = $this->db->get_where('survey_programme', array('id' => $id));
             echo json_encode($query->result());
         }
     }
 
-    public function delete_dpt($id = ''){
+    public function delete_programme($id = ''){
 
         if($id){
-            $this->db->delete('survey_dpt', array('id' => $id));
+            $this->db->delete('survey_programme', array('id' => $id));
         }
-        redirect('survey/dpt');
+        redirect('survey/programme');
     }
  //============================================= Manage question categories=============================================
     public function question_categories(){

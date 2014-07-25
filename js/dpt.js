@@ -1,17 +1,17 @@
 
 $(function(){
     $(document).ready(function() {
-        $('#all_dpt').dataTable();
+        $('#all_programme').dataTable();
     } );
 
-    $('#save_dpt').button().click(function(){
-        $('#update_dpt').modal('hide');
+    $('#save_programme').button().click(function(){
+        $('#update_programme').modal('hide');
         $body = $("body");
         $body.addClass("loading");
-        $('#frm_manage_dpt').submit();
+        $('#frm_manage_programme').submit();
     });
 
-    $('#frm_manage_dpt').on('submit',function(event){
+    $('#frm_manage_programme').on('submit',function(event){
         var $form = $(this);
         $.ajax({
             type: $form.attr('method'),
@@ -19,46 +19,46 @@ $(function(){
             data: $form.serialize(),
 
             success: function(data,status) {
-                window.location.href = base_url + 'index.php/survey/dpt';
+                window.location.href = base_url + 'index.php/survey/programme';
             }
         });
         event.preventDefault();
     });
 
-    $('#dpt_popup_close').button().click(function(){
-        $('#dpt_id').val('');
-        $('#dpt_name').val('');
-        $('#dpt_description').val('');
+    $('#programme_popup_close').button().click(function(){
+        $('#programme_id').val('');
+        $('#programme_name').val('');
+        $('#programme_description').val('');
     });
 
-    $('button[edit_dpt]').button().click(function(){
+    $('button[edit_programme]').button().click(function(){
         var button_id = this.id;
         var button_id_array = button_id.split('-');
-        var dpt_id = button_id_array[1];
+        var programme_id = button_id_array[1];
         $.ajax({
-            url: base_url + 'index.php/survey/get_dpt_by_id/'+dpt_id,
+            url: base_url + 'index.php/survey/get_programme_by_id/'+programme_id,
 
             success: function(data,status) {
                 if(data){
                     var msg = jQuery.parseJSON( data );
-                    $('#dpt_name').val(msg[0].name);
-                    $('#dpt_description').val(msg[0].description);
-                    $('#dpt_id').val(msg[0].id);
+                    $('#programme_name').val(msg[0].name);
+                    $('#programme_description').val(msg[0].description);
+                    $('#programme_id').val(msg[0].id);
 
-                    $('#update_dpt').modal('show');
+                    $('#update_programme').modal('show');
                 }
-                //window.location.href = base_url + 'index.php/survey/dpt';
+                //window.location.href = base_url + 'index.php/survey/programme';
             }
         });
 
     });
-    $('button[delete_dpt]').button().click(function(){
+    $('button[delete_programme]').button().click(function(){
         var button_id = this.id;
         var button_id_array = button_id.split('-');
-        var dpt_id = button_id_array[1];
+        var programme_id = button_id_array[1];
 
         $.ajax({
-            url: base_url + 'index.php/survey/get_dpt_by_id/'+dpt_id,
+            url: base_url + 'index.php/survey/get_programme_by_id/'+programme_id,
 
             success: function(data,status) {
                 if(data){
@@ -79,7 +79,7 @@ $(function(){
                                     $( this ).dialog( "close" );
                                     $body = $("body");
                                     $body.addClass("loading");
-                                    window.location.href = base_url + 'index.php/survey/delete_dpt/'+dpt_id;
+                                    window.location.href = base_url + 'index.php/survey/delete_programme/'+programme_id;
                                 }
                             }
                             ,
@@ -93,7 +93,7 @@ $(function(){
                         ]
                     });
                 }
-                //window.location.href = base_url + 'index.php/survey/dpt';
+                //window.location.href = base_url + 'index.php/survey/programme';
             }
         });
 

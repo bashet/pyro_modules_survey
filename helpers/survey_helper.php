@@ -89,6 +89,16 @@ if(! function_exists('get_all_clients')){
     }
 }
 
+if(! function_exists('get_all_programme')){ // programme is called programme
+    function get_all_clients(){
+        $ci =& get_instance();
+
+        $query = $ci->db->get_where('survey_clients', array('active'=>1));
+
+        return $query->result();
+    }
+}
+
 if(! function_exists('get_client_by_id')){
     function get_client_by_id($id){
         $ci =& get_instance();

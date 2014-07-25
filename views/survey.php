@@ -1,6 +1,6 @@
-<div class="dpt-container">
+<div class="programme-container">
 
-    <table id="dpt" class="table table-bordered table-hover" cellspacing="0" width="100%" border="1">
+    <table id="programme" class="table table-bordered table-hover" cellspacing="0" width="100%" border="1">
         <thead>
         <tr>
             <th width="10">SN</th>
@@ -14,7 +14,7 @@
         <tbody>
         <?php
         $i = 1;
-        foreach($dpt as $d){
+        foreach($programme as $d){
             echo '<tr>';
             echo '<td>'.$i.'</td>';
             echo '<td>'.$d->name.'</td>';

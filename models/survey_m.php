@@ -48,37 +48,37 @@ class survey_m extends MY_Model {
         return $this->db->insert('survey', $survey);
     }
 
-// Survey finished and dpt started ===============================================================================
+// Survey finished and programme started ===============================================================================
 
     public function get_all_dtp(){
-        $query = $this->db->get('survey_dpt');
+        $query = $this->db->get('survey_programme');
 
         return $query->result();
     }
 
-    public function update_dpt($data){
-        $dpt = array(
-            'name'          => $data['dpt_name'],
-            'description'   => $data['dpt_description'],
+    public function update_programme($data){
+        $programme = array(
+            'name'          => $data['programme_name'],
+            'description'   => $data['programme_description'],
             'modified_by'   => $data['user_id'],
             'modified_date' => time(),
         );
-        $this->db->where('id', $data['dpt_id']);
-        return $this->db->update('survey_dpt', $dpt);
+        $this->db->where('id', $data['programme_id']);
+        return $this->db->update('survey_programme', $programme);
     }
 
-    public function insert_dpt($data){
-        $dpt = array(
-            'name'          => $data['dpt_name'],
-            'description'   => $data['dpt_description'],
+    public function insert_programme($data){
+        $programme = array(
+            'name'          => $data['programme_name'],
+            'description'   => $data['programme_description'],
             'created_by'    => $data['user_id'],
             'create_date'   => time(),
         );
 
-        return $this->db->insert('survey_dpt', $dpt);
+        return $this->db->insert('survey_programme', $programme);
     }
 
-    // dpt finished and question_categories started ===============================================================================
+    // programme finished and question_categories started ===============================================================================
 
     public function get_all_question_categories(){
         $query = $this->db->get('survey_question_categories');
@@ -87,25 +87,25 @@ class survey_m extends MY_Model {
     }
 
     public function update_question_categories($data){
-        $dpt = array(
+        $programme = array(
             'name'          => $data['question_categories_name'],
             'description'   => $data['question_categories_description'],
             'modified_by'   => $data['user_id'],
             'modified_date' => time(),
         );
         $this->db->where('id', $data['question_categories_id']);
-        return $this->db->update('survey_question_categories', $dpt);
+        return $this->db->update('survey_question_categories', $programme);
     }
 
     public function insert_question_categories($data){
-        $dpt = array(
+        $programme = array(
             'name'          => $data['question_categories_name'],
             'description'   => $data['question_categories_description'],
             'created_by'    => $data['user_id'],
             'create_date'   => time(),
         );
 
-        return $this->db->insert('survey_question_categories', $dpt);
+        return $this->db->insert('survey_question_categories', $programme);
     }
 
     // default options ============================================
