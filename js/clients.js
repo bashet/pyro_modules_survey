@@ -98,7 +98,7 @@ $(function(){
         var client_id       = button_id_array[1];
         var active          = button_id_array[2];
 
-        if(active == '1'){
+        if(active == '0'){
             $('#client_activation').html('activate');
         }else{
             $('#client_activation').html('de-activate');

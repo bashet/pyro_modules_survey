@@ -111,7 +111,7 @@
 <!-------------------------------------------------------------------------------------------------------->
 <div id="dialog-confirm" class="hide">
     <div class="alert alert-info bigger-110">
-        You are about to <span id="client_activation"></span> an user.
+        You are about to <span id="client_activation"></span> an institute.
     </div>
 
     <div class="space-6"></div>
