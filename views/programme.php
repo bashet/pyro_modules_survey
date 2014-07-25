@@ -92,15 +92,15 @@
                 <div class="modal-body">
                     <form class="form-horizontal" role="form" id="frm_manage_programme" method="post" action="{{url:site}}survey/save_programme">
                         <div class="form-group">
-                            <label for="programme_name" class="col-sm-4 control-label">Level Name</label>
-                            <div class="col-sm-8">
+                            <label for="programme_name" class="col-sm-2 control-label">Name</label>
+                            <div class="col-sm-10">
                                 <input type="text" class="form-control" id="programme_name" name="programme_name" placeholder="">
                             </div>
                         </div>
 
                         <div class="form-group">
-                            <label for="programme_description" class="col-sm-4 control-label">Level Description</label>
-                            <div class="col-sm-8">
+                            <label for="programme_description" class="col-sm-2 control-label">Description</label>
+                            <div class="col-sm-10">
                                 <textarea class="form-control" id="programme_description" name="programme_description" placeholder=""></textarea>
                             </div>
                         </div>

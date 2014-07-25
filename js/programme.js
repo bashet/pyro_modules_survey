@@ -41,9 +41,9 @@ $(function(){
             success: function(data,status) {
                 if(data){
                     var msg = jQuery.parseJSON( data );
-                    $('#programme_name').val(msg[0].name);
-                    $('#programme_description').val(msg[0].description);
-                    $('#programme_id').val(msg[0].id);
+                    $('#programme_name').val(msg.name);
+                    $('#programme_description').val(msg.description);
+                    $('#programme_id').val(msg.id);
 
                     $('#update_programme').modal('show');
                 }
@@ -112,7 +112,7 @@ $(function(){
             success: function(data,status) {
                 if(data){
                     var msg = jQuery.parseJSON( data );
-                    if(active){
+                    if(msg.active == '1'){
                         $('#item_name').html(msg.name + ' programme will be de-activated.');
                     }else{
                         $('#item_name').html(msg.name + ' programme will be activated.');
@@ -132,7 +132,7 @@ $(function(){
                                     $( this ).dialog( "close" );
                                     $body = $("body");
                                     $body.addClass("loading");
-                                    window.location.href = base_url + 'index.php/survey/update_programme_status/' + programme_id + '/' + active;
+                                    window.location.href = base_url + 'index.php/survey/update_programme_status/' + msg.id + '/' + msg.active;
                                 }
                             }
                             ,
