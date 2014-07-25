@@ -92,7 +92,7 @@ $(function(){
         event.preventDefault();
     });
 
-    $('a[activate]').button().click(function(){
+    $('button[activate]').button().click(function(){
         $body = $("body");
         $body.addClass("loading");
 
