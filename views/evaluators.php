@@ -43,9 +43,9 @@
                         }
 
                         if($e->email_sent){
-                            echo    '<td style="text-align:center"><i class="fa fa-check"></i></td>';
+                            echo    '<td style="text-align:center; color: #428bca"><i class="fa fa-check"></i></td>';
                         }else{
-                            echo    '<td style="text-align:center"><i class="fa fa-times"></i></td>';
+                            echo    '<td style="text-align:center; color: #428bca"><i class="fa fa-times"></i></td>';
                         }
 
                         echo    '<td style="text-align:center"><button type="button" id="send_email-'.$e->id.'" class="btn btn-link" style="text-decoration: none"><i class="fa fa-envelope"></i></button></td>';
