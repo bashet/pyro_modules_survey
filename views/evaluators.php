@@ -10,7 +10,7 @@
 
     </div>
 
-    <form id="frm_save_evaluators" method="post" action="{{ url:site }}survey/save_evaluators">
+    <form id="frm_save_evaluators" method="post" action="{{ url:site }}survey/update_evaluators">
         <table class="table table-bordered table-hover">
             <thead>
             <tr>
@@ -72,6 +72,11 @@
             ?>
             </tbody>
         </table>
+
+        <input type="hidden" name="user_id" value="{{ user:id }}">
+        <input type="hidden" name="survey_id" value="<?=$programme->survey?>">
+        <input type="hidden" name="attempt_id" value="<?=$attempt->id?>">
+
         <div style="float: right">
             <button
                 type="submit"

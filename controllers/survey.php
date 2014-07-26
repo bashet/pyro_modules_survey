@@ -598,7 +598,42 @@ class Survey extends Public_Controller {
             echo json_encode(array('success' => true));
 
         }else{
-            echo json_encode(array('evaluators' => $given, 'error' =>$error , 'other_data' => $data));
+            echo json_encode(array('evaluators' => $given, 'error' =>$error));
+        }
+
+    }
+
+    public function update_evaluators(){
+        $data = $this->input->post();
+        $error = array();
+        for($i = 1; $i <= $this->allowed_evaluators; $i++){
+            if(isset($data['evaluators_email-'.$i])){
+                if ( ! filter_var($data['evaluators_email-'.$i], FILTER_VALIDATE_EMAIL)){
+                    $error[] = $i;
+                }
+            }
+        }
+
+        if(empty($error)){
+
+            $attempt_id = $data['attempt_id'];
+
+            for($i = 1; $i <= $this->allowed_evaluators; $i++){
+                if(isset($data['evaluators_name-'.$i]) && isset($data['evaluators_email-'.$i]) && isset($data['relationship'.$i])){
+                    $evaluators = array(
+                        'attempt_id'    => $attempt_id,
+                        'name'          => $data['evaluators_name-'.$i],
+                        'email'         => $data['evaluators_email-'.$i],
+                        'relation'      => $data['relationship'.$i]
+                    );
+                    $this->db->insert('survey_evaluators', $evaluators);
+                }
+            }
+
+            echo json_encode(array('success' => true));
+
+        }else{
+            echo json_encode(array('error' =>$error));
         }
 
     }
