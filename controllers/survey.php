@@ -512,8 +512,6 @@ class Survey extends Public_Controller {
             $total_evaluators   = '';
         }
 
-
-
         $this->template
             ->title($this->module_details['name'], 'manage users')
             ->set_breadcrumb('User survey')
@@ -557,7 +555,7 @@ class Survey extends Public_Controller {
         $data = $this->input->post();
         $given = 0;
         $error = array();
-        for($i = 1; $i <= 20; $i++){
+        for($i = 1; $i <= $this->allowed_evaluators; $i++){
             if(($data['evaluators_name-'.$i]) && ($data['evaluators_email-'.$i]) && ($data['relationship'.$i])){
                 $given++;
             }
@@ -578,7 +576,7 @@ class Survey extends Public_Controller {
             if($this->db->insert('survey_attempt', $attempt)){
                 $attempt_id = $this->db->insert_id();
 
-                for($i = 1; $i <= 20; $i++){
+                for($i = 1; $i <= $this->allowed_evaluators; $i++){
                     if(($data['evaluators_name-'.$i]) && ($data['evaluators_email-'.$i]) && ($data['relationship'.$i])){
                         $evaluators = array(
                             'attempt_id'    => $attempt_id,
