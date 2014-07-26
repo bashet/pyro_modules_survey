@@ -27,7 +27,7 @@ $(function(){
                         errors.forEach(function(e){
                             var field = '#email-' + e;
                             $(field).addClass('has-error');
-                            var new_warning = 'Please enter a valid email address for evaluator no. ' + e;
+                            var new_warning = 'Please enter a valid email address for evaluator no: ' + e;
 
                             if(alert_box.html() == ''){
                                 alert_box.html(new_warning);
