@@ -27,7 +27,7 @@
                 echo    '<td><input type="text" name="evaluators_name-'.$i.'" id="evaluators_name-'.$i.'" class="form-control"></td>';
                 echo    '<td>
                             <div class="form-group" id="email-'.$i.'">
-                                <input type="email" name="evaluators_email-'.$i.'" id="evaluators_email-'.$i.'" class="form-control">
+                                <input type="text" name="evaluators_email-'.$i.'" id="evaluators_email-'.$i.'" class="form-control">
                             </div>
                         </td>';
                 echo    '<td style="text-align:center">
