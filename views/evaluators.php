@@ -31,12 +31,16 @@
                 echo    '<tr>';
                 echo    '<td style="text-align:center">'.$i.'</td>';
                 echo    '<td><input type="text" name="evaluators_name-'.$i.'" id="evaluators_name-'.$i.'" class="form-control"></td>';
-                echo    '<td><input type="email" name="evaluators_email-'.$i.'" id="evaluators_email-'.$i.'" class="form-control"></td>';
+                echo    '<td>
+                            <div class="form-group" id="email-'.$i.'">
+                                <input type="email" name="evaluators_email-'.$i.'" id="evaluators_email-'.$i.'" class="form-control">
+                            </div>
+                        </td>';
                 echo    '<td style="text-align:center">
                             <select name="relationship'.$i.'" id="relationship'.$i.'" class="form-control">
                                 <option value="0">Please select</option>
                                     <option value="1">Direct Report</option>
-                                    <option value="2">Peer</option>
+                                    <option value="2">Evaluator</option>
                                     <option value="3">Other</option>
                             </select>
                         </td>';
