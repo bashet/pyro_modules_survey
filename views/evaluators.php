@@ -7,7 +7,7 @@
     </p>
 
     <div id="number_of_evaluators_warning" style="display: none" class="alert alert-danger role="alert">
-        <strong>Oh snap!</strong> Please submit minimum 3 evaluators or more.
+
     </div>
 
     <form id="frm_save_evaluators" method="post" action="{{ url:site }}survey/save_evaluators">

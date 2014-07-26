@@ -560,8 +560,10 @@ class Survey extends Public_Controller
             if(($data['evaluators_name-'.$i]) && ($data['evaluators_email-'.$i]) && ($data['relationship'.$i])){
                 $given++;
             }
-            if ( ! filter_var($data['evaluators_email-'.$i], FILTER_VALIDATE_EMAIL)){
-                $error[] = $i;
+            if($data['evaluators_email-'.$i]){
+                if ( ! filter_var($data['evaluators_email-'.$i], FILTER_VALIDATE_EMAIL)){
+                    $error[] = $i;
+                }
             }
         }
         echo json_encode(array('evaluators' => $given, 'error' =>$error , 'other_data' => $data));

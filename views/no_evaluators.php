@@ -6,7 +6,7 @@
         To get the most out of your report we would recommend trying to nominate at least 3 raters in each category.
     </p>
     <div id="number_of_evaluators_warning" style="display: none" class="alert alert-danger role="alert">
-        <strong>Oh snap!</strong> Please submit minimum 3 evaluators or more.
+
     </div>
 
     <form id="frm_save_evaluators" method="post" action="{{ url:site }}survey/save_evaluators">
@@ -69,7 +69,7 @@
             </div>
 
             <div class="modal-body" style="color: red">
-                <p style="font-size: 1.5em"><i class="fa fa-exclamation-triangle"></i> Please enter minimum 3 evaluators or more.</p>
+                <p style="font-size: 1.5em"><i class="fa fa-exclamation-triangle"></i> <span id="modal_msg_body"></span> Please enter minimum 3 evaluators or more.</p>
             </div>
 
             <div class="modal-footer">
