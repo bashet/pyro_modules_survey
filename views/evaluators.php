@@ -27,9 +27,10 @@
             </thead>
             <tbody>
             <?php
-            for($i = 1; $i <= $allowed_evaluators; $i++){
+            for($i = 0; $i <= $allowed_evaluators; $i++){
                 if($i < $total_evaluators){
                     foreach($evaluators as $e){
+                        $i++;
                         echo    '<tr>';
                         echo    '<td style="text-align:center">'.$i.'</td>';
                         echo    '<td>'.$e->name.'</td>';
@@ -41,7 +42,6 @@
                         echo    '<td></td>';
                         echo    '<td></td>';
                         echo    '</tr>';
-                        $i++;
                     }
                 }else{
                     echo    '<tr>';
