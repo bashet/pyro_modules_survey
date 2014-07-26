@@ -158,7 +158,7 @@ if(! function_exists('get_questions_by_survey_id')){
         $ci =& get_instance();
 
         $query = $ci->db->get_where('survey_questions', array('survey_id'=> $id));
-        return $query->row();
+        return $query->result();
     }
 }
 
