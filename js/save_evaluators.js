@@ -15,6 +15,7 @@ $(function(){
                     var msg = jQuery.parseJSON( data );
                     if(msg.evaluators < 3){
                         $('#number_of_evaluators_warning').css('display', 'block');
+                        $('#modal_warning_evaluators').modal('show');
                     }
                 }
                 //window.location.href = base_url + 'index.php/survey/send_email_to_evaluators';
