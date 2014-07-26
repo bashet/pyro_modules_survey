@@ -554,7 +554,13 @@ class Survey extends Public_Controller
 
     public function save_evaluators(){
         $data = $this->input->post();
-        echo json_encode($data);
+        $given = 0;
+        for($i = 1; $i <= 20; $i++){
+            if(($data['evaluators_name-'.$i]) && ($data['evaluators_email-'.$i]) && ($data['relationship'.$i])){
+                $given++;
+            }
+        }
+        echo json_encode(array('evaluators' => $given, 'other_data' => $data));
     }
 
     public function send_email_to_evaluators(){

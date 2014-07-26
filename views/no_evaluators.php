@@ -5,6 +5,11 @@
         submitted a response for each of the sixteen competencies.
         To get the most out of your report we would recommend trying to nominate at least 3 raters in each category.
     </p>
+    <div id="number_of_evaluators_warning" style="display: none" class="alert alert-danger alert-dismissible" role="alert">
+        <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <strong>Oh snap!</strong> Please submit minimum 3 evaluators or more.
+    </div>
+
     <form id="frm_save_evaluators" method="post" action="{{ url:site }}survey/save_evaluators">
         <table class="table table-bordered table-hover">
             <thead>
