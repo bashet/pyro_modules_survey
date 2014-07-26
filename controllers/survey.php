@@ -656,4 +656,11 @@ class Survey extends Public_Controller {
             ->set_breadcrumb('Report')
             ->build('report');
     }
+
+    public function history(){
+        $this->template
+            ->title($this->module_details['name'], 'history')
+            ->set_breadcrumb('History')
+            ->build('history');
+    }
 }
