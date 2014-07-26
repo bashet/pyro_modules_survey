@@ -546,4 +546,9 @@ class Survey extends Public_Controller
         }
 
     }
+
+    public function save_evaluators(){
+        $data = $this->input->post();
+        var_dump($data);
+    }
 }
