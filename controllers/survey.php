@@ -649,4 +649,11 @@ class Survey extends Public_Controller {
             ->set_breadcrumb('Send email')
             ->build('send_email_to_evaluators');
     }
+
+    public function reports(){
+        $this->template
+            ->title($this->module_details['name'], 'report')
+            ->set_breadcrumb('Report')
+            ->build('report');
+    }
 }
