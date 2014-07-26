@@ -1,6 +1,6 @@
 <div id="history-container">
     <h2>Previous diagnostic details for {{ user:display_name }}</h2>
-    <div class="well">
+    <div class="well well-sm">
         <p>Here is a list of all the diagnostic tools you have previously accessed during your courses. Additional diagnostics will be available through your learning schedule</p>
 
         <p><strong>NB: do not open multiple diagnostics simultaneously as this may cause errors</strong></p>
