@@ -1,6 +1,6 @@
 <div id="user_survey-container">
     <?php
-    if($total_evaluators < 3){
+    if(($total_evaluators) && $total_evaluators >= 3){
 
     }else{
         echo    '<h2>You have not nominated enough evaluators</h2>
