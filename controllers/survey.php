@@ -508,4 +508,11 @@ class Survey extends Public_Controller
             ->set_breadcrumb('User survey')
             ->build('user_survey');
     }
+
+    public function evaluators(){
+        $this->template
+            ->title($this->module_details['name'], 'manage evaluators')
+            ->set_breadcrumb('Manage evaluators')
+            ->build('evaluators');
+    }
 }
