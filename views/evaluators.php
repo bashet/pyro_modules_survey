@@ -76,7 +76,7 @@
             </div>
 
             <div class="modal-body" style="color: red">
-                <p style="font-size: 1.5em"><i class="fa fa-exclamation-triangle"></i> Please enter minimum 3 evaluators or more.</p>
+                <p style="font-size: 1.5em"><i class="fa fa-exclamation-triangle"></i></p>
             </div>
 
             <div class="modal-footer">
