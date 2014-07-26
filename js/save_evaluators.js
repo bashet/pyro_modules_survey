@@ -34,13 +34,20 @@ $(function(){
                     }
 
                     if(msg.evaluators < 3){
-                        var warning_alert = alert_box.html();
-                        var new_warning = '<strong>Oh snap!</strong> Please submit minimum 3 evaluators or more.';
-                        alert_box.html(warning_alert + '<br>' + new_warning);
+                        if(alert_box.html() == ''){
+                            alert_box.html('<strong>Oh snap!</strong> Please submit minimum 3 evaluators or more.');
+                        }else{
+                            alert_box.html(alert_box.html() + '<br>' + '<strong>Oh snap!</strong> Please submit minimum 3 evaluators or more.');
+                        }
+
                         alert_box.css('display', 'block');
 
-                        var new_msg = modal_msg_body.html(modal_msg_body.html() + '<br>' + 'Please enter minimum 3 evaluators or more.');
-                        modal_msg_body.html(new_msg);
+                        if(modal_msg_body.html() == ''){
+                            modal_msg_body.html('Please enter minimum 3 evaluators or more.');
+                        }else{
+                            modal_msg_body.html(modal_msg_body.html() + '<br>' + 'Please enter minimum 3 evaluators or more.');
+                        }
+
                         $('#modal_warning_evaluators').modal('show');
                     }
 
