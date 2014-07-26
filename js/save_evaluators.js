@@ -1,7 +1,4 @@
 $(function(){
-    $('#submit_evaluators').button().click(function(){
-
-    });
 
     $('#frm_save_evaluators').on('submit', function(event){
         var $form = $(this);

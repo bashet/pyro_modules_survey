@@ -6,8 +6,7 @@
         To get the most out of your report we would recommend trying to nominate at least 3 raters in each category.
     </p>
 
-    <div id="number_of_evaluators_warning" style="display: none" class="alert alert-danger alert-dismissible" role="alert">
-        <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+    <div id="number_of_evaluators_warning" style="display: none" class="alert alert-danger role="alert">
         <strong>Oh snap!</strong> Please submit minimum 3 evaluators or more.
     </div>
 
@@ -61,4 +60,24 @@
             </button>
         </div>
     </form>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="modal_warning_evaluators" tabindex="-1" role="dialog" aria-labelledby="update_programmeLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="update_programmeLabel">Warning Message</h4>
+            </div>
+
+            <div class="modal-body" style="color: red">
+                <p style="font-size: 1.5em"><i class="fa fa-exclamation-triangle"></i> Please enter minimum 3 evaluators or more.</p>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" id="programme_popup_close" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
 </div>
