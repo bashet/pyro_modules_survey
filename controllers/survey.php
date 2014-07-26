@@ -541,7 +541,8 @@ class Survey extends Public_Controller
             ->set_breadcrumb('Manage evaluators')
             ->set('evaluators', $evaluators)
             ->set('programme', $programme)
-            ->set('attempt', $attempt);
+            ->set('attempt', $attempt)
+            ->append_js('module::save_evaluators.js');
 
         if($evaluators){
             $this->template->build('evaluators');
