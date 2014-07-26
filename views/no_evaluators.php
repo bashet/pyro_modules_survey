@@ -5,7 +5,7 @@
         submitted a response for each of the sixteen competencies.
         To get the most out of your report we would recommend trying to nominate at least 3 raters in each category.
     </p>
-    <form id="save_evaluators" method="post" action="{{ url:site }}survey/save_evaluators">
+    <form id="frm_save_evaluators" method="post" action="{{ url:site }}survey/save_evaluators">
         <table class="table table-bordered table-hover">
             <thead>
             <tr>
@@ -35,6 +35,10 @@
             ?>
             </tbody>
         </table>
+
+        <input type="hidden" name="user_id" value="{{ user:id }}">
+        <input type="hidden" name="survey_id" value="<?=$programme->survey?>">
+
         <div style="float: right">
             <button
                 type="submit"

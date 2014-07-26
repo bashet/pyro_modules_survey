@@ -524,6 +524,9 @@ class Survey extends Public_Controller
     }
 
     public function evaluators(){
+        $participation  = $this->survey_m->get_current_participation($this->current_user->id);
+        $programme      = get_programme_by_id($participation->pid);
+
         $attempt        = get_current_attempt_by_user_id($this->current_user->id);
         if($attempt){
             $evaluators     = get_evaluators_by_attempt_id($attempt->id);
@@ -537,6 +540,7 @@ class Survey extends Public_Controller
             ->title($this->module_details['name'], 'manage evaluators')
             ->set_breadcrumb('Manage evaluators')
             ->set('evaluators', $evaluators)
+            ->set('programme', $programme)
             ->set('attempt', $attempt);
 
         if($evaluators){
@@ -549,6 +553,14 @@ class Survey extends Public_Controller
 
     public function save_evaluators(){
         $data = $this->input->post();
-        var_dump($data);
+        echo json_encode($data);
+    }
+
+    public function send_email_to_evaluators(){
+        $this->template
+            ->title($this->module_details['name'], 'send email to evaluators')
+            ->set_breadcrumb('Manage evaluators', '/survey/evaluators' )
+            ->set_breadcrumb('Send email')
+            ->build('send_email_to_evaluators');
     }
 }

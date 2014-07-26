@@ -5,7 +5,7 @@
         submitted a response for each of the sixteen competencies.
         To get the most out of your report we would recommend trying to nominate at least 3 raters in each category.
     </p>
-    <form>
+    <form id="frm_save_evaluators" method="post" action="{{ url:site }}survey/save_evaluators">
         <table class="table table-bordered table-hover">
             <thead>
             <tr>
