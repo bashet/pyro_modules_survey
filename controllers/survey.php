@@ -502,10 +502,13 @@ class Survey extends Public_Controller
         $questions      = get_questions_by_survey_id($survey->id);
         $categories     = $this->survey_m->get_all_question_categories();
 
+        $attempt        = get_current_attempt_by_user_id($this->current_user->id);
+
 
         $this->template
             ->title($this->module_details['name'], 'manage users')
             ->set_breadcrumb('User survey')
+            ->set('attempt', $attempt)
             ->build('user_survey');
     }
 

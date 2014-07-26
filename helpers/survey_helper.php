@@ -254,3 +254,12 @@ if(! function_exists('is_valid_manager')){
         return $valid;
     }
 }
+
+if(! function_exists('get_current_attempt_by_user_id')){
+    function get_current_attempt_by_user_id(){
+        $ci =& get_instance();
+
+        $query = $ci->db->get_where('survey_attempt', array('finished_date' => 0));
+        return $query->row();
+    }
+}

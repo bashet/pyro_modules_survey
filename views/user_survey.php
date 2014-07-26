@@ -1,4 +1,11 @@
 <div id="user_survey-container">
-    You have not not nominated enough raters
-    Once you have nominated 3 raters you will be able to complete the questions
+    <?php
+    if($attempt){
+
+    }else{
+        echo    '<h2>You have not not nominated enough evaluators</h2>
+                <p>Once you have nominated at least 3 evaluators you will be able to complete the questions</p>';
+    }
+    ?>
+
 </div>
