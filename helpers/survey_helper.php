@@ -297,7 +297,7 @@ if(! function_exists('get_answers_by_q_id')){
     function get_answers_by_q_id($id = ''){
         $ci =& get_instance();
 
-        $query = $ci->db->get_where('answer_options', array('question_id'=>$id));
+        $query = $ci->db->get_where('survey_answer_options', array('question_id'=>$id));
         return $query->row();
     }
 }

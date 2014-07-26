@@ -37,9 +37,12 @@
                             echo '<td>'.$answer->option_4.'</td>';
                         echo '</tr>';
                     echo '</table>';
-                    echo '<button><i class="fa fa-angle-double-left"></i> Previous</button>';
-                    echo '<span>Question '.$i.' of '.$total_questions.'</span>';
-                    echo '<button>Save <i class="fa fa-angle-double-right"></i></button>';
+
+                    echo '<div class="q_button" style="float: right">';
+                        echo '<button><i class="fa fa-angle-double-left"></i> Previous</button>';
+                        echo '<span>Question '.$i.' of '.$total_questions.'</span>';
+                        echo '<button>Save <i class="fa fa-angle-double-right"></i></button>';
+                    echo '</dive>';
                 echo '</div>';
                 $i++;
             }
