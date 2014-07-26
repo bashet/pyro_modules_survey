@@ -532,8 +532,10 @@ class Survey extends Public_Controller {
         $attempt        = get_current_attempt_by_user_id($this->current_user->id);
         if($attempt){
             $evaluators     = get_evaluators_by_attempt_id($attempt->id);
+            $total_evaluators   = get_total_evaluators_by_attempt_id($attempt->id);
         }else{
             $evaluators     = '';
+            $total_evaluators   = '';
         }
 
         $this->template
@@ -542,6 +544,7 @@ class Survey extends Public_Controller {
             ->set('evaluators', $evaluators)
             ->set('programme', $programme)
             ->set('attempt', $attempt)
+            ->set('total_evaluators', $total_evaluators)
             ->set('allowed_evaluators', $this->allowed_evaluators)
             ->append_js('module::save_evaluators.js');
 

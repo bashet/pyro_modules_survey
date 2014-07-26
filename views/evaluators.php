@@ -28,20 +28,41 @@
             <tbody>
             <?php
             for($i = 1; $i <= $allowed_evaluators; $i++){
-                foreach($evaluators as $e){
+                if($i < $total_evaluators){
+                    foreach($evaluators as $e){
+                        echo    '<tr>';
+                        echo    '<td style="text-align:center">'.$i.'</td>';
+                        echo    '<td>'.$e->name.'</td>';
+                        echo    '<td>'.$e->email.'</td>';
+                        echo    '<td style="text-align:center">'.$e->relation.'</td>';
+                        echo    '<td></td>';
+                        echo    '<td></td>';
+                        echo    '<td></td>';
+                        echo    '<td></td>';
+                        echo    '<td></td>';
+                        echo    '</tr>';
+                        $i++;
+                    }
+                }else{
                     echo    '<tr>';
                     echo    '<td style="text-align:center">'.$i.'</td>';
-                    echo    '<td>'.$e->name.'</td>';
-                    echo    '<td>'.$e->email.'</td>';
-                    echo    '<td style="text-align:center">'.$e->relation.'</td>';
-                    echo    '<td></td>';
-                    echo    '<td></td>';
-                    echo    '<td></td>';
-                    echo    '<td></td>';
-                    echo    '<td></td>';
+                    echo    '<td><input type="text" name="evaluators_name-'.$i.'" id="evaluators_name-'.$i.'" class="form-control"></td>';
+                    echo    '<td>
+                            <div class="form-group" id="email-'.$i.'">
+                                <input type="text" name="evaluators_email-'.$i.'" id="evaluators_email-'.$i.'" class="form-control">
+                            </div>
+                        </td>';
+                    echo    '<td style="text-align:center">
+                            <select name="relationship'.$i.'" id="relationship'.$i.'" class="form-control">
+                                <option value="">Please select</option>
+                                    <option value="Direct Report">Direct Report</option>
+                                    <option value="Evaluator">Evaluator</option>
+                                    <option value="Other">Other</option>
+                            </select>
+                        </td>';
                     echo    '</tr>';
-                    $i++;
                 }
+
 
             }
             ?>
