@@ -16,37 +16,30 @@ $(function(){
                     alert_box.html('');
                     modal_msg_body.html('');
 
-                    if(msg.error){
+                    if((msg.error) || (msg.evaluators < 3)){
+                        if(msg.evaluators < 3){
+                            modal_msg_body.html('Please enter minimum 3 evaluators or more.');
+                            alert_box.html('<strong>Oh snap!</strong> Please submit minimum 3 evaluators or more.');
+                        }
+
                         var errors = msg.error;
 
                         errors.forEach(function(e){
-                            var warning_alert = alert_box.html();
                             var field = '#email-' + e;
                             $(field).addClass('has-error');
                             var new_warning = 'Please enter a valid email address for evaluator no. ' + e;
-                            alert_box.html(warning_alert + '<br>' + new_warning);
 
-                            var msg_body = modal_msg_body();
-                            modal_msg_body.html(msg_body + '<br>' + new_warning);
+                            if(alert_box.html() == ''){
+                                alert_box.html(new_warning);
+                                modal_msg_body.html(new_warning);
+                            }else{
+                                alert_box.html(alert_box.html() + '<br>' + new_warning);
+                                modal_msg_body.html(modal_msg_body.html() + '<br>' + new_warning);
+                            }
+
                         });
 
                         alert_box.css('display', 'block');
-                    }
-
-                    if(msg.evaluators < 3){
-                        if(alert_box.html() == ''){
-                            alert_box.html('<strong>Oh snap!</strong> Please submit minimum 3 evaluators or more.');
-                        }else{
-                            alert_box.html(alert_box.html() + '<br>' + '<strong>Oh snap!</strong> Please submit minimum 3 evaluators or more.');
-                        }
-
-                        alert_box.css('display', 'block');
-
-                        if(modal_msg_body.html() == ''){
-                            modal_msg_body.html('Please enter minimum 3 evaluators or more.');
-                        }else{
-                            modal_msg_body.html(modal_msg_body.html() + '<br>' + 'Please enter minimum 3 evaluators or more.');
-                        }
 
                         $('#modal_warning_evaluators').modal('show');
                     }
