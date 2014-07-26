@@ -9,11 +9,13 @@
  */
 class Survey extends Public_Controller {
 
-    public $allowed_evaluators = '{{ settings:survey_setting }}';
+    public $allowed_evaluators = 0;
 
 	public function __construct()
 	{
 		parent::__construct();
+
+        $this->allowed_evaluators = Settings::get('survey_setting');
 
 		// Load the required classes
 		$this->load->model('survey_m');
