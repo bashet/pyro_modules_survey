@@ -27,7 +27,7 @@
             </thead>
             <tbody>
             <?php
-            for($i = 1; $i <= 20; $i++){
+            for($i = 1; $i <= $allowed_evaluators; $i++){
                 echo    '<tr>';
                 echo    '<td style="text-align:center">'.$i.'</td>';
                 echo    '<td><input type="text" name="evaluators_name-'.$i.'" id="evaluators_name-'.$i.'" class="form-control"></td>';

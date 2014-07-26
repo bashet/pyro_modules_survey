@@ -7,8 +7,10 @@
  * @package 	PyroCMS
  * @subpackage 	survey Module
  */
-class Survey extends Public_Controller
-{
+class Survey extends Public_Controller {
+
+    public $allowed_evaluators = 10;
+
 	public function __construct()
 	{
 		parent::__construct();
@@ -540,6 +542,7 @@ class Survey extends Public_Controller
             ->set('evaluators', $evaluators)
             ->set('programme', $programme)
             ->set('attempt', $attempt)
+            ->set('allowed_evaluators', $this->$allowed_evaluators)
             ->append_js('module::save_evaluators.js');
 
         if($evaluators){
