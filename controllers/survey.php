@@ -519,9 +519,21 @@ class Survey extends Public_Controller
     }
 
     public function evaluators(){
+        $attempt        = get_current_attempt_by_user_id($this->current_user->id);
+        $evaluators     = get_evaluators_by_attempt_id($attempt->id);
+
+
         $this->template
             ->title($this->module_details['name'], 'manage evaluators')
             ->set_breadcrumb('Manage evaluators')
-            ->build('evaluators');
+            ->set('evaluators', $evaluators)
+            ->set('attempt', $attempt);
+
+        if($evaluators){
+            $this->template->build('evaluators');
+        }else{
+            $this->template->build('no_evaluators');
+        }
+
     }
 }

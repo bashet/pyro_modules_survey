@@ -13,11 +13,6 @@
                 <th>Name</th>
                 <th>Email</th>
                 <th style="width: 15%">Relationship</th>
-                <th>Progress</th>
-                <th>Email Sent</th>
-                <th>Send Email</th>
-                <th>delete</th>
-                <th>Copy Link</th>
             </tr>
             </thead>
             <tbody>
@@ -35,11 +30,6 @@
                                     <option value="3">Other</option>
                             </select>
                         </td>';
-                echo    '<td></td>';
-                echo    '<td></td>';
-                echo    '<td></td>';
-                echo    '<td></td>';
-                echo    '<td></td>';
                 echo    '</tr>';
             }
             ?>
