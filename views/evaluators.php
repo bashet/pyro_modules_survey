@@ -27,6 +27,7 @@
             </thead>
             <tbody>
             <?php
+            var_dump($evaluators);
             for($i = 1; $i <= $allowed_evaluators; $i++){
                 echo    '<tr>';
                 echo    '<td style="text-align:center">'.$i.'</td>';
