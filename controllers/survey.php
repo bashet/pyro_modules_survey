@@ -542,7 +542,7 @@ class Survey extends Public_Controller {
             ->set('evaluators', $evaluators)
             ->set('programme', $programme)
             ->set('attempt', $attempt)
-            ->set('allowed_evaluators', $this->$allowed_evaluators)
+            ->set('allowed_evaluators', $this->allowed_evaluators)
             ->append_js('module::save_evaluators.js');
 
         if($evaluators){
