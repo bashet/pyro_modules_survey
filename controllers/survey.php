@@ -503,8 +503,13 @@ class Survey extends Public_Controller
         $categories     = $this->survey_m->get_all_question_categories();
 
         $attempt        = get_current_attempt_by_user_id($this->current_user->id);
-        //$evaluators     = get_evaluators_by_attempt_id($attempt->id);
-        $total_evaluators   = get_total_evaluators_by_attempt_id($attempt->id);
+        if($attempt){
+            //$evaluators     = get_evaluators_by_attempt_id($attempt->id);
+            $total_evaluators   = get_total_evaluators_by_attempt_id($attempt->id);
+        }else{
+            $total_evaluators   = '';
+        }
+
 
 
         $this->template
@@ -520,7 +525,12 @@ class Survey extends Public_Controller
 
     public function evaluators(){
         $attempt        = get_current_attempt_by_user_id($this->current_user->id);
-        $evaluators     = get_evaluators_by_attempt_id($attempt->id);
+        if($attempt){
+            $evaluators     = get_evaluators_by_attempt_id($attempt->id);
+        }else{
+            $evaluators     = '';
+        }
+
 
 
         $this->template
