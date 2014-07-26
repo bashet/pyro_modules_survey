@@ -283,3 +283,21 @@ if(! function_exists('get_total_evaluators_by_attempt_id')){
         return $ci->db->count_all_results('survey_evaluators');
     }
 }
+
+if(! function_exists('get_total_question_in_survey')){
+    function get_total_question_in_survey($survey_id){
+        $ci =& get_instance();
+
+        $ci->db->where('survey_id', $survey_id);
+        return $ci->db->count_all_results('survey_questions');
+    }
+}
+
+if(! function_exists('get_answers_by_q_id')){
+    function get_answers_by_q_id($id = ''){
+        $ci =& get_instance();
+
+        $query = $ci->db->get_where('answer_options', array('question_id'=>$id));
+        return $query->row();
+    }
+}

@@ -514,6 +514,8 @@ class Survey extends Public_Controller {
             $total_evaluators   = '';
         }
 
+        $total_questions    = get_total_question_in_survey($survey->id);
+
         $this->template
             ->title($this->module_details['name'], 'manage users')
             ->set_breadcrumb('User survey')
@@ -522,6 +524,7 @@ class Survey extends Public_Controller {
             ->set('total_evaluators', $total_evaluators)
             ->set('attempt', $attempt)
             ->set('survey', $survey)
+            ->set('total_questions', $total_questions)
             ->append_css('module::user_survey.css')
             ->build('user_survey');
     }
