@@ -534,7 +534,7 @@ class Survey extends Public_Controller
             $evaluators     = '';
         }
 
-
+        var_dump($attempt);
 
         $this->template
             ->title($this->module_details['name'], 'manage evaluators')

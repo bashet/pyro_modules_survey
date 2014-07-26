@@ -259,7 +259,9 @@ if(! function_exists('get_current_attempt_by_user_id')){
     function get_current_attempt_by_user_id($id = ''){
         $ci =& get_instance();
 
-        $query = $ci->db->get_where('survey_attempt', array('id' => $id,'finished_date' => 0));
+        $ci->db->limit(1);
+        $this->db->order_by("id", "desc");
+        $query = $ci->db->get_where('survey_attempt', array('user_id' => $id,'finished_date' => 0));
         return $query->row();
     }
 }
