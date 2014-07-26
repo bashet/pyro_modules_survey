@@ -55,8 +55,8 @@ class Module_survey extends Module {
 
 		$survey_setting = array(
 			'slug' => 'survey_setting',
-			'title' => 'survey Setting',
-			'description' => 'A Yes or No option for the survey module',
+			'title' => 'Allowed Evaluators',
+			'description' => 'Please specify the allowed max number of evaluators',
 			'`default`' => '1',
 			'`value`' => '1',
 			'type' => 'select',
