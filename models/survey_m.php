@@ -197,4 +197,11 @@ class survey_m extends MY_Model {
         return $quuery->result();
     }
 
+    public function get_current_participation($id = ''){
+        $query = $this->db->get_where('survey_participant', array('uid'=>$id, 'active'=>1)); // expected to get only one row
+
+        return $query->row();
+
+    }
+
 }

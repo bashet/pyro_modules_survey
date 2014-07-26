@@ -495,6 +495,14 @@ class Survey extends Public_Controller
     }
 
     public function user_survey(){
+        $participation  = $this->survey_m->get_current_participation($this->current_user->id);
+        $client         = get_client_by_id($participation->cid);
+        $programme      = get_programme_by_id($participation->pid);
+        $survey         = get_survey_by_programme_id($programme->survey);
+        $questions      = get_questions_by_survey_id($survey->id);
+        $categories     = $this->survey_m->get_all_question_categories();
+
+
         $this->template
             ->title($this->module_details['name'], 'manage users')
             ->set_breadcrumb('User survey')

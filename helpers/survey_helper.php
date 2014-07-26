@@ -135,6 +135,33 @@ if(! function_exists('get_client_by_id')){
     }
 }
 
+if(! function_exists('get_programme_by_id')){
+    function get_programme_by_id($id){
+        $ci =& get_instance();
+
+        $query = $ci->db->get_where('survey_programme', array('id'=> $id));
+        return $query->row();
+    }
+}
+
+if(! function_exists('get_survey_by_programme_id')){
+    function get_survey_by_programme_id($id){
+        $ci =& get_instance();
+
+        $query = $ci->db->get_where('survey', array('id'=> $id));
+        return $query->row();
+    }
+}
+
+if(! function_exists('get_questions_by_survey_id')){
+    function get_questions_by_survey_id($id){
+        $ci =& get_instance();
+
+        $query = $ci->db->get_where('survey_questions', array('survey_id'=> $id));
+        return $query->row();
+    }
+}
+
 if(! function_exists('get_manager_by_uni')){
     function get_manager_by_uni($client_id){
         $ci =& get_instance();
