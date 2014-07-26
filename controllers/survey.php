@@ -607,7 +607,7 @@ class Survey extends Public_Controller {
         $data = $this->input->post();
         $error = array();
         for($i = 1; $i <= $this->allowed_evaluators; $i++){
-            if(isset($data['evaluators_email-'.$i])){
+            if($data['evaluators_email-'.$i]){
                 if ( ! filter_var($data['evaluators_email-'.$i], FILTER_VALIDATE_EMAIL)){
                     $error[] = $i;
                 }
@@ -619,7 +619,7 @@ class Survey extends Public_Controller {
             $attempt_id = $data['attempt_id'];
 
             for($i = 1; $i <= $this->allowed_evaluators; $i++){
-                if(isset($data['evaluators_name-'.$i]) && isset($data['evaluators_email-'.$i]) && isset($data['relationship'.$i])){
+                if(($data['evaluators_name-'.$i]) && ($data['evaluators_email-'.$i]) && ($data['relationship'.$i])){
                     $evaluators = array(
                         'attempt_id'    => $attempt_id,
                         'name'          => $data['evaluators_name-'.$i],
