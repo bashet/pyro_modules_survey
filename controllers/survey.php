@@ -608,8 +608,10 @@ class Survey extends Public_Controller {
         $error = array();
         for($i = 1; $i <= $this->allowed_evaluators; $i++){
             if(isset($data['evaluators_email-'.$i])){
-                if ( ! filter_var($data['evaluators_email-'.$i], FILTER_VALIDATE_EMAIL)){
-                    $error[] = $i;
+                if($data['evaluators_email-'.$i]){
+                    if ( ! filter_var($data['evaluators_email-'.$i], FILTER_VALIDATE_EMAIL)){
+                        $error[] = $i;
+                    }
                 }
             }
         }
@@ -620,13 +622,15 @@ class Survey extends Public_Controller {
 
             for($i = 1; $i <= $this->allowed_evaluators; $i++){
                 if(isset($data['evaluators_name-'.$i]) && isset($data['evaluators_email-'.$i]) && isset($data['relationship'.$i])){
-                    $evaluators = array(
-                        'attempt_id'    => $attempt_id,
-                        'name'          => $data['evaluators_name-'.$i],
-                        'email'         => $data['evaluators_email-'.$i],
-                        'relation'      => $data['relationship'.$i]
-                    );
-                    $this->db->insert('survey_evaluators', $evaluators);
+                    if(($data['evaluators_name-'.$i]) && ($data['evaluators_email-'.$i]) && ($data['relationship'.$i])){
+                        $evaluators = array(
+                            'attempt_id'    => $attempt_id,
+                            'name'          => $data['evaluators_name-'.$i],
+                            'email'         => $data['evaluators_email-'.$i],
+                            'relation'      => $data['relationship'.$i]
+                        );
+                        $this->db->insert('survey_evaluators', $evaluators);
+                    }
                 }
             }
 
