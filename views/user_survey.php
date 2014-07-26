@@ -1,9 +1,9 @@
 <div id="user_survey-container">
     <?php
-    if($attempt){
+    if($total_evaluators < 3){
 
     }else{
-        echo    '<h2>You have not not nominated enough evaluators</h2>
+        echo    '<h2>You have not nominated enough evaluators</h2>
                 <p>Once you have nominated at least 3 evaluators you will be able to complete the questions</p>';
     }
     ?>

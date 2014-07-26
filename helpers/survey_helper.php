@@ -256,10 +256,28 @@ if(! function_exists('is_valid_manager')){
 }
 
 if(! function_exists('get_current_attempt_by_user_id')){
-    function get_current_attempt_by_user_id(){
+    function get_current_attempt_by_user_id($id = ''){
         $ci =& get_instance();
 
-        $query = $ci->db->get_where('survey_attempt', array('finished_date' => 0));
+        $query = $ci->db->get_where('survey_attempt', array('id' => $id,'finished_date' => 0));
         return $query->row();
+    }
+}
+
+if(! function_exists('get_evaluators_by_attempt_id')){
+    function get_evaluators_by_attempt_id($attempt_id){
+        $ci =& get_instance();
+
+        $query = $ci->db->get_where('survey_evaluators', array('attempt_id' => $attempt_id));
+        return $query->result();
+    }
+}
+
+if(! function_exists('get_total_evaluators_by_attempt_id')){
+    function get_total_evaluators_by_attempt_id($attempt_id){
+        $ci =& get_instance();
+
+        $ci->db->where('attempt_id', $attempt_id);
+        return $ci->db->count_all_results('survey_evaluators');
     }
 }
