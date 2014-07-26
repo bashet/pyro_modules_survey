@@ -48,21 +48,25 @@
                     echo    '<td style="text-align:center">'.$i.'</td>';
                     echo    '<td><input type="text" name="evaluators_name-'.$i.'" id="evaluators_name-'.$i.'" class="form-control"></td>';
                     echo    '<td>
-                            <div class="form-group" id="email-'.$i.'">
-                                <input type="text" name="evaluators_email-'.$i.'" id="evaluators_email-'.$i.'" class="form-control">
-                            </div>
-                        </td>';
+                                <div class="form-group" id="email-'.$i.'">
+                                    <input type="text" name="evaluators_email-'.$i.'" id="evaluators_email-'.$i.'" class="form-control">
+                                </div>
+                            </td>';
                     echo    '<td style="text-align:center">
-                            <select name="relationship'.$i.'" id="relationship'.$i.'" class="form-control">
-                                <option value="">Please select</option>
-                                    <option value="Direct Report">Direct Report</option>
-                                    <option value="Evaluator">Evaluator</option>
-                                    <option value="Other">Other</option>
-                            </select>
-                        </td>';
+                                <select name="relationship'.$i.'" id="relationship'.$i.'" class="form-control">
+                                    <option value="">Please select</option>
+                                        <option value="Direct Report">Direct Report</option>
+                                        <option value="Evaluator">Evaluator</option>
+                                        <option value="Other">Other</option>
+                                </select>
+                            </td>';
+                    echo    '<td></td>';
+                    echo    '<td></td>';
+                    echo    '<td></td>';
+                    echo    '<td></td>';
+                    echo    '<td></td>';
                     echo    '</tr>';
                 }
-
 
             }
             ?>
