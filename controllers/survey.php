@@ -521,6 +521,7 @@ class Survey extends Public_Controller {
             ->set('categories', $categories)
             ->set('total_evaluators', $total_evaluators)
             ->set('attempt', $attempt)
+            ->set('survey', $survey)
             ->append_css('module::user_survey.css')
             ->build('user_survey');
     }
