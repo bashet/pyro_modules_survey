@@ -9,7 +9,7 @@
  */
 class Survey extends Public_Controller {
 
-    public $allowed_evaluators = 10;
+    public $allowed_evaluators = '{{ settings:survey_setting }}';
 
 	public function __construct()
 	{
