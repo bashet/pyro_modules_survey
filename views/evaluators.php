@@ -36,8 +36,19 @@
                         echo    '<td>'.$e->name.'</td>';
                         echo    '<td>'.$e->email.'</td>';
                         echo    '<td style="text-align:center">'.$e->relation.'</td>';
-                        echo    '<td></td>';
-                        echo    '<td></td>';
+                        if($e->start_date == 0){
+                            echo    '<td>Not started</td>';
+                        }else{
+                            echo    '<td>Progressing</td>';
+                        }
+
+                        if($e->email_sent){
+                            echo    '<td><i class="fa fa-check"></i></td>';
+                        }else{
+                            echo    '<td><i class="fa fa-times"></i></td>';
+                        }
+
+
                         echo    '<td></td>';
                         echo    '<td></td>';
                         echo    '<td></td>';
