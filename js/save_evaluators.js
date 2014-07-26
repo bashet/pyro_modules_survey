@@ -1,6 +1,9 @@
 $(function(){
 
     $('#frm_save_evaluators').on('submit', function(event){
+        $body = $("body");
+        $body.addClass("loading");
+
         var $form = $(this);
         $.ajax({
             type: $form.attr('method'),
@@ -37,15 +40,15 @@ $(function(){
                                 modal_msg_body.html(modal_msg_body.html() + '<br>' + new_warning);
                             }
 
+                            $body.removeClass("loading");
+                            alert_box.css('display', 'block');
+                            $('#modal_warning_evaluators').modal('show');
+
                         });
-
-                        alert_box.css('display', 'block');
-
-                        $('#modal_warning_evaluators').modal('show');
+                    }else{
+                        window.location.href = base_url + 'index.php/survey/send_email_to_evaluators';
                     }
-
                 }
-                //window.location.href = base_url + 'index.php/survey/send_email_to_evaluators';
             }
         });
         event.preventDefault();

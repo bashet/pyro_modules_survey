@@ -566,7 +566,35 @@ class Survey extends Public_Controller
                 }
             }
         }
-        echo json_encode(array('evaluators' => $given, 'error' =>$error , 'other_data' => $data));
+
+        if(($given >= 3) && (empty($error))){
+            // we can proceed to save data
+            $attempt = array(
+                'user_id'       => $data['user_id'],
+                'survey_id'     => $data['survey_id'],
+                'create_date'   => time(),
+            );
+            if($this->db->insert('survey_attempt', $attempt)){
+                $attempt_id = $this->db->insert_id();
+
+                for($i = 1; $i <= 20; $i++){
+                    if(($data['evaluators_name-'.$i]) && ($data['evaluators_email-'.$i]) && ($data['relationship'.$i])){
+                        $evaluators = array(
+                            'attempt_id'    => $attempt_id,
+                            'name'          => $data['evaluators_name-'.$i],
+                            'email'         => $data['evaluators_email-'.$i],
+                            'relation'      => $data['relationship'.$i]
+                        );
+                        $this->db->insert('survey_evaluators', $evaluators);
+                    }
+                }
+
+            }
+
+        }else{
+            echo json_encode(array('evaluators' => $given, 'error' =>$error , 'other_data' => $data));
+        }
+
     }
 
     public function send_email_to_evaluators(){

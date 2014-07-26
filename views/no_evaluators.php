@@ -32,10 +32,10 @@
                         </td>';
                 echo    '<td style="text-align:center">
                             <select name="relationship'.$i.'" id="relationship'.$i.'" class="form-control">
-                                <option value="0">Please select</option>
-                                    <option value="1">Direct Report</option>
-                                    <option value="2">Evaluator</option>
-                                    <option value="3">Other</option>
+                                <option value="">Please select</option>
+                                    <option value="Direct Report">Direct Report</option>
+                                    <option value="Evaluator">Evaluator</option>
+                                    <option value="Other">Other</option>
                             </select>
                         </td>';
                 echo    '</tr>';
