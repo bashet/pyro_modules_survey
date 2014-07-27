@@ -524,9 +524,12 @@ class Survey extends Public_Controller {
         redirect('survey/manage_users');
     }
 
-    public function user_survey($q_no = 1, $q_id = ''){
+    public function user_survey(){
 
         $questions      = get_questions_by_survey_id($this->survey->id);
+
+        $this->session->set_userdata(array('question_no' => 1));
+        var_dump($this->session->userdata());
 
 
         $this->template
