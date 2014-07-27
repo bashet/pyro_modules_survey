@@ -48,6 +48,14 @@ class Survey extends Public_Controller {
             $this->total_evaluators   = get_total_evaluators_by_attempt_id($this->attempt->id);
         }
 
+        if( ! $this->session->userdata('attempt_id')){
+            $this->session->set_userdata(array('attempt_id' => $this->attempt->id));
+        }
+
+        if( ! $this->session->userdata('survey_id')){
+            $this->session->set_userdata(array('survey_id' => $this->survey->id));
+        }
+
 		$this->template
 			->append_css('module::survey.css')
 			->append_js('module::survey.js');
@@ -526,6 +534,10 @@ class Survey extends Public_Controller {
 
     public function user_survey(){
 
+        if( $this->session->userdata('all_answered')){
+            // redirect to review all page
+        }
+
         $questions      = get_questions_by_survey_id($this->survey->id);
 
         if( ! $this->session->userdata('question_no')){
@@ -692,6 +704,10 @@ class Survey extends Public_Controller {
     }
 
     public function user_review_all(){
+        if( ! $this->session->userdata('all_answered')){
+            $this->session->set_userdata(array('all_answered' => 1));
+        }
+
         $questions      = get_questions_by_survey_id($this->survey->id);
 
         $this->template
