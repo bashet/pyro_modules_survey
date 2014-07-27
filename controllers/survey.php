@@ -528,8 +528,9 @@ class Survey extends Public_Controller {
 
         $questions      = get_questions_by_survey_id($this->survey->id);
 
+        var_dump($this->session->userdata('question_no'));
         $this->session->set_userdata(array('question_no' => 1));
-        var_dump($this->session->userdata());
+        var_dump($this->session->userdata('question_no'));
 
 
         $this->template
