@@ -40,15 +40,15 @@
 
                 echo '<div class="q_button" style="float: right">';
                 if($i > 1){
-                    echo '<button pre class="btn" id="btn_pre-'.$i.'"><i class="fa fa-angle-double-left"></i> Previous</button>';
+                    echo '<button pre class="btn" id="btn_pre-'.$i.'"><span class="glyphicon glyphicon-circle-arrow-left"></span> Previous</button>';
                 }
 
                 echo '<span>&nbsp;&nbsp;&nbsp;Question '.$i.' of '.$total_questions.'&nbsp;&nbsp;&nbsp;</span>';
                 if($i < $total_questions){
-                    echo '<button next class="btn" id="btn_next-'.$i.'">Save <i class="fa fa-angle-double-right"></i></button>';
+                    echo '<button next class="btn" id="btn_next-'.$i.'">Save <span class="glyphicon glyphicon-circle-arrow-right"></span></button>';
                 }
                 if($i == $total_questions){
-                    echo '<a class="btn" href="{{ url:site }}survey/user_review_all">Save <i class="fa fa-angle-double-right"></i></a>';
+                    echo '<a class="btn" href="{{ url:site }}survey/user_review_all">Save <span class="glyphicon glyphicon-circle-arrow-right"></span></a>';
                 }
 
                 echo '</div>';

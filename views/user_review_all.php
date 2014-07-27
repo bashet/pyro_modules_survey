@@ -18,4 +18,8 @@
 
         </tbody>
     </table>
+    <div style="float: right">
+        <button next class="btn" id="submit_answer">Submit <span class="glyphicon glyphicon-circle-arrow-right"></span></button>
+    </div>
+
 </div>
