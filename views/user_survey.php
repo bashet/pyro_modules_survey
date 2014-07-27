@@ -7,7 +7,7 @@
                 $answer = get_answers_by_q_id($q->id);
                 echo '<div id="q-'.$q->id.'" class="question">';
                 echo '<div class="q_header">';
-                echo '<span>-'.$q->title.'</span>';
+                echo '<span>'.get_q_cat_name($q->cat_id).'-'.$q->title.'</span>';
                 echo '</div>';
 
                 echo '<div class="q_description">';
