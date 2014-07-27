@@ -13,13 +13,25 @@
             <th>Edit</th>
         </tr>
         </thead>
-
+        <?php
+        $i = 1;
+        if($questions){
+            foreach($questions as $q){
+                echo '<tr>';
+                echo '<td>'.$i.'</td>';
+                echo '<td>'.$q->text1.'</td>';
+                echo '<td></td>';
+                echo '<td><a href="{{ url:site }}user_review_single/'.$i.'/'.$q->id.'"><span class="glyphicon glyphicon-pencil"></span></a></td>';
+                echo '</tr>';
+            }
+        }
+        ?>
         <tbody>
 
         </tbody>
     </table>
     <div style="float: right">
-        <button next class="btn" id="submit_answer">Submit <span class="glyphicon glyphicon-circle-arrow-right"></span></button>
+        <button next class="btn btn-primary" id="submit_answer">Submit <span class="glyphicon glyphicon-circle-arrow-right"></span></button>
     </div>
 
 </div>

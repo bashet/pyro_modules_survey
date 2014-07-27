@@ -692,9 +692,13 @@ class Survey extends Public_Controller {
     }
 
     public function user_review_all(){
+        $questions      = get_questions_by_survey_id($this->survey->id);
+
         $this->template
             ->title($this->module_details['name'], 'review answer')
             ->set_breadcrumb('Review')
+            ->set('questions', $questions)
+            ->set('total_questions', $this->total_questions)
             ->build('user_review_all');
     }
 }
