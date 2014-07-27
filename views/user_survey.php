@@ -45,7 +45,7 @@
 
                 echo '<span>&nbsp;&nbsp;&nbsp;Question '.$i.' of '.$total_questions.'&nbsp;&nbsp;&nbsp;</span>';
                 if($i < $total_questions){
-                    echo '<button class="btn" id="btn_next-'.$i.'">Save <i class="fa fa-angle-double-right"></i></button>';
+                    echo '<button next class="btn" id="btn_next-'.$i.'">Save <i class="fa fa-angle-double-right"></i></button>';
                 }
                 if($i == $total_questions){
                     echo '<button id="btn_last" class="btn">Save <i class="fa fa-angle-double-right"></i></button>';
