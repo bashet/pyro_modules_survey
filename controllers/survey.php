@@ -30,10 +30,18 @@ class Survey extends Public_Controller {
         $this->load->helper('survey');
 
         $this->participation   = $this->survey_m->get_current_participation($this->current_user->id);
-        $this->client          = get_client_by_id($this->participation->cid);
-        $this->programme       = get_programme_by_id($this->participation->pid);
-        $this->survey          = get_survey_by_programme_id($this->programme->survey);
-        $this->total_questions = get_total_question_in_survey($this->survey->id);
+        if($this->participation){
+            $this->client          = get_client_by_id($this->participation->cid);
+            $this->programme       = get_programme_by_id($this->participation->pid);
+        }
+
+        if($this->programme){
+            $this->survey          = get_survey_by_programme_id($this->programme->survey);
+        }
+
+        if($this->survey){
+            $this->total_questions = get_total_question_in_survey($this->survey->id);
+        }
 
         $this->attempt         = get_current_attempt_by_user_id($this->current_user->id);
         if($this->attempt){
