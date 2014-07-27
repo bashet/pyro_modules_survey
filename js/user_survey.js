@@ -17,6 +17,16 @@ $(function(){
         $(this_q).css('display', 'none');
         $(next_q).css('display', 'block');
 
+        $.ajax({
+            type: 'post',
+            url: base_url + 'index.php/survey/register_q_no_session',
+            data: {'q_no':id},
+
+            success: function(data) {
+
+            }
+        });
+
     });
 
     $('button[pre]').button().click(function(){
@@ -29,6 +39,16 @@ $(function(){
 
         $(this_q).css('display', 'none');
         $(pre_q).css('display', 'block');
+
+        $.ajax({
+            type: 'post',
+            url: base_url + 'index.php/survey/register_q_no_session',
+            data: {'q_no':id},
+
+            success: function(data) {
+
+            }
+        });
 
     });
 });

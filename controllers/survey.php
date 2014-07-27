@@ -682,4 +682,12 @@ class Survey extends Public_Controller {
             ->set_breadcrumb('History')
             ->build('history');
     }
+
+    public function register_q_no_session(){
+        $data = $this->input->post();
+
+        $this->session->set_userdata(array('question_no' => $data['q_no']));
+
+        echo 'session updated!';
+    }
 }
