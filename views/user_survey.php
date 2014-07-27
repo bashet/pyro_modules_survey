@@ -40,7 +40,7 @@
 
                 echo '<div class="q_button" style="float: right">';
                 if($i > 1){
-                    echo '<button class="btn" id="btn_pre-'.$i.'"><i class="fa fa-angle-double-left"></i> Previous</button>';
+                    echo '<button pre class="btn" id="btn_pre-'.$i.'"><i class="fa fa-angle-double-left"></i> Previous</button>';
                 }
 
                 echo '<span>&nbsp;&nbsp;&nbsp;Question '.$i.' of '.$total_questions.'&nbsp;&nbsp;&nbsp;</span>';
