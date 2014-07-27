@@ -5,7 +5,7 @@
             $i = 1;
             foreach($questions as $q){
                 $answer = get_answers_by_q_id($q->id);
-                echo '<div id="q-'.$q->id.'" class="question">';
+                echo '<div id="q-'.$i.'" class="question">';
                 echo '<div class="q_header">';
                 echo '<span>'.get_q_cat_name($q->cat_id).'-'.$q->title.'</span>';
                 echo '</div>';
@@ -40,12 +40,15 @@
 
                 echo '<div class="q_button" style="float: right">';
                 if($i > 1){
-                    echo '<button class="btn btn-info"><i class="fa fa-angle-double-left"></i> Previous</button>';
+                    echo '<button class="btn" id="btn_pre-'.$i.'"><i class="fa fa-angle-double-left"></i> Previous</button>';
                 }
 
                 echo '<span>&nbsp;&nbsp;&nbsp;Question '.$i.' of '.$total_questions.'&nbsp;&nbsp;&nbsp;</span>';
                 if($i < $total_questions){
-                    echo '<button class="btn btn-info">Save <i class="fa fa-angle-double-right"></i></button>';
+                    echo '<button class="btn" id="btn_next-'.$i.'">Save <i class="fa fa-angle-double-right"></i></button>';
+                }
+                if($i == $total_questions){
+                    echo '<button id="btn_last" class="btn">Save <i class="fa fa-angle-double-right"></i></button>';
                 }
 
                 echo '</div>';
