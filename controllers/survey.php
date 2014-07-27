@@ -519,41 +519,14 @@ class Survey extends Public_Controller {
     public function user_survey($q_no = 1, $q_id = ''){
 
         $questions      = get_questions_by_survey_id($this->survey->id);
-        $question       = '';
-        foreach($questions as $q){
-            if($q_id == ''){
-                // this means first question
-                $question = $q;
-                break;
-            }else{
-                if($q_id == $q->id){
-                    $question = $q;
-                    break;
-                }
-            }
-        }
 
-
-        // try to find the next question id
-        $next_q_id = 'something'; // just giving some data for next validation
-        foreach($questions as $q){
-            if($next_q_id == ''){
-                $next_q_id = $q->id;
-                break;
-            }
-            if($question->id == $q->id){
-                $next_q_id = '';
-            }
-        }
 
         $this->template
             ->title($this->module_details['name'], 'manage users')
             ->set_breadcrumb('User survey')
-            ->set('total_evaluators', $this->total_evaluators)
-            ->set('question', $question)
             ->set('questions', $questions)
-            ->set('q_no', $q_no)
-            ->set('next_q_id', $next_q_id)
+            ->set('total_evaluators', $this->total_evaluators)
+            ->set('attempt', $this->attempt)
             ->set('total_questions', $this->total_questions)
             ->append_css('module::user_survey.css')
             ->build('user_survey');
