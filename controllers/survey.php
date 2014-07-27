@@ -9,7 +9,14 @@
  */
 class Survey extends Public_Controller {
 
-    public $allowed_evaluators = 0;
+    public $allowed_evaluators  = 0;
+    public $participation       = '';
+    public $programme           = '';
+    public $survey              = '';
+    public $total_questions     = '';
+    public $client              = '';
+    public $attempt             = '';
+    public $total_evaluators    = '';
 
 	public function __construct()
 	{
@@ -21,6 +28,17 @@ class Survey extends Public_Controller {
 		$this->load->model('survey_m');
 		$this->lang->load('survey');
         $this->load->helper('survey');
+
+        $this->participation   = $this->survey_m->get_current_participation($this->current_user->id);
+        $this->client          = get_client_by_id($this->participation->cid);
+        $this->programme       = get_programme_by_id($this->participation->pid);
+        $this->survey          = get_survey_by_programme_id($this->programme->survey);
+        $this->total_questions = get_total_question_in_survey($this->survey->id);
+
+        $this->attempt         = get_current_attempt_by_user_id($this->current_user->id);
+        if($this->attempt){
+            $this->total_evaluators   = get_total_evaluators_by_attempt_id($this->attempt->id);
+        }
 
 		$this->template
 			->append_css('module::survey.css')
@@ -498,41 +516,45 @@ class Survey extends Public_Controller {
         redirect('survey/manage_users');
     }
 
-    public function user_survey($q_id = ''){
-        $participation  = $this->survey_m->get_current_participation($this->current_user->id);
-        //$client         = get_client_by_id($participation->cid);
-        $programme      = get_programme_by_id($participation->pid);
-        $survey         = get_survey_by_programme_id($programme->survey);
-        $total_questions    = get_total_question_in_survey($survey->id);
+    public function user_survey($q_no = 1, $q_id = ''){
 
-        $q_no           = '';
-        if($q_id){
-            $question   = get_question_by_id($q_id);
-        }else{
-            $question   = get_first_question($survey->id);
-            $q_no       = 1;
-        }
-        //$questions      = get_questions_by_survey_id($survey->id);
-
-        $attempt        = get_current_attempt_by_user_id($this->current_user->id);
-        if($attempt){
-            //$evaluators     = get_evaluators_by_attempt_id($attempt->id);
-            $total_evaluators   = get_total_evaluators_by_attempt_id($attempt->id);
-        }else{
-            $total_evaluators   = '';
+        $questions      = get_questions_by_survey_id($this->survey->id);
+        $question       = '';
+        foreach($questions as $q){
+            if($q_id == ''){
+                // this means first question
+                $question = $q;
+                break;
+            }else{
+                if($q_id == $q->id){
+                    $question = $q;
+                    break;
+                }
+            }
         }
 
 
+        // try to find the next question id
+        $next_q_id = 'something'; // just giving some data for next validation
+        foreach($questions as $q){
+            if($next_q_id == ''){
+                $next_q_id = $q->id;
+                break;
+            }
+            if($question->id == $q->id){
+                $next_q_id = '';
+            }
+        }
 
         $this->template
             ->title($this->module_details['name'], 'manage users')
             ->set_breadcrumb('User survey')
-            ->set('total_evaluators', $total_evaluators)
+            ->set('total_evaluators', $this->total_evaluators)
             ->set('question', $question)
+            ->set('questions', $questions)
             ->set('q_no', $q_no)
-            ->set('attempt', $attempt)
-            ->set('survey', $survey)
-            ->set('total_questions', $total_questions)
+            ->set('next_q_id', $next_q_id)
+            ->set('total_questions', $this->total_questions)
             ->append_css('module::user_survey.css')
             ->build('user_survey');
     }
