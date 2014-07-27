@@ -39,7 +39,8 @@
                 echo '<div class="q_button" style="float: right">';
                     echo '<button><i class="fa fa-angle-double-left"></i> Previous</button>';
                     echo '<span>&nbsp; &nbsp; Question '.$q_no.' of '.$total_questions.'&nbsp; &nbsp; </span>';
-                    echo '<a href="{{ url:site }}survey/user_survey/'. $q_no + 1 .'/'.$next_q_id.'">Save <i class="fa fa-angle-double-right"></i></a>';
+                    $next_q_no = $q_no + 1;
+                    echo '<a href="{{ url:site }}survey/user_survey/'. $next_q_no .'/'.$next_q_id.'">Save <i class="fa fa-angle-double-right"></i></a>';
                 echo '</dive>';
             echo '</div>';
         }
