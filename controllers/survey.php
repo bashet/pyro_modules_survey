@@ -690,4 +690,11 @@ class Survey extends Public_Controller {
 
         echo 'session updated!';
     }
+
+    public function user_review_all(){
+        $this->template
+            ->title($this->module_details['name'], 'review answer')
+            ->set_breadcrumb('Review')
+            ->build('user_review_all');
+    }
 }

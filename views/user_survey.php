@@ -48,7 +48,7 @@
                     echo '<button next class="btn" id="btn_next-'.$i.'">Save <i class="fa fa-angle-double-right"></i></button>';
                 }
                 if($i == $total_questions){
-                    echo '<button id="btn_last" class="btn">Save <i class="fa fa-angle-double-right"></i></button>';
+                    echo '<a class="btn" href="{{ url:site }}survey/user_review_all">Save <i class="fa fa-angle-double-right"></i></a>';
                 }
 
                 echo '</div>';
