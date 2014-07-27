@@ -2,7 +2,7 @@
     <?php
     if(($total_evaluators) && $total_evaluators >= 3){
         if($question){
-            $answer = get_answers_by_q_id($q->id);
+            $answer = get_answers_by_q_id($question->id);
             echo '<div class="question">';
                 echo '<div class="q_header">';
                     echo '<span>-'.$question->title.'</span>';
