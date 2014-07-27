@@ -543,7 +543,7 @@ class Survey extends Public_Controller {
             ->set('total_evaluators', $this->total_evaluators)
             ->set('attempt', $this->attempt)
             ->set('total_questions', $this->total_questions)
-            ->set('$q_no', $q_no)
+            ->set('q_no', $q_no)
             ->append_css('module::user_survey.css')
             ->append_js('module::user_survey.js')
             ->build('user_survey');
