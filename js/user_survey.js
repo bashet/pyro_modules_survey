@@ -20,7 +20,7 @@ $(function(){
         $.ajax({
             type: 'post',
             url: base_url + 'index.php/survey/register_q_no_session',
-            data: {'q_no':id},
+            data: {'q_no':next},
 
             success: function(data) {
 
@@ -43,7 +43,7 @@ $(function(){
         $.ajax({
             type: 'post',
             url: base_url + 'index.php/survey/register_q_no_session',
-            data: {'q_no':id},
+            data: {'q_no':pre},
 
             success: function(data) {
 
