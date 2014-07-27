@@ -39,10 +39,16 @@
                 echo '</table>';
 
                 echo '<div class="q_button" style="float: right">';
-                echo '<button><i class="fa fa-angle-double-left"></i> Previous</button>';
-                echo '<span>Question '.$i.' of '.$total_questions.'</span>';
-                echo '<button>Save <i class="fa fa-angle-double-right"></i></button>';
-                echo '</dive>';
+                if($i > 1){
+                    echo '<button class="btn btn-info"><i class="fa fa-angle-double-left"></i> Previous</button>';
+                }
+
+                echo '<span>&nbsp;&nbsp;&nbsp;Question '.$i.' of '.$total_questions.'&nbsp;&nbsp;&nbsp;</span>';
+                if($i < $total_questions){
+                    echo '<button class="btn btn-info">Save <i class="fa fa-angle-double-right"></i></button>';
+                }
+
+                echo '</div>';
                 echo '</div>';
                 $i++;
             }
