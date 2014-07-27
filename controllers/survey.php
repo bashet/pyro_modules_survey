@@ -541,25 +541,20 @@ class Survey extends Public_Controller {
     }
 
     public function evaluators(){
-        $participation  = $this->survey_m->get_current_participation($this->current_user->id);
-        $programme      = get_programme_by_id($participation->pid);
 
-        $attempt        = get_current_attempt_by_user_id($this->current_user->id);
-        if($attempt){
-            $evaluators     = get_evaluators_by_attempt_id($attempt->id);
-            $total_evaluators   = get_total_evaluators_by_attempt_id($attempt->id);
+        if($this->attempt){
+            $evaluators     = get_evaluators_by_attempt_id($this->attempt->id);
         }else{
             $evaluators     = '';
-            $total_evaluators   = '';
         }
 
         $this->template
             ->title($this->module_details['name'], 'manage evaluators')
             ->set_breadcrumb('Manage evaluators')
             ->set('evaluators', $evaluators)
-            ->set('programme', $programme)
-            ->set('attempt', $attempt)
-            ->set('total_evaluators', $total_evaluators)
+            ->set('programme', $this->programme)
+            ->set('attempt', $this->attempt)
+            ->set('total_evaluators', $this->total_evaluators)
             ->set('allowed_evaluators', $this->allowed_evaluators)
             ->append_js('module::save_evaluators.js');
 
