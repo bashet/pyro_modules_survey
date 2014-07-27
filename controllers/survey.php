@@ -498,13 +498,21 @@ class Survey extends Public_Controller {
         redirect('survey/manage_users');
     }
 
-    public function user_survey(){
+    public function user_survey($q_id = ''){
         $participation  = $this->survey_m->get_current_participation($this->current_user->id);
         //$client         = get_client_by_id($participation->cid);
         $programme      = get_programme_by_id($participation->pid);
         $survey         = get_survey_by_programme_id($programme->survey);
-        $questions      = get_questions_by_survey_id($survey->id);
-        $categories     = $this->survey_m->get_all_question_categories();
+        $total_questions    = get_total_question_in_survey($survey->id);
+
+        $q_no           = '';
+        if($q_id){
+            $question   = get_question_by_id($q_id);
+        }else{
+            $question   = get_first_question($survey->id);
+            $q_no       = 1;
+        }
+        //$questions      = get_questions_by_survey_id($survey->id);
 
         $attempt        = get_current_attempt_by_user_id($this->current_user->id);
         if($attempt){
@@ -514,14 +522,14 @@ class Survey extends Public_Controller {
             $total_evaluators   = '';
         }
 
-        $total_questions    = get_total_question_in_survey($survey->id);
+
 
         $this->template
             ->title($this->module_details['name'], 'manage users')
             ->set_breadcrumb('User survey')
-            ->set('questions', $questions)
-            ->set('categories', $categories)
             ->set('total_evaluators', $total_evaluators)
+            ->set('question', $question)
+            ->set('q_no', $q_no)
             ->set('attempt', $attempt)
             ->set('survey', $survey)
             ->set('total_questions', $total_questions)

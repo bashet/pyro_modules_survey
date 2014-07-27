@@ -301,3 +301,22 @@ if(! function_exists('get_answers_by_q_id')){
         return $query->row();
     }
 }
+
+if(! function_exists('get_question_by_id')){
+    function get_question_by_id($id = ''){
+        $ci =& get_instance();
+
+        $query =  $ci->db->get_where('survey_questions', array('id' => $id));
+        return $query->row();
+    }
+}
+
+if(! function_exists('get_first_question')){
+    function get_first_question($survey_id){
+        $ci =& get_instance();
+
+        $ci->db->limit(1);
+        $query =  $ci->db->get_where('survey_questions', array('survey_id' => $survey_id));
+        return $query->row();
+    }
+}
