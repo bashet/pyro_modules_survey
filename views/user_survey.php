@@ -63,3 +63,4 @@
     ?>
 
 </div>
+<script>var q_no = '<?=$q_no?>'</script>

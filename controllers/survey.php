@@ -528,9 +528,12 @@ class Survey extends Public_Controller {
 
         $questions      = get_questions_by_survey_id($this->survey->id);
 
-        var_dump($this->session->userdata('question_no'));
-        $this->session->set_userdata(array('question_no' => 1));
-        var_dump($this->session->userdata('question_no'));
+        if( ! $this->session->userdata('question_no')){
+            $this->session->set_userdata(array('question_no' => 1));
+        }
+
+        $q_no = $this->session->userdata('question_no');
+
 
 
         $this->template
@@ -540,6 +543,7 @@ class Survey extends Public_Controller {
             ->set('total_evaluators', $this->total_evaluators)
             ->set('attempt', $this->attempt)
             ->set('total_questions', $this->total_questions)
+            ->set('$q_no', $q_no)
             ->append_css('module::user_survey.css')
             ->append_js('module::user_survey.js')
             ->build('user_survey');
