@@ -320,3 +320,13 @@ if(! function_exists('get_first_question')){
         return $query->row();
     }
 }
+
+if(! function_exists('get_q_cat_name')){
+    function get_q_cat_name($cat_id){
+        $ci =& get_instance();
+
+        $query  =  $ci->db->get_where('survey_question_categories', array('id' => $cat_id));
+        $row    = $query->row();
+        return $row->name;
+    }
+}
