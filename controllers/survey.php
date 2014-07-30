@@ -739,6 +739,6 @@ class Survey extends Public_Controller {
             $this->db->insert('survey_user_answer', $answer);
         }
 
-        echo json_encode($answer);
+        echo json_encode($ex_ans);
     }
 }

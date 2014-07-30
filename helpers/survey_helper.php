@@ -336,12 +336,12 @@ if(! function_exists('get_existing_answer')){
         $ci =& get_instance();
 
         $query  =  $ci->db->get_where(
-                                    'survey_user_answer',
-                                    array(
-                                        'user_id' => $answer->user_id,
-                                        'attempt_id' => $answer->attempt_id,
-                                        'survey_id' =>$answer->survey_id
-                                    )
+                                        'survey_user_answer',
+                                        array(
+                                            'user_id' => $answer->user_id,
+                                            'attempt_id' => $answer->attempt_id,
+                                            'survey_id' =>$answer->survey_id
+                                        )
                                     );
         return $query->row();
     }
@@ -352,13 +352,19 @@ if(! function_exists('rebuild_answer')){
         $answers = json_decode($ex_ans->answers);
 
         $new_ans    = array();
-        foreach($answers as $key => $value){
-            if($data['q_id'] == $key){
-                $new_ans[$key] = $data['value'];
-            }else{
-                $new_ans[$key] = $value;
+
+        if($answers){
+            foreach($answers as $key => $value){
+                if($data['q_id'] == $key){
+                    $new_ans[$key] = $data['value'];
+                }else{
+                    $new_ans[$key] = $value;
+                }
             }
+        }else{
+            $new_ans = array($data['q_id'] => $data['value']);
         }
+
 
         return json_encode($new_ans);
     }
