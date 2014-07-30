@@ -3,7 +3,7 @@
     if(($total_evaluators) && $total_evaluators >= 3){
         if($questions){
             $i = 1;
-            var_dump($my_answer);
+            //var_dump($my_answer);
             foreach($questions as $q){
                 $answer = get_answers_by_q_id($q->id);
                 echo '<div id="q-'.$i.'" class="question">';
