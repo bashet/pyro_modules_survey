@@ -719,6 +719,26 @@ class Survey extends Public_Controller {
 
     public function update_user_answer(){
         $data = $this->input->post();
+        $answer = new stdClass();
+        $answer->user_id    = $data['user_id'];
+        $answer->attempt_id = $data['attempt_id'];
+        $answer->survey_id  = $data['survey_id'];
+
+        $ex_ans = get_existing_answer($answer);
+
+        if($ex_ans){
+            // need to update with new answer to existing answer
+            $answer->answers    = rebuild_answer($data, $ex_ans);
+            $this->db->where('id', $ex_ans->id);
+            return $this->db->update('survey_user_answer', $answer);
+        }else{
+            // insert new answer
+            $answer->start_date = time();
+            $answer->answers    = json_encode(array($data['q_id'] => $data['value']));
+
+            $this->db->insert('survey_user_answer', $answer);
+        }
+
         echo json_encode($data);
     }
 }

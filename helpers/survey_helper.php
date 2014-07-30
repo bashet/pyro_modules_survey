@@ -330,3 +330,36 @@ if(! function_exists('get_q_cat_name')){
         return $row->name;
     }
 }
+
+if(! function_exists('get_existing_answer')){
+    function get_existing_answer($answer){
+        $ci =& get_instance();
+
+        $query  =  $ci->db->get_where(
+                                    'survey_user_answer',
+                                    array(
+                                        'user_id' => $answer->user_id,
+                                        'attempt_id' => $answer->attempt_id,
+                                        'survey_id' =>$answer->survey_id
+                                    )
+                                    );
+        return $query->row();
+    }
+}
+
+if(! function_exists('rebuild_answer')){
+    function rebuild_answer($data, $ex_ans){
+        $ex_ans = json_decode($ex_ans->answers, true);
+
+        $new_ans    = array();
+        foreach($ex_ans as $key => $value){
+            if($data['q_id'] == $key){
+                $new_ans[$key] = $data['value'];
+            }else{
+                $new_ans[$key] = $value;
+            }
+        }
+
+        return json_encode($new_ans);
+    }
+}
