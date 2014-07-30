@@ -546,7 +546,7 @@ class Survey extends Public_Controller {
 
         $ex_ans = get_existing_answer($answer_data);
 
-        $answer = json_decode($ex_ans->answers);
+        $my_answer = json_decode($ex_ans->answers);
 
         if( ! $this->session->userdata('question_no')){
             $this->session->set_userdata(array('question_no' => 1));
@@ -564,7 +564,7 @@ class Survey extends Public_Controller {
             ->set('attempt', $this->attempt)
             ->set('total_questions', $this->total_questions)
             ->set('q_no', $q_no)
-            ->set('answer', $answer)
+            ->set('my_answer', $my_answer)
             ->append_css('module::user_survey.css')
             ->append_js('module::user_survey.js')
             ->build('user_survey');
