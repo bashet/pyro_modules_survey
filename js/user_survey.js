@@ -51,4 +51,16 @@ $(function(){
         });
 
     });
+    $('input[answer]').click(function(){
+        var this_id     = this.id;
+        var id_array    = this_id.split('-');
+        var id          = id_array[1];
+        var value       = this.value;
+        $.ajax({
+            type:   'post',
+            url:    base_url + 'index.php/survey/update_user_answer',
+            data:   {user_id:user_id, attempt_id:attempt_id, survey_id:survey_id, q_id:id, value:value},
+            success:function(data){}
+        });
+    });
 });

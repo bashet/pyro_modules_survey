@@ -716,4 +716,9 @@ class Survey extends Public_Controller {
             ->set('total_questions', $this->total_questions)
             ->build('user_review_all');
     }
+
+    public function update_user_answer(){
+        $data = $this->input->post();
+        echo json_encode($data);
+    }
 }

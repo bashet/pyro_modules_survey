@@ -25,10 +25,10 @@
 
                 echo '<table class="table table-bordered">';
                 echo '<tr>';
-                echo '<td style="text-align:center"><input type="radio" name="q_answer-'.$q->id.'" value="1"></td>';
-                echo '<td style="text-align:center"><input type="radio" name="q_answer-'.$q->id.'" value="2"></td>';
-                echo '<td style="text-align:center"><input type="radio" name="q_answer-'.$q->id.'" value="3"></td>';
-                echo '<td style="text-align:center"><input type="radio" name="q_answer-'.$q->id.'" value="4"></td>';
+                echo '<td style="text-align:center"><input answer type="radio" name="q_answer-'.$q->id.'" value="1"></td>';
+                echo '<td style="text-align:center"><input answer type="radio" name="q_answer-'.$q->id.'" value="2"></td>';
+                echo '<td style="text-align:center"><input answer type="radio" name="q_answer-'.$q->id.'" value="3"></td>';
+                echo '<td style="text-align:center"><input answer type="radio" name="q_answer-'.$q->id.'" value="4"></td>';
                 echo '</tr>';
                 echo '<tr>';
                 echo '<td>'.$answer->option_1.'</td>';
