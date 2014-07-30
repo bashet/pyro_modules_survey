@@ -352,7 +352,7 @@ if(! function_exists('rebuild_answer')){
         $ex_ans = json_decode($ex_ans->answers);
 
         $new_ans    = array();
-        foreach($ex_ans as $key => $value){
+        foreach($ex_ans->answers as $key => $value){
             if($data['q_id'] == $key){
                 $new_ans[$key] = $data['value'];
             }else{
