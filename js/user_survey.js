@@ -52,7 +52,7 @@ $(function(){
 
     });
     $('input[answer]').click(function(){
-        var this_id     = this.id;
+        var this_id     = this.name;
         var id_array    = this_id.split('-');
         var id          = id_array[1];
         var value       = this.value;
