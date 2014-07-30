@@ -546,7 +546,7 @@ class Survey extends Public_Controller {
 
         $ex_ans = get_existing_answer($answer_data);
 
-        $answer = json_decode($ex_ans->answers, true);
+        $answer = json_decode($ex_ans->answers);
 
         if( ! $this->session->userdata('question_no')){
             $this->session->set_userdata(array('question_no' => 1));
