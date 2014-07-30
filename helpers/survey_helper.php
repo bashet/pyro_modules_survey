@@ -349,22 +349,13 @@ if(! function_exists('get_existing_answer')){
 
 if(! function_exists('rebuild_answer')){
     function rebuild_answer($data, $ex_ans){
-        $answers = json_decode($ex_ans->answers);
-
-        $new_ans    = array();
+        $answers = json_decode($ex_ans->answers, true);
 
         if($answers){
-            foreach($answers as $key => $value){
-                if($data['q_id'] == $key){
-                    $new_ans[$key] = $data['value'];
-                }else{
-                    $new_ans[$key] = $value;
-                }
-            }
+            $answers[$data['q_id']] = $data['value'];
         }else{
             $new_ans = array($data['q_id'] => $data['value']);
         }
-
 
         return json_encode($new_ans);
     }
