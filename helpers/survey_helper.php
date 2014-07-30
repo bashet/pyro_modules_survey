@@ -349,7 +349,7 @@ if(! function_exists('get_existing_answer')){
 
 if(! function_exists('rebuild_answer')){
     function rebuild_answer($data, $ex_ans){
-        $ex_ans = json_decode($ex_ans->answers, true);
+        $ex_ans = json_decode($ex_ans->answers);
 
         $new_ans    = array();
         foreach($ex_ans as $key => $value){
