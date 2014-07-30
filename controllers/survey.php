@@ -733,7 +733,7 @@ class Survey extends Public_Controller {
             if($this->db->update('survey_user_answer', $answer)){
                 echo 'updated success';
             }else{
-                echo $this->db->_error_message();
+                echo json_encode(array('data' => $answer, 'msg'=> $this->db->_error_message()));
             }
         }else{
             // insert new answer
@@ -741,7 +741,7 @@ class Survey extends Public_Controller {
             $answer->answers    = json_encode(array($data['q_id'] => $data['value']));
 
             if($this->db->insert('survey_user_answer', $answer)){
-                echo 'success!';
+                echo 'insert success!';
             }else{
                 echo $this->db->_error_message();
             }
