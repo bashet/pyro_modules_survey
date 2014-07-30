@@ -730,7 +730,7 @@ class Survey extends Public_Controller {
             // need to update with new answer to existing answer
             $answer->answers    = rebuild_answer($data, $ex_ans);
             $this->db->where('id', $ex_ans->id);
-            return $this->db->update('survey_user_answer', $answer);
+            $this->db->update('survey_user_answer', $answer);
         }else{
             // insert new answer
             $answer->start_date = time();
