@@ -354,9 +354,9 @@ if(! function_exists('rebuild_answer')){
         if($answers){
             $answers[$data['q_id']] = $data['value'];
         }else{
-            $new_ans = array($data['q_id'] => $data['value']);
+            $answers = array($data['q_id'] => $data['value']);
         }
 
-        return json_encode($new_ans);
+        return json_encode($answers);
     }
 }
