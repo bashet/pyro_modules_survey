@@ -371,3 +371,10 @@ if(! function_exists('get_user_answer_history')){
         }
     }
 }
+
+if(! function_exists('get_report_pdf')){
+    function get_report_pdf($data){
+        // $data has all the fields from user_answer table
+        return '';
+    }
+}
