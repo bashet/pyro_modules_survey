@@ -719,10 +719,20 @@ class Survey extends Public_Controller {
 
         $questions      = get_questions_by_survey_id($this->survey->id);
 
+        $answer_data = new stdClass();
+        $answer_data->user_id    = $this->current_user->id;
+        $answer_data->attempt_id = $this->attempt->id;
+        $answer_data->survey_id  = $this->survey->id;
+
+        $ex_ans = get_existing_answer($answer_data);
+
+        $my_answer = json_decode($ex_ans->answers);
+
         $this->template
             ->title($this->module_details['name'], 'review answer')
             ->set_breadcrumb('Review')
             ->set('questions', $questions)
+            ->set('my_answer', $my_answer)
             ->set('total_questions', $this->total_questions)
             ->build('user_review_all');
     }
