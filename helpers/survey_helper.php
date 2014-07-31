@@ -360,3 +360,14 @@ if(! function_exists('rebuild_answer')){
         return json_encode($answers);
     }
 }
+
+if(! function_exists('get_user_answer_history')){
+    function get_user_answer_history($user_id = ''){
+        if($user_id){
+            $ci =& get_instance();
+
+            $query = $ci->db->get_where('survey_user_answer', array('user_id' => $user_id));
+            return $query->result();
+        }
+    }
+}

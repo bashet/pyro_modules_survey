@@ -703,9 +703,14 @@ class Survey extends Public_Controller {
     }
 
     public function history(){
+
+        $user_history = get_user_answer_history($this->current_user->id);
+
+
         $this->template
             ->title($this->module_details['name'], 'history')
             ->set_breadcrumb('History')
+            ->set('user_history', $user_history)
             ->build('history');
     }
 

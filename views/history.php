@@ -15,7 +15,18 @@
         </tr>
         </thead>
         <tbody>
-
+        <?php
+        if($user_history){
+            foreach($user_history as $history){
+                echo '<tr>';
+                echo '<td>'.$history->survey_id.'</td>';
+                echo '<td>'.(($history->finished)?'<i class="fa fa-check"></i>': '<i class="fa fa-times"></i>').'</td>';
+                echo '<td>'.(($history->submitted)?'<i class="fa fa-check"></i>': '<i class="fa fa-times"></i>').'</td>';
+                echo '<td></td>';
+                echo '</tr>';
+            }
+        }
+        ?>
         </tbody>
     </table>
 </div>
