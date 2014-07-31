@@ -22,11 +22,11 @@
             foreach($user_history as $history){
                 echo '<tr>';
                 echo '<td>'.get_survey_name_by_id($history->survey_id).'</td>';
-                echo '<td>'.time('d/m/Y', $history->start_date).'</td>';
+                echo '<td>'.date('d/m/Y', $history->start_date).'</td>';
                 echo '<td>'.(($history->finished)?'<i class="fa fa-check"></i>': '<i class="fa fa-times"></i>').'</td>';
                 echo '<td>'.(($history->submitted)?'<i class="fa fa-check"></i>': '<i class="fa fa-times"></i>').'</td>';
                 echo '<td></td>';
-                echo '<td>'.(($history->submit_date)? time('d/m/Y', $history->submit_date):'').'</td>';
+                echo '<td>'.(($history->submit_date)? date('d/m/Y', $history->submit_date):'').'</td>';
                 echo '</tr>';
             }
         }
