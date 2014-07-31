@@ -66,7 +66,7 @@
                                 <select name="relationship'.$i.'" id="relationship'.$i.'" class="form-control">
                                     <option value="">Please select</option>
                                         <option value="Direct Report">Direct Report</option>
-                                        <option value="Evaluator">Evaluator</option>
+                                        <option value="Peer">Peer</option>
                                         <option value="Other">Other</option>
                                 </select>
                             </td>';
