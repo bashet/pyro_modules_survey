@@ -744,6 +744,7 @@ class Survey extends Public_Controller {
             ->title($this->module_details['name'], 'review answer')
             ->set_breadcrumb('Review')
             ->set('questions', $questions)
+            ->set('ex_ans', $ex_ans)
             ->set('my_answer', $my_answer)
             ->set('total_questions', $this->total_questions)
             ->append_js('module::user_survey.js')
