@@ -750,12 +750,6 @@ class Survey extends Public_Controller {
 
             $my_answer = json_decode($ex_ans->answers);
 
-            if( ! $this->session->userdata('question_no')){
-                $this->session->set_userdata(array('question_no' => 1));
-            }
-
-            $q_no = $this->session->userdata('question_no');
-
             $this->template
                 ->title($this->module_details['name'], 'manage users')
                 ->set_breadcrumb('User survey')
