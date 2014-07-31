@@ -6,4 +6,7 @@
     <form>
         <textarea id="email_body" name="email_body" class="form-control"></textarea>
     </form>
+    <div style="float: right">
+        <button class="btn btn-primary" id="btn_send_email">Send Email <i class="fa fa-paper-plane"></i></button>
+    </div>
 </div>
