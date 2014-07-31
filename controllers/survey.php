@@ -767,6 +767,12 @@ class Survey extends Public_Controller {
         }
     }
 
+    public function user_survey_submit(){
+        $this->template
+            ->title($this->module_details['name'], 'confirmation')
+            ->build('user_survey_submit');
+    }
+
     public function update_user_answer(){
         $data = $this->input->post();
         $answer = new stdClass();
