@@ -422,7 +422,7 @@ class Survey extends Public_Controller {
         $this->template
             ->title($this->module_details['name'], 'manage clients')
             ->set('clients', $clients)
-            ->set_breadcrumb('Clients')
+            ->set_breadcrumb('Organisations')
             ->append_js('module::clients.js')
             ->build('clients');
     }
