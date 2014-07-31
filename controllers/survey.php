@@ -761,7 +761,7 @@ class Survey extends Public_Controller {
                 ->set('my_answer', $my_answer)
                 ->append_css('module::user_survey.css')
                 ->append_js('module::user_survey.js')
-                ->build('user_survey_single_question.php');
+                ->build('user_survey_single_question');
         }else{
             redirect($this->config->base_url());
         }
