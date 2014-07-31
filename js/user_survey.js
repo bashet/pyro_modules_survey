@@ -63,4 +63,24 @@ $(function(){
             success:function(data){}
         });
     });
+
+    $('#submit_answer').button().click(function(){
+        $.ajax({
+            type:   'post',
+            url: base_url + 'index.php/survey/user_survey_submit',
+            data:   {user_id:user_id, attempt_id:attempt_id, survey_id:survey_id},
+            success: function(data) {
+            if(data){
+                var msg = jQuery.parseJSON( data );
+                if(msg.finished == false){
+
+                }else{
+                    if(msg.updated == true){
+                        window.location.href = base_url + 'index.php/survey/successful';
+                    }
+                }
+            }
+            }
+        });
+    });
 });

@@ -746,6 +746,7 @@ class Survey extends Public_Controller {
             ->set('questions', $questions)
             ->set('my_answer', $my_answer)
             ->set('total_questions', $this->total_questions)
+            ->append_js('module::user_survey.js')
             ->build('user_review_all');
     }
 
@@ -780,6 +781,32 @@ class Survey extends Public_Controller {
     }
 
     public function user_survey_submit(){
+        $data = $this->input->post();
+        $answer = new stdClass();
+        $answer->user_id    = $data['user_id'];
+        $answer->attempt_id = $data['attempt_id'];
+        $answer->survey_id  = $data['survey_id'];
+
+        $ex_ans = get_existing_answer($answer);
+
+        $result = array();
+
+        if($ex_ans->finished){
+            $result['finished'] = true;
+            $this->db->where('id', $ex_ans->id);
+            if($this->db->update('survey_user_answer', array('submitted' => 1, 'submit_date' =>time()))){
+                $result['updated'] = true;
+            }else{
+                $result['updated'] = false;
+            }
+        }else{
+            $result['finished'] = false;
+        }
+
+        echo json_encode($result);
+    }
+
+    public function successful(){
         $this->template
             ->set_layout('user_survey')
             ->title($this->module_details['name'], 'confirmation')
