@@ -549,6 +549,10 @@ class Survey extends Public_Controller {
 
         $my_answer = json_decode($ex_ans->answers);
 
+        if(count((array)$my_answer) == $this->total_questions){
+            redirect('survey/user_review_all');
+        }
+
         if( ! $this->session->userdata('question_no')){
             $this->session->set_userdata(array('question_no' => 1));
         }
