@@ -8,6 +8,7 @@
     <table class="table table-bordered table-hove">
         <thead>
         <tr>
+            <th>SN</th>
             <th>Name of the diagnostic</th>
             <th>Start date</th>
             <th>Participant completed</th>
@@ -19,9 +20,10 @@
         <tbody>
         <?php
         if($user_history){
+            $i = 1;
             foreach($user_history as $history){
-                var_dump($history);
                 echo '<tr>';
+                echo '<td>'.$i.'</td>';
                 echo '<td>'.get_survey_name_by_id($history->survey_id).'</td>';
                 echo '<td>'.date('d/m/Y', $history->start_date).'</td>';
                 echo '<td style="text-align:center">'.(($history->finished)?'<i class="fa fa-check"></i>': '<i class="fa fa-times"></i>').'</td>';
@@ -29,6 +31,7 @@
                 echo '<td>'.get_report_pdf($history).'</td>';
                 echo '<td>'.(($history->submit_date)? date('d/m/Y', $history->submit_date):'').'</td>';
                 echo '</tr>';
+                $i++;
             }
         }
         ?>
