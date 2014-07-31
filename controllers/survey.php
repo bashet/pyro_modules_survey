@@ -66,6 +66,7 @@ class Survey extends Public_Controller {
         $survey = $this->survey_m->get_all_survey();
 
         $this->template
+            ->enable_minify(true)
             ->title($this->module_details['name'], 'manage survey')
             ->set('survey', $survey)
             ->set_breadcrumb('Survey')
