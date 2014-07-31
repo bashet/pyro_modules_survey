@@ -550,6 +550,8 @@ class Survey extends Public_Controller {
         $my_answer = json_decode($ex_ans->answers);
 
         if(count((array)$my_answer) == $this->total_questions){
+            $this->db->where('id', $ex_ans->id);
+            $this->db->update('survey_user_answer', array('finished' => 1));
             redirect('survey/user_review_all');
         }
 
