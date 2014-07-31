@@ -33,7 +33,8 @@
                     }else{
                         echo '<td></td>';
                     }
-
+                }else{
+                    echo '<td></td>';
                 }
 
                 echo '<td><a href="{{ url:site }}user_review_single/'.$i.'/'.$q->id.'"><span class="glyphicon glyphicon-pencil"></span></a></td>';
