@@ -770,6 +770,7 @@ class Survey extends Public_Controller {
 
     public function user_survey_submit(){
         $this->template
+            ->set_layout('user_survey')
             ->title($this->module_details['name'], 'confirmation')
             ->build('user_survey_submit');
     }
