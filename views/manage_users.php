@@ -8,6 +8,9 @@
             <th style="width: 8%">SN</th>
             <th>Name</th>
             <th>Email</th>
+            {{ if user:group == 'admin'}}
+            <th>Organisation</th>
+            {{ endif }}
             <th>Active</th>
             <th>History</th>
             <th>Last Login</th>
@@ -22,6 +25,11 @@
                 echo '<td style="text-align: center">'.$i.'</td>';
                 echo '<td>'.$user->display_name.'</td>';
                 echo '<td>'.$user->email.'</td>';
+                ?>{{ if user:group == 'admin'}}
+                    <?php echo '<td>'.$user->org.'</td>';?>
+                  {{ endif }}
+                <?php
+
                 if($user->active){
                     echo '<td style="text-align: center"><button activate id="activate_user-'.$user->id.'-0" class="btn btn-link"><span class="glyphicon glyphicon-ok"></span></button></td>';
                 }else{
