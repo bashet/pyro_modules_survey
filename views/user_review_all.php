@@ -30,6 +30,8 @@
                         echo '<td><strong>Level 3:</strong>&NonBreakingSpace;Effective</td>';
                     }elseif($my_answer->$q_id == 4){
                         echo '<td><strong>Level 4:</strong>&NonBreakingSpace;Strength</td>';
+                    }else{
+                        echo '<td></td>';
                     }
 
                 }
