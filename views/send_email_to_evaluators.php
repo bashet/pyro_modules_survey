@@ -8,8 +8,9 @@
             <textarea id="email_body" name="email_body" class="form-control"></textarea>
         </form>
     </div>
+
     <br>
     <div class="row" style="float: right">
-        <button class="btn btn-primary" id="btn_send_email">Send Email <i class="fa fa-paper-plane"></i></button>
+        <button class="btn btn-primary" id="btn_send_email"><span class="glyphicon glyphicon-envelope"></span>  Send Email</button>
     </div>
 </div>

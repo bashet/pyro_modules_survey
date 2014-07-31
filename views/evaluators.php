@@ -50,7 +50,7 @@
 
                         echo    '<td style="text-align:center"><button type="button" id="send_email-'.$e->id.'" class="btn btn-link" style="text-decoration: none"><i class="fa fa-envelope"></i></button></td>';
                         echo    '<td style="text-align:center"><button type="button" id="del_evaluator-'.$e->id.'" class="btn btn-link" style="text-decoration: none"><i class="fa fa-trash-o"></i></button></td>';
-                        echo    '<td style="text-align:center"><button type="button" id="copy_link-'.$e->id.'" class="btn btn-link" style="text-decoration: none"><i class="fa fa-link"></i></button></td>';
+                        echo    '<td style="text-align:center"><button type="button" id="copy_link-'.$e->id.'" class="btn btn-link" style="text-decoration: none"><span class="glyphicon glyphicon-link"></span></button></td>';
                         echo    '</tr>';
                     }
                 }else{
