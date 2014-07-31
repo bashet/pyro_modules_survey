@@ -11,7 +11,7 @@
     </div>
 
     <form id="frm_save_evaluators" method="post" action="{{ url:site }}survey/update_evaluators">
-        <table class="table table-bordered table-hover">
+        <table class="table table-bordered table-hover ui-responsive table-stroke" data-role="table" id="movie-table" data-mode="reflow">
             <thead>
             <tr>
                 <th style="width: 10%">Evaluator</th>
