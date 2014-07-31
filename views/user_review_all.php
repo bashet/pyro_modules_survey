@@ -63,3 +63,16 @@
     <?php }?>
 
 </div>
+
+<div id="dialog-confirm" class="hide">
+    <div class="alert alert-info bigger-110">
+        You are about to submit your response. This action can not be undo!
+    </div>
+
+    <div class="space-6"></div>
+
+    <p class="bigger-110 bolder center grey">
+        <i class="ace-icon fa fa-hand-o-right blue bigger-120"></i>
+        Are you sure?
+    </p>
+</div><!-- #dialog-confirm -->

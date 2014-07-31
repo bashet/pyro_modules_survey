@@ -65,22 +65,48 @@ $(function(){
     });
 
     $('#submit_answer').button().click(function(){
-        $.ajax({
-            type:   'post',
-            url: base_url + 'index.php/survey/user_survey_submit',
-            data:   {user_id:user_id, attempt_id:attempt_id, survey_id:survey_id},
-            success: function(data) {
-            if(data){
-                var msg = jQuery.parseJSON( data );
-                if(msg.finished == false){
+        $( "#dialog-confirm" ).removeClass('hide').dialog({
+            resizable: false,
+            modal: true,
+            title: "<div class='widget-header'><h4 class='smaller'><i class='ace-icon fa fa-exclamation-triangle red'></i> Submit your answer!</h4></div>",
+            title_html: true,
+            buttons: [
+                {
+                    html: "<i class='glyphicon glyphicon-ok'></i>&nbsp; Proceed",
+                    "class" : "btn btn-danger btn-xs",
+                    click: function() {
+                        $( this ).dialog( "close" );
+                        $body = $("body");
+                        $body.addClass("loading");
+                        $.ajax({
+                            type:   'post',
+                            url: base_url + 'index.php/survey/user_survey_submit',
+                            data:   {user_id:user_id, attempt_id:attempt_id, survey_id:survey_id},
+                            success: function(data) {
+                                if(data){
+                                    var msg = jQuery.parseJSON( data );
+                                    if(msg.finished == false){
 
-                }else{
-                    if(msg.updated == true){
-                        window.location.href = base_url + 'index.php/survey/successful';
+                                    }else{
+                                        if(msg.updated == true){
+                                            window.location.href = base_url + 'index.php/survey/successful';
+                                        }
+                                    }
+                                }
+                            }
+                        });
                     }
                 }
-            }
-            }
+                ,
+                {
+                    html: "<i class='ace-icon fa fa-times bigger-110'></i>&nbsp; Cancel",
+                    "class" : "btn btn-xs",
+                    click: function() {
+                        $( this ).dialog( "close" );
+                    }
+                }
+            ]
         });
+
     });
 });
