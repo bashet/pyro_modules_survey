@@ -752,7 +752,7 @@ class Survey extends Public_Controller {
 
             $this->template
                 ->title($this->module_details['name'], 'manage users')
-                ->set_breadcrumb('User survey')
+                ->set_breadcrumb('Review single question')
                 ->set('q', $question)
                 ->set('total_evaluators', $this->total_evaluators)
                 ->set('attempt', $this->attempt)
