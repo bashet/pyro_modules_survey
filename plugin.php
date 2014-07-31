@@ -36,7 +36,7 @@ class Plugin_survey extends Plugin
         return $query->result();
     }
 
-    function get_survey_name_by_id($id){
+    /*function get_survey_name_by_id($id){
         $query = $this->db->get_where('survey', array('id' => $id));
         $row = $query->row();
         if($row){
@@ -44,7 +44,7 @@ class Plugin_survey extends Plugin
         }else{
             return '';
         }
-    }
+    }*/
 }
 
 /* End of file plugin.php */
