@@ -26,8 +26,18 @@
                 echo '<td>'.$i.'</td>';
                 echo '<td>'.get_survey_name_by_id($history->survey_id).'</td>';
                 echo '<td>'.date('d/m/Y', $history->start_date).'</td>';
-                echo '<td style="text-align:center">'.(($history->finished)?'<i class="fa fa-check"></i>': '<i class="fa fa-times"></i>').'</td>';
-                echo '<td style="text-align:center">'.(($history->submitted)?'<i class="fa fa-check"></i>': '<i class="fa fa-times"></i>').'</td>';
+                if($history->finished){
+                    echo '<td style="text-align:center; color: #008000"><i class="fa fa-check"></i></td>';
+                }else{
+                    echo '<td style="text-align:center; color: red"><i class="fa fa-times"></i></td>';
+                }
+
+                if($history->submitted){
+                    echo '<td style="text-align:center; color: #008000"><i class="fa fa-check"></i></td>';
+                }else{
+                    echo '<td style="text-align:center; color: red"><i class="fa fa-times"></i></td>';
+                }
+
                 echo '<td>'.get_report_pdf($history).'</td>';
                 echo '<td>'.(($history->submit_date)? date('d/m/Y', $history->submit_date):'').'</td>';
                 echo '</tr>';
