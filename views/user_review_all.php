@@ -1,9 +1,13 @@
 <div id="user_review_all-container">
+    <?php if($ex_ans->submitted){?>
+        <h2>Your responses have now been submitted</h2>
+        <p>Once your evaluators have submitted their responses you will be able to generate your report.</p>
+    <?php }else{?>
     <h2>You have now given a response to each of the questions</h2>
     <p>The table below allows you to check your responses for each one. If you wish to check or edit any of your responses
         please select the appropriate edit button on the right side of the table.</p>
     <p>Once you are happy with your responses please select 'Submit' below.</p>
-
+    <?php }?>
     <table class="table table-bordered table-striped">
         <thead>
         <tr>
