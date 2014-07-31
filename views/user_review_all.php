@@ -58,7 +58,7 @@
     </table>
     <?php if(! $ex_ans->submitted){?>
     <div style="float: right">
-        <button next class="btn btn-primary" id="submit_answer">Submit <span class="glyphicon glyphicon-circle-arrow-right"></span></button>
+        <button class="btn btn-primary" id="submit_answer">Submit <span class="glyphicon glyphicon-circle-arrow-right"></span></button>
     </div>
     <?php }?>
 
