@@ -58,7 +58,7 @@
     </table>
     <?php if(! $ex_ans->submitted){?>
     <div style="float: right">
-        <button class="btn btn-primary" id="submit_answer" <?php echo (! $ex_ans->finished)?'disabled':'';?>>Submit <span class="glyphicon glyphicon-circle-arrow-right"></span></button>
+        <button class="btn btn-primary" id="submit_answer" <?php echo (! $ex_ans->finished)?'disabled title="Check all answer before you submit!"':'';?>>Submit <span class="glyphicon glyphicon-circle-arrow-right"></span></button>
     </div>
     <?php }?>
 
