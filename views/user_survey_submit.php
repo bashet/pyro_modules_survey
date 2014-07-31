@@ -2,7 +2,7 @@
     <center>
         <div class="row">
             <div class="col-lg-1" style="padding-top: 20px;">
-                <i class="fa fa-check fa-3x"></i>
+                <i class="fa fa-check fa-5x"></i>
             </div>
             <div class="col-lg-11">
                 <h2>Your responses have now been submitted</h2>
