@@ -737,6 +737,42 @@ class Survey extends Public_Controller {
             ->build('user_review_all');
     }
 
+    public function user_review_single($q_no = '', $q_id = ''){
+        if(($q_no) && ($q_id)){
+            $question      = get_question_by_id($q_id);
+
+            $answer_data = new stdClass();
+            $answer_data->user_id    = $this->current_user->id;
+            $answer_data->attempt_id = $this->attempt->id;
+            $answer_data->survey_id  = $this->survey->id;
+
+            $ex_ans = get_existing_answer($answer_data);
+
+            $my_answer = json_decode($ex_ans->answers);
+
+            if( ! $this->session->userdata('question_no')){
+                $this->session->set_userdata(array('question_no' => 1));
+            }
+
+            $q_no = $this->session->userdata('question_no');
+
+            $this->template
+                ->title($this->module_details['name'], 'manage users')
+                ->set_breadcrumb('User survey')
+                ->set('q', $question)
+                ->set('total_evaluators', $this->total_evaluators)
+                ->set('attempt', $this->attempt)
+                ->set('total_questions', $this->total_questions)
+                ->set('q_no', $q_no)
+                ->set('my_answer', $my_answer)
+                ->append_css('module::user_survey.css')
+                ->append_js('module::user_survey.js')
+                ->build('user_survey_single_question.php');
+        }else{
+            redirect($this->config->base_url());
+        }
+    }
+
     public function update_user_answer(){
         $data = $this->input->post();
         $answer = new stdClass();
