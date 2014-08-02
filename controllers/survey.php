@@ -22,6 +22,11 @@ class Survey extends Public_Controller {
 	{
 		parent::__construct();
 
+        if( ! $this->current_user->id){
+            redirect($this->config->base_url());
+            exit();
+        }
+
         $this->allowed_evaluators = Settings::get('survey_setting');
 
 		// Load the required classes
