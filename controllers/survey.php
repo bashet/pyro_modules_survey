@@ -700,10 +700,25 @@ class Survey extends Public_Controller {
     }
 
     public function send_email_to_evaluators(){
+        if($data = $this->input->post()){
+            $evaluators =  get_evaluators_by_attempt_id($this->attempt->id);
+            $this->load->library('email');
+            $this->email->from('dontreply@domail.com', 'Website name');
+            $this->email->subject('email subject');
+            $this->email->message($data['email_body']);
+            foreach($evaluators as $peer){
+                $this->email->to($peer->email);
+                $this->email->send();
+            }
+            //var_dump($data);
+            redirect('survey/successful');
+        }
+
         $this->template
             ->title($this->module_details['name'], 'send email to evaluators')
             ->set_breadcrumb('Manage evaluators', '/survey/evaluators' )
             ->set_breadcrumb('Send email')
+            ->append_js('module::user_survey.js')
             ->build('send_email_to_evaluators');
     }
 

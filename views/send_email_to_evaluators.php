@@ -4,7 +4,7 @@
         provide the appropriate text for this area. I hope this will look good as am writing many thinks which is probably cowshit.
         Alright, enough let's see how does it look like.. </p>
     <div class="row">
-        <form>
+        <form id="frm_send_email_evaluators" method="post" action="#">
             <textarea id="email_body" name="email_body" class="form-control">
                 <p>Dear {{evaluator_name}}</p>
 

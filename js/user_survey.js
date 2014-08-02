@@ -109,4 +109,10 @@ $(function(){
         });
 
     });
+
+    $('#btn_send_email').button().click(function(){
+        $body = $("body");
+        $body.addClass("loading");
+        $('#frm_send_email_evaluators').submit();
+    });
 });
