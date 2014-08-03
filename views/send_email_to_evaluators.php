@@ -6,17 +6,7 @@
     <div class="row">
         <form id="frm_send_email_evaluators" method="post" action="#">
             <textarea id="email_body" name="email_body" class="form-control">
-                <p>Dear {{evaluator_name}}</p>
-
                 <p>I would be very grateful if you could complete the National College Modular Curriculum online 360 diagnostic leadership for me.  This important process is part of my professional development as a school leader and will help shape my learning within the modular curriclulum. A number of other people will also be rating me on these important competencies. Please could you ensure that you have completed this process by {specify date DD/MM/YYY}.</p>
-
-                <p>The link to provide your ratings is:</p>
-
-                <p>{{ url:site }}</p>
-
-                <p>Regards
-                <br>
-                {{user_name}}</p>
             </textarea>
         </form>
     </div>

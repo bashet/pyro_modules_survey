@@ -702,13 +702,18 @@ class Survey extends Public_Controller {
     public function send_email_to_evaluators(){
         if($data = $this->input->post()){
             $evaluators =  get_evaluators_by_attempt_id($this->attempt->id);
-            $this->load->library('email');
-            $this->email->from(Settings::get('server_email'));
-            $this->email->subject('email subject');
-            $this->email->message($data['email_body']);
-            foreach($evaluators as $peer){
-                $this->email->to($peer->email);
-                $this->email->send();
+
+            foreach($evaluators as $evaluator){
+                if(generate_email_template_for_evaluator($data,$evaluator)){
+                    $mail = array();
+                    $mail['slug'] 				= 'email-to-evaluators';
+                    $mail['to'] 				= $evaluator->email;
+                    $mail['from'] 				= Settings::get('server_email');
+                    $mail['name']				= Settings::get('site_name');
+                    $mail['reply-to']			= Settings::get('contact_email');
+
+                    Events::trigger('email', $mail, 'array');
+                }
             }
             //var_dump($data);
             redirect('survey/successful');

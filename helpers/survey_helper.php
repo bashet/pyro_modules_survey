@@ -378,3 +378,41 @@ if(! function_exists('get_report_pdf')){
         return '';
     }
 }
+
+if( ! function_exists('get_email_template') ){
+    function get_email_template($slug = ''){
+        if($slug){
+            $ci =& get_instance();
+
+            $query = $ci->db->get_where('email_templates', array('slug' => $slug));
+            return $query->row();
+        }else{
+            return '';
+        }
+    }
+}
+
+if( ! function_exists('generate_email_template_for_evaluator')){
+    function generate_email_template_for_evaluator($data, $evaluator){
+        $ci =& get_instance();
+
+        $email_template = get_email_template('email-to-evaluators');
+        $user = get_profile_by_user_id($ci->current_user->id);
+
+        $email_body = '<p>Dear '.$evaluator->name.',</p>';
+        $email_body .= $data['email_body']. '<br>';
+        $email_body .= '<p>Please click to the link below:</p>';
+        $email_body .= '<a href="'.$ci->config->base_url().'index.php/survey/evaluator_response/'.$evaluator->link_md5.'"></a>';
+        $email_body .= '<br><p>Regards,<br>';
+        $email_body .= $user->first_name . ' ' . $user->last_name.'</p>';
+
+        $ci->db->where('id', $email_template->id);
+        if($ci->db->update('email_templates', array('body', $email_body))){
+            return true;
+        }else{
+            return false;
+        }
+
+
+    }
+}
