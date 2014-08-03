@@ -63,7 +63,7 @@ class Survey extends Public_Controller {
 
 	public function index($offset = 0)
 	{
-        if(! user_logged_in()){
+        if(! $this->current_user->id){
             redirect($this->config->base_url());
             exit();
         }
@@ -78,7 +78,7 @@ class Survey extends Public_Controller {
 	}
 
     public function save_survey(){
-        if(! user_logged_in()){
+        if(! $this->current_user->id){
             redirect($this->config->base_url());
             exit();
         }
@@ -118,7 +118,7 @@ class Survey extends Public_Controller {
     }
 // ============================================= Manage department =====================================================
     public function programme(){
-        if(! user_logged_in()){
+        if(! $this->current_user->id){
             redirect($this->config->base_url());
             exit();
         }
@@ -156,7 +156,7 @@ class Survey extends Public_Controller {
     }
 
     public function delete_programme($id = ''){
-        if(! user_logged_in()){
+        if(! $this->current_user->id){
             redirect($this->config->base_url());
             exit();
         }
@@ -167,7 +167,7 @@ class Survey extends Public_Controller {
     }
 
     public function update_programme_status($id = '', $active = ''){
-        if(! user_logged_in()){
+        if(! $this->current_user->id){
             redirect($this->config->base_url());
             exit();
         }
@@ -188,7 +188,7 @@ class Survey extends Public_Controller {
     }
 
     public function link_programme(){
-        if(! user_logged_in()){
+        if(! $this->current_user->id){
             redirect($this->config->base_url());
             exit();
         }
@@ -205,7 +205,7 @@ class Survey extends Public_Controller {
     }
  //============================================= Manage question categories=============================================
     public function question_categories(){
-        if(! user_logged_in()){
+        if(! $this->current_user->id){
             redirect($this->config->base_url());
             exit();
         }
@@ -219,7 +219,7 @@ class Survey extends Public_Controller {
     }
 
     public function save_question_categories(){
-        if(! user_logged_in()){
+        if(! $this->current_user->id){
             redirect($this->config->base_url());
             exit();
         }
@@ -245,7 +245,7 @@ class Survey extends Public_Controller {
 
     public function delete_question_categories($id = ''){
 
-        if(! user_logged_in()){
+        if(! $this->current_user->id){
             redirect($this->config->base_url());
             exit();
         }
@@ -259,7 +259,7 @@ class Survey extends Public_Controller {
 
     public function questions($survey_id = ''){
 
-        if(! user_logged_in()){
+        if(! $this->current_user->id){
             redirect($this->config->base_url());
             exit();
         }
@@ -286,7 +286,7 @@ class Survey extends Public_Controller {
     }
 
     public function add_new_question($survey_id = ''){
-        if(! user_logged_in()){
+        if(! $this->current_user->id){
             redirect($this->config->base_url());
             exit();
         }
@@ -312,7 +312,7 @@ class Survey extends Public_Controller {
 
     public function save_question(){
 
-        if(! user_logged_in()){
+        if(! $this->current_user->id){
             redirect($this->config->base_url());
             exit();
         }
@@ -355,7 +355,7 @@ class Survey extends Public_Controller {
     }
     public function update_question(){
 
-        if(! user_logged_in()){
+        if(! $this->current_user->id){
             redirect($this->config->base_url());
             exit();
         }
@@ -398,7 +398,7 @@ class Survey extends Public_Controller {
 
     }
     public function edit_question($survey_id = '', $q_id = ''){
-        if(! user_logged_in()){
+        if(! $this->current_user->id){
             redirect($this->config->base_url());
             exit();
         }
@@ -434,7 +434,7 @@ class Survey extends Public_Controller {
         }
     }
     public function delete_question($survey_id = '', $q_id = ''){
-        if(! user_logged_in()){
+        if(! $this->current_user->id){
             redirect($this->config->base_url());
             exit();
         }
@@ -483,7 +483,7 @@ class Survey extends Public_Controller {
 
 // ============================================= Clients ===============================================================
     public function clients(){
-        if(! user_logged_in()){
+        if(! $this->current_user->id){
             redirect($this->config->base_url());
             exit();
         }
@@ -499,7 +499,7 @@ class Survey extends Public_Controller {
     }
 
     public function save_clients(){
-        if(! user_logged_in()){
+        if(! $this->current_user->id){
             redirect($this->config->base_url());
             exit();
         }
@@ -531,7 +531,7 @@ class Survey extends Public_Controller {
     }
 
     public function update_client_status($client_id = ''){
-        if(! user_logged_in()){
+        if(! $this->current_user->id){
             redirect($this->config->base_url());
             exit();
         }
@@ -549,7 +549,7 @@ class Survey extends Public_Controller {
         redirect('survey/clients');
     }
     public function update_manager(){
-        if(! user_logged_in()){
+        if(! $this->current_user->id){
             redirect($this->config->base_url());
             exit();
         }
@@ -562,7 +562,7 @@ class Survey extends Public_Controller {
     }
 
     public function manage_users(){
-        if(! user_logged_in()){
+        if(! $this->current_user->id){
             redirect($this->config->base_url());
             exit();
         }
@@ -584,7 +584,7 @@ class Survey extends Public_Controller {
     }
 
     public function activate_user($user_id = '', $active = 0){
-        if(! user_logged_in()){
+        if(! $this->current_user->id){
             redirect($this->config->base_url());
             exit();
         }
@@ -679,7 +679,7 @@ class Survey extends Public_Controller {
 
     public function evaluators(){
 
-        if(! user_logged_in()){
+        if(! $this->current_user->id){
             redirect($this->config->base_url());
             exit();
         }
@@ -709,7 +709,7 @@ class Survey extends Public_Controller {
     }
 
     public function save_evaluators(){
-        if(! user_logged_in()){
+        if(! $this->current_user->id){
             redirect($this->config->base_url());
             exit();
         }
@@ -762,7 +762,7 @@ class Survey extends Public_Controller {
     }
 
     public function update_evaluators(){
-        if(! user_logged_in()){
+        if(! $this->current_user->id){
             redirect($this->config->base_url());
             exit();
         }
@@ -813,7 +813,7 @@ class Survey extends Public_Controller {
     }
 
     public function send_email_to_evaluators(){
-        if(! user_logged_in()){
+        if(! $this->current_user->id){
             redirect($this->config->base_url());
             exit();
         }
@@ -858,7 +858,7 @@ class Survey extends Public_Controller {
     }
 
     public function reports(){
-        if(! user_logged_in()){
+        if(! $this->current_user->id){
             redirect($this->config->base_url());
             exit();
         }
@@ -870,7 +870,7 @@ class Survey extends Public_Controller {
     }
 
     public function history(){
-        if(! user_logged_in()){
+        if(! $this->current_user->id){
             redirect($this->config->base_url());
             exit();
         }
@@ -893,7 +893,7 @@ class Survey extends Public_Controller {
     }
 
     public function user_review_all(){
-        if(! user_logged_in()){
+        if(! $this->current_user->id){
             redirect($this->config->base_url());
             exit();
         }
@@ -924,7 +924,7 @@ class Survey extends Public_Controller {
     }
 
     public function user_review_single($q_no = '', $q_id = ''){
-        if(! user_logged_in()){
+        if(! $this->current_user->id){
             redirect($this->config->base_url());
             exit();
         }
@@ -958,7 +958,7 @@ class Survey extends Public_Controller {
     }
 
     public function user_survey_submit(){
-        if(! user_logged_in()){
+        if(! $this->current_user->id){
             redirect($this->config->base_url());
             exit();
         }
