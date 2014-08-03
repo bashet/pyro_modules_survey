@@ -407,7 +407,7 @@ if( ! function_exists('generate_email_template_for_evaluator')){
         $email_body .= $user->first_name . ' ' . $user->last_name.'</p>';
 
         $ci->db->where('id', $email_template->id);
-        if($ci->db->update('email_templates', array('body', $email_body))){
+        if($ci->db->update('email_templates', array('body' => $email_body))){
             return true;
         }else{
             return false;
