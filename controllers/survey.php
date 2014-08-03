@@ -22,11 +22,6 @@ class Survey extends Public_Controller {
 	{
 		parent::__construct();
 
-        if( ! $this->current_user->id){
-            redirect($this->config->base_url());
-            exit();
-        }
-
         $this->allowed_evaluators = Settings::get('survey_setting');
 
 		// Load the required classes
@@ -68,6 +63,10 @@ class Survey extends Public_Controller {
 
 	public function index($offset = 0)
 	{
+        if(! user_logged_in()){
+            redirect($this->config->base_url());
+            exit();
+        }
         $survey = $this->survey_m->get_all_survey();
 
         $this->template
@@ -79,6 +78,11 @@ class Survey extends Public_Controller {
 	}
 
     public function save_survey(){
+        if(! user_logged_in()){
+            redirect($this->config->base_url());
+            exit();
+        }
+
         $posted_data = $this->input->post();
 
         if($posted_data['survey_id']){
@@ -114,6 +118,10 @@ class Survey extends Public_Controller {
     }
 // ============================================= Manage department =====================================================
     public function programme(){
+        if(! user_logged_in()){
+            redirect($this->config->base_url());
+            exit();
+        }
 
         $programme  = $this->survey_m->get_all_programme();
         $survey     = $this->survey_m->get_all_survey();
@@ -148,7 +156,10 @@ class Survey extends Public_Controller {
     }
 
     public function delete_programme($id = ''){
-
+        if(! user_logged_in()){
+            redirect($this->config->base_url());
+            exit();
+        }
         if($id){
             $this->db->delete('survey_programme', array('id' => $id));
         }
@@ -156,6 +167,10 @@ class Survey extends Public_Controller {
     }
 
     public function update_programme_status($id = '', $active = ''){
+        if(! user_logged_in()){
+            redirect($this->config->base_url());
+            exit();
+        }
         $programme = '';
         if($id){
             if($active){
@@ -173,6 +188,11 @@ class Survey extends Public_Controller {
     }
 
     public function link_programme(){
+        if(! user_logged_in()){
+            redirect($this->config->base_url());
+            exit();
+        }
+
         $data = $this->input->post();
 
         $new_data = array(
@@ -185,7 +205,10 @@ class Survey extends Public_Controller {
     }
  //============================================= Manage question categories=============================================
     public function question_categories(){
-
+        if(! user_logged_in()){
+            redirect($this->config->base_url());
+            exit();
+        }
         $question_categories = $this->survey_m->get_all_question_categories();
 
         $this->template
@@ -196,6 +219,10 @@ class Survey extends Public_Controller {
     }
 
     public function save_question_categories(){
+        if(! user_logged_in()){
+            redirect($this->config->base_url());
+            exit();
+        }
         $posted_data = $this->input->post();
 
         if($posted_data['question_categories_id']){
@@ -218,6 +245,11 @@ class Survey extends Public_Controller {
 
     public function delete_question_categories($id = ''){
 
+        if(! user_logged_in()){
+            redirect($this->config->base_url());
+            exit();
+        }
+
         if($id){
             $this->db->delete('survey_question_categories', array('id' => $id));
         }
@@ -226,6 +258,12 @@ class Survey extends Public_Controller {
 // ============================================= Manage questions ======================================================
 
     public function questions($survey_id = ''){
+
+        if(! user_logged_in()){
+            redirect($this->config->base_url());
+            exit();
+        }
+
         if($survey_id){
             // we will go ahead to do the next job
             $questions = $this->survey_m->get_all_questions($survey_id);
@@ -248,6 +286,10 @@ class Survey extends Public_Controller {
     }
 
     public function add_new_question($survey_id = ''){
+        if(! user_logged_in()){
+            redirect($this->config->base_url());
+            exit();
+        }
         if($survey_id){
             // we will go ahead to do the next job
             $survey     = $this->get_survey_by_id($survey_id, $output = 'object');
@@ -269,6 +311,11 @@ class Survey extends Public_Controller {
     }
 
     public function save_question(){
+
+        if(! user_logged_in()){
+            redirect($this->config->base_url());
+            exit();
+        }
         $data = $this->input->post();
 
         if($this->survey_m->question_form_validate($data)){
@@ -307,6 +354,11 @@ class Survey extends Public_Controller {
 
     }
     public function update_question(){
+
+        if(! user_logged_in()){
+            redirect($this->config->base_url());
+            exit();
+        }
         $data = $this->input->post();
 
         if($this->survey_m->question_form_validate($data)){
@@ -346,6 +398,11 @@ class Survey extends Public_Controller {
 
     }
     public function edit_question($survey_id = '', $q_id = ''){
+        if(! user_logged_in()){
+            redirect($this->config->base_url());
+            exit();
+        }
+
         $survey     = $this->get_survey_by_id($survey_id, $output = 'object');
         $question   = $this->get_question_by_id($q_id, $output = 'object');
         $q_cat      = $this->survey_m->get_all_question_categories();
@@ -377,7 +434,10 @@ class Survey extends Public_Controller {
         }
     }
     public function delete_question($survey_id = '', $q_id = ''){
-
+        if(! user_logged_in()){
+            redirect($this->config->base_url());
+            exit();
+        }
         if($q_id){
             $this->db->delete('survey_answer_options', array('question_id' => $q_id));
             $this->db->delete('survey_questions', array('id' => $q_id));
@@ -423,6 +483,11 @@ class Survey extends Public_Controller {
 
 // ============================================= Clients ===============================================================
     public function clients(){
+        if(! user_logged_in()){
+            redirect($this->config->base_url());
+            exit();
+        }
+
         $clients = $this->survey_m->get_all_clients();
 
         $this->template
@@ -434,6 +499,11 @@ class Survey extends Public_Controller {
     }
 
     public function save_clients(){
+        if(! user_logged_in()){
+            redirect($this->config->base_url());
+            exit();
+        }
+
         $posted_data = $this->input->post();
 
         if($posted_data['client_id']){
@@ -461,6 +531,11 @@ class Survey extends Public_Controller {
     }
 
     public function update_client_status($client_id = ''){
+        if(! user_logged_in()){
+            redirect($this->config->base_url());
+            exit();
+        }
+
         $client = $this->get_client_by_id($client_id, 'object');
         if($client->active){
             // need to de-activate
@@ -474,6 +549,10 @@ class Survey extends Public_Controller {
         redirect('survey/clients');
     }
     public function update_manager(){
+        if(! user_logged_in()){
+            redirect($this->config->base_url());
+            exit();
+        }
         $data = $this->input->post();
 
         $client = array('manager_uid'=>$data['manager_id']);
@@ -483,6 +562,10 @@ class Survey extends Public_Controller {
     }
 
     public function manage_users(){
+        if(! user_logged_in()){
+            redirect($this->config->base_url());
+            exit();
+        }
         $client = $this->survey_m->get_client_by_manager_id($this->current_user->id);
         if($this->current_user->group_id == 1){
             $users = $this->survey_m->get_all_users_for_admin();
@@ -501,6 +584,10 @@ class Survey extends Public_Controller {
     }
 
     public function activate_user($user_id = '', $active = 0){
+        if(! user_logged_in()){
+            redirect($this->config->base_url());
+            exit();
+        }
         $data = array();
         if($user_id){
             $user       = get_user_by_id($user_id);
@@ -538,7 +625,10 @@ class Survey extends Public_Controller {
     }
 
     public function user_survey(){
-
+        if(! user_logged_in()){
+            redirect($this->config->base_url());
+            exit();
+        }
         if( $this->session->userdata('all_answered')){
             // redirect to review all page
         }
@@ -589,6 +679,11 @@ class Survey extends Public_Controller {
 
     public function evaluators(){
 
+        if(! user_logged_in()){
+            redirect($this->config->base_url());
+            exit();
+        }
+
         if($this->attempt){
             $evaluators     = get_evaluators_by_attempt_id($this->attempt->id);
         }else{
@@ -614,6 +709,11 @@ class Survey extends Public_Controller {
     }
 
     public function save_evaluators(){
+        if(! user_logged_in()){
+            redirect($this->config->base_url());
+            exit();
+        }
+
         $data = $this->input->post();
         $given = 0;
         $error = array();
@@ -662,6 +762,11 @@ class Survey extends Public_Controller {
     }
 
     public function update_evaluators(){
+        if(! user_logged_in()){
+            redirect($this->config->base_url());
+            exit();
+        }
+
         $data = $this->input->post();
         $error = array();
         for($i = 1; $i <= $this->allowed_evaluators; $i++){
@@ -708,6 +813,11 @@ class Survey extends Public_Controller {
     }
 
     public function send_email_to_evaluators(){
+        if(! user_logged_in()){
+            redirect($this->config->base_url());
+            exit();
+        }
+
         $this->attempt = get_current_attempt_by_user_id($this->current_user->id); // reset the attempt
         if($this->attempt){
             $this->total_evaluators   = get_total_evaluators_by_attempt_id($this->attempt->id);
@@ -748,6 +858,11 @@ class Survey extends Public_Controller {
     }
 
     public function reports(){
+        if(! user_logged_in()){
+            redirect($this->config->base_url());
+            exit();
+        }
+
         $this->template
             ->title($this->module_details['name'], 'report')
             ->set_breadcrumb('Report')
@@ -755,7 +870,10 @@ class Survey extends Public_Controller {
     }
 
     public function history(){
-
+        if(! user_logged_in()){
+            redirect($this->config->base_url());
+            exit();
+        }
         $user_history = get_user_answer_history($this->current_user->id);
 
 
@@ -775,6 +893,10 @@ class Survey extends Public_Controller {
     }
 
     public function user_review_all(){
+        if(! user_logged_in()){
+            redirect($this->config->base_url());
+            exit();
+        }
         if( ! $this->session->userdata('all_answered')){
             $this->session->set_userdata(array('all_answered' => 1));
         }
@@ -802,6 +924,10 @@ class Survey extends Public_Controller {
     }
 
     public function user_review_single($q_no = '', $q_id = ''){
+        if(! user_logged_in()){
+            redirect($this->config->base_url());
+            exit();
+        }
         if(($q_no) && ($q_id)){
             $question      = get_question_by_id($q_id);
 
@@ -832,6 +958,10 @@ class Survey extends Public_Controller {
     }
 
     public function user_survey_submit(){
+        if(! user_logged_in()){
+            redirect($this->config->base_url());
+            exit();
+        }
         $data = $this->input->post();
         $answer = new stdClass();
         $answer->user_id    = $data['user_id'];

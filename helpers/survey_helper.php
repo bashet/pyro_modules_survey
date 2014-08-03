@@ -8,6 +8,16 @@
 
 if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
+if ( ! function_exists('user_logged_in')){
+    function user_logged_in(){
+        $ci =& get_instance();
+        if( ! $ci->current_user->id){
+            return true;
+        }else{
+            return false;
+        }
+    }
+}
 if ( ! function_exists('get_option_by_question_id') ){
     function get_option_by_question_id($q_id = ''){
 
