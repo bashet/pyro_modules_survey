@@ -704,16 +704,22 @@ class Survey extends Public_Controller {
             $evaluators =  get_evaluators_by_attempt_id($this->attempt->id);
 
             foreach($evaluators as $evaluator){
-                if(generate_email_template_for_evaluator($data,$evaluator)){
-                    $mail = array();
-                    $mail['slug'] 				= 'email-to-evaluators';
-                    $mail['to'] 				= $evaluator->email;
-                    $mail['from'] 				= Settings::get('server_email');
-                    $mail['name']				= Settings::get('site_name');
-                    $mail['reply-to']			= Settings::get('contact_email');
+                if(! $evaluator->email_sent){
+                    if(generate_email_template_for_evaluator($data,$evaluator)){
+                        $mail = array();
+                        $mail['slug'] 				= 'email-to-evaluators';
+                        $mail['to'] 				= $evaluator->email;
+                        $mail['from'] 				= Settings::get('server_email');
+                        $mail['name']				= Settings::get('site_name');
+                        $mail['reply-to']			= Settings::get('contact_email');
 
-                    Events::trigger('email', $mail, 'array');
+                        Events::trigger('email', $mail, 'array');
+
+                        $this->db->where('id', $evaluator->id);
+                        $this->db->update('survey_evaluators', array('email_sent' => 1));
+                    }
                 }
+
             }
             //var_dump($data);
             redirect('survey/successful');
