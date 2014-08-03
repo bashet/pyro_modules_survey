@@ -1,6 +1,6 @@
 <div id="evaluator_response-container">
 
-    <h2>Hello Dr. Abdul Bashet</h2>
+    <h2>Hello <?=$evaluator->name?></h2>
 
     <p>Welcome to the National College 360 degree leadership diagnostic</p>
 

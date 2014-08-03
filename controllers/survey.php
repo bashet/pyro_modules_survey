@@ -1031,6 +1031,7 @@ class Survey extends Public_Controller {
 
     public function evaluator_response($link = ''){
 
+        $evaluator = '';
         if($link){
             $evaluator = get_evaluator_by_link($link);
             $this->session->set_userdata(array('evaluator_id' => $evaluator->id));
@@ -1044,6 +1045,7 @@ class Survey extends Public_Controller {
         $this->template
             ->set_layout('evaluator_response')
             ->title($this->module_details['name'], 'evaluator response')
+            ->set('evaluator', $evaluator)
             ->build('evaluator_response');
     }
     public function evaluator_survey(){
