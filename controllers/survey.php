@@ -676,6 +676,12 @@ class Survey extends Public_Controller {
 
         if(empty($error)){
 
+            $attempt = array(
+                'user_id'       => $this->current_user->id,
+                'survey_id'     => $this->survey->id,
+                'create_date'   => time(),
+            );
+
             $attempt_id = $data['attempt_id'];
 
             for($i = 1; $i <= $this->allowed_evaluators; $i++){
@@ -685,7 +691,8 @@ class Survey extends Public_Controller {
                             'attempt_id'    => $attempt_id,
                             'name'          => $data['evaluators_name-'.$i],
                             'email'         => $data['evaluators_email-'.$i],
-                            'relation'      => $data['relationship'.$i]
+                            'relation'      => $data['relationship'.$i],
+                            'link_md5'      => md5(json_encode($attempt))
                         );
                         $this->db->insert('survey_evaluators', $evaluators);
                     }
@@ -695,7 +702,7 @@ class Survey extends Public_Controller {
             echo json_encode(array('success' => true));
 
         }else{
-            echo json_encode(array('error' =>$error));
+            echo json_encode(array('error' =>$error, 'success' => false));
         }
 
     }
