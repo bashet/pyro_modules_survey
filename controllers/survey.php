@@ -29,7 +29,7 @@ class Survey extends Public_Controller {
 		$this->lang->load('survey');
         $this->load->helper('survey');
 
-        if($this->current_user->id){
+        if(isset($this->current_user->id)){
             $this->participation   = $this->survey_m->get_current_participation($this->current_user->id);
             if($this->participation){
                 $this->client          = get_client_by_id($this->participation->cid);
