@@ -1051,6 +1051,9 @@ class Survey extends Public_Controller {
             ->build('evaluator_response');
     }
     public function evaluator_survey(){
+        $this->attempt  = get_current_attempt_by_id($this->session->userdata('attempt_id'));
+        $this->survey   = get_survey_by_id($this->session->userdata('survey_id'));
+
         var_dump($this->attempt, $this->survey);
         $questions      = get_questions_by_survey_id($this->survey->id);
 
