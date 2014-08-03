@@ -1054,7 +1054,6 @@ class Survey extends Public_Controller {
         $this->attempt  = get_current_attempt_by_id($this->session->userdata('attempt_id'));
         $this->survey   = get_survey_by_id($this->session->userdata('survey_id'));
 
-        var_dump($this->attempt, $this->survey);
         $questions      = get_questions_by_survey_id($this->survey->id);
 
         $answer_data = new stdClass();
