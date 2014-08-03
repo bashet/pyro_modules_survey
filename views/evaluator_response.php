@@ -20,7 +20,7 @@
 
     <a href="#" class="btn btn-info">View diagnostic guidance</a>
     <div style="float: right">
-        <a href="{{ url:site }}survey/evaluator_survey">Continue <span class="glyphicon glyphicon-circle-arrow-right"></span></a>
+        <a href="{{ url:site }}survey/evaluator_survey" class="btn btn-success">Continue <span class="glyphicon glyphicon-circle-arrow-right"></span></a>
     </div>
 
 </div>
