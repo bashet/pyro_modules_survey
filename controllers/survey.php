@@ -656,7 +656,7 @@ class Survey extends Public_Controller {
             echo json_encode(array('success' => true));
 
         }else{
-            echo json_encode(array('evaluators' => $given, 'error' =>$error));
+            echo json_encode(array('evaluators' => $given, 'error' =>$error, 'success' => false));
         }
 
     }
