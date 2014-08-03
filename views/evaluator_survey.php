@@ -49,7 +49,7 @@
                     echo '<button next class="btn  btn-primary" id="btn_next-'.$i.'">Save <span class="glyphicon glyphicon-circle-arrow-right"></span></button>';
                 }
                 if($i == $total_questions){
-                    echo '<a class="btn  btn-primary" href="{{ url:site }}survey/user_review_all">Save <span class="glyphicon glyphicon-circle-arrow-right"></span></a>';
+                    echo '<a class="btn  btn-primary" href="{{ url:site }}survey/evaluator_review_all">Save <span class="glyphicon glyphicon-circle-arrow-right"></span></a>';
                 }
 
                 echo '</div>';
