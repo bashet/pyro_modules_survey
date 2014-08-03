@@ -1094,7 +1094,39 @@ class Survey extends Public_Controller {
             ->set('q_no', $q_no)
             ->set('my_answer', $my_answer)
             ->append_css('module::user_survey.css')
-            ->append_js('module::user_survey.js')
+            ->append_js('module::evaluator_survey.js')
             ->build('evaluator_survey');
+    }
+
+    public function update_evaluator_answer(){
+        $data = $this->input->post();
+        $answer = new stdClass();
+        $answer->evaluator_id   = $data['evaluator_id'];
+        $answer->attempt_id     = $data['attempt_id'];
+        $answer->survey_id      = $data['survey_id'];
+
+        $ex_ans = get_existing_answer_evaluator($answer);
+
+        if($ex_ans){
+            // need to update with new answer to existing answer
+            $answer->answers    = rebuild_answer($data, $ex_ans);
+            $this->db->where('id', $ex_ans->id);
+            if($this->db->update('survey_evaluators_answer', $answer)){
+                echo 'updated success';
+            }else{
+                echo json_encode(array('data' => $answer, 'msg'=> $this->db->_error_message()));
+            }
+        }else{
+            // insert new answer
+            $answer->start_date = time();
+            $answer->answers    = json_encode(array($data['q_id'] => $data['value']));
+
+            if($this->db->insert('survey_evaluators_answer', $answer)){
+                echo 'insert success!';
+            }else{
+                echo $this->db->_error_message();
+            }
+        }
+
     }
 }
