@@ -57,7 +57,7 @@
             <div class="form-group">
                 <label for="option_1" class="col-sm-2 control-label">Option 1</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" name="option_1_label" value="Requires development">
+                    <input type="text" class="form-control option_label" name="option_1_label" value="Requires development">
                     <textarea class="form-control" id="option_1" name="option_1"></textarea>
                 </div>
             </div>
@@ -65,7 +65,7 @@
             <div class="form-group">
                 <label for="option_2" class="col-sm-2 control-label">Option 2</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" name="option_2_label" value="Emergent">
+                    <input type="text" class="form-control option_label" name="option_2_label" value="Emergent">
                     <textarea class="form-control" id="option_2" name="option_2"></textarea>
                 </div>
             </div>
@@ -73,7 +73,7 @@
             <div class="form-group">
                 <label for="option_3" class="col-sm-2 control-label">Option 3</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" name="option_3_label" value="Effective">
+                    <input type="text" class="form-control option_label" name="option_3_label" value="Effective">
                     <textarea class="form-control" id="option_3" name="option_3"></textarea>
                 </div>
             </div>
@@ -81,7 +81,7 @@
             <div class="form-group">
                 <label for="option_4" class="col-sm-2 control-label">Option 4</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" name="option_4_label" value="Strength">
+                    <input type="text" class="form-control option_label" name="option_4_label" value="Strength">
                     <textarea class="form-control" id="option_4" name="option_4"></textarea>
                 </div>
             </div>
