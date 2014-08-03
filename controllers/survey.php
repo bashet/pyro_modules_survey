@@ -895,4 +895,11 @@ class Survey extends Public_Controller {
         }
 
     }
+
+    public function evaluator_response($link = ''){
+        $this->template
+            ->set_layout('user_survey')
+            ->title($this->module_details['name'], 'evaluator response')
+            ->build('evaluator_response');
+    }
 }
