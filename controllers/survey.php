@@ -35,6 +35,14 @@ class Survey extends Public_Controller {
                 $this->client          = get_client_by_id($this->participation->cid);
                 $this->programme       = get_programme_by_id($this->participation->pid);
             }
+
+            $this->attempt         = get_current_attempt_by_user_id($this->current_user->id);
+            if($this->attempt){
+                $this->total_evaluators   = get_total_evaluators_by_attempt_id($this->attempt->id);
+                if( ! $this->session->userdata('attempt_id')){
+                    $this->session->set_userdata(array('attempt_id' => $this->attempt->id));
+                }
+            }
         }
 
 
@@ -46,14 +54,6 @@ class Survey extends Public_Controller {
             $this->total_questions = get_total_question_in_survey($this->survey->id);
             if( ! $this->session->userdata('survey_id')){
                 $this->session->set_userdata(array('survey_id' => $this->survey->id));
-            }
-        }
-
-        $this->attempt         = get_current_attempt_by_user_id($this->current_user->id);
-        if($this->attempt){
-            $this->total_evaluators   = get_total_evaluators_by_attempt_id($this->attempt->id);
-            if( ! $this->session->userdata('attempt_id')){
-                $this->session->set_userdata(array('attempt_id' => $this->attempt->id));
             }
         }
 
