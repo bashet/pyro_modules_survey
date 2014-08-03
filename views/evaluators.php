@@ -42,7 +42,7 @@
                             echo    '<td>Progressing</td>';
                         }
 
-                        if($e->email_sent){
+                        if($e->re_email_sent){
                             echo    '<td style="text-align:center; color: #428bca"><i class="fa fa-check"></i></td>';
                         }else{
                             echo    '<td style="text-align:center; color: #428bca"><i class="fa fa-times"></i></td>';
