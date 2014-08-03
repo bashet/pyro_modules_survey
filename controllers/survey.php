@@ -645,7 +645,7 @@ class Survey extends Public_Controller {
                             'name'          => $data['evaluators_name-'.$i],
                             'email'         => $data['evaluators_email-'.$i],
                             'relation'      => $data['relationship'.$i],
-                            'link_md5'      => md5(json_encode($attempt))
+                            'link_md5'      => md5($data['evaluators_email-'.$i])
                         );
                         $this->db->insert('survey_evaluators', $evaluators);
                     }
@@ -692,7 +692,7 @@ class Survey extends Public_Controller {
                             'name'          => $data['evaluators_name-'.$i],
                             'email'         => $data['evaluators_email-'.$i],
                             'relation'      => $data['relationship'.$i],
-                            'link_md5'      => md5(json_encode($attempt))
+                            'link_md5'      => md5($data['evaluators_email-'.$i])
                         );
                         $this->db->insert('survey_evaluators', $evaluators);
                     }
