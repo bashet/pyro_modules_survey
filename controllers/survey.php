@@ -701,6 +701,12 @@ class Survey extends Public_Controller {
     }
 
     public function send_email_to_evaluators(){
+        $this->attempt = get_current_attempt_by_user_id($this->current_user->id); // reset the attempt
+        if($this->attempt){
+            $this->total_evaluators   = get_total_evaluators_by_attempt_id($this->attempt->id);
+            $this->session->set_userdata(array('attempt_id' => $this->attempt->id));
+        }
+
         if($data = $this->input->post()){
             $evaluators =  get_evaluators_by_attempt_id($this->attempt->id);
 
