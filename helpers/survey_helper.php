@@ -404,7 +404,7 @@ if( ! function_exists('generate_email_template_for_evaluator')){
         $email_body .= '<p>Please click to the link below:</p>';
         $link        = $ci->config->base_url().'index.php/survey/evaluator_response/'.$evaluator->link_md5;
         $email_body .= '<a href="'.$link.'">'.$link.'</a>';
-        $email_body .= '<br><p>Regards,<br>';
+        $email_body .= '<br><br><p>Regards,<br>';
         $email_body .= $user->first_name . ' ' . $user->last_name.'</p>';
 
         $ci->db->where('id', $email_template->id);
