@@ -43,12 +43,11 @@ $(function(){
                                     alert_box.html(alert_box.html() + '<br>' + new_warning);
                                     modal_msg_body.html(modal_msg_body.html() + '<br>' + new_warning);
                                 }
-
-                                $body.removeClass("loading");
-                                alert_box.css('display', 'block');
-                                $('#modal_warning_evaluators').modal('show');
-
                             });
+
+                            $body.removeClass("loading");
+                            alert_box.css('display', 'block');
+                            $('#modal_warning_evaluators').modal('show');
                         }
                     }
                 }
