@@ -1038,15 +1038,8 @@ class Survey extends Public_Controller {
             $this->attempt  = get_current_attempt_by_id($evaluator->attempt_id);
             $this->survey   = get_survey_by_id($this->attempt->survey_id);
 
-            if( ! $this->session->userdata('attempt_id')){
-                $this->session->set_userdata(array('attempt_id' => $this->attempt->id));
-            }
-
-            if( ! $this->session->userdata('survey_id')){
-                $this->session->set_userdata(array('survey_id' => $this->attempt->id));
-            }
-
-
+            $this->session->set_userdata(array('attempt_id' => $this->attempt->id));
+            $this->session->set_userdata(array('survey_id' => $this->survey->id));
         }
         $this->template
             ->set_layout('evaluator_response')
