@@ -1043,7 +1043,7 @@ class Survey extends Public_Controller {
             $this->session->set_userdata(array('survey_id' => $this->survey->id));
         }
 
-        var_dump($this->attempt, $this->survey);
+
         $this->template
             ->set_layout('evaluator_response')
             ->title($this->module_details['name'], 'evaluator response')
@@ -1051,7 +1051,7 @@ class Survey extends Public_Controller {
             ->build('evaluator_response');
     }
     public function evaluator_survey(){
-
+        var_dump($this->attempt, $this->survey);
         $questions      = get_questions_by_survey_id($this->survey->id);
 
         $answer_data = new stdClass();
