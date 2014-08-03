@@ -625,7 +625,7 @@ class Survey extends Public_Controller {
     }
 
     public function user_survey(){
-        if(! user_logged_in()){
+        if(! $this->current_user->id){
             redirect($this->config->base_url());
             exit();
         }
