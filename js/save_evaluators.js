@@ -1,5 +1,19 @@
 $(function(){
 
+
+    $("button[copy_link]").on('click', function (e) {
+        e.preventDefault();
+    }).zclip({
+        path: 'http://www.steamdev.com/zclip/js/ZeroClipboard.swf',
+        copy: function () {
+            var button_id = this.id;
+            var button_id_array = button_id.split('-');
+            var element = '#link-' + button_id_array[1];
+            return $(element).val();
+        }
+    });
+
+
     $('#frm_save_evaluators').on('submit', function(event){
         $body = $("body");
         $body.addClass("loading");
