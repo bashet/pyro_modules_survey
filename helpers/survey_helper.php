@@ -163,6 +163,15 @@ if(! function_exists('get_survey_by_programme_id')){
     }
 }
 
+if(! function_exists('get_survey_by_id')){
+    function get_survey_by_id($id){
+        $ci =& get_instance();
+
+        $query = $ci->db->get_where('survey', array('id'=> $id));
+        return $query->row();
+    }
+}
+
 if(! function_exists('get_questions_by_survey_id')){
     function get_questions_by_survey_id($id){
         $ci =& get_instance();
@@ -262,6 +271,15 @@ if(! function_exists('is_valid_manager')){
         }
 
         return $valid;
+    }
+}
+
+if(! function_exists('get_current_attempt_by_id')){
+    function get_current_attempt_by_id($id = ''){
+        $ci =& get_instance();
+
+        $query = $ci->db->get_where('survey_attempt', array('id' => $id));
+        return $query->row();
     }
 }
 
@@ -425,5 +443,18 @@ if( ! function_exists('generate_email_template_for_evaluator')){
         }
 
 
+    }
+}
+
+if( ! function_exists('get_evaluator_by_link') ){
+    function get_evaluator_by_link($link = ''){
+        if($link){
+            $ci =& get_instance();
+
+            $query = $ci->db->get_where('survey_evaluators', array('link_md5' => $link));
+            return $query->row();
+        }else{
+            return '';
+        }
     }
 }

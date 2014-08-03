@@ -1030,9 +1030,77 @@ class Survey extends Public_Controller {
     }
 
     public function evaluator_response($link = ''){
+
+        if($link){
+            $evaluator = get_evaluator_by_link($link);
+            $this->session->set_userdata(array('evaluator_id' => $evaluator->id));
+
+            $this->attempt  = get_current_attempt_by_id($evaluator->attempt_id);
+            $this->survey   = get_survey_by_id($this->attempt->survey_id);
+
+            if( ! $this->session->userdata('attempt_id')){
+                $this->session->set_userdata(array('attempt_id' => $this->attempt->id));
+            }
+
+            if( ! $this->session->userdata('survey_id')){
+                $this->session->set_userdata(array('survey_id' => $this->attempt->id));
+            }
+
+
+        }
         $this->template
             ->set_layout('user_survey')
             ->title($this->module_details['name'], 'evaluator response')
             ->build('evaluator_response');
+    }
+    public function evaluator_survey(){
+
+        $questions      = get_questions_by_survey_id($this->survey->id);
+
+        $answer_data = new stdClass();
+        $answer_data->user_id    = $this->current_user->id;
+        $answer_data->attempt_id = $this->attempt->id;
+        $answer_data->survey_id  = $this->survey->id;
+
+        $ex_ans = get_existing_answer($answer_data);
+
+        if($ex_ans){
+            $my_answer = json_decode($ex_ans->answers);
+            if(count((array)$my_answer) == $this->total_questions){
+                $this->db->where('id', $ex_ans->id);
+                $this->db->update('survey_user_answer', array('finished' => 1));
+                redirect('survey/user_review_all');
+            }
+        }else{
+            $my_answer = '';
+        }
+
+
+
+        if( ! $this->session->userdata('question_no')){
+            $this->session->set_userdata(array('question_no' => 1));
+        }
+
+        $q_no = $this->session->userdata('question_no');
+
+
+
+        $this->template
+            ->title($this->module_details['name'], 'manage users')
+            ->set_breadcrumb('User survey')
+            ->set('questions', $questions)
+            ->set('total_evaluators', $this->total_evaluators)
+            ->set('attempt', $this->attempt)
+            ->set('total_questions', $this->total_questions)
+            ->set('q_no', $q_no)
+            ->set('my_answer', $my_answer)
+            ->append_css('module::user_survey.css')
+            ->append_js('module::user_survey.js')
+            ->build('user_survey');
+
+        $this->template
+            ->set_layout('user_survey')
+            ->title($this->module_details['name'], 'evaluator response')
+            ->build('evaluator_survey');
     }
 }
