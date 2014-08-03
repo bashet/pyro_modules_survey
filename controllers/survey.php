@@ -1042,6 +1042,8 @@ class Survey extends Public_Controller {
             $this->session->set_userdata(array('attempt_id' => $this->attempt->id));
             $this->session->set_userdata(array('survey_id' => $this->survey->id));
         }
+
+        var_dump($this->attempt, $this->survey);
         $this->template
             ->set_layout('evaluator_response')
             ->title($this->module_details['name'], 'evaluator response')
