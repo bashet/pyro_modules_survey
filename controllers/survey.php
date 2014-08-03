@@ -1049,7 +1049,7 @@ class Survey extends Public_Controller {
 
         }
         $this->template
-            ->set_layout('user_survey')
+            ->set_layout('evaluator_response')
             ->title($this->module_details['name'], 'evaluator response')
             ->build('evaluator_response');
     }
