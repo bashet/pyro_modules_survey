@@ -703,7 +703,7 @@ class Survey extends Public_Controller {
         if($data = $this->input->post()){
             $evaluators =  get_evaluators_by_attempt_id($this->attempt->id);
             $this->load->library('email');
-            $this->email->from('dontreply@domail.com', 'Website name');
+            $this->email->from(Settings::get('server_email'));
             $this->email->subject('email subject');
             $this->email->message($data['email_body']);
             foreach($evaluators as $peer){
