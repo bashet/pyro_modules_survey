@@ -38,6 +38,10 @@
                         echo    '<td style="text-align:center">'.$e->relation.'</td>';
                         if($e->start_date == 0){
                             echo    '<td>Not started</td>';
+                        }elseif($e->submitted){
+                            echo    '<td>Submitted</td>';
+                        }elseif($e->finished){
+                            echo    '<td>'.get_evaluator_progress($e->id).', but not submitted </td>';
                         }else{
                             echo    '<td>'.get_evaluator_progress($e->id).'</td>';
                         }
