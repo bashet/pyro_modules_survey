@@ -500,7 +500,7 @@ if( ! function_exists('get_evaluator_progress') ){
 
         $answered = count((array)$my_answer);
 
-        return (($total_questions * $answered) / 100).'%';
+        return (($answered/$total_questions) * 100).'%';
 
     }
 }
