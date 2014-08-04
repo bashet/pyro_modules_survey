@@ -1169,6 +1169,7 @@ class Survey extends Public_Controller {
         $my_answer = json_decode($ex_ans->answers);
 
         $this->template
+            ->set_layout('evaluator_response')
             ->title($this->module_details['name'], 'review answer')
             ->set_breadcrumb('Review')
             ->set('questions', $questions)
