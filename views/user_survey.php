@@ -33,10 +33,10 @@
                 echo '<td style="text-align:center"><input answer type="radio" name="q_answer-'.$q->id.'" value="4" '.(isset($my_answer->$q_id) && ($my_answer->$q_id == 4)?'checked':'').'></td>';
                 echo '</tr>';
                 echo '<tr>';
-                echo '<td>'.$answer->option_1_label.$answer->option_1.'</td>';
-                echo '<td>'.$answer->option_2_label.$answer->option_2.'</td>';
-                echo '<td>'.$answer->option_3_label.$answer->option_3.'</td>';
-                echo '<td>'.$answer->option_4_label.$answer->option_4.'</td>';
+                echo '<td><strong>'.$answer->option_1_label.'</strong>'.$answer->option_1.'</td>';
+                echo '<td><strong>'.$answer->option_2_label.'</strong>'.$answer->option_2.'</td>';
+                echo '<td><strong>'.$answer->option_3_label.'</strong>'.$answer->option_3.'</td>';
+                echo '<td><strong>'.$answer->option_4_label.'</strong>'.$answer->option_4.'</td>';
                 echo '</tr>';
                 echo '</table>';
 
