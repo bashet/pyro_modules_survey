@@ -30,7 +30,7 @@
                 $q_id = $q->id;
                 echo '<tr>';
                 echo '<td>'.$i.'</td>';
-                echo '<td>'.$q->text1.'</td>';
+                echo '<td>'.$q->text2.'</td>';
                 if(isset($my_answer->$q_id)){
                     if($my_answer->$q_id == 1){
                         echo '<td><strong>Level 1:</strong>&NonBreakingSpace;'.$answer->option_1_label.'</td>';

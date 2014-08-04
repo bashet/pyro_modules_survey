@@ -18,7 +18,7 @@
             echo '</div>';
 
             echo '<div class="q_key_question">';
-            echo '<p><strong>Key Question:</strong>'.$q->text1.'</p>';
+            echo '<p><strong>Key Question:</strong>'.$q->text2.'</p>';
             echo '</div>';
 
             echo '<table class="table table-bordered">';
