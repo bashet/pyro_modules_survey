@@ -1075,6 +1075,8 @@ class Survey extends Public_Controller {
                 $this->db->update('survey_evaluators', array('finished' => 1));
                 redirect('survey/evaluator_review_all');
             }
+        }else{
+            $this->session->set_userdata(array('question_no' => 1));
         }
 
         if( ! $this->session->userdata('question_no')){
