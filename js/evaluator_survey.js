@@ -59,12 +59,7 @@ $(function(){
         $.ajax({
             type:   'post',
             url:    base_url + 'index.php/survey/update_evaluator_answer',
-            data:   {
-                evaluator_id:evaluator_id,
-                attempt_id:attempt_id,
-                survey_id:survey_id,
-                q_id:id, value:value
-            },
+            data:   { q_id:id, value:value },
             success:function(data){}
         });
     });
