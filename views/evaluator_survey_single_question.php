@@ -38,7 +38,7 @@
             echo '</table>';
             echo '<div class="q_button" style="float: right">';
                 echo '<span>&nbsp;&nbsp;&nbsp;Question '.$q_no.' of '.$total_questions.'&nbsp;&nbsp;&nbsp;</span>';
-                echo '<a class="btn  btn-primary" href="{{ url:site }}survey/user_review_all">Save <span class="glyphicon glyphicon-circle-arrow-right"></span></a>';
+                echo '<a class="btn  btn-primary" href="{{ url:site }}survey/evaluator_review_all">Save <span class="glyphicon glyphicon-circle-arrow-right"></span></a>';
             echo '</div>';
         echo '</div>';
     }
