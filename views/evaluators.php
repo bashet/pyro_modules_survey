@@ -53,7 +53,7 @@
                         }
                         $link        = $this->config->base_url().'index.php/survey/evaluator_response/'.$e->link_md5;
                         echo    '<td style="text-align:center"><button type="button" id="send_email-'.$e->id.'" class="btn btn-link" style="text-decoration: none"><i class="fa fa-envelope"></i></button></td>';
-                        echo    '<td style="text-align:center"><button type="button" '.(($e->start_date)?'disabled':'').' id="del_evaluator-'.$e->id.'" class="btn btn-link" style="text-decoration: none"><i class="fa fa-trash-o"></i></button></td>';
+                        echo    '<td style="text-align:center"><button type="button" '.(($e->start_date)?'disabled style="text-decoration: none;"':'style="text-decoration: none; color:red "').' id="del_evaluator-'.$e->id.'" class="btn btn-link"><i class="fa fa-trash-o"></i></button></td>';
                         echo    '<td style="text-align:center"><button type="button" copy_link id="copy_link-'.$e->id.'" class="btn btn-link z-clip" style="text-decoration: none"><span class="glyphicon glyphicon-link"></span></button></td>';
                         echo    '<input id="link-'.$e->id.'" type="hidden" value="'.$link.'">';
                         echo    '</tr>';
