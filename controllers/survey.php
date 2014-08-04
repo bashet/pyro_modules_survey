@@ -1198,6 +1198,7 @@ class Survey extends Public_Controller {
             $my_answer = json_decode($ex_ans->answers);
 
             $this->template
+                ->set_layout('evaluator_response')
                 ->title($this->module_details['name'], 'manage users')
                 ->set_breadcrumb('Review single question')
                 ->set('q', $question)
