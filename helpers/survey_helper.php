@@ -494,13 +494,13 @@ if( ! function_exists('get_evaluator_progress') ){
 
         $evaluator = get_evaluator_by_id($id);
 
-        $ci->total_questions = get_total_question_in_survey($ci->survey->id);
+        $total_questions = get_total_question_in_survey($ci->session->userdata('survey_id'));
 
         $my_answer = json_decode($evaluator->answers);
 
         $answered = count((array)$my_answer);
 
-        return (($ci->total_questions * $answered) / 100);
+        return (($total_questions * $answered) / 100);
 
     }
 }
