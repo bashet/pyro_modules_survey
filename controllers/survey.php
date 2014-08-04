@@ -1190,19 +1190,18 @@ class Survey extends Public_Controller {
 
     public function evaluator_survey_submit(){
 
-        $answer = new stdClass();
-        $answer->evaluator_id   = $this->session->userdata('evaluator_id');
-        $answer->attempt_id     = $this->session->userdata('attempt_id');
-        $answer->survey_id      = $this->session->userdata('survey_id');
+        $link   = $this->session->userdata('link');
+        $evaluator = get_evaluator_by_link($link);
 
-        $ex_ans = get_existing_answer_evaluator($answer);
+        $this->attempt  = get_current_attempt_by_id($evaluator->attempt_id);
+        $this->survey   = get_survey_by_id($this->attempt->survey_id);
 
         $result = array();
 
-        if($ex_ans->finished){
+        if($evaluator->finished){
             $result['finished'] = true;
-            $this->db->where('id', $ex_ans->id);
-            if($this->db->update('survey_evaluators_answer', array('submitted' => 1, 'submit_date' =>time()))){
+            $this->db->where('id', $evaluator->id);
+            if($this->db->update('survey_evaluators', array('submitted' => 1, 'submit_date' =>time()))){
                 $result['updated'] = true;
             }else{
                 $result['updated'] = false;
