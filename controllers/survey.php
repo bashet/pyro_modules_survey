@@ -1196,6 +1196,7 @@ class Survey extends Public_Controller {
             $ex_ans = get_existing_answer_evaluator($answer_data);
 
             $my_answer = json_decode($ex_ans->answers);
+            $this->total_questions = get_total_question_in_survey($this->survey->id);
 
             $this->template
                 ->set_layout('evaluator_response')
