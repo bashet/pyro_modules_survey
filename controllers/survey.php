@@ -1163,21 +1163,12 @@ class Survey extends Public_Controller {
             $question      = get_question_by_id($q_id);
 
             $link   = $this->session->userdata('link');
-            if($link){
-                $evaluator = get_evaluator_by_link($link);
+            $evaluator = get_evaluator_by_link($link);
 
-                $this->attempt  = get_current_attempt_by_id($evaluator->attempt_id);
-                $this->survey   = get_survey_by_id($this->attempt->survey_id);
-            }
+            $this->attempt  = get_current_attempt_by_id($evaluator->attempt_id);
+            $this->survey   = get_survey_by_id($this->attempt->survey_id);
 
-            $answer_data = new stdClass();
-            $answer_data->evaluator_id  = $this->session->userdata('evaluator_id');
-            $answer_data->attempt_id    = $this->attempt->id;
-            $answer_data->survey_id     = $this->survey->id;
-
-            $ex_ans = get_existing_answer_evaluator($answer_data);
-
-            $my_answer = json_decode($ex_ans->answers);
+            $my_answer = json_decode($evaluator->answers);
             $this->total_questions = get_total_question_in_survey($this->survey->id);
 
             $this->template
