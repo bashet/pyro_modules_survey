@@ -1,5 +1,5 @@
 <div id="user_review_all-container">
-    <?php if($ex_ans->submitted){?>
+    <?php if($evaluator->submitted){?>
         <h2>Your responses have now been submitted</h2>
         <p>Once your evaluators have submitted their responses you will be able to generate your report.</p>
     <?php }else{?>
@@ -15,7 +15,7 @@
             <th>Question</th>
             <th>Answer</th>
             <?php
-            if(! $ex_ans->submitted){
+            if(! $evaluator->submitted){
                 echo '<th>Edit</th>';
             }
             ?>
@@ -57,9 +57,9 @@
 
         </tbody>
     </table>
-    <?php if(! $ex_ans->submitted){?>
+    <?php if(! $evaluator->submitted){?>
     <div style="float: right">
-        <button class="btn btn-primary" id="submit_answer" <?php echo (! $ex_ans->finished)?'disabled':'';?>>Submit <span class="glyphicon glyphicon-circle-arrow-right"></span></button>
+        <button class="btn btn-primary" id="submit_answer" <?php echo (! $evaluator->finished)?'disabled':'';?>>Submit <span class="glyphicon glyphicon-circle-arrow-right"></span></button>
     </div>
     <?php }?>
 

@@ -1133,30 +1133,21 @@ class Survey extends Public_Controller {
         }
 
         $link   = $this->session->userdata('link');
-        if($link){
-            $evaluator = get_evaluator_by_link($link);
+        $evaluator = get_evaluator_by_link($link);
 
-            $this->attempt  = get_current_attempt_by_id($evaluator->attempt_id);
-            $this->survey   = get_survey_by_id($this->attempt->survey_id);
-        }
+        $this->attempt  = get_current_attempt_by_id($evaluator->attempt_id);
+        $this->survey   = get_survey_by_id($this->attempt->survey_id);
 
         $questions      = get_questions_by_survey_id($this->survey->id);
 
-        $answer_data = new stdClass();
-        $answer_data->evaluator_id  = $this->session->userdata('evaluator_id');
-        $answer_data->attempt_id    = $this->attempt->id;
-        $answer_data->survey_id     = $this->survey->id;
-
-        $ex_ans = get_existing_answer_evaluator($answer_data);
-
-        $my_answer = json_decode($ex_ans->answers);
+        $my_answer = json_decode($evaluator->answers);
 
         $this->template
             ->set_layout('evaluator_response')
             ->title($this->module_details['name'], 'review answer')
             ->set_breadcrumb('Review')
+            ->set('evaluator', $evaluator)
             ->set('questions', $questions)
-            ->set('ex_ans', $ex_ans)
             ->set('my_answer', $my_answer)
             ->set('total_questions', $this->total_questions)
             ->append_js('module::evaluator_survey.js')
