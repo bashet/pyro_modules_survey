@@ -1129,20 +1129,20 @@ class Survey extends Public_Controller {
     public function evaluator_review_all(){
         $link   = $this->session->userdata('link');
         $evaluator = get_evaluator_by_link($link);
+        $this->attempt  = get_current_attempt_by_id($evaluator->attempt_id);
+        $this->survey   = get_survey_by_id($this->attempt->survey_id);
+        $this->total_questions = get_total_question_in_survey($this->survey->id);
 
         $my_answer = json_decode($evaluator->answers);
         if(count((array)$my_answer) == $this->total_questions){
             $this->db->where('id', $evaluator->id);
             $this->db->update('survey_evaluators', array('finished' => 1));
-            $evaluator = get_evaluator_by_link($link); // reset evaluator
+            $evaluator = get_evaluator_by_id($evaluator->id); // reset evaluator
         }
 
         if( ! $this->session->userdata('all_answered')){
             $this->session->set_userdata(array('all_answered' => 1));
         }
-
-        $this->attempt  = get_current_attempt_by_id($evaluator->attempt_id);
-        $this->survey   = get_survey_by_id($this->attempt->survey_id);
 
         $questions      = get_questions_by_survey_id($this->survey->id);
 
