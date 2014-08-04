@@ -1148,13 +1148,9 @@ class Survey extends Public_Controller {
         $link   = $this->session->userdata('link');
         if($link){
             $evaluator = get_evaluator_by_link($link);
-            $this->session->set_userdata(array('evaluator_id' => $evaluator->id));
 
             $this->attempt  = get_current_attempt_by_id($evaluator->attempt_id);
             $this->survey   = get_survey_by_id($this->attempt->survey_id);
-
-            $this->session->set_userdata(array('attempt_id' => $this->attempt->id));
-            $this->session->set_userdata(array('survey_id' => $this->survey->id));
         }
 
         $questions      = get_questions_by_survey_id($this->survey->id);
@@ -1183,6 +1179,14 @@ class Survey extends Public_Controller {
     public function evaluator_review_single($q_no = '', $q_id = ''){
         if(($q_no) && ($q_id)){
             $question      = get_question_by_id($q_id);
+
+            $link   = $this->session->userdata('link');
+            if($link){
+                $evaluator = get_evaluator_by_link($link);
+
+                $this->attempt  = get_current_attempt_by_id($evaluator->attempt_id);
+                $this->survey   = get_survey_by_id($this->attempt->survey_id);
+            }
 
             $answer_data = new stdClass();
             $answer_data->evaluator_id  = $this->session->userdata('evaluator_id');

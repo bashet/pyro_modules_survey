@@ -47,7 +47,7 @@
                     echo '<td></td>';
                 }
                 if(! $ex_ans->submitted)
-                echo '<td><a href="{{ url:site }}survey/user_review_single/'.$i.'/'.$q->id.'"><span class="glyphicon glyphicon-pencil"></span></a></td>';
+                echo '<td><a href="{{ url:site }}survey/evaluator_review_single/'.$i.'/'.$q->id.'"><span class="glyphicon glyphicon-pencil"></span></a></td>';
                 echo '</tr>';
                 $i++;
             }
