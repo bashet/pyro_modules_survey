@@ -393,7 +393,7 @@ if(! function_exists('get_existing_answer_evaluator')){
 */
 if(! function_exists('rebuild_answer')){
     function rebuild_answer($data, $ex_ans){
-        $answers = json_decode($ex_ans->answers, true);
+        $answers = json_decode($ex_ans, true);
 
         if($answers){
             $answers[$data['q_id']] = $data['value'];
