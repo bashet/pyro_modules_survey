@@ -387,6 +387,10 @@ class Survey extends Public_Controller {
 
                 $answers = array(
                     'question_id'   => $q_id,
+                    'option_1_label'=> $data['option_1_label'],
+                    'option_2_label'=> $data['option_2_label'],
+                    'option_3_label'=> $data['option_3_label'],
+                    'option_4_label'=> $data['option_4_label'],
                     'option_1'      => $data['option_1'],
                     'option_2'      => $data['option_2'],
                     'option_3'      => $data['option_3'],
