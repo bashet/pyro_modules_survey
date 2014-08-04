@@ -49,19 +49,19 @@
                                 </tr>
                                 <tr>
                                     <th>Option 1</th>
-                                    <td><?=$options->option_1_label .' - '.$options->option_1?></td>
+                                    <td><?='<strong>'.$options->option_1_label .'</strong>'.$options->option_1?></td>
                                 </tr>
                                 <tr>
                                     <th>Option 2</th>
-                                    <td><?=$options->option_2_label .' - '.$options->option_2?></td>
+                                    <td><?='<strong>'.$options->option_2_label .'</strong>'.$options->option_2?></td>
                                 </tr>
                                 <tr>
                                     <th>Option 3</th>
-                                    <td><?=$options->option_3_label .' - '.$options->option_3?></td>
+                                    <td><?='<strong>'.$options->option_3_label .'</strong>'.$options->option_3?></td>
                                 </tr>
                                 <tr>
                                     <th>Option 4</th>
-                                    <td><?=$options->option_4_label .' - '.$options->option_4?></td>
+                                    <td><?='<strong>'.$options->option_4_label .'</strong>'.$options->option_4?></td>
                                 </tr>
                             </table>
                             <?php
