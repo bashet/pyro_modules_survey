@@ -1217,11 +1217,10 @@ class Survey extends Public_Controller {
 
     public function evaluator_survey_submit(){
 
-        $data = $this->input->post();
         $answer = new stdClass();
         $answer->evaluator_id   = $this->session->userdata('evaluator_id');
-        $answer->attempt_id     = $data['attempt_id'];
-        $answer->survey_id      = $data['survey_id'];
+        $answer->attempt_id     = $this->session->userdata('attempt_id');
+        $answer->survey_id      = $this->session->userdata('survey_id');
 
         $ex_ans = get_existing_answer_evaluator($answer);
 

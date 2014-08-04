@@ -84,9 +84,7 @@ $(function(){
                         $body = $("body");
                         $body.addClass("loading");
                         $.ajax({
-                            type:   'post',
                             url: base_url + 'index.php/survey/evaluator_survey_submit',
-                            data:   {user_id:user_id, attempt_id:attempt_id, survey_id:survey_id},
                             success: function(data) {
                                 if(data){
                                     var msg = jQuery.parseJSON( data );
