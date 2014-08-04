@@ -39,7 +39,7 @@
                         if($e->start_date == 0){
                             echo    '<td>Not started</td>';
                         }else{
-                            echo    '<td>Progressing</td>';
+                            echo    '<td>'.get_evaluator_progress($e->id).'</td>';
                         }
 
                         if($e->re_email_sent){

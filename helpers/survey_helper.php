@@ -474,3 +474,33 @@ if( ! function_exists('get_evaluator_by_link') ){
         }
     }
 }
+
+if( ! function_exists('get_evaluator_by_id') ){
+    function get_evaluator_by_id($id = ''){
+        if($id){
+            $ci =& get_instance();
+
+            $query = $ci->db->get_where('survey_evaluators', array('id' => $id));
+            return $query->row();
+        }else{
+            return '';
+        }
+    }
+}
+
+if( ! function_exists('get_evaluator_progress') ){
+    function get_evaluator_progress($id){
+        $ci =& get_instance();
+
+        $evaluator = get_evaluator_by_id($id);
+
+        $ci->total_questions = get_total_question_in_survey($ci->survey->id);
+
+        $my_answer = json_decode($evaluator->answers);
+
+        $answered = count((array)$my_answer);
+
+        return (($ci->total_questions * $answered) / 100);
+
+    }
+}
