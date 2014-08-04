@@ -374,7 +374,7 @@ if(! function_exists('get_existing_answer')){
         return $query->row();
     }
 }
-
+/*
 if(! function_exists('get_existing_answer_evaluator')){
     function get_existing_answer_evaluator($answer){
         $ci =& get_instance();
@@ -390,7 +390,7 @@ if(! function_exists('get_existing_answer_evaluator')){
         return $query->row();
     }
 }
-
+*/
 if(! function_exists('rebuild_answer')){
     function rebuild_answer($data, $ex_ans){
         $answers = json_decode($ex_ans->answers, true);

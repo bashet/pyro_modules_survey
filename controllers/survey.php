@@ -1066,25 +1066,16 @@ class Survey extends Public_Controller {
 
         $questions      = get_questions_by_survey_id($this->survey->id);
 
-        $answer_data = new stdClass();
-        $answer_data->evaluator_id      = $this->session->userdata('evaluator_id');
-        $answer_data->attempt_id        = $this->attempt->id;
-        $answer_data->survey_id         = $this->survey->id;
+        $evaluator = get_evaluator_by_link($this->session->userdata('link'));
 
-        $ex_ans = get_existing_answer_evaluator($answer_data);
-
-        if($ex_ans){
-            $my_answer = json_decode($ex_ans->answers);
+        $my_answer = json_decode($evaluator->answers);
+        if($my_answer){
             if(count((array)$my_answer) == $this->total_questions){
-                $this->db->where('id', $ex_ans->id);
-                $this->db->update('survey_evaluators_answer', array('finished' => 1));
+                $this->db->where('id', $evaluator->id);
+                $this->db->update('survey_evaluators', array('finished' => 1));
                 redirect('survey/evaluator_review_all');
             }
-        }else{
-            $my_answer = '';
         }
-
-
 
         if( ! $this->session->userdata('question_no')){
             $this->session->set_userdata(array('question_no' => 1));
