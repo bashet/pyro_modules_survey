@@ -1,3 +1,6 @@
+<?php
+var_dump($evaluator);
+?>
 <div id="user_review_all-container">
     <?php if($evaluator->submitted){?>
         <h2>Your responses have now been submitted</h2>
