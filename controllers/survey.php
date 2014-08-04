@@ -1137,4 +1137,88 @@ class Survey extends Public_Controller {
         }
 
     }
+
+    public function evaluator_review_all(){
+
+        if( ! $this->session->userdata('all_answered')){
+            $this->session->set_userdata(array('all_answered' => 1));
+        }
+
+        $questions      = get_questions_by_survey_id($this->survey->id);
+
+        $answer_data = new stdClass();
+        $answer_data->evaluator_id  = $this->session->userdata('evaluator_id');
+        $answer_data->attempt_id    = $this->attempt->id;
+        $answer_data->survey_id     = $this->survey->id;
+
+        $ex_ans = get_existing_answer_evaluator($answer_data);
+
+        $my_answer = json_decode($ex_ans->answers);
+
+        $this->template
+            ->title($this->module_details['name'], 'review answer')
+            ->set_breadcrumb('Review')
+            ->set('questions', $questions)
+            ->set('ex_ans', $ex_ans)
+            ->set('my_answer', $my_answer)
+            ->set('total_questions', $this->total_questions)
+            ->append_js('module::evaluator_survey.js')
+            ->build('evaluator_review_all');
+    }
+
+    public function evaluator_review_single($q_no = '', $q_id = ''){
+        if(($q_no) && ($q_id)){
+            $question      = get_question_by_id($q_id);
+
+            $answer_data = new stdClass();
+            $answer_data->evaluator_id  = $this->session->userdata('evaluator_id');
+            $answer_data->attempt_id    = $this->attempt->id;
+            $answer_data->survey_id     = $this->survey->id;
+
+            $ex_ans = get_existing_answer_evaluator($answer_data);
+
+            $my_answer = json_decode($ex_ans->answers);
+
+            $this->template
+                ->title($this->module_details['name'], 'manage users')
+                ->set_breadcrumb('Review single question')
+                ->set('q', $question)
+                ->set('attempt', $this->attempt)
+                ->set('total_questions', $this->total_questions)
+                ->set('q_no', $q_no)
+                ->set('my_answer', $my_answer)
+                ->append_css('module::user_survey.css')
+                ->append_js('module::evaluator_survey.js')
+                ->build('evaluator_survey_single_question');
+        }else{
+            redirect($this->config->base_url());
+        }
+    }
+
+    public function evaluator_survey_submit(){
+
+        $data = $this->input->post();
+        $answer = new stdClass();
+        $answer->evaluator_id   = $this->session->userdata('evaluator_id');
+        $answer->attempt_id     = $data['attempt_id'];
+        $answer->survey_id      = $data['survey_id'];
+
+        $ex_ans = get_existing_answer_evaluator($answer);
+
+        $result = array();
+
+        if($ex_ans->finished){
+            $result['finished'] = true;
+            $this->db->where('id', $ex_ans->id);
+            if($this->db->update('survey_evaluators_answer', array('submitted' => 1, 'submit_date' =>time()))){
+                $result['updated'] = true;
+            }else{
+                $result['updated'] = false;
+            }
+        }else{
+            $result['finished'] = false;
+        }
+
+        echo json_encode($result);
+    }
 }
