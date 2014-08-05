@@ -769,7 +769,7 @@ class Survey extends Public_Controller {
                 echo json_encode(array('success' => true));
 
             }else{
-                echo json_encode(array('evaluators' => $given, 'error' =>$error, 'success' => false));
+                echo json_encode(array('evaluators' => $given, 'error' =>$error, 'duplicate_email' => '', 'success' => false));
             }
         }else{
             echo json_encode(array('success' => false, 'evaluators' => 4, 'duplicate_email' => $duplicate)); // at this time evaluators will be definitely more then 3
@@ -822,7 +822,7 @@ class Survey extends Public_Controller {
                 echo json_encode(array('success' => true));
 
             }else{
-                echo json_encode(array('error' =>$error, 'success' => false, 'evaluators' => 4));
+                echo json_encode(array('error' =>$error, 'success' => false, 'duplicate_email' => '', 'evaluators' => 4));
             }
         }else{
             echo json_encode(array('error' =>$error, 'success' => false, 'evaluators' => 4, 'duplicate_email' => $duplicate)); // at this time evaluators will be definitely more then 3
