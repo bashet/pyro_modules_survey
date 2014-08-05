@@ -506,18 +506,18 @@ if( ! function_exists('get_evaluator_progress') ){
 }
 
 if( ! function_exists('is_all_evaluators_valid')){
-    function is_all_evaluators_valid($data){
+    function is_all_evaluators_valid($data, $allowed_evaluators){
         $ci =& get_instance();
 
         $attempt_id = $data['attempt_id'];
 
         $error = false;
 
-        for($i = 1; $i <= $ci->allowed_evaluators; $i++){
+        for($i = 1; $i <= $allowed_evaluators; $i++){
             if(isset($data['evaluators_email-'.$i])){
                 if($data['evaluators_email-'.$i]){
 
-                    for($j = 2; $j <= $ci->allowed_evaluators; $j++){
+                    for($j = 2; $j <= $allowed_evaluators; $j++){
                         if(isset($data['evaluators_email-'.$j])){
                             if($data['evaluators_email-'.$j]){
                                 if($data['evaluators_email-'.$j] == $data['evaluators_email-'.$i]){

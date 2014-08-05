@@ -781,7 +781,7 @@ class Survey extends Public_Controller {
         $data = $this->input->post();
         $error = array();
 
-        if(is_all_evaluators_valid($data)){
+        if(is_all_evaluators_valid($data, $this->allowed_evaluators)){
 
             for($i = 1; $i <= $this->allowed_evaluators; $i++){
                 if(isset($data['evaluators_email-'.$i])){
