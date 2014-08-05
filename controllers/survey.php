@@ -787,7 +787,8 @@ class Survey extends Public_Controller {
         $data = $this->input->post();
         $error = array();
 
-        if(is_all_evaluators_valid($data, $this->allowed_evaluators)){
+        $duplicate = is_all_evaluators_valid($data, $this->allowed_evaluators);
+        if($duplicate == ''){
 
             for($i = 1; $i <= $this->allowed_evaluators; $i++){
                 if(isset($data['evaluators_email-'.$i])){
@@ -824,7 +825,7 @@ class Survey extends Public_Controller {
                 echo json_encode(array('error' =>$error, 'success' => false, 'evaluators' => 4));
             }
         }else{
-            echo json_encode(array('error' =>$error, 'success' => false, 'evaluators' => 4, 'duplicate_email' => true)); // at this time evaluators will be definitely more then 3
+            echo json_encode(array('error' =>$error, 'success' => false, 'evaluators' => 4, 'duplicate_email' => $duplicate)); // at this time evaluators will be definitely more then 3
         }
     }
 
