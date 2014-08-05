@@ -78,33 +78,42 @@ $(function(){
 
         $('#ev_info').html(ev_name);
 
-        $( "#delete_evaluator_dialog_confirm" ).removeClass('hide').dialog({
-            resizable: false,
-            modal: true,
-            title: "<div class='widget-header'><h4 class='smaller'><i class='ace-icon fa fa-exclamation-triangle red'></i> Delete Evaluator?</h4></div>",
-            title_html: true,
-            buttons: [
-                {
-                    html: "<i class='ace-icon fa fa-trash-o bigger-110'></i>&nbsp; Delete Evaluator",
-                    "class" : "btn btn-danger btn-xs",
-                    click: function() {
-                        $( this ).dialog( "close" );
-                        $body = $("body");
-                        $body.addClass("loading");
-                        window.location.href = base_url + 'index.php/survey/delete_evaluator/'+ev_id;
-                    }
+        $.ajax({
+            url: base_url + 'index.php/survey/get_total_evaluators',
+            success: function(data,status) {
+                if(data <= 3){
+                    alert('You must keep at least 3 evaluators to get the final report!');
+                }else{
+                    $( "#delete_evaluator_dialog_confirm" ).removeClass('hide').dialog({
+                        resizable: false,
+                        modal: true,
+                        title: "<div class='widget-header'><h4 class='smaller'><i class='ace-icon fa fa-exclamation-triangle red'></i> Delete Evaluator?</h4></div>",
+                        title_html: true,
+                        buttons: [
+                            {
+                                html: "<i class='ace-icon fa fa-trash-o bigger-110'></i>&nbsp; Delete Evaluator",
+                                "class" : "btn btn-danger btn-xs",
+                                click: function() {
+                                    $( this ).dialog( "close" );
+                                    $body = $("body");
+                                    $body.addClass("loading");
+                                    window.location.href = base_url + 'index.php/survey/delete_evaluator/'+ev_id;
+                                }
+                            }
+                            ,
+                            {
+                                html: "<i class='ace-icon fa fa-times bigger-110'></i>&nbsp; Cancel",
+                                "class" : "btn btn-xs",
+                                click: function() {
+                                    $body = $("body");
+                                    $body.removeClass("loading");
+                                    $( this ).dialog( "close" );
+                                }
+                            }
+                        ]
+                    });
                 }
-                ,
-                {
-                    html: "<i class='ace-icon fa fa-times bigger-110'></i>&nbsp; Cancel",
-                    "class" : "btn btn-xs",
-                    click: function() {
-                        $body = $("body");
-                        $body.removeClass("loading");
-                        $( this ).dialog( "close" );
-                    }
-                }
-            ]
+            }
         });
 
     });

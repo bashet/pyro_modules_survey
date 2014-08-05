@@ -1222,4 +1222,8 @@ class Survey extends Public_Controller {
 
         echo json_encode($result);
     }
+
+    public function get_total_evaluators(){
+        echo get_total_evaluators_by_attempt_id($this->attempt->id);
+    }
 }
