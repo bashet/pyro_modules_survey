@@ -728,47 +728,52 @@ class Survey extends Public_Controller {
         $data = $this->input->post();
         $given = 0;
         $error = array();
-        for($i = 1; $i <= $this->allowed_evaluators; $i++){
-            if(($data['evaluators_name-'.$i]) && ($data['evaluators_email-'.$i]) && ($data['relationship'.$i])){
-                $given++;
-            }
-            if($data['evaluators_email-'.$i]){
-                if ( ! filter_var($data['evaluators_email-'.$i], FILTER_VALIDATE_EMAIL)){
-                    $error[] = $i;
+        if(is_all_evaluators_valid($data, $this->allowed_evaluators)){
+            for($i = 1; $i <= $this->allowed_evaluators; $i++){
+                if(($data['evaluators_name-'.$i]) && ($data['evaluators_email-'.$i]) && ($data['relationship'.$i])){
+                    $given++;
                 }
-            }
-        }
-
-        if(($given >= 3) && (empty($error))){
-            // we can proceed to save data
-            $attempt = array(
-                'user_id'       => $data['user_id'],
-                'survey_id'     => $data['survey_id'],
-                'create_date'   => time(),
-            );
-            if($this->db->insert('survey_attempt', $attempt)){
-                $attempt_id = $this->db->insert_id();
-
-                for($i = 1; $i <= $this->allowed_evaluators; $i++){
-                    if(($data['evaluators_name-'.$i]) && ($data['evaluators_email-'.$i]) && ($data['relationship'.$i])){
-                        $evaluators = array(
-                            'attempt_id'    => $attempt_id,
-                            'name'          => $data['evaluators_name-'.$i],
-                            'email'         => $data['evaluators_email-'.$i],
-                            'relation'      => $data['relationship'.$i],
-                            'link_md5'      => md5($data['evaluators_email-'.$i])
-                        );
-                        $this->db->insert('survey_evaluators', $evaluators);
+                if($data['evaluators_email-'.$i]){
+                    if ( ! filter_var($data['evaluators_email-'.$i], FILTER_VALIDATE_EMAIL)){
+                        $error[] = $i;
                     }
                 }
-
             }
 
-            echo json_encode(array('success' => true));
+            if(($given >= 3) && (empty($error))){
+                // we can proceed to save data
+                $attempt = array(
+                    'user_id'       => $data['user_id'],
+                    'survey_id'     => $data['survey_id'],
+                    'create_date'   => time(),
+                );
+                if($this->db->insert('survey_attempt', $attempt)){
+                    $attempt_id = $this->db->insert_id();
 
+                    for($i = 1; $i <= $this->allowed_evaluators; $i++){
+                        if(($data['evaluators_name-'.$i]) && ($data['evaluators_email-'.$i]) && ($data['relationship'.$i])){
+                            $evaluators = array(
+                                'attempt_id'    => $attempt_id,
+                                'name'          => $data['evaluators_name-'.$i],
+                                'email'         => $data['evaluators_email-'.$i],
+                                'relation'      => $data['relationship'.$i],
+                                'link_md5'      => md5($data['evaluators_email-'.$i])
+                            );
+                            $this->db->insert('survey_evaluators', $evaluators);
+                        }
+                    }
+
+                }
+
+                echo json_encode(array('success' => true));
+
+            }else{
+                echo json_encode(array('evaluators' => $given, 'error' =>$error, 'success' => false));
+            }
         }else{
-            echo json_encode(array('evaluators' => $given, 'error' =>$error, 'success' => false));
+            echo json_encode(array('error' =>$error, 'success' => false, 'evaluators' => 4, 'duplicate_email' => true)); // at this time evaluators will be definitely more then 3
         }
+
 
     }
 
@@ -815,10 +820,10 @@ class Survey extends Public_Controller {
                 echo json_encode(array('success' => true));
 
             }else{
-                echo json_encode(array('error' =>$error, 'success' => false));
+                echo json_encode(array('error' =>$error, 'success' => false, 'evaluators' => 4));
             }
         }else{
-            echo json_encode(array('error' =>$error, 'success' => false, 'duplicate_email' => true));
+            echo json_encode(array('error' =>$error, 'success' => false, 'evaluators' => 4, 'duplicate_email' => true)); // at this time evaluators will be definitely more then 3
         }
     }
 
