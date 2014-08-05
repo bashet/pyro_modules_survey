@@ -519,8 +519,10 @@ if( ! function_exists('is_all_evaluators_valid')){
                     for($j = 2; $j <= $allowed_evaluators; $j++){
                         if(isset($data['evaluators_email-'.$j])){
                             if($data['evaluators_email-'.$j]){
-                                if($data['evaluators_email-'.$j] == $data['evaluators_email-'.$i]){
-                                    $error = 'Duplicate email address entered';
+                                if($i != $j){
+                                    if($data['evaluators_email-'.$j] == $data['evaluators_email-'.$i]){
+                                        $error = 'Duplicate email address entered';
+                                    }
                                 }
                             }
                         }
