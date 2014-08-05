@@ -798,6 +798,9 @@ class Survey extends Public_Controller {
         }
 
         $data = $this->input->post();
+        $obj    = json_decode(json_encode($data));
+        var_dump($obj);
+        /*
         $error = array();
 
         $duplicate = is_all_evaluators_valid($data, $this->allowed_evaluators);
@@ -819,7 +822,7 @@ class Survey extends Public_Controller {
                 $success        = false;
                 $missing_fields = false;
 
-                $obj    = json_decode(json_encode($data));
+
 
                 for($i = 1; $i <= $this->allowed_evaluators; $i++){
                     $name       = 'evaluators_name-'.$i;
@@ -856,14 +859,12 @@ class Survey extends Public_Controller {
                 }else{
                     echo json_encode(array('success' => $success, 'missing_fields' => $missing_fields, 'duplicate_email' => $duplicate));
                 }
-
-
             }else{
                 echo json_encode(array('error' =>$error, 'success' => false, 'duplicate_email' => $duplicate, 'evaluators' => 4));
             }
         }else{
             echo json_encode(array('error' =>$error, 'success' => false, 'evaluators' => 4, 'duplicate_email' => $duplicate)); // at this time evaluators will be definitely more then 3
-        }
+        }*/
     }
 
     public function delete_evaluator($id = ''){
