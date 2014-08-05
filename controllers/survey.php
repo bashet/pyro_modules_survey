@@ -838,7 +838,7 @@ class Survey extends Public_Controller {
                             $missing_fields = true;
                         }
                     }else{
-                        $missing_fields = true;
+                        //$missing_fields = true;
                     }
                 }
 
