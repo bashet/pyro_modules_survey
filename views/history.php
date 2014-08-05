@@ -38,8 +38,8 @@
                     echo '<td style="text-align:center; color: red"><i class="fa fa-times"></i></td>';
                 }
 
-                echo '<td>'.get_report_pdf($history).'</td>';
                 echo '<td>'.(($history->submit_date)? date('d/m/Y', $history->submit_date):'').'</td>';
+                echo '<td>'.get_report_pdf($history).'</td>';
                 echo '</tr>';
                 $i++;
             }
