@@ -511,7 +511,7 @@ if( ! function_exists('is_all_evaluators_valid')){
 
         $attempt_id = $data['attempt_id'];
 
-        $error = false;
+        $error = true;
 
         for($i = 1; $i <= $allowed_evaluators; $i++){
             if(isset($data['evaluators_email-'.$i])){
@@ -521,7 +521,7 @@ if( ! function_exists('is_all_evaluators_valid')){
                         if(isset($data['evaluators_email-'.$j])){
                             if($data['evaluators_email-'.$j]){
                                 if($data['evaluators_email-'.$j] == $data['evaluators_email-'.$i]){
-                                    $error = true;
+                                    $error = false;
                                 }
                             }
                         }
@@ -532,7 +532,7 @@ if( ! function_exists('is_all_evaluators_valid')){
                     if($evaluators){
                         foreach($evaluators as $ev){
                             if($data['evaluators_email-'.$i] == $ev->email){
-                                $error = true;
+                                $error = false;
                             }
                         }
                     }
