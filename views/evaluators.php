@@ -61,14 +61,14 @@
                 }else{
                     echo    '<tr>';
                     echo    '<td style="text-align:center">'.$i.'</td>';
-                    echo    '<td><input type="text" name="evaluators_name-'.$i.'" id="evaluators_name-'.$i.'" class="form-control"></td>';
+                    echo    '<td><input type="text" name="evaluators_name_'.$i.'" id="evaluators_name-'.$i.'" class="form-control"></td>';
                     echo    '<td>
                                 <div class="form-group" id="email-'.$i.'">
-                                    <input type="text" name="evaluators_email-'.$i.'" id="evaluators_email-'.$i.'" class="form-control">
+                                    <input type="text" name="evaluators_email_'.$i.'" id="evaluators_email-'.$i.'" class="form-control">
                                 </div>
                             </td>';
                     echo    '<td style="text-align:center">
-                                <select name="relationship'.$i.'" id="relationship'.$i.'" class="form-control">
+                                <select name="relationship_'.$i.'" id="relationship_'.$i.'" class="form-control">
                                     <option value="">Please select</option>
                                         <option value="Direct Report">Direct Report</option>
                                         <option value="Peer">Peer</option>
