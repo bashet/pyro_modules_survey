@@ -53,10 +53,9 @@ $(function(){
                                     modal_msg_body.html(modal_msg_body.html() + '<br>' + new_warning);
                                 }
                             });
-
-                            $body.removeClass("loading");
-                            $('#modal_warning_evaluators').modal('show');
                         }
+                        $body.removeClass("loading");
+                        $('#modal_warning_evaluators').modal('show');
                     }
                 }
             }
