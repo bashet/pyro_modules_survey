@@ -780,47 +780,46 @@ class Survey extends Public_Controller {
 
         $data = $this->input->post();
         $error = array();
-        for($i = 1; $i <= $this->allowed_evaluators; $i++){
-            if(isset($data['evaluators_email-'.$i])){
-                if($data['evaluators_email-'.$i]){
-                    if ( ! filter_var($data['evaluators_email-'.$i], FILTER_VALIDATE_EMAIL)){
-                        $error[] = $i;
-                    }
-                }
-            }
-        }
 
-        if(empty($error)){
-
-            $attempt = array(
-                'user_id'       => $this->current_user->id,
-                'survey_id'     => $this->survey->id,
-                'create_date'   => time(),
-            );
-
-            $attempt_id = $data['attempt_id'];
+        if(is_all_evaluators_valid($data)){
 
             for($i = 1; $i <= $this->allowed_evaluators; $i++){
-                if(isset($data['evaluators_name-'.$i]) && isset($data['evaluators_email-'.$i]) && isset($data['relationship'.$i])){
-                    if(($data['evaluators_name-'.$i]) && ($data['evaluators_email-'.$i]) && ($data['relationship'.$i])){
-                        $evaluators = array(
-                            'attempt_id'    => $attempt_id,
-                            'name'          => $data['evaluators_name-'.$i],
-                            'email'         => $data['evaluators_email-'.$i],
-                            'relation'      => $data['relationship'.$i],
-                            'link_md5'      => md5($data['evaluators_email-'.$i])
-                        );
-                        $this->db->insert('survey_evaluators', $evaluators);
+                if(isset($data['evaluators_email-'.$i])){
+                    if($data['evaluators_email-'.$i]){
+                        if ( ! filter_var($data['evaluators_email-'.$i], FILTER_VALIDATE_EMAIL)){
+                            $error[] = $i;
+                        }
                     }
                 }
             }
 
-            echo json_encode(array('success' => true));
+            if(empty($error)){
 
+                $attempt_id = $data['attempt_id'];
+
+                for($i = 1; $i <= $this->allowed_evaluators; $i++){
+                    if(isset($data['evaluators_name-'.$i]) && isset($data['evaluators_email-'.$i]) && isset($data['relationship'.$i])){
+                        if(($data['evaluators_name-'.$i]) && ($data['evaluators_email-'.$i]) && ($data['relationship'.$i])){
+                            $evaluators = array(
+                                'attempt_id'    => $attempt_id,
+                                'name'          => $data['evaluators_name-'.$i],
+                                'email'         => $data['evaluators_email-'.$i],
+                                'relation'      => $data['relationship'.$i],
+                                'link_md5'      => md5($attempt_id.$data['evaluators_email-'.$i])
+                            );
+                            $this->db->insert('survey_evaluators', $evaluators);
+                        }
+                    }
+                }
+
+                echo json_encode(array('success' => true));
+
+            }else{
+                echo json_encode(array('error' =>$error, 'success' => false));
+            }
         }else{
-            echo json_encode(array('error' =>$error, 'success' => false));
+            echo json_encode(array('error' =>$error, 'success' => false, 'duplicate_email' => true));
         }
-
     }
 
     public function delete_evaluator($id = ''){

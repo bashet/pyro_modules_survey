@@ -62,6 +62,12 @@ $(function(){
                             $body.removeClass("loading");
                             alert_box.css('display', 'block');
                             $('#modal_warning_evaluators').modal('show');
+                        }else{
+                            modal_msg_body.html('Please do not use same email address for evaluators.');
+                            alert_box.html('<strong>Oh snap!</strong> Please do not use same email address for evaluators.');
+                            $body.removeClass("loading");
+                            alert_box.css('display', 'block');
+                            $('#modal_warning_evaluators').modal('show');
                         }
                     }
                 }

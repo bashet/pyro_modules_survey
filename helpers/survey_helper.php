@@ -504,3 +504,42 @@ if( ! function_exists('get_evaluator_progress') ){
 
     }
 }
+
+if( ! function_exists('is_all_evaluators_valid')){
+    function is_all_evaluators_valid($data){
+        $ci =& get_instance();
+
+        $attempt_id = $data['attempt_id'];
+
+        $error = false;
+
+        for($i = 1; $i <= $ci->allowed_evaluators; $i++){
+            if(isset($data['evaluators_email-'.$i])){
+                if($data['evaluators_email-'.$i]){
+
+                    for($j = 2; $j <= $ci->allowed_evaluators; $j++){
+                        if(isset($data['evaluators_email-'.$j])){
+                            if($data['evaluators_email-'.$j]){
+                                if($data['evaluators_email-'.$j] == $data['evaluators_email-'.$i]){
+                                    $error = true;
+                                }
+                            }
+                        }
+                    }
+
+                    $evaluators = get_evaluators_by_attempt_id($attempt_id);
+
+                    if($evaluators){
+                        foreach($evaluators as $ev){
+                            if($data['evaluators_email-'.$i] == $ev->email){
+                                $error = true;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        return $error;
+    }
+}
