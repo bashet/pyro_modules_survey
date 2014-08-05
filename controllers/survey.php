@@ -820,26 +820,30 @@ class Survey extends Public_Controller {
                 $missing_fields = false;
 
                 for($i = 1; $i <= $this->allowed_evaluators; $i++){
-                    if(isset($data['evaluators_name-'.$i]) && isset($data['evaluators_email-'.$i]) && isset($data['relationship'.$i])){
-                        if(($data['evaluators_name-'.$i]) && ($data['evaluators_email-'.$i]) && ($data['relationship'.$i])){
-                            $evaluators = array(
-                                'attempt_id'    => $attempt_id,
-                                'name'          => $data['evaluators_name-'.$i],
-                                'email'         => $data['evaluators_email-'.$i],
-                                'relation'      => $data['relationship'.$i],
-                                'link_md5'      => md5($attempt_id.$data['evaluators_email-'.$i])
-                            );
-                            if($this->db->insert('survey_evaluators', $evaluators)){
-                                $success = true;
+                    if(isset($data['evaluators_name-'.$i]) || isset($data['evaluators_email-'.$i]) || isset($data['relationship'.$i])){
+                        if(isset($data['evaluators_name-'.$i]) && isset($data['evaluators_email-'.$i]) && isset($data['relationship'.$i])){
+                            if(($data['evaluators_name-'.$i]) && ($data['evaluators_email-'.$i]) && ($data['relationship'.$i])){
+                                $evaluators = array(
+                                    'attempt_id'    => $attempt_id,
+                                    'name'          => $data['evaluators_name-'.$i],
+                                    'email'         => $data['evaluators_email-'.$i],
+                                    'relation'      => $data['relationship'.$i],
+                                    'link_md5'      => md5($attempt_id.$data['evaluators_email-'.$i])
+                                );
+                                if($this->db->insert('survey_evaluators', $evaluators)){
+                                    $success = true;
+                                }else{
+                                    $success = false;
+                                }
                             }else{
-                                $success = false;
+                                $missing_fields = true;
                             }
                         }else{
                             $missing_fields = true;
                         }
-                    }else{
-                        //$missing_fields = true;
                     }
+
+
                 }
 
                 if($success){
