@@ -823,6 +823,10 @@ class Survey extends Public_Controller {
 
     }
 
+    public function delete_evaluator($id = ''){
+        echo 'okay!';
+    }
+
     public function send_email_to_evaluators(){
         if(! $this->current_user->id){
             redirect($this->config->base_url());

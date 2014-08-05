@@ -117,6 +117,8 @@ $(function(){
                                 html: "<i class='ace-icon fa fa-times bigger-110'></i>&nbsp; Cancel",
                                 "class" : "btn btn-xs",
                                 click: function() {
+                                    $body = $("body");
+                                    $body.removeClass("loading");
                                     $( this ).dialog( "close" );
                                 }
                             }
@@ -170,6 +172,8 @@ $(function(){
                                 html: "<i class='ace-icon fa fa-times bigger-110'></i>&nbsp; Cancel",
                                 "class" : "btn btn-xs",
                                 click: function() {
+                                    $body = $("body");
+                                    $body.removeClass("loading");
                                     $( this ).dialog( "close" );
                                 }
                             }
