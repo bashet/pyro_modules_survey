@@ -1,4 +1,4 @@
-$(function(){
+$(function($){
 
 
     $("button[copy_link]").on('click', function (e) {
@@ -70,7 +70,7 @@ $(function(){
         event.preventDefault();
     });
 
-    function delete_evaluator(id, name){
+    $.delete_evaluator = function (id, name){
         alert(id + name);
     }
 });
