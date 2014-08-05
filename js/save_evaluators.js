@@ -35,11 +35,11 @@ $(function(){
 
                         modal_msg_body.html('');
 
-                        if((msg.error) || (msg.evaluators < 3)){
-                            if(msg.evaluators < 3){
-                                modal_msg_body.html('Please enter minimum 3 evaluators or more.');
-                            }
-
+                        if(msg.evaluators < 3){
+                            modal_msg_body.html('Please enter minimum 3 evaluators or more.');
+                        }else if(msg.duplicate_email){
+                            modal_msg_body.html('Please do not use same email address for evaluators.');
+                        }else{
                             var errors = msg.error;
 
                             errors.forEach(function(e){
@@ -54,10 +54,6 @@ $(function(){
                                 }
                             });
 
-                            $body.removeClass("loading");
-                            $('#modal_warning_evaluators').modal('show');
-                        }else{
-                            modal_msg_body.html('Please do not use same email address for evaluators.');
                             $body.removeClass("loading");
                             $('#modal_warning_evaluators').modal('show');
                         }
