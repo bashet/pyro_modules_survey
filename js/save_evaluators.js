@@ -70,7 +70,7 @@ $(function(){
         event.preventDefault();
     });
 
-    $('#delete_evaluator').button().click(function(){
+    $('button[delete_evaluator]').button().click(function(){
         var data        = this.id;
         var data_array  = data.split('-');
         var ev_id       = data_array[0];
