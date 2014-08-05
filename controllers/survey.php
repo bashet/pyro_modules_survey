@@ -748,6 +748,9 @@ class Survey extends Public_Controller {
                     'survey_id'     => $data['survey_id'],
                     'create_date'   => time(),
                 );
+
+                $success        = false;
+                $missing_fields = false;
                 if($this->db->insert('survey_attempt', $attempt)){
                     $attempt_id = $this->db->insert_id();
 
@@ -760,13 +763,23 @@ class Survey extends Public_Controller {
                                 'relation'      => $data['relationship'.$i],
                                 'link_md5'      => md5($data['evaluators_email-'.$i])
                             );
-                            $this->db->insert('survey_evaluators', $evaluators);
+                            if($this->db->insert('survey_evaluators', $evaluators)){
+                                $success = true;
+                            }else{
+                                $success = false;
+                            }
+                        }else{
+                            $missing_fields = true;
                         }
                     }
 
                 }
 
-                echo json_encode(array('success' => true));
+                if($success){
+                    echo json_encode(array('success' => $success));
+                }else{
+                    echo json_encode(array('success' => $success, 'missing_fields' => $missing_fields));
+                }
 
             }else{
                 echo json_encode(array('evaluators' => $given, 'error' =>$error, 'duplicate_email' => '', 'success' => false));
@@ -802,7 +815,9 @@ class Survey extends Public_Controller {
 
             if(empty($error)){
 
-                $attempt_id = $data['attempt_id'];
+                $attempt_id     = $data['attempt_id'];
+                $success        = false;
+                $missing_fields = false;
 
                 for($i = 1; $i <= $this->allowed_evaluators; $i++){
                     if(isset($data['evaluators_name-'.$i]) && isset($data['evaluators_email-'.$i]) && isset($data['relationship'.$i])){
@@ -814,12 +829,25 @@ class Survey extends Public_Controller {
                                 'relation'      => $data['relationship'.$i],
                                 'link_md5'      => md5($attempt_id.$data['evaluators_email-'.$i])
                             );
-                            $this->db->insert('survey_evaluators', $evaluators);
+                            if($this->db->insert('survey_evaluators', $evaluators)){
+                                $success = true;
+                            }else{
+                                $success = false;
+                            }
+                        }else{
+                            $missing_fields = true;
                         }
+                    }else{
+                        $missing_fields = true;
                     }
                 }
 
-                echo json_encode(array('success' => true));
+                if($success){
+                    echo json_encode(array('success' => $success));
+                }else{
+                    echo json_encode(array('success' => $success, 'missing_fields' => $missing_fields));
+                }
+
 
             }else{
                 echo json_encode(array('error' =>$error, 'success' => false, 'duplicate_email' => '', 'evaluators' => 4));
