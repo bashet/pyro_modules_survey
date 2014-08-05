@@ -824,6 +824,10 @@ class Survey extends Public_Controller {
     }
 
     public function delete_evaluator($id = ''){
+
+        if($id){
+            $this->db->delete('survey_evaluators', array('id' => $id));
+        }
         redirect('survey/evaluators');
     }
 
