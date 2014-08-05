@@ -778,11 +778,11 @@ class Survey extends Public_Controller {
                 if($success){
                     echo json_encode(array('success' => $success));
                 }else{
-                    echo json_encode(array('success' => $success, 'missing_fields' => $missing_fields));
+                    echo json_encode(array('success' => $success, 'missing_fields' => $missing_fields, 'duplicate_email' => $duplicate));
                 }
 
             }else{
-                echo json_encode(array('evaluators' => $given, 'error' =>$error, 'duplicate_email' => '', 'success' => false));
+                echo json_encode(array('evaluators' => $given, 'error' =>$error, 'duplicate_email' => $duplicate, 'success' => false));
             }
         }else{
             echo json_encode(array('success' => false, 'evaluators' => 4, 'duplicate_email' => $duplicate)); // at this time evaluators will be definitely more then 3
@@ -845,12 +845,12 @@ class Survey extends Public_Controller {
                 if($success){
                     echo json_encode(array('success' => $success));
                 }else{
-                    echo json_encode(array('success' => $success, 'missing_fields' => $missing_fields));
+                    echo json_encode(array('success' => $success, 'missing_fields' => $missing_fields, 'duplicate_email' => $duplicate));
                 }
 
 
             }else{
-                echo json_encode(array('error' =>$error, 'success' => false, 'duplicate_email' => '', 'evaluators' => 4));
+                echo json_encode(array('error' =>$error, 'success' => false, 'duplicate_email' => $duplicate, 'evaluators' => 4));
             }
         }else{
             echo json_encode(array('error' =>$error, 'success' => false, 'evaluators' => 4, 'duplicate_email' => $duplicate)); // at this time evaluators will be definitely more then 3
