@@ -69,4 +69,8 @@ $(function(){
         });
         event.preventDefault();
     });
+
+    function delete_evaluator(id, name){
+        alert(id + name);
+    }
 });
