@@ -824,7 +824,7 @@ class Survey extends Public_Controller {
     }
 
     public function delete_evaluator($id = ''){
-        echo 'okay!';
+        redirect('survey/evaluators');
     }
 
     public function send_email_to_evaluators(){
