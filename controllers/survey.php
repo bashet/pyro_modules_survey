@@ -819,11 +819,13 @@ class Survey extends Public_Controller {
                 $success        = false;
                 $missing_fields = false;
 
+                $obj    = json_decode(json_encode($data));
+
                 for($i = 1; $i <= $this->allowed_evaluators; $i++){
                     $name       = 'evaluators_name-'.$i;
                     $email      = 'evaluators_email-'.$i;
                     $relation   = 'relationship'.$i;
-                    if(($data[$name]) || ($data[$email]) || ($data[$relation])){
+                    if(($obj->$name) || ($obj->$email) || ($obj->$relation)){
                         if(isset($data['evaluators_name-'.$i]) && isset($data['evaluators_email-'.$i]) && isset($data['relationship'.$i])){
                             if(($data['evaluators_name-'.$i]) && ($data['evaluators_email-'.$i]) && ($data['relationship'.$i])){
                                 $evaluators = array(
