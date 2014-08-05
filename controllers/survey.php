@@ -820,7 +820,7 @@ class Survey extends Public_Controller {
                 $missing_fields = false;
 
                 for($i = 1; $i <= $this->allowed_evaluators; $i++){
-                    if(isset($data['evaluators_name-'.$i]) || isset($data['evaluators_email-'.$i]) || isset($data['relationship'.$i])){
+                    if(($data['evaluators_name-'.$i]) || ($data['evaluators_email-'.$i]) || ($data['relationship'.$i])){
                         if(isset($data['evaluators_name-'.$i]) && isset($data['evaluators_email-'.$i]) && isset($data['relationship'.$i])){
                             if(($data['evaluators_name-'.$i]) && ($data['evaluators_email-'.$i]) && ($data['relationship'.$i])){
                                 $evaluators = array(
