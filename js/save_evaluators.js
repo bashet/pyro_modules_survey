@@ -37,8 +37,8 @@ $(function(){
 
                         if(msg.evaluators < 3){
                             modal_msg_body.html('Please enter minimum 3 evaluators or more.');
-                        }else if(msg.duplicate_email){
-                            modal_msg_body.html('Please do not use same email address for evaluators.');
+                        }else if(msg.duplicate_email != ''){
+                            modal_msg_body.html(msg.duplicate_email);
                         }else{
                             var errors = msg.error;
 

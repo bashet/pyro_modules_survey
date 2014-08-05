@@ -507,11 +507,10 @@ if( ! function_exists('get_evaluator_progress') ){
 
 if( ! function_exists('is_all_evaluators_valid')){
     function is_all_evaluators_valid($data, $allowed_evaluators){
-        $ci =& get_instance();
 
         $attempt_id = $data['attempt_id'];
 
-        $error = true;
+        $error = '';
 
         for($i = 1; $i <= $allowed_evaluators; $i++){
             if(isset($data['evaluators_email-'.$i])){
@@ -521,7 +520,7 @@ if( ! function_exists('is_all_evaluators_valid')){
                         if(isset($data['evaluators_email-'.$j])){
                             if($data['evaluators_email-'.$j]){
                                 if($data['evaluators_email-'.$j] == $data['evaluators_email-'.$i]){
-                                    $error = false;
+                                    $error = 'Duplicate email address entered';
                                 }
                             }
                         }
@@ -532,7 +531,7 @@ if( ! function_exists('is_all_evaluators_valid')){
                     if($evaluators){
                         foreach($evaluators as $ev){
                             if($data['evaluators_email-'.$i] == $ev->email){
-                                $error = false;
+                                $error = 'Duplicate email address found in existing entry';
                             }
                         }
                     }
