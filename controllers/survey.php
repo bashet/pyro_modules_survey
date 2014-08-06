@@ -1045,7 +1045,14 @@ class Survey extends Public_Controller {
             exit();
         }
 
-        var_dump($this->survey);
+        $answer = new stdClass();
+        $answer->user_id    = $this->current_user->id;
+        $answer->attempt_id = $this->attempt->id;
+        $answer->survey_id  = $this->survey->id;
+
+        $my_ans = get_existing_answer($answer);
+
+        var_dump($my_ans);
 
         $this->template
             ->title($this->module_details['name'], 'report')
