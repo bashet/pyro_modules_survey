@@ -805,6 +805,8 @@ class Survey extends Public_Controller {
         $total_empty    = 0;
         $missing_fields = false;
         $duplicate      = '';
+        $error          = array();
+
 
         foreach($data as $field=>$value){
             if($value){
@@ -816,6 +818,11 @@ class Survey extends Public_Controller {
             $field_name = substr($field,0,5);
             if($field_name == 'email'){
                 $duplicate = is_all_evaluators_valid($field, $value, $data, $this->attempt->id);
+
+                if ( ! filter_var($value, FILTER_VALIDATE_EMAIL)){
+                    $error[] = substr($field,6);
+                }
+
             }
         }
 
@@ -894,7 +901,8 @@ class Survey extends Public_Controller {
                             'all_empty'=> $all_empty,
                             'evaluators' => 4,
                             'missing_fields' => $missing_fields,
-                            'duplicate_email' => $duplicate
+                            'duplicate_email' => $duplicate,
+                            'error' =>$error
                         )
                     );
     }
