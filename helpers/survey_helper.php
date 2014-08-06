@@ -506,37 +506,29 @@ if( ! function_exists('get_evaluator_progress') ){
 }
 
 if( ! function_exists('is_all_evaluators_valid')){
-    function is_all_evaluators_valid($data, $attempt_id, $allowed_evaluators){
+    function is_all_evaluators_valid($field, $value, $data, $attempt_id){
 
         $error = '';
 
-        for($i = 1; $i <= $allowed_evaluators; $i++){
-            if(isset($data['evaluators_email-'.$i])){
-                if($data['evaluators_email-'.$i]){
+        $evaluators = get_evaluators_by_attempt_id($attempt_id);
 
-                    for($j = 2; $j <= $allowed_evaluators; $j++){
-                        if(isset($data['evaluators_email-'.$j])){
-                            if($data['evaluators_email-'.$j]){
-                                if($i != $j){
-                                    if($data['evaluators_email-'.$j] == $data['evaluators_email-'.$i]){
-                                        $error = 'Duplicate email address entered';
-                                    }
-                                }
-                            }
-                        }
+        foreach($data as $f=>$v){
+            if(substr($f, 0, 5) == 'email'){
+                if($f != $field){
+                    if($v == $value){
+                        $error = 'Duplicate email address entered';
                     }
+                }
 
-                    $evaluators = get_evaluators_by_attempt_id($attempt_id);
-
-                    if($evaluators){
-                        foreach($evaluators as $ev){
-                            if($data['evaluators_email-'.$i] == $ev->email){
-                                $error = 'Duplicate email address found in existing entry';
-                            }
+                if($evaluators){
+                    foreach($evaluators as $ev){
+                        if($ev->email == $value){
+                            $error = 'Duplicate email address found in existing entry';
                         }
                     }
                 }
             }
+
         }
 
         return $error;
