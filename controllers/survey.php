@@ -131,6 +131,7 @@ class Survey extends Public_Controller {
 
         $this->template
             ->title($this->module_details['name'], 'manage departments')
+            ->set_breadcrumb('Programme')
             ->set('programme', $programme)
             ->set('survey', $survey)
             ->append_js('module::programme.js')
@@ -216,6 +217,7 @@ class Survey extends Public_Controller {
 
         $this->template
             ->title($this->module_details['name'], 'manage question categories')
+            ->set_breadcrumb('Question category')
             ->set('question_categories', $question_categories)
             ->append_js('module::question_categories.js')
             ->build('question_categories');
