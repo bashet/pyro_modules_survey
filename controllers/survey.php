@@ -802,10 +802,19 @@ class Survey extends Public_Controller {
         $total          = count((array)$data);
         $all_empty      = true;
         $success        = false;
-        foreach($data as $d){
-            if($d){
+        $total_empty    = 0;
+        $missing_fields = false;
+
+        foreach($data as $field=>$value){
+            if($value){
                 $all_empty = false;
+            }else{
+                $total_empty++;
             }
+        }
+
+        if(($total_empty % 3)!=0){
+            $missing_fields = true;
         }
 
         /*
@@ -828,7 +837,7 @@ class Survey extends Public_Controller {
 
                 $attempt_id     = $data['attempt_id'];
 
-                $missing_fields = false;
+
 
 
 
@@ -858,8 +867,6 @@ class Survey extends Public_Controller {
                             $missing_fields = true;
                         }
                     }
-
-
                 }
 
                 if($success){
@@ -873,7 +880,14 @@ class Survey extends Public_Controller {
         }else{
             echo json_encode(array('error' =>$error, 'success' => false, 'evaluators' => 4, 'duplicate_email' => $duplicate)); // at this time evaluators will be definitely more then 3
         }*/
-        echo json_encode(array('success'=>$success,'all_empty'=> $all_empty));
+        echo json_encode(
+                        array(
+                            'success'=>$success,
+                            'all_empty'=> $all_empty,
+                            'evaluators' => 4,
+                            'missing_fields' => $missing_fields
+                        )
+                    );
     }
 
     public function delete_evaluator($id = ''){

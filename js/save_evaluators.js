@@ -36,13 +36,13 @@ $(function(){
                         modal_msg_body.html('');
 
                         if(msg.all_empty == true){
-                            modal_msg_body.html('You have not enter any thing!');
+                            modal_msg_body.html('You have not entered any thing!');
                         }else if(msg.evaluators < 3){
                             modal_msg_body.html('Please enter minimum 3 evaluators or more.');
-                        }else if(msg.duplicate_email != ''){
-                            modal_msg_body.html(msg.duplicate_email);
                         }else if(msg.missing_fields == true ){
                             modal_msg_body.html('You have missed one or more fields.');
+                        }else if(msg.duplicate_email != ''){
+                            modal_msg_body.html(msg.duplicate_email);
                         }else{
                             var errors = msg.error;
 
