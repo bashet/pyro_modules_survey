@@ -650,7 +650,12 @@ class Survey extends Public_Controller {
 
         $answer_data = new stdClass();
         $answer_data->user_id    = $this->current_user->id;
-        $answer_data->attempt_id = $this->attempt->id;
+        if($this->attempt){
+            $answer_data->attempt_id = $this->attempt->id;
+        }else{
+            $answer_data->attempt_id = '';
+        }
+
         $answer_data->survey_id  = $this->survey->id;
 
         $ex_ans = get_existing_answer($answer_data);
