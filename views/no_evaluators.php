@@ -9,7 +9,7 @@
 
     </div>
 
-    <form id="frm_save_evaluators" method="post" action="{{ url:site }}survey/save_evaluators">
+    <form id="frm_save_evaluators" method="post" action="{{ url:site }}survey/update_evaluators">
         <table class="table table-bordered table-hover">
             <thead>
             <tr>
