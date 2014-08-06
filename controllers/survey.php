@@ -1059,12 +1059,18 @@ class Survey extends Public_Controller {
         }
 
         $evaluators     = get_evaluators_by_attempt_id($this->attempt->id);
+        foreach($evaluators as $ev){
+            if( ! $ev->submitted){
+                $all_submitted = false;
+            }
+        }
 
         var_dump($evaluators);
 
         $this->template
             ->title($this->module_details['name'], 'report')
             ->set_breadcrumb('Report')
+            ->set('all_submitted', $all_submitted)
             ->build('report');
     }
 
