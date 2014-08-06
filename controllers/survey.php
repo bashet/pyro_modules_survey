@@ -831,7 +831,8 @@ class Survey extends Public_Controller {
                             'missing_fields'    => $missing_fields,
                             'duplicate_entry'   => $duplicate_entry,
                             'data_exist'        => $data_exist,
-                            'error'             =>$error
+                            'error'             =>$error,
+                            'entry'             => $entry
                         )
                     );
     }
