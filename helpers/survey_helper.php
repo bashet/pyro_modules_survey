@@ -507,9 +507,7 @@ if( ! function_exists('get_evaluator_progress') ){
 
 if( ! function_exists('duplicate_entry')){
     function duplicate_entry($field, $value, $data){
-
         $error = '';
-
         foreach($data as $f=>$v){
             if(substr($f, 0, 5) == 'email'){
                 if($f != $field){

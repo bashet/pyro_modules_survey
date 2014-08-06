@@ -826,7 +826,9 @@ class Survey extends Public_Controller {
                         }
                     }
 
-                    //$duplicate_entry = duplicate_entry($field, $value, $data);
+                    if($duplicate_entry == ''){
+                        $duplicate_entry = duplicate_entry($field, $value, $data);
+                    }
 
                     if($value){
                         if ( ! filter_var($value, FILTER_VALIDATE_EMAIL)){
