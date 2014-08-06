@@ -788,7 +788,7 @@ class Survey extends Public_Controller {
         }
 
         if( ! $evaluators){
-            if( ($entry % 3) < 3){
+            if( ($entry / 3) < 3){
                 $total_entered = 2;
             }
         }
@@ -831,8 +831,7 @@ class Survey extends Public_Controller {
                             'missing_fields'    => $missing_fields,
                             'duplicate_entry'   => $duplicate_entry,
                             'data_exist'        => $data_exist,
-                            'error'             =>$error,
-                            'entry'             => $entry
+                            'error'             =>$error
                         )
                     );
     }
