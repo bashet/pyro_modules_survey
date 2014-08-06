@@ -22,7 +22,7 @@ $(function(){
             title_html: true,
             buttons: [
                 {
-                    html: "<i class='ace-icon fa fa-trash-o bigger-110'></i>&nbsp; Delete all items",
+                    html: "<i class='ace-icon fa fa-trash-o bigger-110'></i>&nbsp; Proceed",
                     "class" : "btn btn-danger btn-xs",
                     click: function() {
                         $( this ).dialog( "close" );
