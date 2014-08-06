@@ -1052,7 +1052,15 @@ class Survey extends Public_Controller {
 
         $my_ans = get_existing_answer($answer);
 
-        var_dump($my_ans);
+        $all_submitted = true;
+
+        if( ! $my_ans->submitted){
+            $all_submitted = false;
+        }
+
+        $evaluators     = get_evaluators_by_attempt_id($this->attempt->id);
+
+        var_dump($evaluators);
 
         $this->template
             ->title($this->module_details['name'], 'report')
