@@ -800,6 +800,9 @@ class Survey extends Public_Controller {
 
         $obj    = json_decode(json_encode($this->input->post()));
 
+        $total = count((array)$obj);
+        var_dump($total);
+
         /*
         $error = array();
 
