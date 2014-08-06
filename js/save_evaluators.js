@@ -35,7 +35,9 @@ $(function(){
 
                         modal_msg_body.html('');
 
-                        if(msg.evaluators < 3){
+                        if(msg.all_empty == true){
+                            modal_msg_body.html('You have not enter any thing!');
+                        }else if(msg.evaluators < 3){
                             modal_msg_body.html('Please enter minimum 3 evaluators or more.');
                         }else if(msg.duplicate_email != ''){
                             modal_msg_body.html(msg.duplicate_email);

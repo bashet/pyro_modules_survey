@@ -506,9 +506,7 @@ if( ! function_exists('get_evaluator_progress') ){
 }
 
 if( ! function_exists('is_all_evaluators_valid')){
-    function is_all_evaluators_valid($data, $allowed_evaluators){
-
-        $attempt_id = $data['attempt_id'];
+    function is_all_evaluators_valid($data, $attempt_id, $allowed_evaluators){
 
         $error = '';
 
