@@ -726,7 +726,7 @@ class Survey extends Public_Controller {
 
     }
 
-    public function update_evaluators(){
+    public function save_evaluators(){
         if(! $this->current_user->id){
             redirect($this->config->base_url());
             exit();
@@ -792,6 +792,114 @@ class Survey extends Public_Controller {
                 $total_entered = 2;
             }
         }
+
+        if(($total_empty % 3)!=0){
+            $missing_fields = true;
+        }
+
+        if(( ! $missing_fields) && ( ! $all_empty) && ($duplicate_entry == '') && ($data_exist == '') && ($total_entered >= 3) && ( ! $error)){
+            $attempt = array(
+                'user_id' => $this->current_user->id,
+                'survey_id' => $this->session->userdata('survey_id'),
+                'create_date' => time(),
+            );
+
+            if($this->db->insert('survey_attempt', $attempt)){
+                $attempt_id = $this->db->insert_id();
+
+                for($i = 1; $i <= $total/3; $i++){
+                    $name   = 'name_'.$i;
+                    $email  = 'email_'.$i;
+                    $rel    = 'relation_'.$i;
+                    if(($data->$name) && ($data->$email) && ($data->$rel)){
+                        $evaluator = array(
+                            'attempt_id'    => $attempt_id,
+                            'name'          => $data->$name,
+                            'email'         => $data->$email,
+                            'relation'      => $data->$rel,
+                            'link_md5'      => md5($attempt_id.$data->$email)
+                        );
+                        if($this->db->insert('survey_evaluators', $evaluator)){
+                            $success = true;
+                        }else{
+                            $success = false;
+                        }
+                    }
+
+                }
+            }
+
+        }
+
+
+        echo json_encode(
+            array(
+                'success'           =>$success,
+                'all_empty'         => $all_empty,
+                'evaluators'        => $total_entered,
+                'missing_fields'    => $missing_fields,
+                'duplicate_entry'   => $duplicate_entry,
+                'data_exist'        => $data_exist,
+                'error'             =>$error
+            )
+        );
+    }
+
+    public function update_evaluators(){
+        if(! $this->current_user->id){
+            redirect($this->config->base_url());
+            exit();
+        }
+
+        $data    = json_decode(json_encode($this->input->post()));
+
+        $total          = count((array)$data);
+        $all_empty      = true;
+        $success        = false;
+        $total_empty    = 0;
+        $missing_fields = false;
+        $duplicate_entry= '';
+        $data_exist     = '';
+        $error          = array();
+        $total_entered  = 4;
+        $evaluators = get_evaluators_by_attempt_id($this->attempt->id);
+
+
+
+        foreach($data as $field=>$value){
+            if($value){
+                $all_empty = false;
+
+                $field_name = substr($field,0,5);
+                if($field_name == 'email'){
+
+                    if($evaluators){
+                        foreach($evaluators as $ev){
+                            if($ev->email == $value){
+                                $data_exist = 'Duplicate email address found in existing entry';
+                            }
+                        }
+                    }
+
+                    if($duplicate_entry == ''){
+                        $duplicate_entry = duplicate_entry($field, $value, $data);
+                    }
+
+                    if($value){
+                        if ( ! filter_var($value, FILTER_VALIDATE_EMAIL)){
+                            $error[] = substr($field,6);
+                        }
+
+                    }
+
+                }
+            }else{
+                $total_empty++;
+            }
+
+
+        }
+
 
         if(($total_empty % 3)!=0){
             $missing_fields = true;
