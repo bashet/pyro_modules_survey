@@ -8,6 +8,12 @@
 
 if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
+if( ! function_exists('get_programme_info')){
+    function get_programme_info(){
+        return 'This programme information';
+    }
+}
+
 if ( ! function_exists('user_logged_in')){
     function user_logged_in(){
         $ci =& get_instance();
