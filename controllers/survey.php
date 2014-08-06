@@ -806,7 +806,7 @@ class Survey extends Public_Controller {
         $missing_fields = false;
         $duplicate      = '';
         $error          = array();
-        $evaluators     = 4;
+        $total_entered  = 4;
 
 
         foreach($data as $field=>$value){
@@ -834,19 +834,26 @@ class Survey extends Public_Controller {
             $missing_fields = true;
         }
 
-        if(( ! $missing_fields) && ( ! $all_empty) && ($duplicate == '') && ($evaluators >= 3) && ( ! $error)){
-            /*$evaluator = array(
-                'attempt_id'    => $this->attempt->id,
-                'name'          => $data['evaluators_name-'.$i],
-                'email'         => $data['evaluators_email-'.$i],
-                'relation'      => $data['relationship'.$i],
-                'link_md5'      => md5($attempt_id.$data['evaluators_email-'.$i])
-            );
-            if($this->db->insert('survey_evaluators', $evaluators)){
-                $success = true;
-            }else{
-                $success = false;
-            }*/
+        if(( ! $missing_fields) && ( ! $all_empty) && ($duplicate == '') && ($total_entered >= 3) && ( ! $error)){
+            $start = $this->total_evaluators + 1;
+            for($i = $start; $i <= $total; $i++){
+                if(($data->name.'_'.$i) && ($data->email.'_'.$i) && ($data->relation.'_'.$i)){
+                    $evaluator = array(
+                        'attempt_id'    => $this->attempt->id,
+                        'name'          => $data->name.'_'.$i,
+                        'email'         => $data->email.'_'.$i,
+                        'relation'      => $data->relation.'_'.$i,
+                        'link_md5'      => md5($this->attempt->id.$data->email.'_'.$i)
+                    );
+                    if($this->db->insert('survey_evaluators', $evaluator)){
+                        $success = true;
+                    }else{
+                        $success = false;
+                    }
+                }
+
+            }
+
         }
 
 
@@ -854,7 +861,7 @@ class Survey extends Public_Controller {
                         array(
                             'success'=>$success,
                             'all_empty'=> $all_empty,
-                            'evaluators' => $evaluators,
+                            'evaluators' => $total_entered,
                             'missing_fields' => $missing_fields,
                             'duplicate_email' => $duplicate,
                             'error' =>$error
