@@ -24,14 +24,14 @@
             for($i = 1; $i <= $allowed_evaluators; $i++){
                 echo    '<tr>';
                 echo    '<td style="text-align:center">'.$i.'</td>';
-                echo    '<td><input type="text" name="evaluators_name-'.$i.'" id="evaluators_name-'.$i.'" class="form-control"></td>';
+                echo    '<td><input type="text" name="name_'.$i.'" id="evaluators_name-'.$i.'" class="form-control"></td>';
                 echo    '<td>
                             <div class="form-group" id="email-'.$i.'">
-                                <input type="text" name="evaluators_email-'.$i.'" id="evaluators_email-'.$i.'" class="form-control">
+                                <input type="text" name="email_'.$i.'" id="evaluators_email-'.$i.'" class="form-control">
                             </div>
                         </td>';
                 echo    '<td style="text-align:center">
-                            <select name="relationship'.$i.'" id="relationship'.$i.'" class="form-control">
+                            <select name="relation_'.$i.'" id="relation_'.$i.'" class="form-control">
                                 <option value="">Please select</option>
                                     <option value="Direct Report">Direct Report</option>
                                     <option value="Peer">Peer</option>
@@ -43,9 +43,6 @@
             ?>
             </tbody>
         </table>
-
-        <input type="hidden" name="user_id" value="{{ user:id }}">
-        <input type="hidden" name="survey_id" value="<?php echo $programme->survey; ?>">
 
         <div style="float: right">
             <button
