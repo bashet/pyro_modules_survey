@@ -1045,6 +1045,8 @@ class Survey extends Public_Controller {
             exit();
         }
 
+        var_dump($this->attempt);
+
         $this->template
             ->title($this->module_details['name'], 'report')
             ->set_breadcrumb('Report')
