@@ -836,14 +836,17 @@ class Survey extends Public_Controller {
 
         if(( ! $missing_fields) && ( ! $all_empty) && ($duplicate == '') && ($total_entered >= 3) && ( ! $error)){
             $start = $this->total_evaluators + 1;
-            for($i = $start; $i <= $total; $i++){
-                if(($data->name.'_'.$i) && ($data->email.'_'.$i) && ($data->relation.'_'.$i)){
+            for($i = $start; $i <= $total/3; $i++){
+                $name   = 'name_'.$i;
+                $email  = 'email_'.$i;
+                $rel    = 'relation_'.$i;
+                if(($data->$name) && ($data->$email) && ($data->$rel)){
                     $evaluator = array(
                         'attempt_id'    => $this->attempt->id,
-                        'name'          => $data->name.'_'.$i,
-                        'email'         => $data->email.'_'.$i,
-                        'relation'      => $data->relation.'_'.$i,
-                        'link_md5'      => md5($this->attempt->id.$data->email.'_'.$i)
+                        'name'          => $data->$name,
+                        'email'         => $data->$email,
+                        'relation'      => $data->$rel,
+                        'link_md5'      => md5($this->attempt->id.$data->$email)
                     );
                     if($this->db->insert('survey_evaluators', $evaluator)){
                         $success = true;
