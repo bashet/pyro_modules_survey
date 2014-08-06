@@ -797,9 +797,9 @@ class Survey extends Public_Controller {
             exit();
         }
 
-        $data = $this->input->post();
-        $obj    = json_decode(json_encode($data));
-        var_dump($obj);
+
+        $obj    = json_decode(json_encode($this->input->post()));
+
         /*
         $error = array();
 
