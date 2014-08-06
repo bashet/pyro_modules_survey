@@ -88,9 +88,6 @@
             </tbody>
         </table>
 
-        <input type="hidden" name="user_id" value="{{ user:id }}">
-        <input type="hidden" name="survey_id" value="<?=$programme->survey?>">
-        <input type="hidden" name="attempt_id" value="<?=$attempt->id?>">
 
         <div style="float: right">
             <button
