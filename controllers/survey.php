@@ -743,12 +743,17 @@ class Survey extends Public_Controller {
         $data_exist     = '';
         $error          = array();
         $total_entered  = 4;
-        $evaluators = get_evaluators_by_attempt_id($this->attempt->id);
+        $entry          = 0;
+        if($this->attempt){
+            $evaluators = get_evaluators_by_attempt_id($this->attempt->id);
+        }
+
 
 
         foreach($data as $field=>$value){
             if($value){
                 $all_empty = false;
+                $entry++;
 
                 $field_name = substr($field,0,5);
                 if($field_name == 'email'){
@@ -778,6 +783,12 @@ class Survey extends Public_Controller {
             }
 
 
+        }
+
+        if( ! $evaluators){
+            if( ($entry % 3) <= 3){
+                $total_entered = 2;
+            }
         }
 
         if(($total_empty % 3)!=0){
