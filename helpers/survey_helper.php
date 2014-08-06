@@ -519,13 +519,13 @@ if( ! function_exists('is_all_evaluators_valid')){
                         if($v == $value){
                             $error = 'Duplicate email address entered';
                         }
-                    }
-                }
 
-                if($evaluators){
-                    foreach($evaluators as $ev){
-                        if($ev->email == $value){
-                            $error = 'Duplicate email address found in existing entry';
+                        if($evaluators){
+                            foreach($evaluators as $ev){
+                                if($ev->email == $value){
+                                    $error = 'Duplicate email address found in existing entry';
+                                }
+                            }
                         }
                     }
                 }
