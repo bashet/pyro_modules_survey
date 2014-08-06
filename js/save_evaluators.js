@@ -41,8 +41,10 @@ $(function(){
                             modal_msg_body.html('Please enter minimum 3 evaluators or more.');
                         }else if(msg.missing_fields == true ){
                             modal_msg_body.html('You have missed one or more fields.');
-                        }else if(msg.duplicate_email != ''){
-                            modal_msg_body.html(msg.duplicate_email);
+                        }else if(msg.duplicate_entry != ''){
+                            modal_msg_body.html(msg.duplicate_entry);
+                        }else if(msg.data_exist != ''){
+                            modal_msg_body.html(msg.data_exist);
                         }else{
                             var errors = msg.error;
 

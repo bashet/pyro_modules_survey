@@ -804,37 +804,50 @@ class Survey extends Public_Controller {
         $success        = false;
         $total_empty    = 0;
         $missing_fields = false;
-        $duplicate      = '';
+        $duplicate_entry= '';
+        $data_exist     = '';
         $error          = array();
         $total_entered  = 4;
+        $evaluators = get_evaluators_by_attempt_id($this->attempt->id);
 
 
         foreach($data as $field=>$value){
             if($value){
                 $all_empty = false;
+
+                $field_name = substr($field,0,5);
+                if($field_name == 'email'){
+
+                    if($evaluators){
+                        foreach($evaluators as $ev){
+                            if($ev->email == $value){
+                                $data_exist = 'Duplicate email address found in existing entry';
+                            }
+                        }
+                    }
+
+                    //$duplicate_entry = duplicate_entry($field, $value, $data);
+
+                    if($value){
+                        if ( ! filter_var($value, FILTER_VALIDATE_EMAIL)){
+                            $error[] = substr($field,6);
+                        }
+
+                    }
+
+                }
             }else{
                 $total_empty++;
             }
 
-            $field_name = substr($field,0,5);
-            if($field_name == 'email'){
-                $duplicate = is_all_evaluators_valid($field, $value, $data, $this->attempt->id);
 
-                if($value){
-                    if ( ! filter_var($value, FILTER_VALIDATE_EMAIL)){
-                        $error[] = substr($field,6);
-                    }
-
-                }
-
-            }
         }
 
         if(($total_empty % 3)!=0){
             $missing_fields = true;
         }
 
-        if(( ! $missing_fields) && ( ! $all_empty) && ($duplicate == '') && ($total_entered >= 3) && ( ! $error)){
+        if(( ! $missing_fields) && ( ! $all_empty) && ($duplicate_entry == '') && ($data_exist == '') && ($total_entered >= 3) && ( ! $error)){
             $start = $this->total_evaluators + 1;
             for($i = $start; $i <= $total/3; $i++){
                 $name   = 'name_'.$i;
@@ -862,12 +875,13 @@ class Survey extends Public_Controller {
 
         echo json_encode(
                         array(
-                            'success'=>$success,
-                            'all_empty'=> $all_empty,
-                            'evaluators' => $total_entered,
-                            'missing_fields' => $missing_fields,
-                            'duplicate_email' => $duplicate,
-                            'error' =>$error
+                            'success'           =>$success,
+                            'all_empty'         => $all_empty,
+                            'evaluators'        => $total_entered,
+                            'missing_fields'    => $missing_fields,
+                            'duplicate_entry'   => $duplicate_entry,
+                            'data_exist'        => $data_exist,
+                            'error'             =>$error
                         )
                     );
     }
