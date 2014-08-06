@@ -746,6 +746,8 @@ class Survey extends Public_Controller {
         $entry          = 0;
         if($this->attempt){
             $evaluators = get_evaluators_by_attempt_id($this->attempt->id);
+        }else{
+            $evaluators = '';
         }
 
 
