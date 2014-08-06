@@ -788,7 +788,7 @@ class Survey extends Public_Controller {
         }
 
         if( ! $evaluators){
-            if( ($entry % 3) <= 3){
+            if( ($entry % 3) < 3){
                 $total_entered = 2;
             }
         }
