@@ -8,7 +8,7 @@ class Module_survey extends Module {
 	{
 		return array(
 			'name' => array(
-				'en' => 'survey'
+				'en' => 'Survey'
 			),
 			'description' => array(
 				'en' => 'This module is built for IOE only.'
