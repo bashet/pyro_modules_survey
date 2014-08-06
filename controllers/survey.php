@@ -1065,7 +1065,7 @@ class Survey extends Public_Controller {
             }
         }
 
-        var_dump($evaluators);
+
 
         $this->template
             ->title($this->module_details['name'], 'report')
