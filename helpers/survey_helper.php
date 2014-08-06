@@ -515,8 +515,10 @@ if( ! function_exists('is_all_evaluators_valid')){
         foreach($data as $f=>$v){
             if(substr($f, 0, 5) == 'email'){
                 if($f != $field){
-                    if($v == $value){
-                        $error = 'Duplicate email address entered';
+                    if($value){
+                        if($v == $value){
+                            $error = 'Duplicate email address entered';
+                        }
                     }
                 }
 

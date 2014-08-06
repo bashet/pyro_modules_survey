@@ -819,8 +819,10 @@ class Survey extends Public_Controller {
             if($field_name == 'email'){
                 $duplicate = is_all_evaluators_valid($field, $value, $data, $this->attempt->id);
 
-                if ( ! filter_var($value, FILTER_VALIDATE_EMAIL)){
-                    $error[] = substr($field,6);
+                if($value){
+                    if ( ! filter_var($value, FILTER_VALIDATE_EMAIL)){
+                        $error[] = substr($field,6);
+                    }
                 }
 
             }
