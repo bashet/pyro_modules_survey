@@ -806,6 +806,7 @@ class Survey extends Public_Controller {
         $missing_fields = false;
         $duplicate      = '';
         $error          = array();
+        $evaluators     = 4;
 
 
         foreach($data as $field=>$value){
@@ -823,6 +824,7 @@ class Survey extends Public_Controller {
                     if ( ! filter_var($value, FILTER_VALIDATE_EMAIL)){
                         $error[] = substr($field,6);
                     }
+
                 }
 
             }
@@ -832,76 +834,27 @@ class Survey extends Public_Controller {
             $missing_fields = true;
         }
 
-
-
-        /*
-        $error = array();
-
-        $duplicate = is_all_evaluators_valid($data, $this->attempt->id,$this->allowed_evaluators);
-        if($duplicate == ''){
-
-            for($i = 1; $i <= $this->allowed_evaluators; $i++){
-                if(isset($data['evaluators_email-'.$i])){
-                    if($data['evaluators_email-'.$i]){
-                        if ( ! filter_var($data['evaluators_email-'.$i], FILTER_VALIDATE_EMAIL)){
-                            $error[] = $i;
-                        }
-                    }
-                }
-            }
-
-            if(empty($error)){
-
-                $attempt_id     = $data['attempt_id'];
-
-
-
-
-
-                for($i = 1; $i <= $this->allowed_evaluators; $i++){
-                    $name       = 'evaluators_name-'.$i;
-                    $email      = 'evaluators_email-'.$i;
-                    $relation   = 'relationship'.$i;
-                    if(($obj->$name) || ($obj->$email) || ($obj->$relation)){
-                        if(isset($data['evaluators_name-'.$i]) && isset($data['evaluators_email-'.$i]) && isset($data['relationship'.$i])){
-                            if(($data['evaluators_name-'.$i]) && ($data['evaluators_email-'.$i]) && ($data['relationship'.$i])){
-                                $evaluators = array(
-                                    'attempt_id'    => $attempt_id,
-                                    'name'          => $data['evaluators_name-'.$i],
-                                    'email'         => $data['evaluators_email-'.$i],
-                                    'relation'      => $data['relationship'.$i],
-                                    'link_md5'      => md5($attempt_id.$data['evaluators_email-'.$i])
-                                );
-                                if($this->db->insert('survey_evaluators', $evaluators)){
-                                    $success = true;
-                                }else{
-                                    $success = false;
-                                }
-                            }else{
-                                $missing_fields = true;
-                            }
-                        }else{
-                            $missing_fields = true;
-                        }
-                    }
-                }
-
-                if($success){
-                    echo json_encode(array('success' => $success));
-                }else{
-                    echo json_encode(array('success' => $success, 'missing_fields' => $missing_fields, 'duplicate_email' => $duplicate));
-                }
+        if(( ! $missing_fields) && ( ! $all_empty) && ($duplicate == '') && ($evaluators >= 3) && ( ! $error)){
+            /*$evaluator = array(
+                'attempt_id'    => $this->attempt->id,
+                'name'          => $data['evaluators_name-'.$i],
+                'email'         => $data['evaluators_email-'.$i],
+                'relation'      => $data['relationship'.$i],
+                'link_md5'      => md5($attempt_id.$data['evaluators_email-'.$i])
+            );
+            if($this->db->insert('survey_evaluators', $evaluators)){
+                $success = true;
             }else{
-                echo json_encode(array('error' =>$error, 'success' => false, 'duplicate_email' => $duplicate, 'evaluators' => 4));
-            }
-        }else{
-            echo json_encode(array('error' =>$error, 'success' => false, 'evaluators' => 4, 'duplicate_email' => $duplicate)); // at this time evaluators will be definitely more then 3
-        }*/
+                $success = false;
+            }*/
+        }
+
+
         echo json_encode(
                         array(
                             'success'=>$success,
                             'all_empty'=> $all_empty,
-                            'evaluators' => 4,
+                            'evaluators' => $evaluators,
                             'missing_fields' => $missing_fields,
                             'duplicate_email' => $duplicate,
                             'error' =>$error
