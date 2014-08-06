@@ -68,7 +68,7 @@
                                 </div>
                             </td>';
                     echo    '<td style="text-align:center">
-                                <select name="relationship_'.$i.'" id="relation_'.$i.'" class="form-control">
+                                <select name="relation_'.$i.'" id="relation_'.$i.'" class="form-control">
                                     <option value="">Please select</option>
                                         <option value="Direct Report">Direct Report</option>
                                         <option value="Peer">Peer</option>
