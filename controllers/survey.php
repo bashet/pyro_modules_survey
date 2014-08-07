@@ -1070,8 +1070,15 @@ class Survey extends Public_Controller {
         }
 
         if($all_submitted){
+            $attempt = array();
+            if( ! $this->attempt->finished_date){
+                $attempt['finished_date'] = time();
+            }
+            if( ! $this->attempt->report_ready){
+                $attempt['report_ready'] = 1;
+            }
             $this->db->where('id', $this->attempt->id);
-            $this->db->update('survey_attempt', array('finished_date' => time()));
+            $this->db->update('survey_attempt', $attempt);
         }
 
 
