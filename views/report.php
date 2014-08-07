@@ -4,7 +4,7 @@
 
         <h2>Your report</h2>
         <p>Your report is now available.</p>
-        <center><a href="{{ url:site }}survey/view_report/'.$data->attempt_id.'" target="_blank">{{ theme:image file="DownloadPDF.gif" width="120px" }}</a></center>
+        <center><a href="{{ url:site }}survey/view_report/<?php echo $attempt->id;?>" target="_blank">{{ theme:image file="DownloadPDF.gif" width="120px" }}</a></center>
 
     <?php }else{ ?>
 

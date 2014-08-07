@@ -1099,6 +1099,7 @@ class Survey extends Public_Controller {
         $this->template
             ->title($this->module_details['name'], 'report')
             ->set_breadcrumb('Report')
+            ->set('attempt', $this->attempt)
             ->set('all_submitted', $all_submitted)
             ->build('report');
     }
