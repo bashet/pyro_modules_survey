@@ -660,16 +660,21 @@ class Survey extends Public_Controller {
 
         $ex_ans = get_existing_answer($answer_data);
 
-        if($ex_ans){
-            $my_answer = json_decode($ex_ans->answers);
-            if(count((array)$my_answer) == $this->total_questions){
-                $this->db->where('id', $ex_ans->id);
-                $this->db->update('survey_user_answer', array('finished' => 1));
-                redirect('survey/user_review_all');
+        if( ! $this->attempt->report_ready){
+            if($ex_ans){
+                $my_answer = json_decode($ex_ans->answers);
+                if(count((array)$my_answer) == $this->total_questions){
+                    $this->db->where('id', $ex_ans->id);
+                    $this->db->update('survey_user_answer', array('finished' => 1));
+                    redirect('survey/user_review_all');
+                }
+            }else{
+                $my_answer = '';
             }
         }else{
             $my_answer = '';
         }
+
 
 
 
