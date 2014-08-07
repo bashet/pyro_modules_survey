@@ -769,6 +769,7 @@ class Survey extends Public_Controller {
                 $field_name = substr($field,0,5);
                 if($field_name == 'email'){
 
+                    /*
                     if($evaluators){
                         foreach($evaluators as $ev){
                             if($ev->email == $value){
@@ -776,6 +777,7 @@ class Survey extends Public_Controller {
                             }
                         }
                     }
+                    */
 
                     if($duplicate_entry == ''){
                         $duplicate_entry = duplicate_entry($field, $value, $data);
