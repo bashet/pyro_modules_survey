@@ -1065,6 +1065,11 @@ class Survey extends Public_Controller {
             }
         }
 
+        if($all_submitted){
+            $this->db->where('id', $this->attempt->id);
+            $this->db->update('survey_attempt', array('finished_date' => time()));
+        }
+
 
 
         $this->template
