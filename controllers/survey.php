@@ -811,6 +811,12 @@ class Survey extends Public_Controller {
             if($this->db->insert('survey_attempt', $attempt)){
                 $attempt_id = $this->db->insert_id();
 
+                $this->attempt         = get_current_attempt_by_user_id($this->current_user->id);
+                if($this->attempt){
+                    $this->total_evaluators   = get_total_evaluators_by_attempt_id($this->attempt->id);
+                    $this->session->set_userdata(array('attempt_id' => $this->attempt->id));
+                }
+
                 for($i = 1; $i <= $total/3; $i++){
                     $name   = 'name_'.$i;
                     $email  = 'email_'.$i;
