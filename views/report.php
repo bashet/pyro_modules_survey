@@ -4,7 +4,7 @@
 
         <h2>Your report</h2>
         <p>Your report is now available.</p>
-        <center><i class="fa fa-file-pdf-o fa-5x"></i></center>
+        <center><a href="#"><img src="{{ url:site }}addons/shared_addons/themes/magic/img/DownloadPDF.gif"></a></center>
 
     <?php }else{ ?>
 
