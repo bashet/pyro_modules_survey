@@ -425,7 +425,14 @@ if(! function_exists('get_user_answer_history')){
 if(! function_exists('get_report_pdf')){
     function get_report_pdf($data){
         // $data has all the fields from user_answer table
-        return '';
+
+        $attempt = get_current_attempt_by_id($data->attempt_id);
+        if($attempt->report_ready){
+            $result = '<a href="">View this report</a>';
+        }else{
+            $result = 'Report is not ready yet';
+        }
+        return $result;
     }
 }
 
