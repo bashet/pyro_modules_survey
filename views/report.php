@@ -4,7 +4,7 @@
 
         <h2>Your report</h2>
         <p>Your report is now available.</p>
-        <center><a href="#"><img src="{{ theme:image file="DownloadPDF.gif" alt="" width="120px"}}"></a></center>
+        <center><a href="#"><img src="{{ theme:image file='DownloadPDF.gif' width='120px'}}"></a></center>
 
     <?php }else{ ?>
 
