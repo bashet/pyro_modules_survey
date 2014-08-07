@@ -1088,8 +1088,10 @@ class Survey extends Public_Controller {
             if( ! $this->attempt->report_ready){
                 $attempt['report_ready'] = 1;
             }
-            $this->db->where('id', $this->attempt->id);
-            $this->db->update('survey_attempt', $attempt);
+            if($attempt){
+                $this->db->where('id', $this->attempt->id);
+                $this->db->update('survey_attempt', $attempt);
+            }
         }
 
 
