@@ -1109,6 +1109,23 @@ class Survey extends Public_Controller {
             ->build('report');
     }
 
+    public function view_report($attempt_id = ''){
+
+        if(! $this->current_user->id){
+            redirect($this->config->base_url());
+            exit();
+        }
+
+        $data = array();
+
+        $data['attempt_id'] = $attempt_id;
+
+        $this->load->library('pdf');
+        $this->pdf->load_view('pdf_report', $data);
+        $this->pdf->render();
+        $this->pdf->stream($attempt_id.".pdf", array('Attachment'=>0));
+    }
+
     public function history(){
         if(! $this->current_user->id){
             redirect($this->config->base_url());
