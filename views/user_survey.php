@@ -1,6 +1,6 @@
 <div id="user_survey-container">
     <?php
-    if(($total_evaluators) && $total_evaluators >= 3){
+    if(($total_evaluators) && ($total_evaluators >= 3) && ( ! $attempt->report_ready)){
         if($questions){
             $i = 1;
             //var_dump($my_answer);
