@@ -2,7 +2,7 @@
 <style>
     .break { page-break-before: always; }
 </style>
-<img src="<?php echo $base_url;?>Colab-Logo.jpg" width="200px" height="200">
+<img src="<?php echo $base_url;?>addons/shared_addons/modules/survey/img/Colab-Logo.jpg" width="200px" height="200">
 page 1 of 32
 <div id="page_1" class="break"></div>
 page 2 of 32
