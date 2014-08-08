@@ -1118,7 +1118,9 @@ class Survey extends Public_Controller {
 
         $data = array();
 
+        $data['base_url']   = $this->config->base_url();
         $data['attempt_id'] = $attempt_id;
+
 
         $this->load->library('pdf');
         $this->pdf->load_view('pdf_report', $data);
