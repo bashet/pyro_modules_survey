@@ -76,7 +76,7 @@ $pdf->SetFont('dejavusans', '', 10);
 
 //======================================= page 1 ===========================================
 $pdf->AddPage();
-$html = get_page_1($programme, $attempt);
+$html = get_page_1($all_attempt, $programme, $attempt);
 $pdf->writeHTML($html, true, false, true, false, '');
 //======================================= page 2 ===========================================
 $pdf->AddPage();
