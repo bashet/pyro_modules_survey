@@ -534,3 +534,41 @@ if( ! function_exists('duplicate_entry')){
         return $error;
     }
 }
+
+if( ! function_exists('numToText')){
+    function numToText($num){
+        if($num == '1'){
+            return '1st';
+        }elseif($num == '2'){
+            return '2nd';
+        }elseif($num == '3'){
+            return '3rd';
+        }elseif($num == '4'){
+            return '4th';
+        }elseif($num == '5'){
+            return '5th';
+        }elseif($num == '6'){
+            return '6th';
+        }elseif($num == '7'){
+            return '7th';
+        }elseif($num == '8'){
+            return '8th';
+        }elseif($num == '9'){
+            return '9th';
+        }
+    }
+}
+
+
+if( ! function_exists('get_all_attempts_by_user_n_programme') ){
+    function get_all_attempts_by_user_n_programme($user_id = '', $programme_id){
+        if($user_id){
+            $ci =& get_instance();
+            //$ci->db->order_by('id', 'desc');
+            $query = $ci->db->get_where('survey_attempt', array('user_id' => $user_id, 'programme_id' => $programme_id));
+            return $query->result();
+        }else{
+            return '';
+        }
+    }
+}
