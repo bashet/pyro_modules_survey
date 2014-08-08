@@ -13,7 +13,7 @@ $pdf = new TCPDF('P', PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
 // set document information
 $pdf->SetCreator(PDF_CREATOR);
 $pdf->SetAuthor('Abdul Bashet');
-$pdf->SetTitle('London School of Hygiene & Tropical Medicine');
+$pdf->SetTitle('Report | 360 Leadership CoLab');
 $pdf->SetSubject('Offer Letter');
 
 
@@ -49,12 +49,39 @@ if (@file_exists(dirname(__FILE__).'/lang/eng.php')) {
 // set font
 $pdf->SetFont('dejavusans', '', 10);
 
+$logo = $base_url .'addons/shared_addons/modules/survey/img/Colab-Logo.jpg';
 // add a page
 $pdf->AddPage();
 
-$logo = $base_url .'addons/shared_addons/modules/survey/img/Colab-Logo.jpg';
-//$signature_image = $base_url .'images/offer_signature.jpg';
-// create some HTML content
+$html = '<img src="'.$logo.'" width="100" border="0" />';
+$html .= '
+    fghfd fghgfdh
+';
+
+// output the HTML content
+$pdf->writeHTML($html, true, false, true, false, '');
+
+$pdf->AddPage();
+
+$html = '<img src="'.$logo.'" width="100" border="0" />';
+$html .= '
+    fghfd fghgfdh
+';
+
+// output the HTML content
+$pdf->writeHTML($html, true, false, true, false, '');
+
+$pdf->AddPage();
+
+$html = '<img src="'.$logo.'" width="100" border="0" />';
+$html .= '
+    fghfd fghgfdh
+';
+
+// output the HTML content
+$pdf->writeHTML($html, true, false, true, false, '');
+
+$pdf->AddPage();
 
 $html = '<img src="'.$logo.'" width="100" border="0" />';
 $html .= '
@@ -68,5 +95,5 @@ $pdf->writeHTML($html, true, false, true, false, '');
 //$pdf->lastPage();
 
 //Close and output PDF document
-$pdf->Output('Offer_Ltter.pdf', 'I');
+$pdf->Output('Report_360_leadershipCo_Lab.pdf', 'I');
 
