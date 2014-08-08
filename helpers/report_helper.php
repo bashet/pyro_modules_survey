@@ -22,13 +22,24 @@ if( ! function_exists('get_page_1')){
             }
         }
 
-        $html = '<span style="font-size:2em">'.$user->first_name . ' ' . $user->last_name.'</span>';
-        $html .= '<br>';
-        $html .= '<span>'.$programme->name.' - '.numToText($i).' attempt</span>';
-        $html .= '<br>';
-        $html .= '<span>'.date('M d, Y', $attempt->finished_date).'</span>';
-        $html .= '<br>';
-        $html .= 'Personal Feedback Report';
+        $html   = '<br>';
+        $html  .= '<br>';
+        $html  .= '<br>';
+        $html  .= '<br>';
+        $html  .= '<br>';
+        $html  .= '<br>';
+        $html  .= '<br>';
+        $html  .= '<br>';
+        $html  .= '<br>';
+        $html  .= '<br>';
+        $html  .= '<br>';
+        $html  .= '<span style="font-size:2em">'.$user->first_name . ' ' . $user->last_name.'</span>';
+        $html  .= '<br>';
+        $html  .= '<span>'.$programme->name.' - '.numToText($i).' attempt</span>';
+        $html  .= '<br>';
+        $html  .= '<span>'.date('M d, Y', $attempt->finished_date).'</span>';
+        $html  .= '<br>';
+        $html  .= 'Personal Feedback Report';
 
         return $html;
     }
