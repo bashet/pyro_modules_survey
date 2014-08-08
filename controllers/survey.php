@@ -1122,14 +1122,14 @@ class Survey extends Public_Controller {
         $data['attempt_id'] = $attempt_id;
 
 
-        $this->load->view('pdf_report', $data);
+        //$this->load->view('pdf_report', $data);
 
-        /*
+
         $this->load->library('pdf');
         $this->pdf->load_view('pdf_report', $data);
         $this->pdf->render();
         $this->pdf->stream($attempt_id.".pdf", array('Attachment'=>0));
-        */
+
     }
 
     public function history(){
