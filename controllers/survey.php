@@ -1116,11 +1116,13 @@ class Survey extends Public_Controller {
             exit();
         }
         $this->load->helper('pdf');
+        $this->load->helper('report');
 
         $data = array();
 
         $data['base_url']   = $this->config->base_url();
         $data['attempt_id'] = $attempt_id;
+
 
         $this->load->view('pdf', $data);
     }
