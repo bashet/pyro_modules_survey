@@ -100,3 +100,213 @@ if( ! function_exists('get_page_2') ){
         return $html;
     }
 }
+
+if( ! function_exists('get_page_3') ){
+    function get_page_3(){
+        $html = '';
+        return $html;
+    }
+}
+
+if( ! function_exists('get_page_4') ){
+    function get_page_4(){
+        $html = '';
+        return $html;
+    }
+}
+
+if( ! function_exists('get_page_5') ){
+    function get_page_5(){
+        $html = '';
+        return $html;
+    }
+}
+
+if( ! function_exists('get_page_6') ){
+    function get_page_6(){
+        $html = '';
+        return $html;
+    }
+}
+
+if( ! function_exists('get_page_7') ){
+    function get_page_7(){
+        $html = '';
+        return $html;
+    }
+}
+
+if( ! function_exists('get_page_8') ){
+    function get_page_8(){
+        $html = '';
+        return $html;
+    }
+}
+
+if( ! function_exists('get_page_9') ){
+    function get_page_9(){
+        $html = '';
+        return $html;
+    }
+}
+
+if( ! function_exists('get_page_10') ){
+    function get_page_10(){
+        $html = '';
+        return $html;
+    }
+}
+
+if( ! function_exists('get_page_11') ){
+    function get_page_11(){
+        $html = '';
+        return $html;
+    }
+}
+
+if( ! function_exists('get_page_12') ){
+    function get_page_12(){
+        $html = '';
+        return $html;
+    }
+}
+
+if( ! function_exists('get_page_13') ){
+    function get_page_13(){
+        $html = '';
+        return $html;
+    }
+}
+
+if( ! function_exists('get_page_14') ){
+    function get_page_14(){
+        $html = '';
+        return $html;
+    }
+}
+
+if( ! function_exists('get_page_15') ){
+    function get_page_15(){
+        $html = '';
+        return $html;
+    }
+}
+
+if( ! function_exists('get_page_16') ){
+    function get_page_16(){
+        $html = '';
+        return $html;
+    }
+}
+
+if( ! function_exists('get_page_17') ){
+    function get_page_17(){
+        $html = '';
+        return $html;
+    }
+}
+
+if( ! function_exists('get_page_18') ){
+    function get_page_18(){
+        $html = '';
+        return $html;
+    }
+}
+
+if( ! function_exists('get_page_19') ){
+    function get_page_19(){
+        $html = '';
+        return $html;
+    }
+}
+
+if( ! function_exists('get_page_20') ){
+    function get_page_20(){
+        $html = '';
+        return $html;
+    }
+}
+
+if( ! function_exists('get_page_21') ){
+    function get_page_21(){
+        $html = '';
+        return $html;
+    }
+}
+
+if( ! function_exists('get_page_22') ){
+    function get_page_22(){
+        $html = '';
+        return $html;
+    }
+}
+
+if( ! function_exists('get_page_23') ){
+    function get_page_23(){
+        $html = '';
+        return $html;
+    }
+}
+
+if( ! function_exists('get_page_24') ){
+    function get_page_24(){
+        $html = '';
+        return $html;
+    }
+}
+
+if( ! function_exists('get_page_25') ){
+    function get_page_25(){
+        $html = '';
+        return $html;
+    }
+}
+
+if( ! function_exists('get_page_26') ){
+    function get_page_26(){
+        $html = '';
+        return $html;
+    }
+}
+
+if( ! function_exists('get_page_27') ){
+    function get_page_27(){
+        $html = '';
+        return $html;
+    }
+}
+
+if( ! function_exists('get_page_28') ){
+    function get_page_28(){
+        $html = '';
+        return $html;
+    }
+}
+
+if( ! function_exists('get_page_29') ){
+    function get_page_29(){
+        $html = '';
+        return $html;
+    }
+}
+
+if( ! function_exists('get_page_30') ){
+    function get_page_30(){
+        $html = '';
+        return $html;
+    }
+}
+
+if( ! function_exists('get_page_31') ){
+    function get_page_31(){
+        $html = '';
+        return $html;
+    }
+}
+
+if( ! function_exists('get_page_32') ){
+    function get_page_32(){
+        $html = '';
+        return $html;
+    }
+}
