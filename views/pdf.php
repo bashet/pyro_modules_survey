@@ -80,7 +80,7 @@ $html = get_page_1($all_attempt, $programme, $attempt);
 $pdf->writeHTML($html, true, false, true, false, '');
 //======================================= page 2 ===========================================
 $pdf->AddPage();
-$html = '';
+$html = get_page_2();
 $pdf->writeHTML($html, true, false, true, false, '');
 //======================================= page 3 ===========================================
 $pdf->AddPage();
