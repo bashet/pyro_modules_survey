@@ -811,6 +811,7 @@ class Survey extends Public_Controller {
         if(( ! $missing_fields) && ( ! $all_empty) && ($duplicate_entry == '') && ($data_exist == '') && ($total_entered >= 3) && ( ! $error)){
             $attempt = array(
                 'user_id' => $this->current_user->id,
+                'programme_id' => $this->programme->id,
                 'survey_id' => $this->session->userdata('survey_id'),
                 'create_date' => time(),
             );
