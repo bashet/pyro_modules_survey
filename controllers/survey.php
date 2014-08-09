@@ -1129,9 +1129,21 @@ class Survey extends Public_Controller {
         $data['survey']     = get_survey_by_id($attempt->survey_id);
         $data['all_attempt']= get_all_attempts_by_user_n_programme($this->current_user->id, $programme->id);
 
-
-
         $this->load->view('pdf', $data);
+    }
+
+    public function generate_report($attempt_id = ''){
+
+        $attempt            = get_current_attempt_by_id($attempt_id);
+        $data['attempt']    = $attempt;
+        $programme          = get_programme_by_id($attempt->programme_id);
+        $data['programme']  = $programme;
+        $data['survey']     = get_survey_by_id($attempt->survey_id);
+        $data['all_attempt']= get_all_attempts_by_user_n_programme($this->current_user->id, $programme->id);
+
+        $this->template
+            ->title($this->module_details['name'], 'history')
+            ->build('another_report');
     }
 
     public function history(){

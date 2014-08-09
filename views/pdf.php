@@ -73,7 +73,8 @@ if (@file_exists(dirname(__FILE__).'/lang/eng.php')) {
 
 // set font
 $pdf->SetFont('dejavusans', '', 8);
-/*
+$pl_image = $base_url .'addons/shared_addons/modules/survey/img/performance_level.jpg';
+
 //======================================= page 1 ===========================================
 $pdf->AddPage();
 $html = get_page_1($all_attempt, $programme, $attempt);
@@ -94,9 +95,109 @@ $pdf->writeHTML($html, true, false, true, false, '');
 $pdf->AddPage();
 $html = get_page_5();
 $pdf->writeHTML($html, true, false, true, false, '');
-//======================================= page 6 ===========================================*/
+//======================================= page 6 ===========================================
 $pdf->AddPage();
-$html = get_page_6();
+$html = '
+
+<style>
+            th {
+                text-align: center;
+                border: 2px solid #ffffff;
+                color: #ffffff;
+            }
+            td {
+                border: 2px solid #ffffff;
+            }
+            .performance_level {
+                border: 1px solid #000000;
+                top: 20px;
+                position: absolute;
+            }
+            .level_index{
+                width:25%;
+            }
+        </style>
+
+        <p><strong>Your competency summary table</strong></p>
+        <table border="1" cellpadding="4" cellspacing="1">
+            <tr bgcolor="#5AA73D">
+                <th width="30%">Cluster/Competency</th>
+                <th width="20%">Avg Total Other Rating</th>
+                <th width="50%">Level of Performance</th>
+            </tr>
+            <tr bgcolor="#f5f5f5">
+                <td colspan="3">Strategic Leadership</td>
+            </tr>
+            <tr height="200">
+                <td>Self awareness and self management</td>
+                <td style="text-align: center">3.3</td>
+                <td>
+                    <img src="'.$pl_image.'" width="350px">
+                </td>
+            </tr>
+            <tr height="200">
+                <td>Self awareness and self management</td>
+                <td style="text-align: center">3.3</td>
+                <td>
+                    <img src="'.$pl_image.'" width="350px">
+                </td>
+            </tr>
+            <tr height="200">
+                <td>Self awareness and self management</td>
+                <td style="text-align: center">3.3</td>
+                <td>
+                    <img src="'.$pl_image.'" width="350px">
+                </td>
+            </tr>
+            <tr height="200">
+                <td>Self awareness and self management</td>
+                <td style="text-align: center">3.3</td>
+                <td>
+                    <img src="'.$pl_image.'" width="350px">
+                </td>
+            </tr>
+            <tr height="200">
+                <td>Self awareness and self management</td>
+                <td style="text-align: center">3.3</td>
+                <td>
+                    <img src="'.$pl_image.'" width="350px">
+                </td>
+            </tr>
+
+        </table>
+
+';
+
+$params = TCPDF_STATIC::serializeTCPDFtagParameters(array(108, 58, 50, 5, 'DF', array(0,0,0,0), array(245,237,22)));
+$html .= '<tcpdf method="Rect" params="'.$params.'" />';
+
+$params = TCPDF_STATIC::serializeTCPDFtagParameters(array(108, 65, 90, 5, 'DF', array(0,0,0,0), array(90,167,61)));
+$html .= '<tcpdf method="Rect" params="'.$params.'" />';
+//============================================
+$params = TCPDF_STATIC::serializeTCPDFtagParameters(array(108, 80, 90, 5, 'DF', array(0,0,0,0), array(245,237,22)));
+$html .= '<tcpdf method="Rect" params="'.$params.'" />';
+
+$params = TCPDF_STATIC::serializeTCPDFtagParameters(array(108, 87, 90, 5, 'DF', array(0,0,0,0), array(90,167,61)));
+$html .= '<tcpdf method="Rect" params="'.$params.'" />';
+//=============================================
+$params = TCPDF_STATIC::serializeTCPDFtagParameters(array(108, 104, 90, 5, 'DF', array(0,0,0,0), array(245,237,22)));
+$html .= '<tcpdf method="Rect" params="'.$params.'" />';
+
+$params = TCPDF_STATIC::serializeTCPDFtagParameters(array(108, 111, 90, 5, 'DF', array(0,0,0,0), array(90,167,61)));
+$html .= '<tcpdf method="Rect" params="'.$params.'" />';
+//=============================================
+$params = TCPDF_STATIC::serializeTCPDFtagParameters(array(108, 128, 90, 5, 'DF', array(0,0,0,0), array(245,237,22)));
+$html .= '<tcpdf method="Rect" params="'.$params.'" />';
+
+$params = TCPDF_STATIC::serializeTCPDFtagParameters(array(108, 134, 90, 5, 'DF', array(0,0,0,0), array(90,167,61)));
+$html .= '<tcpdf method="Rect" params="'.$params.'" />';
+//=============================================
+$params = TCPDF_STATIC::serializeTCPDFtagParameters(array(108, 151, 90, 5, 'DF', array(0,0,0,0), array(245,237,22)));
+$html .= '<tcpdf method="Rect" params="'.$params.'" />';
+
+$params = TCPDF_STATIC::serializeTCPDFtagParameters(array(108, 158, 90, 5, 'DF', array(0,0,0,0), array(90,167,61)));
+$html .= '<tcpdf method="Rect" params="'.$params.'" />';
+
 $pdf->writeHTML($html, true, false, true, false, '');
 //======================================= page 7 ===========================================
 $pdf->AddPage();

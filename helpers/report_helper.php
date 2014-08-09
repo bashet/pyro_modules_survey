@@ -302,7 +302,11 @@ if( ! function_exists('get_page_6') ){
             }
             td {
                 border: 2px solid #ffffff;
-                background-color: whitesmoke;
+            }
+            .performance_level {
+                border: 1px solid #000000;
+                top: 20px;
+                position: absolute;
             }
         </style>
 
@@ -313,13 +317,15 @@ if( ! function_exists('get_page_6') ){
                 <th width="20%">Avg Total Other Rating</th>
                 <th width="50%">Level of Performance</th>
             </tr>
-            <tr>
+            <tr bgcolor="#f5f5f5">
                 <td colspan="3">Strategic Leadership</td>
             </tr>
-            <tr>
-                <td></td>
-                <td></td>
-                <td></td>
+            <tr style="height: 100px;">
+                <td>Self awareness and self management</td>
+                <td style="text-align: center">3.3</td>
+                <td>
+                    <div class="performance_level"></div>
+                </td>
             </tr>
             <tr>
                 <td></td>
