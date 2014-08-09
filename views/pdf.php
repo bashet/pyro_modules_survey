@@ -72,7 +72,7 @@ if (@file_exists(dirname(__FILE__).'/lang/eng.php')) {
 // ---------------------------------------------------------
 
 // set font
-$pdf->SetFont('dejavusans', '', 10);
+$pdf->SetFont('dejavusans', '', 8);
 
 //======================================= page 1 ===========================================
 $pdf->AddPage();

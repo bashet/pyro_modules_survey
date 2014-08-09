@@ -103,7 +103,95 @@ if( ! function_exists('get_page_2') ){
 
 if( ! function_exists('get_page_3') ){
     function get_page_3(){
-        $html = '';
+        $html = '
+        <style>
+            th {
+                border: 2px solid #ffffff;
+                text-align: center;
+                padding: 5px;
+                color: #ffffff;
+            }
+            td {
+                border: 2px solid #ffffff;
+            }
+        </style>
+
+        <P><strong>Competency levels</strong><br><br>Over all, levels are defined as follows:</P>
+        <table border="1" cellpadding="4" cellspacing="1">
+            <tr bgcolor="#5AA73D">
+                <th style="width: 10%">Level</th>
+                <th style="width: 90%">Definition</th>
+            </tr>
+            <tr>
+                <td>1.</td>
+                <td>Indicates the competency is being applied at a level which requires development.</td>
+            </tr>
+            <tr bgcolor="#f5f5dc">
+                <td>2.</td>
+                <td>Indicates the competency is being applied at an emergent level.</td>
+            </tr>
+            <tr>
+                <td>3.</td>
+                <td>Indicates the competency is being applied at a relatively effective level.</td>
+            </tr>
+            <tr bgcolor="#f5f5dc">
+                <td>4.</td>
+                <td>Indicates the competency is being applied at a level which is a strength level.</td>
+            </tr>
+        </table>
+
+        <p>For each competency, the first level illustrates positive yet basic types of behaviour and successive levels (2-4)
+        outline more advanced behaviours.</p>
+
+        <p>In the report we show the detailed behavioural indicators for each competency at each level. These are not intended
+        as a comprehensive checklist, but give an indication of the types of behaviours you would expect.</p>
+
+        <p>The levels are cumulative, which means that in order to be rated as ‘strength’, there is an expectation that you would
+        typically already be demonstrating the behaviours at the lower levels as well. The ratings per competency in the later
+        part of the report are based on these levels.</p>
+
+        <p>Although each of the competencies is important, it is not realistic or necessary at this stage to demonstrate every
+        competency as a strength in order to be a successful school leader. It is expected that you will have a range of
+        competencies at different levels.</p>
+
+        <p>Your particular ratings are designed to provide you with a broad indication of where your strengths as a leader lie,
+        and where there might be areas for you to develop.They are not like an examination result or performance
+        assessment.</p>
+        <p><strong>Competency clusters</strong></p>
+        <p>The 16 competencies in the 360 leadership diagnostic are structured into three clusters:</p>
+        <ul>
+            <li>Educational Excellence</li>
+            <li>Operational Management</li>
+            <li>Strategic leadership</li>
+        </ul>
+
+        <p>All the competencies measured in this report are presented and organised these clusters. When interpreting your
+        feedback it may be worthwhile for you to consider whether some clusters are more important to you in your
+        development than others.</p>
+
+        <p><strong>What the diagnostic measures</strong></p>
+
+        <p>This diagnostic measures a group of competencies that are linked directly to successful headship. The competencies
+        were defined after careful analysis and consultation with headteachers as the behaviours that are essential for
+        effective school leadership. The diagnostic is designed to help aspirant heads identify their strengths and areas for
+        future development. The competencies in the NPQH diagnostic reflect the Assessment framework for the
+        qualification.</p>
+
+        <p><strong>Receiving feedback</strong></p>
+        <p>When participants first receive behavioural feedback from their colleagues, people react in many different ways. You
+        might feel anything from elation and joy through to denial, despair and anger, or you might not feel anything at all for
+        a while. However you react to your data, this is absolutely normal. There is no ‘right way’ to react to feedback. Just
+        remember that often your emotions will be triggered before your more cognitive processes get to work. To manage
+        this, take note of your reactions, acknowledge them and take your time to work through them before you attempt to
+        re-engage with the reports and begin to process the data.You may find it helpful to discuss the findings and your response with a coach or mentor.</p>
+
+        <p>The reports are designed specifically to help you understand and make the most of your data. We recommend that
+        you go page by page through the reports . this will help you to understand the data as well as what has been
+        measured in the report and who has contributed. As you read through the reports it might be useful to have a pad and
+        pen to hand to make notes of your reactions, questions and comments. You can then talk these through with your
+        coach, mentor or manager when you meet.</p>
+
+        ';
         return $html;
     }
 }
