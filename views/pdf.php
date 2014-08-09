@@ -74,7 +74,7 @@ if (@file_exists(dirname(__FILE__).'/lang/eng.php')) {
 // set font
 $pdf->SetFont('dejavusans', '', 8);
 $pl_image = $base_url .'addons/shared_addons/modules/survey/img/performance_level.jpg';
-
+/*
 //======================================= page 1 ===========================================
 $pdf->AddPage();
 $html = get_page_1($all_attempt, $programme, $attempt);
@@ -95,7 +95,7 @@ $pdf->writeHTML($html, true, false, true, false, '');
 $pdf->AddPage();
 $html = get_page_5();
 $pdf->writeHTML($html, true, false, true, false, '');
-//======================================= page 6 ===========================================
+//======================================= page 6 ===========================================*/
 $pdf->AddPage();
 $html = '
 
@@ -132,35 +132,35 @@ $html = '
                 <td>Self awareness and self management</td>
                 <td style="text-align: center">3.3</td>
                 <td>
-                    <img src="'.$pl_image.'" width="350px">
+                    <img src="'.$pl_image.'" width="350px" height="60px">
                 </td>
             </tr>
             <tr height="200">
                 <td>Self awareness and self management</td>
                 <td style="text-align: center">3.3</td>
                 <td>
-                    <img src="'.$pl_image.'" width="350px">
+                    <img src="'.$pl_image.'" width="350px" height="60px">
                 </td>
             </tr>
             <tr height="200">
                 <td>Self awareness and self management</td>
                 <td style="text-align: center">3.3</td>
                 <td>
-                    <img src="'.$pl_image.'" width="350px">
+                    <img src="'.$pl_image.'" width="350px" height="60px">
                 </td>
             </tr>
             <tr height="200">
                 <td>Self awareness and self management</td>
                 <td style="text-align: center">3.3</td>
                 <td>
-                    <img src="'.$pl_image.'" width="350px">
+                    <img src="'.$pl_image.'" width="350px" height="60px">
                 </td>
             </tr>
             <tr height="200">
                 <td>Self awareness and self management</td>
                 <td style="text-align: center">3.3</td>
                 <td>
-                    <img src="'.$pl_image.'" width="350px">
+                    <img src="'.$pl_image.'" width="350px" height="60px">
                 </td>
             </tr>
 
@@ -168,34 +168,34 @@ $html = '
 
 ';
 
-$params = TCPDF_STATIC::serializeTCPDFtagParameters(array(108, 58, 50, 5, 'DF', array(0,0,0,0), array(245,237,22)));
+$params = TCPDF_STATIC::serializeTCPDFtagParameters(array(108, 58, 50, 4, 'DF', array(0,0,0,0), array(245,237,22)));
 $html .= '<tcpdf method="Rect" params="'.$params.'" />';
 
-$params = TCPDF_STATIC::serializeTCPDFtagParameters(array(108, 65, 90, 5, 'DF', array(0,0,0,0), array(90,167,61)));
+$params = TCPDF_STATIC::serializeTCPDFtagParameters(array(108, 62, 90, 4, 'DF', array(0,0,0,0), array(90,167,61)));
 $html .= '<tcpdf method="Rect" params="'.$params.'" />';
 //============================================
-$params = TCPDF_STATIC::serializeTCPDFtagParameters(array(108, 80, 90, 5, 'DF', array(0,0,0,0), array(245,237,22)));
+$params = TCPDF_STATIC::serializeTCPDFtagParameters(array(108, 77, 90, 4, 'DF', array(0,0,0,0), array(245,237,22)));
 $html .= '<tcpdf method="Rect" params="'.$params.'" />';
 
-$params = TCPDF_STATIC::serializeTCPDFtagParameters(array(108, 87, 90, 5, 'DF', array(0,0,0,0), array(90,167,61)));
+$params = TCPDF_STATIC::serializeTCPDFtagParameters(array(108, 81, 90, 4, 'DF', array(0,0,0,0), array(90,167,61)));
 $html .= '<tcpdf method="Rect" params="'.$params.'" />';
 //=============================================
-$params = TCPDF_STATIC::serializeTCPDFtagParameters(array(108, 104, 90, 5, 'DF', array(0,0,0,0), array(245,237,22)));
+$params = TCPDF_STATIC::serializeTCPDFtagParameters(array(108, 96, 90, 4, 'DF', array(0,0,0,0), array(245,237,22)));
 $html .= '<tcpdf method="Rect" params="'.$params.'" />';
 
-$params = TCPDF_STATIC::serializeTCPDFtagParameters(array(108, 111, 90, 5, 'DF', array(0,0,0,0), array(90,167,61)));
+$params = TCPDF_STATIC::serializeTCPDFtagParameters(array(108, 100, 90, 4, 'DF', array(0,0,0,0), array(90,167,61)));
 $html .= '<tcpdf method="Rect" params="'.$params.'" />';
 //=============================================
-$params = TCPDF_STATIC::serializeTCPDFtagParameters(array(108, 128, 90, 5, 'DF', array(0,0,0,0), array(245,237,22)));
+$params = TCPDF_STATIC::serializeTCPDFtagParameters(array(108, 115, 90, 4, 'DF', array(0,0,0,0), array(245,237,22)));
 $html .= '<tcpdf method="Rect" params="'.$params.'" />';
 
-$params = TCPDF_STATIC::serializeTCPDFtagParameters(array(108, 134, 90, 5, 'DF', array(0,0,0,0), array(90,167,61)));
+$params = TCPDF_STATIC::serializeTCPDFtagParameters(array(108, 119, 90, 4, 'DF', array(0,0,0,0), array(90,167,61)));
 $html .= '<tcpdf method="Rect" params="'.$params.'" />';
 //=============================================
-$params = TCPDF_STATIC::serializeTCPDFtagParameters(array(108, 151, 90, 5, 'DF', array(0,0,0,0), array(245,237,22)));
+$params = TCPDF_STATIC::serializeTCPDFtagParameters(array(108, 134, 90, 4, 'DF', array(0,0,0,0), array(245,237,22)));
 $html .= '<tcpdf method="Rect" params="'.$params.'" />';
 
-$params = TCPDF_STATIC::serializeTCPDFtagParameters(array(108, 158, 90, 5, 'DF', array(0,0,0,0), array(90,167,61)));
+$params = TCPDF_STATIC::serializeTCPDFtagParameters(array(108, 138, 90, 4, 'DF', array(0,0,0,0), array(90,167,61)));
 $html .= '<tcpdf method="Rect" params="'.$params.'" />';
 
 $pdf->writeHTML($html, true, false, true, false, '');
