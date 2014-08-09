@@ -129,8 +129,8 @@ $html = '
                 <td colspan="3">Strategic Leadership</td>
             </tr>
             <tr height="200">
-                <td>Self awareness and self management</td>
-                <td style="text-align: center">3.3</td>
+                <td><br><br>Self awareness and self management</td>
+                <td style="text-align: center"><br><br>3.3</td>
                 <td>
                     <img src="'.$pl_image.'" width="350px" height="60px">
                 </td>
