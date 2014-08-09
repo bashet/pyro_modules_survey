@@ -53,7 +53,7 @@ $pdf->setFooterFont(Array(PDF_FONT_NAME_DATA, '', PDF_FONT_SIZE_DATA));
 $pdf->SetDefaultMonospacedFont(PDF_FONT_MONOSPACED);
 
 // set margins
-$pdf->SetMargins(PDF_MARGIN_LEFT, 30, PDF_MARGIN_RIGHT);
+$pdf->SetMargins(PDF_MARGIN_LEFT, 35, PDF_MARGIN_RIGHT);
 $pdf->SetHeaderMargin(PDF_MARGIN_HEADER);
 //$pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
 
@@ -73,7 +73,7 @@ if (@file_exists(dirname(__FILE__).'/lang/eng.php')) {
 
 // set font
 $pdf->SetFont('dejavusans', '', 8);
-
+/*
 //======================================= page 1 ===========================================
 $pdf->AddPage();
 $html = get_page_1($all_attempt, $programme, $attempt);
@@ -94,7 +94,7 @@ $pdf->writeHTML($html, true, false, true, false, '');
 $pdf->AddPage();
 $html = get_page_5();
 $pdf->writeHTML($html, true, false, true, false, '');
-//======================================= page 6 ===========================================
+//======================================= page 6 ===========================================*/
 $pdf->AddPage();
 $html = get_page_6();
 $pdf->writeHTML($html, true, false, true, false, '');

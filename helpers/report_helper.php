@@ -198,21 +198,152 @@ if( ! function_exists('get_page_3') ){
 
 if( ! function_exists('get_page_4') ){
     function get_page_4(){
-        $html = '';
+        $html = '
+
+        <p><strong>Why could there be a difference between your views and those of your raters?</strong></p>
+
+        <p>Your raters will only be able to rate you against the competencies based on the behaviours, attitudes or preferences
+        you typically demonstrate. Perhaps you think you are coming across in a certain way, but this is not how you are
+        perceived by others. Alternatively, you may not be aware that you are behaving or doing certain things, so feedback
+        provided by your colleagues will prompt a greater awareness of what they see you typically doing. Or perhaps, there
+        is a competency where your actions are not consistent with what you are thinking.</p>
+
+        <p>We suggest that you explore any areas of mismatch with a leadership coach or adviser in order to understand the
+        feedback provided and build up a picture of what you do well as well as areas for further improvement. This will help
+        you to define and agree upon a development journey that best suits you.</p>
+
+        <p><strong>How should I interpret the results?</strong></p>
+
+        <p>When reading through your feedback, you should bear in mind that feedback is based on other peoples’ perceptions,
+        which will tend to be more subjective than objective. You may be surprised at some of your colleagues’ perceptions of
+        your behaviour or effectiveness. These may be very different from your own perceptions.</p>
+
+        <ul>
+            <li>Be prepared to take the feedback on board, and to consider how you might use it to develop your strengths and to
+        focus on your development needs.</li>
+            <li>Don’t focus exclusively on what might appear to be negative comments – take equal account of the positive
+        feedback you receive. Focus on patterns rather than ‘one offs’.</li>
+            <li>Don’t try to work out who has provided what feedback, as this is not going to be helpful for you. More often than
+        not, your assumptions can be wrong.</li>
+            <li>If you feel that some of the feedback is unfounded, make a note of this so that you can talk this through with a
+        coach or mentor.</li>
+            <li>Express any concerns you may have in a constructive way and try to focus on objective assessment, not on
+        individuals or personalities.</li>
+        </ul>
+
+        <p>As you look through your feedback, think about your current role. Some key questions to ask yourself could be:</p>
+
+        <ul>
+            <li>How are you currently performing against the competencies?</li>
+            <li>What are your strengths and how can you continue to demonstrate them?</li>
+            <li>What are your current areas for development?</li>
+            <li>What competencies are essential for success in your current role?</li>
+            <li>What competencies do you need to work on to help you move into future leadership roles?</li>
+        </ul>
+
+        <p>When interpreting your feedback it may be worthwhile for you to consider whether some clusters are more important
+        to you in your development than others.</p>
+
+        <p>The ratings shown for each competency will help you to pinpoint your strengths and development areas. The
+        competency detail section and the competency frequency table illustrates more fully how the different people you
+        nominated have rated you.</p>
+
+        <p>In the report for each competency, you will also see a reference to the typical behaviour indicative of each level of this
+        scale. These behaviours are more like a developmental ladder and represent what to aim to do more of to become
+        increasingly effective.</p>
+
+        ';
         return $html;
     }
 }
 
 if( ! function_exists('get_page_5') ){
     function get_page_5(){
-        $html = '';
+        $html = '
+
+        <style>
+        td{
+        border: thin solid #ffffff;
+        text-align: center;
+        }
+        </style>
+
+        <p><strong>Your raters</strong></p>
+        <p>You had the following number of raters complete the survey:</p>
+        <table border="1" cellpadding="4" cellspacing="1">
+            <tr bgcolor="#f0f8ff">
+                <td width="150">Number of respondents</td>
+                <td width="50">3</td>
+            </tr>
+        </table>
+
+        <p><strong>Competency summary</strong></p>
+
+        <p>To the right of each competency you will see Avg. Total others rating. This is the mean score from everyone,
+        excluding yourself, who provided you with the feedback.</p>
+
+        <p>In the graph for each competency, the top bar represents the average rating by others, while the bottom bar
+        represents your own rating of yourself.</p>
+
+        ';
         return $html;
     }
 }
 
 if( ! function_exists('get_page_6') ){
     function get_page_6(){
-        $html = '';
+        $html = '
+
+        <style>
+            th {
+                text-align: center;
+                border: 2px solid #ffffff;
+                color: #ffffff;
+            }
+            td {
+                border: 2px solid #ffffff;
+                background-color: whitesmoke;
+            }
+        </style>
+
+        <p><strong>Your competency summary table</strong></p>
+        <table border="1" cellpadding="4" cellspacing="1">
+            <tr bgcolor="#5AA73D">
+                <th width="30%">Cluster/Competency</th>
+                <th width="20%">Avg Total Other Rating</th>
+                <th width="50%">Level of Performance</th>
+            </tr>
+            <tr>
+                <td colspan="3">Strategic Leadership</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+        </table>
+
+        ';
         return $html;
     }
 }
