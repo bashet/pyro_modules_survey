@@ -290,6 +290,17 @@ class Survey extends Public_Controller {
             ->build('questions');
     }
 
+    public function add_qCat_to_survey(){
+        if($data = $this->input->post()){
+            $survey = get_survey_by_id($data['survey_id']);
+            $cat    = re_build_cat($survey, $data);
+            $this->db->where('id', $survey->id);
+            if($this->db->update('survey', array('q_cat' => $cat))){
+                redirect('survey/questions/'. $survey->id);
+            }
+        }
+    }
+
     public function add_new_question($survey_id = ''){
         if(! $this->current_user->id){
             redirect($this->config->base_url());

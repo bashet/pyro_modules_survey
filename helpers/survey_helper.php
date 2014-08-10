@@ -572,3 +572,29 @@ if( ! function_exists('get_all_attempts_by_user_n_programme') ){
         }
     }
 }
+
+if( ! function_exists('re_build_cat') ){
+    function re_build_cat($survey, $data){
+        $categories = json_decode($survey->q_cat, true);
+
+        if($categories){
+            $i = 1;
+            $exist = false;
+            foreach($categories as $key => $value){
+                if($value == $data['category']){
+                    $categories[$key] = $data['category'];
+                    $exist = true;
+                }
+                $i++;
+            }
+
+            if(! $exist ){
+                $categories[$i] = $data['category'];
+            }
+        }else{
+            $categories[1] = $data['category'];
+        }
+
+        return json_encode($categories);
+    }
+}
