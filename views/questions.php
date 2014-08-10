@@ -26,7 +26,7 @@
 
             }
         }else{
-            echo 'Please add question categories at first.';
+            echo '<div class="well well-lg">Please add question categories at first.</div>';
         }
 
         ?>
