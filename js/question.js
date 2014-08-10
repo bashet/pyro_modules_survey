@@ -2,7 +2,11 @@ $(function(){
     $(document).ready(function() {
         $('#all_question').dataTable();
     } );
-
+    $( "#question_categories" ).accordion({
+        collapsible: true,
+        active: false,
+        heightStyle: "content"
+    });
 
     $( "div[question]" ).accordion({
         collapsible: true,
