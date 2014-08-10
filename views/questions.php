@@ -4,15 +4,17 @@
         <?php
         if($survey_id){
             if($survey->q_cat){
-                echo '<a href="{{ url:site }}survey/add_new_question/'.$survey_id.'" class="btn btn-primary" ><span class="icon-plus"></span> Add new question</a>';
+                echo '<a href="{{ url:site }}survey/add_new_question/'.$survey_id.'" class="btn btn-primary" ><span class="icon-question"></span> Add new question</a>';
             }else{
-                echo '<button class="btn btn-info" data-toggle="modal" data-target="#no_category"><span class="icon-plus"></span> Add new question</button>';
+                echo '<button class="btn btn-primary" data-toggle="modal" data-target="#no_category"><span class="icon-question"></span> Add new question</button>';
             }
-            echo '<button class="btn btn-info" data-toggle="modal" data-target="#add_category"><span class="icon-plus"></span> Add category</button>';
+            echo '<button class="btn btn-primary" data-toggle="modal" data-target="#add_category"><span class="icon-sitemap"></span> Add category</button>';
+            echo '<a href="{{ url:site }}survey/organise/'.$survey_id.'" class="btn btn-primary" ><span class="icon-reorder"></span> Organise questions</a>';
 
         }else{
-            echo '<a class="btn btn-primary" ><span class="icon-plus"></span> Add new question</a>';
-            echo '<button class="btn btn-info"><span class="icon-plus"></span> Add category</button>';
+            echo '<button class="btn btn-primary" disabled><span class="icon-plus"></span> Add new question</button>';
+            echo '<button class="btn btn-primary" disabled><span class="icon-plus"></span> Add category</button>';
+            echo '<button class="btn btn-primary" disabled><span class="icon-reorder"></span> Organise questions</button>';
         }
         ?>
 

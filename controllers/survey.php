@@ -324,8 +324,39 @@ class Survey extends Public_Controller {
             ->set('question_categories', $question_categories)
             ->append_js('module::question.js')
             ->set_breadcrumb('Survey', '/survey/'.$survey_id)
+            ->set_breadcrumb('Questions', '/survey/questions/'.$survey_id)
             ->set_breadcrumb('Add new question')
             ->build('add_new_question');
+    }
+
+    public function organise($survey_id = ''){
+        if(! $this->current_user->id){
+            redirect($this->config->base_url());
+            exit();
+        }
+
+        if($survey_id){
+            // we will go ahead to do the next job
+            $questions = $this->survey_m->get_all_questions($survey_id);
+        }else{
+            // wrong entry kick to ass
+            $questions = '';
+        }
+        $categories = $this->survey_m->get_all_question_categories();
+        $survey     = get_survey_by_id($survey_id);
+
+        $this->template
+            ->title($this->module_details['name'], 'manage questions')
+            ->set('questions', $questions)
+            ->set('categories', $categories)
+            ->set('survey', $survey)
+            ->set('survey_id', $survey_id)
+            ->set_breadcrumb('Survey', '/survey')
+            ->set_breadcrumb('Questions', '/survey/questions/'.$survey_id)
+            ->set_breadcrumb('Organise')
+            ->append_css('module::organise.css')
+            ->append_js('module::organise.js')
+            ->build('organise');
     }
 
     public function save_question(){
