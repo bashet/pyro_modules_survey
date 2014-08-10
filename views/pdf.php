@@ -199,6 +199,7 @@ $params = TCPDF_STATIC::serializeTCPDFtagParameters(array(108, 138, 90, 4, 'DF',
 $html .= '<tcpdf method="Rect" params="'.$params.'" />';
 
 $pdf->writeHTML($html, true, false, true, false, '');
+/*
 //======================================= page 7 ===========================================
 $pdf->AddPage();
 $html = get_page_7();
@@ -303,9 +304,10 @@ $pdf->writeHTML($html, true, false, true, false, '');
 $pdf->AddPage();
 $html = get_page_32();
 $pdf->writeHTML($html, true, false, true, false, '');
+*/
 
 // reset pointer to the last page
-//$pdf->lastPage();
+$pdf->lastPage();
 
 //Close and output PDF document
 $pdf->Output('Report_360_leadershipCo_Lab.pdf', 'I');

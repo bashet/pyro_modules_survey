@@ -1126,8 +1126,10 @@ class Survey extends Public_Controller {
         $data['attempt']    = $attempt;
         $programme          = get_programme_by_id($attempt->programme_id);
         $data['programme']  = $programme;
-        $data['survey']     = get_survey_by_id($attempt->survey_id);
+        $survey             = get_survey_by_id($attempt->survey_id);
+        $data['survey']     = $survey;
         $data['all_attempt']= get_all_attempts_by_user_n_programme($this->current_user->id, $programme->id);
+        $data['questions']  = get_questions_by_survey_id($survey->id);
 
         $this->load->view('pdf', $data);
     }
