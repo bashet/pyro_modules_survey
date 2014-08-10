@@ -277,11 +277,13 @@ class Survey extends Public_Controller {
             $questions = '';
         }
         $categories = $this->survey_m->get_all_question_categories();
+        $survey     = get_survey_by_id($survey_id);
 
         $this->template
             ->title($this->module_details['name'], 'manage questions')
             ->set('questions', $questions)
             ->set('categories', $categories)
+            ->set('survey', $survey)
             ->set('survey_id', $survey_id)
             ->set_breadcrumb('Survey', '/survey')
             ->set_breadcrumb('Question')
