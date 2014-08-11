@@ -110,6 +110,7 @@
                                     <option value=""></option>
                                     <?php
                                     foreach($categories as $cat){
+                                        if(is_valid_cat_for_survey($survey_id, $cat->id))
                                         echo '<option value="'.$cat->id.'">'.$cat->name.'</option>';
                                     }
                                     ?>
