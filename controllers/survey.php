@@ -1204,6 +1204,7 @@ class Survey extends Public_Controller {
         $data['all_attempt']= get_all_attempts_by_user_n_programme($this->current_user->id, $programme->id);
         $data['questions']  = get_questions_by_survey_id($survey->id);
         $data['categories'] = json_decode($survey->q_cat);
+        $data['user_id']    = $this->current_user->id;
 
         $this->load->view('pdf', $data);
     }

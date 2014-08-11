@@ -659,3 +659,18 @@ if( ! function_exists('is_valid_cat_for_survey') ){
         }
     }
 }
+
+if( !function_exists('get_self_marking') ){
+    function get_self_marking($user_id, $attempt_id, $survey_id, $q_id){
+        // 90 will be considered as 100%
+        $answer = new stdClass();
+        $answer->user_id = $user_id;
+        $answer->attempt_id = $attempt_id;
+        $answer->survey_id = $survey_id;
+        $answers = get_existing_answer($answer);
+
+        $my_answer = json_decode($answers->answers, true);
+
+        return ((90*$my_answer[$q_id])/4);
+    }
+}

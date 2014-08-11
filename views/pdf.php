@@ -145,18 +145,29 @@ foreach($categories as $cat_id){
                                     <img src="'.$pl_image.'" width="350px" height="60px">
                                 </td>
                             </tr>';
+
+                    $params = TCPDF_STATIC::serializeTCPDFtagParameters(array(108, $y, 50, 4, 'DF', array(0,0,0,0), array(245,237,22)));
+                    $html .= '<tcpdf method="Rect" params="'.$params.'" />';
+
+                    $params = TCPDF_STATIC::serializeTCPDFtagParameters(array(108, $y+4, get_self_marking($user_id, $attempt->id,$survey->id, $q->id), 4, 'DF', array(0,0,0,0), array(90,167,61)));
+                    $html .= '<tcpdf method="Rect" params="'.$params.'" />';
+                    $y = $y+19;
                 }
             }
-            $params = TCPDF_STATIC::serializeTCPDFtagParameters(array(108, $y, 50, 4, 'DF', array(0,0,0,0), array(245,237,22)));
-            $html .= '<tcpdf method="Rect" params="'.$params.'" />';
 
-            $params = TCPDF_STATIC::serializeTCPDFtagParameters(array(108, $y+4, 90, 4, 'DF', array(0,0,0,0), array(90,167,61)));
-            $html .= '<tcpdf method="Rect" params="'.$params.'" />';
-            $y = $y+19;
         }
     }
 
     $html .='</table>';
+
+    $html .= '<p></p>';
+
+    $html .='<table width="180px" border="1" cellpadding="4" cellspacing="1">
+                <tr bgcolor="#f5f5f5">
+                    <td><span style="background-color: #ffff00">&nbsp;&nbsp;&nbsp;</span>&nbsp;Total others</td>
+                    <td><span style="background-color: #5AA73D">&nbsp;&nbsp;&nbsp;</span>&nbsp;Selft</td>
+                </tr>
+            </table>';
 
     $pdf->writeHTML($html, true, false, true, false, '');
 }
