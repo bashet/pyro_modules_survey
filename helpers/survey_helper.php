@@ -187,6 +187,15 @@ if(! function_exists('get_questions_by_survey_id')){
     }
 }
 
+if(! function_exists('get_questions_by_category')){
+    function get_questions_by_category($id){
+        $ci =& get_instance();
+
+        $query = $ci->db->get_where('survey_questions', array('cat_id'=> $id));
+        return $query->result();
+    }
+}
+
 if(! function_exists('get_manager_by_uni')){
     function get_manager_by_uni($client_id){
         $ci =& get_instance();
