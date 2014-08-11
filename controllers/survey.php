@@ -1205,6 +1205,15 @@ class Survey extends Public_Controller {
         $data['questions']  = get_questions_by_survey_id($survey->id);
         $data['categories'] = json_decode($survey->q_cat);
         $data['user_id']    = $this->current_user->id;
+        $data['evaluators'] = get_evaluators_by_attempt_id($attempt_id);
+
+        $answer = new stdClass();
+        $answer->user_id = $this->current_user->id;
+        $answer->attempt_id = $attempt_id;
+        $answer->survey_id = $survey->id;
+        $answers = get_existing_answer($answer);
+
+        $data['user_answer'] = $answers;
 
         $this->load->view('pdf', $data);
     }

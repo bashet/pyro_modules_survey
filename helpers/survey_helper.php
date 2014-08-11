@@ -661,13 +661,8 @@ if( ! function_exists('is_valid_cat_for_survey') ){
 }
 
 if( !function_exists('get_self_marking') ){
-    function get_self_marking($user_id, $attempt_id, $survey_id, $q_id){
+    function get_self_marking($answers, $q_id){
         // 90 will be considered as 100%
-        $answer = new stdClass();
-        $answer->user_id = $user_id;
-        $answer->attempt_id = $attempt_id;
-        $answer->survey_id = $survey_id;
-        $answers = get_existing_answer($answer);
 
         $my_answer = json_decode($answers->answers, true);
 
@@ -676,8 +671,7 @@ if( !function_exists('get_self_marking') ){
 }
 
 if( ! function_exists('get_evaluators_total') ){
-    function get_evaluators_total($attempt_id, $q_id){
-        $evaluators = get_evaluators_by_attempt_id($attempt_id);
+    function get_evaluators_total($evaluators, $q_id){
 
         $total_answer = 0;
         foreach($evaluators as $ev){
@@ -690,8 +684,7 @@ if( ! function_exists('get_evaluators_total') ){
 }
 
 if( ! function_exists('get_evaluators_total_avg') ){
-    function get_evaluators_total_avg($attempt_id, $q_id){
-        $evaluators = get_evaluators_by_attempt_id($attempt_id);
+    function get_evaluators_total_avg($evaluators, $q_id){
 
         $total_answer = 0;
         foreach($evaluators as $ev){

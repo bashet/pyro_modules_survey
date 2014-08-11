@@ -140,16 +140,16 @@ foreach($categories as $cat_id){
                 if($order == $q->id){
                     $html.= '<tr height="200">
                                 <td><br><br>'.$q->title.'</td>
-                                <td style="text-align: center"><br><br>'.get_evaluators_total_avg($attempt->id, $q->id).'</td>
+                                <td style="text-align: center"><br><br>'.get_evaluators_total_avg($evaluators, $q->id).'</td>
                                 <td>
                                     <img src="'.$pl_image.'" width="350px" height="60px">
                                 </td>
                             </tr>';
 
-                    $params = TCPDF_STATIC::serializeTCPDFtagParameters(array(108, $y, get_evaluators_total($attempt->id, $q->id), 4, 'DF', array(0,0,0,0), array(245,237,22)));
+                    $params = TCPDF_STATIC::serializeTCPDFtagParameters(array(108, $y, get_evaluators_total($evaluators, $q->id), 4, 'DF', array(0,0,0,0), array(245,237,22)));
                     $html .= '<tcpdf method="Rect" params="'.$params.'" />';
 
-                    $params = TCPDF_STATIC::serializeTCPDFtagParameters(array(108, $y+4, get_self_marking($user_id, $attempt->id,$survey->id, $q->id), 4, 'DF', array(0,0,0,0), array(90,167,61)));
+                    $params = TCPDF_STATIC::serializeTCPDFtagParameters(array(108, $y+4, get_self_marking($user_answer, $q->id), 4, 'DF', array(0,0,0,0), array(90,167,61)));
                     $html .= '<tcpdf method="Rect" params="'.$params.'" />';
                     $y = $y+19;
                 }
