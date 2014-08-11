@@ -739,3 +739,17 @@ if( ! function_exists('get_answer_bottom_5') ){
         return $questions;
     }
 }
+
+if( ! function_exists('get_question_title') ){
+    function get_question_title($questions, $q_no){
+        $title = '';
+
+        foreach($questions as $q){
+            if($q_no == $q->id){
+                $title = $q->title;
+                break;
+            }
+        }
+        return $title;
+    }
+}
