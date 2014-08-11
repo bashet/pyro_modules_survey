@@ -616,3 +616,20 @@ if( ! function_exists('re_build_cat') ){
         return json_encode($categories);
     }
 }
+
+if( ! function_exists('is_valid_cat_for_survey') ){
+    function is_valid_cat_for_survey($survey_id, $cat_id){
+        $ci =& get_instance();
+
+        $query  = $ci->db->get_where('survey', array('id' => $survey_id));
+        $result = $query->row();
+
+        $ex_cat = json_decode($result->q_cat, true);
+
+        if (in_array($cat_id, $ex_cat)){
+            return false;
+        }else{
+            return true;
+        }
+    }
+}
