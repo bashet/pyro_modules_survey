@@ -391,9 +391,10 @@ class Survey extends Public_Controller {
         $data = $this->input->post();
 
         if($this->survey_m->question_form_validate($data)){
+            $cat_id = $data['question_category'];
             $question = array(
                 'survey_id'     => $data['survey_id'],
-                'cat_id'        => $data['question_category'],
+                'cat_id'        => $cat_id,
                 'title'         => $data['question_title'],
                 'description'   => $data['description'],
                 'matter'        => $data['matter'],
@@ -406,6 +407,11 @@ class Survey extends Public_Controller {
 
             if($this->db->insert('survey_questions', $question)){
                 $q_id = $this->db->insert_id();
+
+                $cat_info   = get_category_by_id($cat_id);
+                $new_cat_info = re_build_question_serial($cat_info,$q_id);
+                $this->db->where('id', $cat_id);
+                $this->db->update('survey_question_categories', array('questions' => $new_cat_info));
 
                 $answers = array(
                     'question_id'   => $q_id,

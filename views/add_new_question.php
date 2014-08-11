@@ -9,7 +9,7 @@
                     <option value="">Select category</option>
                     <?php
                     foreach($question_categories as $cat){
-                        echo '<option value="'.$cat->id.'">'.$cat->name.'</option>';
+                        echo '<option value="'.$cat->id.'">'.$cat->name.'-'.$cat->description.'</option>';
                     }
                     ?>
                 </select>

@@ -617,6 +617,32 @@ if( ! function_exists('re_build_cat') ){
     }
 }
 
+if( ! function_exists('re_build_question_serial') ){
+    function re_build_question_serial($category, $data){
+        $questions = json_decode($category->questions, true);
+
+        if($questions){
+            $i = 1;
+            $exist = false;
+            foreach($questions as $key => $value){
+                if($value == $data){
+                    $questions[$key] = $data;
+                    $exist = true;
+                }
+                $i++;
+            }
+
+            if(! $exist ){
+                $questions[$i] = $data;
+            }
+        }else{
+            $questions[1] = $data;
+        }
+
+        return json_encode($questions);
+    }
+}
+
 if( ! function_exists('is_valid_cat_for_survey') ){
     function is_valid_cat_for_survey($survey_id, $cat_id){
         $ci =& get_instance();
