@@ -1206,6 +1206,7 @@ class Survey extends Public_Controller {
         $data['categories'] = json_decode($survey->q_cat);
         $data['user_id']    = $this->current_user->id;
         $data['evaluators'] = get_evaluators_by_attempt_id($attempt_id);
+        $data['programme']  = get_programme_by_id($attempt->programme_id);
 
         $answer = new stdClass();
         $answer->user_id = $this->current_user->id;
