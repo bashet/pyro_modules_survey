@@ -9,17 +9,22 @@
                     foreach($categories as $cat_key => $cat_value){
                         echo '<li class="dd-item" data-id="'.$cat_value.'">';
                         echo '<div class="dd-handle">'.get_q_cat_name($cat_value).'</div>';
+                        $category  = get_category_by_id($cat_value);
+                        $sort_order = json_decode($category->questions);
                         $questions = get_questions_by_category($cat_value);
                         if($questions){
                             echo    '<ol class="dd-list">';
-                            foreach($questions as $q){
-                                echo '<li class="dd-item" data-id="'.$cat_value.'-'.$q->id.'">
+                            foreach($sort_order as $order){
+                                foreach($questions as $q){
+                                    if($order == $q->id){
+                                        echo '<li class="dd-item" data-id="'.$cat_value.'-'.$q->id.'">
                                             <div class="dd-handle">'.$q->title.'</div>
                                       </li>';
+                                    }
+                                }
                             }
                             echo '</ol>';
                         }
-
                         echo '</li>';
                     }
                 }
