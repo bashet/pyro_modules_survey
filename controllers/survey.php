@@ -359,16 +359,27 @@ class Survey extends Public_Controller {
         $survey_id  = $get_id[1];
         $new_cat    = array();
         $i          = 1;
+
+        $temp = array();
         foreach($results as $category){
-           $new_cat[$i] = $category->id;
+            $new_cat[$i]    = $category->id;
+            $children       = $category->children;
+            $questions      = array();
+            $j              = 1;
+            foreach($children as $child){
+                $q_id = explode('-', $child->id);
+                $questions[$j] = $q_id[1];
+                $j++;
+            }
+            $this->db->where('id', $category->id);
+            $this->db->update('survey_question_categories', array('questions' =>json_encode($questions)));
             $i++;
         }
 
         $this->db->where('id', $survey_id);
         $this->db->update('survey', array('q_cat' =>json_encode($new_cat)));
 
-
-        echo json_encode($new_cat);
+        echo json_encode($temp);
     }
 
     public function save_question(){
