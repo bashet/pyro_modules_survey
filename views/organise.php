@@ -14,14 +14,16 @@
                         $questions = get_questions_by_category($cat_value);
                         if($questions){
                             echo    '<ol class="dd-list">';
+                            $i = 1;
                             foreach($sort_order as $order){
                                 foreach($questions as $q){
                                     if($order == $q->id){
                                         echo '<li class="dd-item" data-id="'.$cat_value.'-'.$q->id.'">
-                                            <div class="dd-handle">'.$q->title.'</div>
+                                            <div class="dd-handle">'.$i.' - '.$q->title.'</div>
                                       </li>';
                                     }
                                 }
+                                $i++;
                             }
                             echo '</ol>';
                         }
