@@ -96,10 +96,15 @@ $pdf->AddPage();
 $html = get_page_5();
 $pdf->writeHTML($html, true, false, true, false, '');
 //======================================= page 6 ===========================================*/
-$pdf->AddPage();
-$html = '
+foreach($categories as $cat_id){
+    $cat = get_category_by_id($cat_id);
+    $sort_order = json_decode($cat->questions);
+    $questions = get_questions_by_category($cat_id);
 
-<style>
+    $pdf->AddPage();
+    $html = '
+
+        <style>
             th {
                 text-align: center;
                 border: 2px solid #ffffff;
@@ -126,88 +131,39 @@ $html = '
                 <th width="50%">Level of Performance</th>
             </tr>
             <tr bgcolor="#f5f5f5">
-                <td colspan="3">Strategic Leadership</td>
-            </tr>
-            <tr height="200">
-                <td><br><br>Self awareness and self management</td>
-                <td style="text-align: center"><br><br>3.3</td>
-                <td>
-                    <img src="'.$pl_image.'" width="350px" height="60px">
-                </td>
-            </tr>
-            <tr height="200">
-                <td>Self awareness and self management</td>
-                <td style="text-align: center">3.3</td>
-                <td>
-                    <img src="'.$pl_image.'" width="350px" height="60px">
-                </td>
-            </tr>
-            <tr height="200">
-                <td>Self awareness and self management</td>
-                <td style="text-align: center">3.3</td>
-                <td>
-                    <img src="'.$pl_image.'" width="350px" height="60px">
-                </td>
-            </tr>
-            <tr height="200">
-                <td>Self awareness and self management</td>
-                <td style="text-align: center">3.3</td>
-                <td>
-                    <img src="'.$pl_image.'" width="350px" height="60px">
-                </td>
-            </tr>
-            <tr height="200">
-                <td>Self awareness and self management</td>
-                <td style="text-align: center">3.3</td>
-                <td>
-                    <img src="'.$pl_image.'" width="350px" height="60px">
-                </td>
-            </tr>
+                <td colspan="3">'.$cat->name.'</td>
+            </tr>';
+    if($questions){
+        $y = 58;
+        foreach($sort_order as $order){
+            foreach($questions as $q){
+                if($order == $q->id){
+                    $html.= '<tr height="200">
+                                <td><br><br>'.$q->title.'</td>
+                                <td style="text-align: center"><br><br>3.3</td>
+                                <td>
+                                    <img src="'.$pl_image.'" width="350px" height="60px">
+                                </td>
+                            </tr>';
+                }
+            }
+            $params = TCPDF_STATIC::serializeTCPDFtagParameters(array(108, $y, 50, 4, 'DF', array(0,0,0,0), array(245,237,22)));
+            $html .= '<tcpdf method="Rect" params="'.$params.'" />';
 
-        </table>
+            $params = TCPDF_STATIC::serializeTCPDFtagParameters(array(108, $y+4, 90, 4, 'DF', array(0,0,0,0), array(90,167,61)));
+            $html .= '<tcpdf method="Rect" params="'.$params.'" />';
+            $y = $y+19;
+        }
+    }
 
-';
+    $html .='</table>';
 
-$params = TCPDF_STATIC::serializeTCPDFtagParameters(array(108, 58, 50, 4, 'DF', array(0,0,0,0), array(245,237,22)));
-$html .= '<tcpdf method="Rect" params="'.$params.'" />';
+    $pdf->writeHTML($html, true, false, true, false, '');
+}
 
-$params = TCPDF_STATIC::serializeTCPDFtagParameters(array(108, 62, 90, 4, 'DF', array(0,0,0,0), array(90,167,61)));
-$html .= '<tcpdf method="Rect" params="'.$params.'" />';
-//============================================
-$params = TCPDF_STATIC::serializeTCPDFtagParameters(array(108, 77, 90, 4, 'DF', array(0,0,0,0), array(245,237,22)));
-$html .= '<tcpdf method="Rect" params="'.$params.'" />';
 
-$params = TCPDF_STATIC::serializeTCPDFtagParameters(array(108, 81, 90, 4, 'DF', array(0,0,0,0), array(90,167,61)));
-$html .= '<tcpdf method="Rect" params="'.$params.'" />';
-//=============================================
-$params = TCPDF_STATIC::serializeTCPDFtagParameters(array(108, 96, 90, 4, 'DF', array(0,0,0,0), array(245,237,22)));
-$html .= '<tcpdf method="Rect" params="'.$params.'" />';
-
-$params = TCPDF_STATIC::serializeTCPDFtagParameters(array(108, 100, 90, 4, 'DF', array(0,0,0,0), array(90,167,61)));
-$html .= '<tcpdf method="Rect" params="'.$params.'" />';
-//=============================================
-$params = TCPDF_STATIC::serializeTCPDFtagParameters(array(108, 115, 90, 4, 'DF', array(0,0,0,0), array(245,237,22)));
-$html .= '<tcpdf method="Rect" params="'.$params.'" />';
-
-$params = TCPDF_STATIC::serializeTCPDFtagParameters(array(108, 119, 90, 4, 'DF', array(0,0,0,0), array(90,167,61)));
-$html .= '<tcpdf method="Rect" params="'.$params.'" />';
-//=============================================
-$params = TCPDF_STATIC::serializeTCPDFtagParameters(array(108, 134, 90, 4, 'DF', array(0,0,0,0), array(245,237,22)));
-$html .= '<tcpdf method="Rect" params="'.$params.'" />';
-
-$params = TCPDF_STATIC::serializeTCPDFtagParameters(array(108, 138, 90, 4, 'DF', array(0,0,0,0), array(90,167,61)));
-$html .= '<tcpdf method="Rect" params="'.$params.'" />';
-
-$pdf->writeHTML($html, true, false, true, false, '');
 /*
-//======================================= page 7 ===========================================
-$pdf->AddPage();
-$html = get_page_7();
-$pdf->writeHTML($html, true, false, true, false, '');
-//======================================= page 8 ===========================================
-$pdf->AddPage();
-$html = get_page_8();
-$pdf->writeHTML($html, true, false, true, false, '');
+
 //======================================= page 9 ===========================================
 $pdf->AddPage();
 $html = get_page_9();
