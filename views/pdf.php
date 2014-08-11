@@ -214,6 +214,33 @@ $html .=    '<table border="1" cellpadding="4" cellspacing="1">
 
 $html .= '</table>';
 
+$html .= '<p><strong>Areas for development</strong></p>';
+$html .= '<p>Lowest scoring competencies</p>';
+$html .=    '<table border="1" cellpadding="4" cellspacing="1">
+                <tr bgcolor="rgb(90,167,61)">
+                    <th width="5%"></th>
+                    <th width="55%">Competency</th>
+                    <th width="25%">Total Others</th>
+                    <th width="15%">Self</th>
+                </tr>';
+$top_answers = get_answer_bottom_5($evaluators);
+$my_answer = json_decode($user_answer->answers, true);
+$i = 1;
+foreach($top_answers as $q_no => $ans){
+    $html .= '<tr>';
+    $html .= '<td>'.$i.'</td>';
+    $html .= '<td>'.get_question_title($questions, $q_no).'</td>';
+    $html .= '<td style="text-align:center">'.round($ans/$total_evaluators,2).'</td>';
+    $html .= '<td style="text-align:center">'.$my_answer[$q_no].'</td>';
+    $html .= '</tr>';
+    $i++;
+    if($i == 6){
+        break;
+    }
+}
+
+$html .= '</table>';
+
 $pdf->writeHTML($html, true, false, true, false, '');
 /*
 //======================================= page 10 ===========================================
