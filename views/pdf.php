@@ -74,7 +74,7 @@ if (@file_exists(dirname(__FILE__).'/lang/eng.php')) {
 // set font
 $pdf->SetFont('dejavusans', '', 8);
 $pl_image = $base_url .'addons/shared_addons/modules/survey/img/performance_level.jpg';
-/*
+
 //======================================= page 1 ===========================================
 $pdf->AddPage();
 $html = get_page_1($all_attempt, $programme, $attempt);
@@ -95,7 +95,7 @@ $pdf->writeHTML($html, true, false, true, false, '');
 $pdf->AddPage();
 $html = get_page_5();
 $pdf->writeHTML($html, true, false, true, false, '');
-//======================================= page 6 ===========================================*/
+//======================================= page 6 ===========================================
 foreach($categories as $cat_id){
     $cat = get_category_by_id($cat_id);
     $sort_order = json_decode($cat->questions);
@@ -164,8 +164,8 @@ foreach($categories as $cat_id){
 
     $html .='<table width="180px" border="1" cellpadding="4" cellspacing="1">
                 <tr bgcolor="#f5f5f5">
-                    <td><span style="background-color: #ffff00">&nbsp;&nbsp;&nbsp;</span>&nbsp;Total others</td>
-                    <td><span style="background-color: #5AA73D">&nbsp;&nbsp;&nbsp;</span>&nbsp;Selft</td>
+                    <td><span style="background-color: rgb(245,237,22)">&nbsp;&nbsp;&nbsp;</span>&nbsp;Total others</td>
+                    <td><span style="background-color: rgb(90,167,61)">&nbsp;&nbsp;&nbsp;</span>&nbsp;Selft</td>
                 </tr>
             </table>';
 
