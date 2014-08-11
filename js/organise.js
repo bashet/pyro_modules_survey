@@ -7,7 +7,8 @@ $(function(){
     });
 
     categories.on('change', function(e) {
-        //e.stopPropagation();
+        e.stopPropagation();
+        var survey = this.id;
         var result = $('.dd').nestable('serialize');
         var mis_parent      = false;
 
@@ -31,7 +32,12 @@ $(function(){
             location.reload();
         }else{
             $.ajax({
-
+                type:   'post',
+                url:    base_url + 'index.php/survey/update_position',
+                data:   {survey:survey,results:result},
+                success: function(data, status){
+                    //alert(data);
+                }
             });
         }
 

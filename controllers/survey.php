@@ -359,6 +359,26 @@ class Survey extends Public_Controller {
             ->build('organise');
     }
 
+    public function update_position(){
+        $data       = json_decode(json_encode($this->input->post()));
+        $results    = $data->results;
+        $survey     = $data->survey;
+        $get_id     = explode('-',$survey);
+        $survey_id  = $get_id[1];
+        $new_cat    = array();
+        $i          = 1;
+        foreach($results as $category){
+           $new_cat[$i] = $category->id;
+            $i++;
+        }
+
+        $this->db->where('id', $survey_id);
+        $this->db->update('survey', array('q_cat' =>json_encode($new_cat)));
+
+
+        echo json_encode($new_cat);
+    }
+
     public function save_question(){
 
         if(! $this->current_user->id){
