@@ -673,13 +673,15 @@ if( !function_exists('get_self_marking') ){
 if( ! function_exists('get_evaluators_total') ){
     function get_evaluators_total($evaluators, $q_id){
 
-        $total_answer = 0;
+        $total_answer       = 0;
+        $total_evaluator    = 0;
         foreach($evaluators as $ev){
             $answers = json_decode($ev->answers, true);
             $total_answer = $total_answer + $answers[$q_id];
+            $total_evaluator = $total_evaluator + 1;
         }
 
-        return ((90*($total_answer/3))/4);
+        return ((90*($total_answer/$total_evaluator))/4);
     }
 }
 
@@ -687,11 +689,13 @@ if( ! function_exists('get_evaluators_total_avg') ){
     function get_evaluators_total_avg($evaluators, $q_id){
 
         $total_answer = 0;
+        $total_evaluator    = 0;
         foreach($evaluators as $ev){
             $answers = json_decode($ev->answers, true);
             $total_answer = $total_answer + $answers[$q_id];
+            $total_evaluator = $total_evaluator + 1;
         }
 
-        return round($total_answer/3,2);
+        return round($total_answer/$total_evaluator,2);
     }
 }
