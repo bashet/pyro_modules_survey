@@ -171,7 +171,7 @@ foreach($categories as $cat_id){
 
     $pdf->writeHTML($html, true, false, true, false, '');
 }
-*/
+
 
 
 
@@ -242,15 +242,60 @@ foreach($top_answers as $q_no => $ans){
 $html .= '</table>';
 
 $pdf->writeHTML($html, true, false, true, false, '');
-/*
+*/
 //======================================= page 10 ===========================================
 $pdf->AddPage();
-$html = get_page_10();
+$html = '<style>
+            th {
+                text-align: center;
+                border: 2px solid #ffffff;
+                color: #ffffff;
+            }
+            td {
+                border: 2px solid #ffffff;
+            }
+        </style>';
+$html .= '<p><strong>'.$programme->name.' competency clusters</strong></p>';
+$html .= '<table border="1" cellpadding="1" cellspacing="1">
+            <tr>';
+foreach($categories as $key=>$cat_id){
+    $html .= '<td>';
+    $category  = get_category_by_id($cat_id);
+    //var_dump($category);
+    $sort_order = json_decode($category->questions);
+    $questions = get_questions_by_category($cat_id);
+    $html .= '<table cellpadding="15" cellspacing="1">';
+    $html .= '<tr bgcolor="rgb(90,167,61)">';
+    $html .= '<th>'.$category->name.'</th>';
+    $html .= '</tr>';
+    if($questions){
+
+        $i = 1;
+        foreach($sort_order as $order){
+            foreach($questions as $q){
+                if($order == $q->id){
+                    $html .= '<tr>';
+                    $html .= '<td>';
+                    $html .= $q->title;
+                    $html .= '</td>';
+                    $html .= '</tr>';
+                }
+            }
+            $i++;
+        }
+
+    }
+
+    $html .= '</table>';
+    $html .= '</td>';
+}
+$html .= '</tr>';
+$html .= '</table>';
 $pdf->writeHTML($html, true, false, true, false, '');
 //======================================= page 11 ===========================================
 $pdf->AddPage();
-$html = get_page_11();
-$pdf->writeHTML($html, true, false, true, false, '');
+$html = get_page_10();
+$pdf->writeHTML($html, true, false, true, false, '');/*
 //======================================= page 12 ===========================================
 $pdf->AddPage();
 $html = get_page_12();
