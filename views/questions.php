@@ -22,6 +22,74 @@
 
     <div id="question_categories">
         <?php
+        if($survey->q_cat){
+            $my_categories = json_decode($survey->q_cat);
+            foreach($my_categories as $My_cat){
+                $cat = get_category_by_id($My_cat);
+                echo '<h3>'.$cat->name.'</h3>';
+                echo '<div>';
+                echo '<div question id="q_cat-'.$cat->id.'">';
+                $questions = get_questions_by_category($cat->id);
+                if($questions){
+                    $i = 1;
+                    foreach($questions as $q){
+                        if($cat->id == $q->cat_id){
+                            echo '<h3>'.$i.' - '.$q->title.'</h3>';
+                            echo '<div>';
+                            ?>
+                            <?php $options = get_option_by_question_id($q->id)?>
+                            <div style="float: right">
+                                <a href="{{url:site}}survey/edit_question/<?=$survey_id.'/'.$q->id?>" class="btn btn-warning" title="Edit"><span class="fa fa-edit fa-2x"></span></a>
+                                <a delete_question id="delete_question-<?=$q->id?>" class="btn btn-danger" title="Delete"><span class="fa fa-trash-o fa-2x"></span></a>
+                            </div>
+                            <table class="table q_table">
+                                <tr>
+                                    <th>Description</th>
+                                    <td><?=$q->description?></td>
+                                </tr>
+                                <tr>
+                                    <th>Key Matters</th>
+                                    <td><?=$q->matter?></td>
+                                </tr>
+                                <tr>
+                                    <th>Text for 1st person</th>
+                                    <td><?=$q->text1?></td>
+                                </tr>
+                                <tr>
+                                    <th>Text for 3rd person</th>
+                                    <td><?=$q->text2?></td>
+                                </tr>
+                                <tr>
+                                    <th>Option 1</th>
+                                    <td><?='<strong>'.$options->option_1_label .'</strong>'.$options->option_1?></td>
+                                </tr>
+                                <tr>
+                                    <th>Option 2</th>
+                                    <td><?='<strong>'.$options->option_2_label .'</strong>'.$options->option_2?></td>
+                                </tr>
+                                <tr>
+                                    <th>Option 3</th>
+                                    <td><?='<strong>'.$options->option_3_label .'</strong>'.$options->option_3?></td>
+                                </tr>
+                                <tr>
+                                    <th>Option 4</th>
+                                    <td><?='<strong>'.$options->option_4_label .'</strong>'.$options->option_4?></td>
+                                </tr>
+                            </table>
+                            <?php
+                            echo '</div>';
+                            $i++;
+                        }else{
+
+                        }
+                    }
+                }
+                echo '</div>';
+                echo '</div>';
+            }
+
+        }
+        /*
         if($categories){
             foreach($categories as $cat){
                 echo '<h3>'.$cat->name.'</h3>';
@@ -84,7 +152,7 @@
                 echo '</div>';
                 echo '</div>';
             }
-        }
+        }*/
         ?>
     </div>
 

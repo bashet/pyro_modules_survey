@@ -187,6 +187,15 @@ if(! function_exists('get_questions_by_survey_id')){
     }
 }
 
+if(! function_exists('get_category_by_id')){
+    function get_category_by_id($id){
+        $ci =& get_instance();
+
+        $query = $ci->db->get_where('survey_question_categories', array('id'=> $id));
+        return $query->row();
+    }
+}
+
 if(! function_exists('get_questions_by_category')){
     function get_questions_by_category($id){
         $ci =& get_instance();
