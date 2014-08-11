@@ -269,19 +269,11 @@ class Survey extends Public_Controller {
             exit();
         }
 
-        if($survey_id){
-            // we will go ahead to do the next job
-            $questions = $this->survey_m->get_all_questions($survey_id);
-        }else{
-            // wrong entry kick to ass
-            $questions = '';
-        }
         $categories = $this->survey_m->get_all_question_categories();
         $survey     = get_survey_by_id($survey_id);
 
         $this->template
             ->title($this->module_details['name'], 'manage questions')
-            ->set('questions', $questions)
             ->set('categories', $categories)
             ->set('survey', $survey)
             ->set('survey_id', $survey_id)
