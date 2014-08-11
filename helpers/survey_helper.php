@@ -699,3 +699,43 @@ if( ! function_exists('get_evaluators_total_avg') ){
         return round($total_answer/$total_evaluator,2);
     }
 }
+
+if( ! function_exists('get_answer_top_5') ){
+    function get_answer_top_5($evaluators){
+        $questions = array();
+        foreach($evaluators as $ev){
+            $answers = json_decode($ev->answers, true);
+            foreach($answers as $key => $value){
+                if(isset($questions[$key])){
+                    $questions[$key] = $questions[$key] + $value;
+                }else{
+                    $questions[$key] = $value;
+                }
+
+            }
+
+        }
+        arsort($questions);
+        return $questions;
+    }
+}
+
+if( ! function_exists('get_answer_bottom_5') ){
+    function get_answer_bottom_5($evaluators){
+        $questions = array();
+        foreach($evaluators as $ev){
+            $answers = json_decode($ev->answers, true);
+            foreach($answers as $key => $value){
+                if(isset($questions[$key])){
+                    $questions[$key] = $questions[$key] + $value;
+                }else{
+                    $questions[$key] = $value;
+                }
+
+            }
+
+        }
+        asort($questions);
+        return $questions;
+    }
+}

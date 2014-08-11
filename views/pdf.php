@@ -74,7 +74,7 @@ if (@file_exists(dirname(__FILE__).'/lang/eng.php')) {
 // set font
 $pdf->SetFont('dejavusans', '', 8);
 $pl_image = $base_url .'addons/shared_addons/modules/survey/img/performance_level.jpg';
-
+/*
 //======================================= page 1 ===========================================
 $pdf->AddPage();
 $html = get_page_1($all_attempt, $programme, $attempt);
@@ -171,14 +171,50 @@ foreach($categories as $cat_id){
 
     $pdf->writeHTML($html, true, false, true, false, '');
 }
+*/
 
 
-/*
 
 //======================================= page 9 ===========================================
 $pdf->AddPage();
-$html = get_page_9();
+$html  = '<style>
+            th {
+                text-align: center;
+                border: 2px solid #ffffff;
+                color: #ffffff;
+            }
+            td {
+                border: 2px solid #ffffff;
+            }
+        </style>';
+$html .= '<p><strong>Your strengths</strong></p>';
+$html .= '<p>Highest scoring competencies</p>';
+$html .=    '<table border="1" cellpadding="4" cellspacing="1">
+                <tr bgcolor="rgb(90,167,61)">
+                    <th></th>
+                    <th>Competency</th>
+                    <th>Total Others</th>
+                    <th>Self</th>
+                </tr>';
+            $top_answers = get_answer_top_5($evaluators);
+            $i = 1;
+            foreach($top_answers as $ans){
+                $html .= '<tr>';
+                $html .= '<td>'.$i.'</td>';
+                $html .= '<td>'.$i.'</td>';
+                $html .= '<td style="text-align:center">'.round($ans/$total_evaluators,2).'</td>';
+                $html .= '<td>'.$i.'</td>';
+                $html .= '</tr>';
+                $i++;
+                if($i == 6){
+                    break;
+                }
+            }
+
+$html .= '</table>';
+
 $pdf->writeHTML($html, true, false, true, false, '');
+/*
 //======================================= page 10 ===========================================
 $pdf->AddPage();
 $html = get_page_10();
