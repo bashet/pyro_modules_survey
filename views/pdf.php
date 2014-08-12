@@ -72,11 +72,11 @@ if (@file_exists(dirname(__FILE__).'/lang/eng.php')) {
 // ---------------------------------------------------------
 
 // set font
-$pdf->SetFont('dejavusans', '', 8);
+$pdf->SetFont('dejavusans', '', 7.5);
 $pl_image = $base_url .'addons/shared_addons/modules/survey/img/performance_level.jpg';
 $pl_dtl1  = $base_url .'addons/shared_addons/modules/survey/img/details1.jpg';
 $pl_dtl2  = $base_url .'addons/shared_addons/modules/survey/img/details2.jpg';
-/*
+
 //======================================= page 1 ===========================================
 $pdf->AddPage();
 $html = get_page_1($all_attempt, $programme, $attempt);
@@ -297,7 +297,7 @@ $pdf->writeHTML($html, true, false, true, false, '');
 //======================================= page 11 ===========================================
 $pdf->AddPage();
 $html = get_page_10();
-$pdf->writeHTML($html, true, false, true, false, '');*/
+$pdf->writeHTML($html, true, false, true, false, '');
 //======================================= page 12 ===========================================
 foreach($categories as $cat_id){
     $cat = get_category_by_id($cat_id);
@@ -308,7 +308,7 @@ foreach($categories as $cat_id){
         foreach($sort_order as $order){
             foreach($questions as $q){
                 if($order == $q->id){
-
+                    $answer = get_answers_by_q_id($q->id);
                     $pdf->AddPage();
                     $html = '
                             <style>
@@ -346,32 +346,23 @@ foreach($categories as $cat_id){
                     $html .= '<strong>Key question:</strong>'.$q->text2;
                     $html .= '</td>';
                     $html .= '<td width="55%">';
-                    $html .= '<p><strong>Response 4 - Strength</strong></p>';
-                    $html .= '<p>- Reflects on underlying reasons for feelings and behaviour<br>
-                - Actively seeks feedback to become more self aware<br>
-                - Continuously seeks to understand themselves and how they impact others</p>';
-                    $html .= '<p><strong>Response 3 - Effective</strong></p>';
-                    $html .= '<p>- Reflects on underlying reasons for feelings and behaviour<br>
-                - Actively seeks feedback to become more self aware<br>
-                - Continuously seeks to understand themselves and how they impact others</p>';
-                    $html .= '<p><strong>Response 2 - Emergent</strong></p>';
-                    $html .= '<p>- Reflects on underlying reasons for feelings and behaviour<br>
-                - Actively seeks feedback to become more self aware<br>
-                - Continuously seeks to understand themselves and how they impact others</p>';
-                    $html .= '<p><strong>Response 1 - Requires development</strong></p>';
-                    $html .= '<p>- Reflects on underlying reasons for feelings and behaviour<br>
-                - Actively seeks feedback to become more self aware<br>
-                - Continuously seeks to understand themselves and how they impact others</p>';
+                    $html .= '<strong>Response 4 - '.$answer->option_4_label.'</strong>';
+                    $html .= $answer->option_4;
+                    $html .= '<strong>Response 3 - '.$answer->option_3_label.'</strong>';
+                    $html .= $answer->option_3;
+                    $html .= '<strong>Response 2 - '.$answer->option_2_label.'</strong>';
+                    $html .= $answer->option_2;
+                    $html .= '<strong>Response 1 - '.$answer->option_1_label.'</strong>';
+                    $html .= $answer->option_1;
                     $html .= '</td>';
                     $html .= '</tr>';
 
-                    $params = TCPDF_STATIC::serializeTCPDFtagParameters(array(28, 112.5, 20, -28, 'DF', array(0,0,0,0), array(0,128,225)));
-                    $html .= '<tcpdf method="Rect" params="'.$params.'" />';
-
-                    $params = TCPDF_STATIC::serializeTCPDFtagParameters(array(65, 112.5, 20, -42, 'DF', array(0,0,0,0), array(0,128,225)));
-                    $html .= '<tcpdf method="Rect" params="'.$params.'" />';
-
                     $html .= '</table>';
+                    $params = TCPDF_STATIC::serializeTCPDFtagParameters(array(28, 112.5, 20, -28, 'DF', array(0,0,0,0), array(0,128,225)));
+                    $html .= '<tcpdf method="Rect" params="'.$params.'"/>';
+
+                    $params = TCPDF_STATIC::serializeTCPDFtagParameters(array(65, 112.5, 20, -get_self_marking_details($user_answer, $q->id), 'DF', array(0,0,0,0), array(0,128,225)));
+                    $html .= '<tcpdf method="Rect" params="'.$params.'"/>';
 
                     $pdf->writeHTML($html, true, false, true, false, '');
 
@@ -387,83 +378,7 @@ foreach($categories as $cat_id){
 
 }
 /*
-//======================================= page 13 ===========================================
-$pdf->AddPage();
-$html = get_page_32();
-$pdf->writeHTML($html, true, false, true, false, '');
-/*
-//======================================= page 14 ===========================================
-$pdf->AddPage();
-$html = get_page_14();
-$pdf->writeHTML($html, true, false, true, false, '');
-//======================================= page 15 ===========================================
-$pdf->AddPage();
-$html = get_page_15();
-$pdf->writeHTML($html, true, false, true, false, '');
-//======================================= page 16 ===========================================
-$pdf->AddPage();
-$html = get_page_16();
-$pdf->writeHTML($html, true, false, true, false, '');
-//======================================= page 17 ===========================================
-$pdf->AddPage();
-$html = get_page_17();
-$pdf->writeHTML($html, true, false, true, false, '');
-//======================================= page 18 ===========================================
-$pdf->AddPage();
-$html = get_page_18();
-$pdf->writeHTML($html, true, false, true, false, '');
-//======================================= page 19 ===========================================
-$pdf->AddPage();
-$html = get_page_19();
-$pdf->writeHTML($html, true, false, true, false, '');
-//======================================= page 20 ===========================================
-$pdf->AddPage();
-$html = get_page_20();
-$pdf->writeHTML($html, true, false, true, false, '');
-//======================================= page 21 ===========================================
-$pdf->AddPage();
-$html = get_page_21();
-$pdf->writeHTML($html, true, false, true, false, '');
-//======================================= page 22 ===========================================
-$pdf->AddPage();
-$html = get_page_22();
-$pdf->writeHTML($html, true, false, true, false, '');
-//======================================= page 23 ===========================================
-$pdf->AddPage();
-$html = get_page_23();
-$pdf->writeHTML($html, true, false, true, false, '');
-//======================================= page 24 ===========================================
-$pdf->AddPage();
-$html = get_page_24();
-$pdf->writeHTML($html, true, false, true, false, '');
-//======================================= page 25 ===========================================
-$pdf->AddPage();
-$html = get_page_25();
-$pdf->writeHTML($html, true, false, true, false, '');
-//======================================= page 26 ===========================================
-$pdf->AddPage();
-$html = get_page_26();
-$pdf->writeHTML($html, true, false, true, false, '');
-//======================================= page 27 ===========================================
-$pdf->AddPage();
-$html = get_page_27();
-$pdf->writeHTML($html, true, false, true, false, '');
-//======================================= page 28 ===========================================
-$pdf->AddPage();
-$html = get_page_28();
-$pdf->writeHTML($html, true, false, true, false, '');
-//======================================= page 29 ===========================================
-$pdf->AddPage();
-$html = get_page_29();
-$pdf->writeHTML($html, true, false, true, false, '');
-//======================================= page 30 ===========================================
-$pdf->AddPage();
-$html = get_page_30();
-$pdf->writeHTML($html, true, false, true, false, '');
-//======================================= page 31 ===========================================
-$pdf->AddPage();
-$html = get_page_31();
-$pdf->writeHTML($html, true, false, true, false, '');
+
 //======================================= page 32 ===========================================
 $pdf->AddPage();
 $html = get_page_32();

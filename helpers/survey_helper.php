@@ -753,3 +753,28 @@ if( ! function_exists('get_question_title') ){
         return $title;
     }
 }
+
+if( !function_exists('get_self_marking_details') ){
+    function get_self_marking_details($answers, $q_id){
+        // 90 will be considered as 100%
+
+        $my_answer = json_decode($answers->answers, true);
+
+        return ((56*$my_answer[$q_id])/4);
+    }
+}
+
+if( ! function_exists('get_evaluators_total_details') ){
+    function get_evaluators_total_details($evaluators, $q_id){
+
+        $total_answer       = 0;
+        $total_evaluator    = 0;
+        foreach($evaluators as $ev){
+            $answers = json_decode($ev->answers, true);
+            $total_answer = $total_answer + $answers[$q_id];
+            $total_evaluator = $total_evaluator + 1;
+        }
+
+        return ((90*($total_answer/$total_evaluator))/4);
+    }
+}
