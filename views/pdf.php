@@ -72,7 +72,7 @@ if (@file_exists(dirname(__FILE__).'/lang/eng.php')) {
 // ---------------------------------------------------------
 
 // set font
-$pdf->SetFont('dejavusans', '', 7.5);
+$pdf->SetFont('dejavusans', '', 8);
 $pl_image = $base_url .'addons/shared_addons/modules/survey/img/performance_level.jpg';
 $pl_dtl1  = $base_url .'addons/shared_addons/modules/survey/img/details1.jpg';
 $pl_dtl2  = $base_url .'addons/shared_addons/modules/survey/img/details2.jpg';
@@ -204,7 +204,7 @@ $html .=    '<table border="1" cellpadding="4" cellspacing="1">
             foreach($top_answers as $q_no => $ans){
                 $html .= '<tr>';
                 $html .= '<td>'.$i.'</td>';
-                $html .= '<td>'.get_question_title($questions, $q_no).'</td>';
+                $html .= '<td>'.get_question_title_by_q_id($q_no).'</td>';
                 $html .= '<td style="text-align:center">'.round($ans/$total_evaluators,2).'</td>';
                 $html .= '<td style="text-align:center">'.$my_answer[$q_no].'</td>';
                 $html .= '</tr>';
@@ -231,7 +231,7 @@ $i = 1;
 foreach($top_answers as $q_no => $ans){
     $html .= '<tr>';
     $html .= '<td>'.$i.'</td>';
-    $html .= '<td>'.get_question_title($questions, $q_no).'</td>';
+    $html .= '<td>'.get_question_title_by_q_id($q_no).'</td>';
     $html .= '<td style="text-align:center">'.round($ans/$total_evaluators,2).'</td>';
     $html .= '<td style="text-align:center">'.$my_answer[$q_no].'</td>';
     $html .= '</tr>';
@@ -317,7 +317,7 @@ foreach($categories as $cat_id){
                                 }
                             </style>';
 
-                    $html .= '<table border="0" cellpadding="8" cellspacing="1">';
+                    $html .= '<table border="0" cellpadding="6" cellspacing="1">';
                     $html .= '<tr>';
                     $html .= '<td>';
                     $html .= '<p><strong>'.$cat->name.'</strong></p>';
@@ -358,10 +358,10 @@ foreach($categories as $cat_id){
                     $html .= '</tr>';
 
                     $html .= '</table>';
-                    $params = TCPDF_STATIC::serializeTCPDFtagParameters(array(28, 112.5, 20, -28, 'DF', array(0,0,0,0), array(0,128,225)));
+                    $params = TCPDF_STATIC::serializeTCPDFtagParameters(array(28, 110.8, 20, -28, 'DF', array(0,0,0,0), array(0,128,225)));
                     $html .= '<tcpdf method="Rect" params="'.$params.'"/>';
 
-                    $params = TCPDF_STATIC::serializeTCPDFtagParameters(array(65, 112.5, 20, -get_self_marking_details($user_answer, $q->id), 'DF', array(0,0,0,0), array(0,128,225)));
+                    $params = TCPDF_STATIC::serializeTCPDFtagParameters(array(65, 110.8, 20, -get_self_marking_details($user_answer, $q->id), 'DF', array(0,0,0,0), array(0,128,225)));
                     $html .= '<tcpdf method="Rect" params="'.$params.'"/>';
 
                     $pdf->writeHTML($html, true, false, true, false, '');

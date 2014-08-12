@@ -754,6 +754,16 @@ if( ! function_exists('get_question_title') ){
     }
 }
 
+if( ! function_exists('get_question_title_by_q_id') ){
+    function get_question_title_by_q_id($q_no){
+        //var_dump($q_no);
+        $ci =& get_instance();
+        $query = $ci->db->get_where('survey_questions', array('id' => $q_no));
+        $row = $query->row();
+        return $row->title;
+    }
+}
+
 if( !function_exists('get_self_marking_details') ){
     function get_self_marking_details($answers, $q_id){
         // 90 will be considered as 100%
