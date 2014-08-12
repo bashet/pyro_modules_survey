@@ -74,6 +74,8 @@ if (@file_exists(dirname(__FILE__).'/lang/eng.php')) {
 // set font
 $pdf->SetFont('dejavusans', '', 8);
 $pl_image = $base_url .'addons/shared_addons/modules/survey/img/performance_level.jpg';
+$pl_dtl1  = $base_url .'addons/shared_addons/modules/survey/img/details1.jpg';
+$pl_dtl2  = $base_url .'addons/shared_addons/modules/survey/img/details2.jpg';
 /*
 //======================================= page 1 ===========================================
 $pdf->AddPage();
@@ -242,7 +244,7 @@ foreach($top_answers as $q_no => $ans){
 $html .= '</table>';
 
 $pdf->writeHTML($html, true, false, true, false, '');
-*/
+
 //======================================= page 10 ===========================================
 $pdf->AddPage();
 $html = '<style>
@@ -295,15 +297,83 @@ $pdf->writeHTML($html, true, false, true, false, '');
 //======================================= page 11 ===========================================
 $pdf->AddPage();
 $html = get_page_10();
-$pdf->writeHTML($html, true, false, true, false, '');/*
+$pdf->writeHTML($html, true, false, true, false, '');*/
 //======================================= page 12 ===========================================
 $pdf->AddPage();
-$html = get_page_12();
+$html = '
+        <style>
+            td {
+                border: 2px solid #ffffff;
+            }
+        </style>';
+
+$html .= '<table border="0" cellpadding="8" cellspacing="1">';
+$html .= '<tr>';
+$html .= '<td>';
+$html .= '<p><strong>Cluster: Strategic Leadership</strong></p>';
+$html .= '<p>Category: Self awareness</p>';
+$html .= '</td>';
+$html .= '<td>';
+$html .= '</td>';
+$html .= '</tr>';
+$html .= '<tr>';
+$html .= '<td>';
+$html .= '<img src="'.$pl_dtl1.'" height="245">';
+$html .= '</td>';
+$html .= '<td>';
+$html .= '<br><br><p><strong>Number of ratings at each level</strong><br>
+            <br>Response 4 x 1<br>
+            <br>Response 3 x 1<br>
+            <br>Response 2 x 0<br>
+            <br>Response 1 x 1</p>';
+$html .= '</td>';
+$html .= '</tr>';
+$html .= '<tr>';
+$html .= '<td width="40%">';
+$html .= '<p><strong>Self awareness</strong></p>';
+$html .= '<p><strong>Definition</strong><br>Someone who is strong on self awareness is aware of their personal strengths and areas for future growth and understands how own
+            behaviour impacts on others. This involves being aware of your own emotional triggers and identifying ways to manage these more
+            effectively. Takes ownership for what one can do and sharing out responsibilities when others are better placed to accomplish particular tasks
+            or objectives.</p>';
+$html .= '<p><strong>Why it matters</strong><br>Our school leaders need to understand their own strengths and weaknesses as well as how
+            they impact others, so that they are more adept at making good decisions and behaving appropriately.</p>';
+$html .= '<p><strong>Key question:</strong><br>Does this person understand him/herself? Is this self awareness used to make for better interactions with others?</p>';
+$html .= '</td>';
+$html .= '<td width="60%">';
+$html .= '<p><strong>Response 4 - Strength</strong></p>';
+$html .= '<p>- Reflects on underlying reasons for feelings and behaviour<br>
+            - Actively seeks feedback to become more self aware<br>
+            - Continuously seeks to understand themselves and how they impact others</p>';
+$html .= '<p><strong>Response 3 - Effective</strong></p>';
+$html .= '<p>- Reflects on underlying reasons for feelings and behaviour<br>
+            - Actively seeks feedback to become more self aware<br>
+            - Continuously seeks to understand themselves and how they impact others</p>';
+$html .= '<p><strong>Response 2 - Emergent</strong></p>';
+$html .= '<p>- Reflects on underlying reasons for feelings and behaviour<br>
+            - Actively seeks feedback to become more self aware<br>
+            - Continuously seeks to understand themselves and how they impact others</p>';
+$html .= '<p><strong>Response 1 - Requires development</strong></p>';
+$html .= '<p>- Reflects on underlying reasons for feelings and behaviour<br>
+            - Actively seeks feedback to become more self aware<br>
+            - Continuously seeks to understand themselves and how they impact others</p>';
+$html .= '</td>';
+$html .= '</tr>';
+
+$params = TCPDF_STATIC::serializeTCPDFtagParameters(array(28, 112.5, 20, -28, 'DF', array(0,0,0,0), array(0,128,225)));
+$html .= '<tcpdf method="Rect" params="'.$params.'" />';
+
+$params = TCPDF_STATIC::serializeTCPDFtagParameters(array(65, 112.5, 20, -42, 'DF', array(0,0,0,0), array(0,128,225)));
+$html .= '<tcpdf method="Rect" params="'.$params.'" />';
+
+$html .= '</table>';
+
 $pdf->writeHTML($html, true, false, true, false, '');
+/*
 //======================================= page 13 ===========================================
 $pdf->AddPage();
-$html = get_page_13();
+$html = get_page_32();
 $pdf->writeHTML($html, true, false, true, false, '');
+/*
 //======================================= page 14 ===========================================
 $pdf->AddPage();
 $html = get_page_14();
