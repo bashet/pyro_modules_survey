@@ -578,7 +578,7 @@ class Survey extends Public_Controller {
 
         }
     }
-    public function delete_question($survey_id = '', $q_id = ''){
+    public function delete_question($cat_id = '', $q_id = ''){
         if(! $this->current_user->id){
             redirect($this->config->base_url());
             exit();
@@ -586,8 +586,22 @@ class Survey extends Public_Controller {
         if($q_id){
             $this->db->delete('survey_answer_options', array('question_id' => $q_id));
             $this->db->delete('survey_questions', array('id' => $q_id));
+            $category = get_category_by_id($cat_id);
+
+            $questions = json_decode($category->questions, true);
+            $new_questions = array();
+            $i = 1;
+            foreach($questions as $key=>$q_no){
+                if($q_no != $q_id){
+                    $new_questions[$i] = $q_no;
+                }
+            }
+
+            $this->db->where('id', $cat_id);
+            $this->db->update('survey_question_categories', array('questions' => json_encode($new_questions)));
+
         }
-        redirect('survey/questions/'.$survey_id);
+        redirect('survey/questions_in_category/'.$cat_id);
     }
 // ============================================= default options =======================================================
 

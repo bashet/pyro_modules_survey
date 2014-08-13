@@ -95,7 +95,7 @@ $(function(){
                                     $( this ).dialog( "close" );
                                     $body = $("body");
                                     $body.addClass("loading");
-                                    window.location.href = base_url + 'index.php/survey/delete_question/'+ msg.survey_id + '/' +q_id;
+                                    window.location.href = base_url + 'index.php/survey/delete_question/'+ msg.cat_id + '/' + q_id;
                                 }
                             }
                             ,
