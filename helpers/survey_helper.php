@@ -844,3 +844,25 @@ if( ! function_exists('get_evaluators_total_num') ){
         return $result;
     }
 }
+if( ! function_exists('get_all_participation')){
+    function get_all_participation($user_id = ''){
+        $ci =& get_instance();
+        $query = $ci->db->get_where('survey_participant', array('uid'=>$user_id)); // expected to get only one row
+
+        return $query->result();
+
+    }
+}
+
+
+if( ! function_exists('is_programme_used') ){
+    function is_programme_used($id = '', $participation){
+        $status = false;
+        foreach($participation as $p){
+            if($p->pid == $id){
+                $status = true;
+            }
+        }
+        return $status;
+    }
+}

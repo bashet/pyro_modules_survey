@@ -1696,4 +1696,16 @@ class Survey extends Public_Controller {
         $this->db->update('survey', array('q_cat' => json_encode($new_cat)));
         redirect('survey/questions/'. $survey_id);
     }
+
+    public function new_application(){
+        $programmes = get_all_programme();
+        $participation = get_all_participation($this->current_user->id);
+
+        $this->template
+            ->title($this->module_details['name'], 'apply for new programme')
+            ->set_breadcrumb('Apply for new programme')
+            ->set('programmes', $programmes)
+            ->set('participation', $participation)
+            ->build('new_application');
+    }
 }
