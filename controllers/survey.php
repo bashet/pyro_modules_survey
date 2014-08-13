@@ -1593,14 +1593,14 @@ class Survey extends Public_Controller {
             $this->session->set_userdata(array('all_answered' => 1));
         }
 
-        $questions      = get_questions_by_survey_id($this->survey->id);
+        //$questions      = get_questions_by_survey_id($this->survey->id);
 
         $this->template
             ->set_layout('evaluator_response')
             ->title($this->module_details['name'], 'review answer')
             ->set_breadcrumb('Review')
             ->set('evaluator', $evaluator)
-            ->set('questions', $questions)
+            ->set('survey', $this->survey)
             ->set('my_answer', $my_answer)
             ->set('total_questions', $this->total_questions)
             ->append_js('module::evaluator_survey.js')
