@@ -352,28 +352,22 @@ class Survey extends Public_Controller {
         }
     }
 
-    public function add_new_question($survey_id = ''){
+    public function add_new_question($cat_id = ''){
         if(! $this->current_user->id){
             redirect($this->config->base_url());
             exit();
         }
-        if($survey_id){
-            // we will go ahead to do the next job
-            $survey     = $this->get_survey_by_id($survey_id, $output = 'object');
-        }else{
-            // wrong entry kick to ass
-            $survey     = '';
+        if( ! $cat_id){
+            redirect($this->config->base_url());
         }
-        $question_categories = $this->survey_m->get_all_question_categories();
+        $category = get_category_by_id($cat_id);
 
         $this->template
             ->title($this->module_details['name'], 'manage questions')
-            ->set('survey_id', $survey_id)
-            ->set('survey', $survey)
-            ->set('question_categories', $question_categories)
+            ->set('category', $category)
+            ->set('cat_id', $cat_id)
             ->append_js('module::question.js')
-            ->set_breadcrumb('Survey', '/survey/'.$survey_id)
-            ->set_breadcrumb('Questions', '/survey/questions/'.$survey_id)
+            ->set_breadcrumb('Question category', '/survey/questions_in_category/'.$cat_id)
             ->set_breadcrumb('Add new question')
             ->build('add_new_question');
     }
