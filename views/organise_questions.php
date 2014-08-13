@@ -21,5 +21,10 @@
                 ?>
             </ol>
         </div>
+        <?php
+        if( ! $questions){
+            echo 'No questions found to organise';
+        }
+        ?>
     </div>
 </div>
