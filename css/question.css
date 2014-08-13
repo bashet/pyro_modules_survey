@@ -1,3 +1,6 @@
 .q_table th{
     width: 15%;
 }
+.dd-item:hover {
+    cursor: move;
+}

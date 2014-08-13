@@ -288,6 +288,33 @@ class Survey extends Public_Controller {
             ->build('questions_in_category');
     }
 
+    public function organise_questions($cat_id = ''){
+        if(! $this->current_user->id){
+            redirect($this->config->base_url());
+            exit();
+        }
+        $category   = '';
+        $questions  = '';
+        if($cat_id){
+            $category   = get_category_by_id($cat_id);
+            $questions  = get_questions_by_category($cat_id);
+        }else{
+            redirect($this->config->base_url());
+        }
+
+
+        $this->template
+            ->title($this->module_details['name'], 'manage questions')
+            ->set('cat', $category)
+            ->set('questions', $questions)
+            ->set_breadcrumb('Question category', '/survey/questions_in_category/'.$cat_id)
+            ->set_breadcrumb('Organise questions')
+            ->append_css('module::question.css')
+            ->append_js('module::question.js')
+            ->append_js('module::organise_questions.js')
+            ->build('organise_questions');
+    }
+
     public function questions($survey_id = ''){
 
         if(! $this->current_user->id){
@@ -372,9 +399,23 @@ class Survey extends Public_Controller {
             ->set_breadcrumb('Survey', '/survey')
             ->set_breadcrumb('Questions', '/survey/questions/'.$survey_id)
             ->set_breadcrumb('Organise')
-            ->append_css('module::organise.css')
             ->append_js('module::organise.js')
             ->build('organise');
+    }
+
+    public function update_position_in_category(){
+        $data       = json_decode(json_encode($this->input->post()));
+        $results    = $data->results;
+        $i          = 1;
+        $questions = array();
+        foreach($results as $q){
+            $questions[$i] = $q->id;
+            $i++;
+        }
+        $this->db->where('id', $data->cat_id);
+        $this->db->update('survey_question_categories', array('questions' =>json_encode($questions)));
+
+        echo json_encode($results);
     }
 
     public function update_position(){
