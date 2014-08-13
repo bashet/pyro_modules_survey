@@ -339,9 +339,16 @@ if(! function_exists('get_total_evaluators_by_attempt_id')){
 if(! function_exists('get_total_question_in_survey')){
     function get_total_question_in_survey($survey_id){
         $ci =& get_instance();
-
-        $ci->db->where('survey_id', $survey_id);
-        return $ci->db->count_all_results('survey_questions');
+        $total = 0;
+        $query = $ci->db->get_where('survey', array('id' => $survey_id));
+        $survey = $query->row();
+        $categories = json_decode($survey->q_cat);
+        foreach($categories as $cat){
+            $query = $ci->db->get_where('survey_question_categories', array('id' => $cat->id));
+            $questions = $query->row();
+            $total = $total + count(json_decode($questions->questions, true));
+        }
+        return $total;
     }
 }
 
