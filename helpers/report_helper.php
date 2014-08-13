@@ -18,6 +18,9 @@ if( ! function_exists('get_page_1')){
         foreach($all_attempt as $atm){
             if($attempt->id == $atm->id){
                 $i = $i+1;
+                break;
+            }else{
+                $i = $i+1;
             }
         }
 
