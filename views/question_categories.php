@@ -1,4 +1,3 @@
-
 <div id="question_categories-container">
 
     <div style="">
@@ -8,10 +7,11 @@
         <thead>
         <tr>
             <th style="width: 8%">SN</th>
-            <th style="width: 30%">Name</th>
-            <th style="width: 40%">Description</th>
-            <th style="width: 10%">Edit</th>
-            <th style="width: 10%">Delete</th>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Questions</th>
+            <th>Edit</th>
+            <th>Delete</th>
         </tr>
         </thead>
 
@@ -23,6 +23,7 @@
             echo '<td>'.$i.'</td>';
             echo '<td>'.$d->name.'</td>';
             echo '<td>'.$d->description.'</td>';
+            echo '<td style="text-align: center"><a href="{{url:site}}survey/questions_in_category/'.$d->id.'" title="Manage questions for '.$d->name.'"><i class="fa fa-list-alt fa-lg"></i></a></td>';
             echo '<td style="text-align: center"><button edit_question_categories id="edit_question_categories-'.$d->id.'" title="Edit '.$d->name.'"><i class="fa fa-pencil-square-o fa-lg"></i></button></td>';
             echo '<td style="text-align: center"><button delete_question_categories id="del_question_categories-'.$d->id.'" title="Delete '.$d->name.'"><i class="fa fa-trash-o fa-lg"></i></button></td>';
             echo '</tr>';

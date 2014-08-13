@@ -262,6 +262,32 @@ class Survey extends Public_Controller {
     }
 // ============================================= Manage questions ======================================================
 
+    public function questions_in_category($cat_id = ''){
+        if(! $this->current_user->id){
+            redirect($this->config->base_url());
+            exit();
+        }
+        $category   = '';
+        $questions  = '';
+        if($cat_id){
+            $category   = get_category_by_id($cat_id);
+            $questions  = get_questions_by_category($cat_id);
+        }else{
+            redirect($this->config->base_url());
+        }
+
+
+        $this->template
+            ->title($this->module_details['name'], 'manage questions')
+            ->set('cat', $category)
+            ->set('questions', $questions)
+            ->set_breadcrumb('Category', '/survey/question_categories/')
+            ->set_breadcrumb('Questions')
+            ->append_css('module::question.css')
+            ->append_js('module::question.js')
+            ->build('questions_in_category');
+    }
+
     public function questions($survey_id = ''){
 
         if(! $this->current_user->id){
