@@ -14,13 +14,16 @@
 
     </div>
 
+    <h2>Showing questions for <strong><?=$survey->name?></strong></h2>
+
     <div id="question_categories">
         <?php
         if($survey->q_cat){
             $my_categories = json_decode($survey->q_cat);
             foreach($my_categories as $My_cat){
                 $cat = get_category_by_id($My_cat);
-                echo '<h3>'.$cat->name.'</h3>';
+                echo '<h3>'.$cat->name.'<button btn_remove_cat class="btn btn-xs" id="'.$survey->id.'-'.$cat->id.'" style="float:right">Un-link <i class="fa fa-chain-broken"></i></button></h3>';
+
                 echo '<div>';
                 echo '<div question id="q_cat-'.$cat->id.'">';
                 $questions = get_questions_by_category($cat->id);
@@ -142,7 +145,7 @@
 
     <div id="dialog-confirm" class="hide">
         <div class="alert alert-info bigger-110">
-            question "<span id="item_name"></span>" will be permanently deleted and cannot be recovered.
+            You are about to remove <span id="category_name"></span> category from <?=$survey->name?>.
         </div>
 
         <div class="space-6"></div>

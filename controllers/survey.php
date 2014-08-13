@@ -594,6 +594,7 @@ class Survey extends Public_Controller {
             foreach($questions as $key=>$q_no){
                 if($q_no != $q_id){
                     $new_questions[$i] = $q_no;
+                    $i++;
                 }
             }
 
@@ -1643,5 +1644,30 @@ class Survey extends Public_Controller {
 
     public function get_total_evaluators(){
         echo get_total_evaluators_by_attempt_id($this->attempt->id);
+    }
+
+    public function get_category_by_id($id = ''){
+        if($id){
+            echo json_encode(get_category_by_id($id));
+        }
+    }
+
+    public function remove_category($survey_id, $cat_id){
+        $query  = $this->db->get_where('survey', array('id' =>$survey_id));
+        $survey = $query->row();
+
+        $category = json_decode($survey->q_cat, true);
+        $new_cat = array();
+        $i = 1;
+        foreach($category as $key=>$c_no){
+            if($c_no != $cat_id){
+                $new_cat[$i] = $c_no;
+                $i++;
+            }
+        }
+
+        $this->db->where('id', $survey_id);
+        $this->db->update('survey', array('q_cat' => json_encode($new_cat)));
+        redirect('survey/questions/'. $survey_id);
     }
 }

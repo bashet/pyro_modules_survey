@@ -113,5 +113,51 @@ $(function(){
         });
     });
 
+    $('button[btn_remove_cat]').button().click(function(e){
+        e.stopPropagation();
+        var button_id   = this.id;
+        var id_array    = button_id.split('-');
+        var survey_id   = id_array[0];
+        var cat_id      = id_array[1];
+
+        $.ajax({
+            url: base_url + 'index.php/survey/get_category_by_id/' + cat_id,
+
+            success: function(data,status) {
+                if(data){
+                    var msg = jQuery.parseJSON( data );
+                    $('#category_name').html(msg.name);
+
+                    $( "#dialog-confirm" ).removeClass('hide').dialog({
+                        resizable: true,
+                        modal: true,
+                        title: "<div class='widget-header'><h4 class='smaller'><i class='ace-icon fa fa-exclamation-triangle red'></i> Un-link Category?</h4></div>",
+                        title_html: true,
+                        buttons: [
+                            {
+                                html: "<i class='ace-icon fa fa-trash-o bigger-110'></i>&nbsp; Remove",
+                                "class" : "btn btn-danger btn-xs",
+                                click: function() {
+                                    $( this ).dialog( "close" );
+                                    $body = $("body");
+                                    $body.addClass("loading");
+                                    window.location.href = base_url + 'index.php/survey/remove_category/'+ survey_id + '/' + cat_id;
+                                }
+                            }
+                            ,
+                            {
+                                html: "<i class='ace-icon fa fa-times bigger-110'></i>&nbsp; Cancel",
+                                "class" : "btn btn-xs",
+                                click: function() {
+                                    $( this ).dialog( "close" );
+                                }
+                            }
+                        ]
+                    });
+                }
+            }
+        });
+    });
+
 
 });
