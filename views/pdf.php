@@ -95,7 +95,7 @@ $html = get_page_4();
 $pdf->writeHTML($html, true, false, true, false, '');
 //======================================= page 5 ===========================================
 $pdf->AddPage();
-$html = get_page_5();
+$html = get_page_5($total_evaluators);
 $pdf->writeHTML($html, true, false, true, false, '');
 //======================================= page 6 ===========================================
 foreach($categories as $cat_id){
@@ -332,10 +332,10 @@ foreach($categories as $cat_id){
                     $html .= '</td>';
                     $html .= '<td>';
                     $html .= '<br><br><p><strong>Number of ratings at each level</strong><br>
-                                                <br>Response 4 x 1<br>
-                                                <br>Response 3 x 1<br>
-                                                <br>Response 2 x 0<br>
-                                                <br>Response 1 x 1</p>';
+                                                <br>Response 4 x '.get_evaluators_total_num($evaluators, $q->id, 4).'<br>
+                                                <br>Response 3 x '.get_evaluators_total_num($evaluators, $q->id, 3).'<br>
+                                                <br>Response 2 x '.get_evaluators_total_num($evaluators, $q->id, 2).'<br>
+                                                <br>Response 1 x '.get_evaluators_total_num($evaluators, $q->id, 1).'</p>';
                     $html .= '</td>';
                     $html .= '</tr>';
                     $html .= '<tr>';

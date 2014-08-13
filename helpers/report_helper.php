@@ -258,7 +258,7 @@ if( ! function_exists('get_page_4') ){
 }
 
 if( ! function_exists('get_page_5') ){
-    function get_page_5(){
+    function get_page_5($total_evaluators){
         $html = '
 
         <style>
@@ -273,7 +273,7 @@ if( ! function_exists('get_page_5') ){
         <table border="1" cellpadding="4" cellspacing="1">
             <tr bgcolor="#f0f8ff">
                 <td width="150">Number of respondents</td>
-                <td width="50">3</td>
+                <td width="50">'.$total_evaluators.'</td>
             </tr>
         </table>
 

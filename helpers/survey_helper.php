@@ -823,3 +823,17 @@ if( ! function_exists('get_evaluators_total_table') ){
         }
     }
 }
+if( ! function_exists('get_evaluators_total_num') ){
+    function get_evaluators_total_num($evaluators, $q_id, $pos = 1){
+
+        $result             = 0;
+        foreach($evaluators as $ev){
+            $answers = json_decode($ev->answers, true);
+
+            if($pos == $answers[$q_id]){
+                $result =  $result + 1;
+            }
+        }
+        return $result;
+    }
+}
