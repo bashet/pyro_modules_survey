@@ -141,6 +141,7 @@ class survey_m extends MY_Model {
     // =============================== clients ====================================
 
     public function get_all_clients(){
+        $this->db->order_by('name');
         $query = $this->db->get('survey_clients');
 
         return $query->result();
@@ -180,7 +181,7 @@ class survey_m extends MY_Model {
                 on p.user_id = u.id
                 join default_survey_participant sp
                 on sp.uid = u.id
-                where sp.cid = '.$client_id;
+                where sp.cid = '.$client_id.' order by display_name';
         $quuery = $this->db->query($sql);
         return $quuery->result();
     }
@@ -194,7 +195,8 @@ class survey_m extends MY_Model {
                 join default_survey_participant sp
                 on sp.uid = u.id
 				join default_survey_clients c
-				on sp.cid = c.id';
+				on sp.cid = c.id
+				order by display_name';
         $quuery = $this->db->query($sql);
         return $quuery->result();
     }
