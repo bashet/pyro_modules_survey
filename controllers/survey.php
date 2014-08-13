@@ -1463,7 +1463,7 @@ class Survey extends Public_Controller {
 
         if($ex_ans){
             // need to update with new answer to existing answer
-            $answer->answers    = rebuild_answer($data, $ex_ans);
+            $answer->answers    = rebuild_answer($data, $ex_ans->answers);
             $this->db->where('id', $ex_ans->id);
             if($this->db->update('survey_user_answer', $answer)){
                 echo 'updated success';
