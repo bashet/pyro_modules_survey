@@ -358,7 +358,7 @@ foreach($categories as $cat_id){
                     $html .= '</tr>';
 
                     $html .= '</table>';
-                    $params = TCPDF_STATIC::serializeTCPDFtagParameters(array(28, 110.8, 20, -28, 'DF', array(0,0,0,0), array(0,128,225)));
+                    $params = TCPDF_STATIC::serializeTCPDFtagParameters(array(28, 110.8, 20, -get_evaluators_total_details($evaluators, $q->id), 'DF', array(0,0,0,0), array(0,128,225)));
                     $html .= '<tcpdf method="Rect" params="'.$params.'"/>';
 
                     $params = TCPDF_STATIC::serializeTCPDFtagParameters(array(65, 110.8, 20, -get_self_marking_details($user_answer, $q->id), 'DF', array(0,0,0,0), array(0,128,225)));
@@ -372,18 +372,73 @@ foreach($categories as $cat_id){
         }
     }
 
-
-
-
-
 }
-/*
+
 
 //======================================= page 32 ===========================================
 $pdf->AddPage();
-$html = get_page_32();
+$html = '<style>
+            th {
+                text-align: center;
+                border: 2px solid #ffffff;
+                color: #ffffff;
+            }
+            td {
+                border: 2px solid #ffffff;
+                text-align: center;
+            }
+        </style>';
+foreach($categories as $cat_id){
+    $cat = get_category_by_id($cat_id);
+    $sort_order = json_decode($cat->questions);
+    $questions = get_questions_by_category($cat_id);
+
+    $html .= '<table border="1" cellpadding="4" cellspacing="1">';
+    $html .= '<tr bgcolor="rgb(90,167,61)">';
+    $html .= '<th width="28%" rowspan="2">'.$cat->name.' Cluster</th>';
+    $html .= '<th width="36%" colspan="4">Self</th>';
+    $html .= '<th width="36%" colspan="4">Peer</th>';
+    $html .= '</tr>';
+    $html .= '<tr bgcolor="rgb(90,167,61)">';
+    $html .= '<th width="9%">1</th>';
+    $html .= '<th width="9%">2</th>';
+    $html .= '<th width="9%">3</th>';
+    $html .= '<th width="9%">4</th>';
+    $html .= '<th width="9%">1</th>';
+    $html .= '<th width="9%">2</th>';
+    $html .= '<th width="9%">3</th>';
+    $html .= '<th width="9%">4</th>';
+    $html .= '</tr>';
+
+    if($questions){
+        foreach($sort_order as $order){
+            foreach($questions as $q){
+                if($order == $q->id){
+                    $html .= '<tr bgcolor="#f5f5f5">';
+                    $html .= '<td>'.$q->title.'</td>';
+                    $html .= '<td>'.get_self_marking_table($user_answer, $q->id, 1).'</td>';
+                    $html .= '<td>'.get_self_marking_table($user_answer, $q->id, 2).'</td>';
+                    $html .= '<td>'.get_self_marking_table($user_answer, $q->id, 3).'</td>';
+                    $html .= '<td>'.get_self_marking_table($user_answer, $q->id, 4).'</td>';
+                    $html .= '<td>'.get_evaluators_total_table($evaluators, $q->id, 1).'</td>';
+                    $html .= '<td>'.get_evaluators_total_table($evaluators, $q->id, 2).'</td>';
+                    $html .= '<td>'.get_evaluators_total_table($evaluators, $q->id, 3).'</td>';
+                    $html .= '<td>'.get_evaluators_total_table($evaluators, $q->id, 4).'</td>';
+                    $html .= '</tr>';
+                }
+            }
+        }
+    }
+
+
+    $html .= '</table>';
+    $html .= '<br>';
+    $html .= '<br>';
+    $html .= '<br>';
+}
+
 $pdf->writeHTML($html, true, false, true, false, '');
-*/
+
 
 // reset pointer to the last page
 $pdf->lastPage();

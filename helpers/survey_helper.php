@@ -785,6 +785,41 @@ if( ! function_exists('get_evaluators_total_details') ){
             $total_evaluator = $total_evaluator + 1;
         }
 
-        return ((90*($total_answer/$total_evaluator))/4);
+        return ((56*($total_answer/$total_evaluator))/4);
+    }
+}
+
+if( !function_exists('get_self_marking_table') ){
+    function get_self_marking_table($answers, $q_id, $pos = ''){
+        // 90 will be considered as 100%
+
+        $my_answer = json_decode($answers->answers, true);
+
+        if($pos == $my_answer[$q_id]){
+            return 1;
+        }else{
+            return '';
+        }
+
+
+    }
+}
+
+if( ! function_exists('get_evaluators_total_table') ){
+    function get_evaluators_total_table($evaluators, $q_id, $pos = 1){
+
+        $result             = 0;
+        foreach($evaluators as $ev){
+            $answers = json_decode($ev->answers, true);
+
+            if($pos == $answers[$q_id]){
+                $result =  $result + 1;
+            }
+        }
+        if($result){
+            return $result;
+        }else{
+            return '';
+        }
     }
 }
