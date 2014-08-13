@@ -59,7 +59,7 @@ $(function(){
             success: function(data,status) {
                 var msg = jQuery.parseJSON( data );
                 if(msg.validate == true){
-                    window.location.href = base_url + 'index.php/survey/questions/' + msg.survey_id;
+                    window.location.href = base_url + 'index.php/survey/questions_in_category/' + msg.cat_id;
                 }else{
                     $('#q_form_validate_popup').modal('show');
                 }

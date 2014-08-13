@@ -7,14 +7,7 @@
         <div class="form-group">
             <label for="question_category" class="col-sm-2 control-label">Question category</label>
             <div class="col-sm-10">
-                <select class="form-control" id="question_category" name="question_category">
-                    <option value="">Select category</option>
-                    <?php
-                    foreach($q_cat as $cat){
-                        echo '<option value="'.$cat->id.'">'.$cat->name.'</option>';
-                    }
-                    ?>
-                </select>
+                <p class="form-control-static"><?=$category->name?></p>
             </div>
         </div>
 
@@ -89,9 +82,9 @@
             </div>
         </div>
 
-        <input type="hidden" name="survey_id" value="<?=$survey_id;?>">
-        <input type="hidden" name="q_id" value="<?=$question->id;?>">
-        <input type="hidden" name="option_id" value="<?=$options->id;?>">
+        <input type="hidden" name="cat_id" value="<?=$category->id?>">
+        <input type="hidden" name="q_id" value="<?=$question->id?>">
+        <input type="hidden" name="option_id" value="<?=$options->id?>">
         <input type="hidden" name="user_id" value="{{ user:id }}">
 
 

@@ -509,8 +509,7 @@ class Survey extends Public_Controller {
         if($this->survey_m->question_form_validate($data)){
             $q_id = $data['q_id'];
             $question = array(
-                'survey_id'     => $data['survey_id'],
-                'cat_id'        => $data['question_category'],
+                'cat_id'        => $data['cat_id'],
                 'title'         => $data['question_title'],
                 'description'   => $data['description'],
                 'matter'        => $data['matter'],
@@ -540,32 +539,29 @@ class Survey extends Public_Controller {
                 $this->db->where('id', $data['option_id']);
                 $this->db->update('survey_answer_options', $answers);
             }
-            echo json_encode(array('survey_id'=>$data['survey_id'], 'validate'=>true));
+            echo json_encode(array('cat_id'=>$data['cat_id'], 'validate'=>true));
         }else{
-            echo json_encode(array('survey_id'=>$data['survey_id'], 'validated'=>false, 'data'=>$data));
+            echo json_encode(array('cat_id'=>$data['cat_id'], 'validated'=>false, 'data'=>$data));
         }
 
     }
-    public function edit_question($survey_id = '', $q_id = ''){
+    public function edit_question($cat_id = '', $q_id = ''){
         if(! $this->current_user->id){
             redirect($this->config->base_url());
             exit();
         }
 
-        $survey     = $this->get_survey_by_id($survey_id, $output = 'object');
         $question   = $this->get_question_by_id($q_id, $output = 'object');
-        $q_cat      = $this->survey_m->get_all_question_categories();
+        $category   = get_category_by_id($cat_id);
         $options    = get_option_by_question_id($q_id);
 
         $this->template
             ->title($this->module_details['name'], 'Edit question')
-            ->set('survey_id', $survey_id)
             ->set('question',$question)
             ->set('options', $options)
-            ->set('survey', $survey)
-            ->set('q_cat', $q_cat)
+            ->set('category', $category)
             ->append_js('module::question.js')
-            ->set_breadcrumb('Survey', '/survey/'.$survey_id)
+            ->set_breadcrumb('Question category', '/survey/questions_in_category/'.$cat_id)
             ->set_breadcrumb('Edit question')
             ->build('edit_question');
     }
