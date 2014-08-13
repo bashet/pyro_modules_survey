@@ -454,11 +454,9 @@ class Survey extends Public_Controller {
             exit();
         }
         $data = $this->input->post();
-
+        $cat_id = $data['cat_id'];
         if($this->survey_m->question_form_validate($data)){
-            $cat_id = $data['question_category'];
             $question = array(
-                'survey_id'     => $data['survey_id'],
                 'cat_id'        => $cat_id,
                 'title'         => $data['question_title'],
                 'description'   => $data['description'],
@@ -494,9 +492,9 @@ class Survey extends Public_Controller {
 
                 $this->db->insert('survey_answer_options', $answers);
             }
-            echo json_encode(array('survey_id'=>$data['survey_id'], 'validate'=>true));
+            echo json_encode(array('cat_id'=>$cat_id, 'validate'=>true));
         }else{
-            echo json_encode(array('survey_id'=>$data['survey_id'], 'validated'=>false, 'data'=>$data));
+            echo json_encode(array('cat_id'=>$cat_id, 'validated'=>false, 'data'=>$data));
         }
 
     }
