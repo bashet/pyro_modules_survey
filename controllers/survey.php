@@ -1373,7 +1373,7 @@ class Survey extends Public_Controller {
         $this->template
             ->title($this->module_details['name'], 'review answer')
             ->set_breadcrumb('Review')
-            ->set('questions', $questions)
+            ->set('survey', $this->survey)
             ->set('ex_ans', $ex_ans)
             ->set('my_answer', $my_answer)
             ->set('total_questions', $this->total_questions)
