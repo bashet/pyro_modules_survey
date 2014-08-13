@@ -1451,6 +1451,12 @@ class Survey extends Public_Controller {
             ->title($this->module_details['name'], 'confirmation')
             ->build('user_survey_submit');
     }
+    public function successful_submitted_by_evaluator(){
+        $this->template
+            ->set_layout('user_survey')
+            ->title($this->module_details['name'], 'confirmation')
+            ->build('evaluator_submit');
+    }
 
     public function update_user_answer(){
         $data = $this->input->post();
