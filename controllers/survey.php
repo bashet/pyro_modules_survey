@@ -1511,7 +1511,7 @@ class Survey extends Public_Controller {
         $this->survey   = get_survey_by_id($this->session->userdata('survey_id'));
         $this->total_questions = get_total_question_in_survey($this->survey->id);
 
-        $questions      = get_questions_by_survey_id($this->survey->id);
+        //$questions      = get_questions_by_survey_id($this->survey->id);
 
         $evaluator = get_evaluator_by_link($this->session->userdata('link'));
 
@@ -1537,7 +1537,7 @@ class Survey extends Public_Controller {
         $this->template
             ->set_layout('evaluator_response')
             ->title($this->module_details['name'], 'evaluator response')
-            ->set('questions', $questions)
+            ->set('survey', $this->survey)
             ->set('attempt', $this->attempt)
             ->set('total_questions', $this->total_questions)
             ->set('q_no', $q_no)
