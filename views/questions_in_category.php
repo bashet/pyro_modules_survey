@@ -2,7 +2,7 @@
 
     <div style="padding-bottom: 10px">
         <?php
-            echo '<a href="{{ url:site }}survey/add_new_question/'.$cat->id.'" class="btn btn-primary" ><span class="icon-question"></span> Add new question</a>';
+            echo '<a href="{{ url:site }}survey/add_new_question/'.$cat->id.'" class="btn btn-primary" ><span class="icon-plus"></span> Add new question</a>';
             echo '<a href="{{ url:site }}survey/organise_questions/'.$cat->id.'" class="btn btn-primary" ><span class="icon-reorder"></span> Organise questions</a>';
         ?>
     </div>
