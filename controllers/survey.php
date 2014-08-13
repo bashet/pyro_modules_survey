@@ -257,6 +257,26 @@ class Survey extends Public_Controller {
 
         if($id){
             $this->db->delete('survey_question_categories', array('id' => $id));
+
+            $this->db->like('q_cat', $id);
+            $query = $this->db->get('survey');
+            $result = $query->result();
+            foreach($result as $survey){
+                $category = json_decode($survey->q_cat, true);
+                $new_cat = array();
+                $i = 1;
+                foreach($category as $key=>$c_no){
+                    if($c_no != $id){
+                        $new_cat[$i] = $c_no;
+                        $i++;
+                    }
+                }
+
+                $this->db->where('id', $survey->id);
+                $this->db->update('survey', array('q_cat' => json_encode($new_cat)));
+            }
+
+
         }
         redirect('survey/question_categories');
     }
