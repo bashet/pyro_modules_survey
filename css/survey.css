@@ -5,3 +5,6 @@
 .option_label{
     font-weight: bold;
 }
+.dd-item:hover {
+    cursor: move;
+}

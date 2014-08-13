@@ -322,6 +322,10 @@ class Survey extends Public_Controller {
             exit();
         }
 
+        if(! $survey_id){
+            redirect($this->config->base_url());
+        }
+
         $categories = $this->survey_m->get_all_question_categories();
         $survey     = get_survey_by_id($survey_id);
 

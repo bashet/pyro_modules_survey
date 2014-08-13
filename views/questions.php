@@ -3,18 +3,12 @@
     <div style="padding-bottom: 10px">
         <?php
         if($survey_id){
-            if($survey->q_cat){
-                echo '<a href="{{ url:site }}survey/add_new_question/'.$survey_id.'" class="btn btn-primary" ><span class="icon-question"></span> Add new question</a>';
-            }else{
-                echo '<button class="btn btn-primary" data-toggle="modal" data-target="#no_category"><span class="icon-question"></span> Add new question</button>';
-            }
             echo '<button class="btn btn-primary" data-toggle="modal" data-target="#add_category"><span class="icon-sitemap"></span> Add category</button>';
-            echo '<a href="{{ url:site }}survey/organise/'.$survey_id.'" class="btn btn-primary" ><span class="icon-reorder"></span> Organise questions</a>';
+            echo '<a href="{{ url:site }}survey/organise/'.$survey_id.'" class="btn btn-primary" ><span class="icon-reorder"></span> Organise questions and category</a>';
 
         }else{
-            echo '<button class="btn btn-primary" disabled><span class="icon-plus"></span> Add new question</button>';
             echo '<button class="btn btn-primary" disabled><span class="icon-plus"></span> Add category</button>';
-            echo '<button class="btn btn-primary" disabled><span class="icon-reorder"></span> Organise questions</button>';
+            echo '<button class="btn btn-primary" disabled><span class="icon-reorder"></span> Organise questions and category</button>';
         }
         ?>
 
@@ -38,10 +32,7 @@
                             echo '<div>';
                             ?>
                             <?php $options = get_option_by_question_id($q->id)?>
-                            <div style="float: right">
-                                <a href="{{url:site}}survey/edit_question/<?=$survey_id.'/'.$q->id?>" class="btn btn-warning" title="Edit"><span class="fa fa-edit fa-2x"></span></a>
-                                <a delete_question id="delete_question-<?=$q->id?>" class="btn btn-danger" title="Delete"><span class="fa fa-trash-o fa-2x"></span></a>
-                            </div>
+
                             <table class="table q_table">
                                 <tr>
                                     <th>Description</th>
