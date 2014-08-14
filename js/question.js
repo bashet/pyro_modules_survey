@@ -34,6 +34,8 @@ $(function(){
                 if(msg.validate == true){
                     window.location.href = base_url + 'index.php/survey/questions_in_category/' + msg.cat_id;
                 }else{
+                    $body = $("body");
+                    $body.removeClass("loading");
                     $('#q_form_validate_popup').modal('show');
                 }
 
@@ -61,6 +63,8 @@ $(function(){
                 if(msg.validate == true){
                     window.location.href = base_url + 'index.php/survey/questions_in_category/' + msg.cat_id;
                 }else{
+                    $body = $("body");
+                    $body.removeClass("loading");
                     $('#q_form_validate_popup').modal('show');
                 }
 
