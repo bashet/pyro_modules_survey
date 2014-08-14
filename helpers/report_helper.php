@@ -10,9 +10,8 @@ if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 if( ! function_exists('get_page_1')){
     function get_page_1($all_attempt, $programme, $attempt){
-        $ci =& get_instance();
 
-        $user       = get_profile_by_user_id($ci->current_user->id);
+        $user       = get_profile_by_user_id($attempt->user_id);
 
         $i = 0;
         foreach($all_attempt as $atm){
