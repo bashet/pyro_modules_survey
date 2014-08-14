@@ -1327,18 +1327,31 @@ class Survey extends Public_Controller {
             ->build('another_report');
     }
 
-    public function history(){
+    public function history($user_id = ''){
         if(! $this->current_user->id){
             redirect($this->config->base_url());
             exit();
         }
         $user_history = get_user_answer_history($this->current_user->id);
+        $user = get_profile_by_user_id($this->current_user->id);
+        if($this->current_user->id){
+            if($this->current_user->group != 'user'){
+                if($user_id){
+                    $user_history = get_user_answer_history($user_id);
+                    $user = get_profile_by_user_id($user_id);
+                }
+            }
+        }
+
+
+
 
 
         $this->template
             ->title($this->module_details['name'], 'history')
             ->set_breadcrumb('History')
             ->set('user_history', $user_history)
+            ->set('user', $user)
             ->build('history');
     }
 

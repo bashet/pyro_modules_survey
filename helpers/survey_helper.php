@@ -441,7 +441,16 @@ if(! function_exists('get_user_answer_history')){
         if($user_id){
             $ci =& get_instance();
 
-            $query = $ci->db->get_where('survey_user_answer', array('user_id' => $user_id));
+            $sql = 'SELECT ans.id as id, ans.user_id as user_id, ans.attempt_id as attempt_id, ans.survey_id as survey_id, ans.start_date as start_date, ans.finished as finished,
+                    ans.submitted as submitted, ans.submit_date as submit_date, ans.answers as answers, atm.programme_id as programme_id, pro.name as programme_name
+                    FROM default_survey_user_answer ans
+                    join default_survey_attempt atm
+                    on atm.id = ans.attempt_id
+                    join default_survey_programme pro
+                    on pro.id = atm.programme_id
+                    where ans.user_id ='.$user_id;
+
+            $query = $ci->db->query($sql);
             return $query->result();
         }
     }

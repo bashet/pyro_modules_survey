@@ -1,7 +1,7 @@
 <div id="history-container">
-    <h2>Previous diagnostic details for {{ user:display_name }}</h2>
+    <h2>Previous diagnostic details for <?php echo $user->first_name . ' ' . $user->last_name; ?></h2>
     <div class="well well-sm">
-        <p>Here is a list of all the diagnostic tools you have previously accessed during your courses. Additional diagnostics will be available through your learning schedule</p>
+        <p>Here is a list of all the diagnostic tools {{ if user:group == 'user' }}you have {{ else }}<?php echo $user->first_name . ' ' . $user->last_name; ?> has {{endif}} previously accessed during your courses. Additional diagnostics will be available through your learning schedule</p>
 
         <p><strong>NB: do not open multiple diagnostics simultaneously as this may cause errors</strong></p>
     </div>
@@ -24,7 +24,7 @@
             foreach($user_history as $history){
                 echo '<tr>';
                 echo '<td>'.$i.'</td>';
-                echo '<td>'.get_survey_name_by_id($history->survey_id).'</td>';
+                echo '<td>'.$history->programme_name.'</td>';
                 echo '<td>'.date('d/m/Y', $history->start_date).'</td>';
                 if($history->finished){
                     echo '<td style="text-align:center; color: #008000"><i class="fa fa-check"></i></td>';
