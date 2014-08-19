@@ -1,5 +1,5 @@
 <div id="organise-container">
-    <h2>Please drag each item and drop to set the new position.</h2>
+    <h2>Question sequence</h2>
     <div class="well well-lg">
         <div class="dd" id="<?php echo 'survey-'.$survey_id;?>">
             <ol class="dd-list">
