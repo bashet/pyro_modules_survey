@@ -1174,7 +1174,7 @@ class Survey extends Public_Controller {
                 }
 
                 //var_dump($data);
-                redirect('survey/successful');
+                redirect('survey/send_email_to_evaluators_successful');
             }
 
             $this->template
@@ -1223,7 +1223,7 @@ class Survey extends Public_Controller {
 
             }
             //var_dump($data);
-            redirect('survey/successful');
+            redirect('survey/send_email_to_evaluators_successful');
         }
 
         $this->template
@@ -1492,6 +1492,12 @@ class Survey extends Public_Controller {
     }
 
     public function successful(){
+        $this->template
+            ->set_layout('user_survey')
+            ->title($this->module_details['name'], 'confirmation')
+            ->build('user_survey_submit');
+    }
+    public function send_email_to_evaluators_successful(){
         $this->template
             ->set_layout('user_survey')
             ->title($this->module_details['name'], 'confirmation')
