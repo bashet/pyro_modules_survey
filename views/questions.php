@@ -14,7 +14,7 @@
 
     </div>
 
-    <h2>Showing questions for <strong><?=$survey->name?></strong></h2>
+    <h2>Questions for <strong><?=$survey->name?></strong></h2>
 
     <div id="question_categories">
         <?php
