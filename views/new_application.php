@@ -1,12 +1,10 @@
 <div id="new_application-container">
     <br><br>
     <div class="well well-lg">
-        <p>by applying for new application, you are going to end your current programme. so be careful for what you are doing! more text more text more text
-        blah blah blah more text more text more text more text more text more text more text more text more text more text more text more text
-            more text more text more text more text more text more text more text more text more text more text more text more text more text more text more text
-            more text more text more text more text more text more text more text more text more text more text more text more text more text more text more text</p>
+        <p>I agree that in applying for a 360 diagnostic for a new programme, existing diagnostics will be archived.
+            You will still be able to access the reports for all previously completed diagnostics via the History tab.</p>
 
-        <button class="btn btn-large btn-purple" data-toggle="modal" data-target="#apply_new_programme_modal">I agree and apply for new programme</button>
+        <button class="btn btn-large btn-purple" data-toggle="modal" data-target="#apply_new_programme_modal">Apply for new programme</button>
     </div>
 </div>
 
