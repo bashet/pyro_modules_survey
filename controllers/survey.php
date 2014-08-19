@@ -1368,8 +1368,9 @@ class Survey extends Public_Controller {
             redirect($this->config->base_url());
             exit();
         }
-        $user_history = get_user_answer_history($this->current_user->id);
-        $user = get_profile_by_user_id($this->current_user->id);
+        $user_history   = get_user_answer_history($this->current_user->id);
+        $user           = get_profile_by_user_id($this->current_user->id);
+
         if($this->current_user->id){
             if($this->current_user->group != 'user'){
                 if($user_id){
@@ -1378,10 +1379,6 @@ class Survey extends Public_Controller {
                 }
             }
         }
-
-
-
-
 
         $this->template
             ->title($this->module_details['name'], 'history')
