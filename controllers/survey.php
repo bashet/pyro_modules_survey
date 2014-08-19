@@ -1240,7 +1240,8 @@ class Survey extends Public_Controller {
             exit();
         }
 
-        $all_submitted = true;
+        $all_submitted  = true;
+        $self_submit    = true;
 
         if($this->attempt){
             $answer = new stdClass();
@@ -1255,9 +1256,11 @@ class Survey extends Public_Controller {
             if($my_ans){
                 if( ! $my_ans->submitted){
                     $all_submitted = false;
+                    $self_submit    = false;
                 }
             }else{
-                $all_submitted = false;
+                $all_submitted  = false;
+                $self_submit    = false;
             }
 
 
@@ -1299,6 +1302,7 @@ class Survey extends Public_Controller {
             ->set_breadcrumb('Report')
             ->set('attempt', $this->attempt)
             ->set('all_submitted', $all_submitted)
+            ->set('self_submit', $self_submit)
             ->build('report');
     }
 

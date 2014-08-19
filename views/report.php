@@ -6,7 +6,7 @@
         <p>Your report is now available.</p>
         <center><a href="{{ url:site }}survey/view_report/<?php echo $attempt->id;?>" target="_blank">{{ theme:image file="DownloadPDF.gif" width="120px" }}</a></center>
 
-    <?php }else{ ?>
+    <?php }elseif($self_submit){ ?>
 
         <h2>Generate report</h2>
 
@@ -17,6 +17,12 @@
             send an email to prompt any evaluators who may not yet have submitted their responses.
         Before you generate you report you must first submit your responses.</p>
 
+    <?php }else{ ?>
+        <h2>Generate report</h2>
+
+        <p>You haven't submitted your response.</p>
+
+        <p>Before you generate you report you must first submit your responses.</p>
     <?php } ?>
 
 
