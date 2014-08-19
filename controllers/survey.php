@@ -1256,15 +1256,22 @@ class Survey extends Public_Controller {
                 if( ! $my_ans->submitted){
                     $all_submitted = false;
                 }
+            }else{
+                $all_submitted = false;
             }
 
 
             $evaluators     = get_evaluators_by_attempt_id($this->attempt->id);
-            foreach($evaluators as $ev){
-                if( ! $ev->submitted){
-                    $all_submitted = false;
+            if($evaluators){
+                foreach($evaluators as $ev){
+                    if( ! $ev->submitted){
+                        $all_submitted = false;
+                    }
                 }
+            }else{
+                $all_submitted = false;
             }
+
 
             if($all_submitted){
                 $attempt = array();
