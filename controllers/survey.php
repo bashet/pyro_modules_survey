@@ -890,15 +890,20 @@ class Survey extends Public_Controller {
             ->set('allowed_evaluators', $this->allowed_evaluators)
             ->append_js('module::save_evaluators.js');
 
-        if($this->attempt->report_ready){
-            $this->template->build('no_evaluators');
-        }else{
-            if($evaluators){
-                $this->template->build('evaluators');
-            }else{
+        if($this->attempt){
+            if($this->attempt->report_ready){
                 $this->template->build('no_evaluators');
+            }else{
+                if($evaluators){
+                    $this->template->build('evaluators');
+                }else{
+                    $this->template->build('no_evaluators');
+                }
             }
+        }else{
+            $this->template->build('no_evaluators');
         }
+
 
     }
 
