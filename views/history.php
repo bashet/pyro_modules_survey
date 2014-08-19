@@ -1,9 +1,9 @@
 <div id="history-container">
-    <h2>Previous diagnostic details for <?php echo $user->first_name . ' ' . $user->last_name; ?></h2>
+    <h2>Diagnostics for <?php echo $user->first_name . ' ' . $user->last_name; ?></h2>
     <div class="well well-sm">
-        <p>Here is a list of all the diagnostic tools {{ if user:group == 'user' }}you have {{ else }}<?php echo $user->first_name . ' ' . $user->last_name; ?> has {{endif}} previously accessed during your courses. Additional diagnostics will be available through your learning schedule</p>
+        <p>Please find below all diagnostics for {{ if user:group == 'user' }}you {{ else }}<?php echo $user->first_name . ' ' . $user->last_name; ?>{{endif}}</p>
 
-        <p><strong>NB: do not open multiple diagnostics simultaneously as this may cause errors</strong></p>
+        <p><strong>NB: Please avoid opening multiple diagnostics simultaneously</strong></p>
     </div>
     <table class="table table-bordered table-hove">
         <thead>
