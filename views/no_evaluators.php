@@ -33,9 +33,9 @@
                 echo    '<td style="text-align:center">
                             <select name="relation_'.$i.'" id="relation_'.$i.'" class="form-control">
                                 <option value="">Please select</option>
-                                    <option value="Direct Report">Direct Report</option>
-                                    <option value="Peer">Peer</option>
-                                    <option value="Other">Other</option>
+                                <option value="Line Manager">Line Manager</option>
+                                <option value="Peer">Peer</option>
+                                <option value="Team Members">Team Members</option>
                             </select>
                         </td>';
                 echo    '</tr>';
