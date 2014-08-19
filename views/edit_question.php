@@ -108,7 +108,7 @@
             </div>
 
             <div class="modal-body">
-                <span style="color: red"><i class="fa fa-warning fa-3x"></i>  Please check again, all the fields are required to input correctly.</span>
+                <span style="color: red"><i class="fa fa-warning fa-3x"></i>  Please complete all mandatory fields.</span>
 
             </div>
 
