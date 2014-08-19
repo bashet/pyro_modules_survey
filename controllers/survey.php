@@ -1240,42 +1240,48 @@ class Survey extends Public_Controller {
             exit();
         }
 
-        $answer = new stdClass();
-        $answer->user_id    = $this->current_user->id;
-        $answer->attempt_id = $this->attempt->id;
-        $answer->survey_id  = $this->survey->id;
+        if($this->attempt){
+            $answer = new stdClass();
+            $answer->user_id    = $this->current_user->id;
+            $answer->attempt_id = $this->attempt->id;
+            $answer->survey_id  = $this->survey->id;
 
-        $my_ans = get_existing_answer($answer);
+            $my_ans = get_existing_answer($answer);
 
-        $all_submitted = true;
+            $all_submitted = true;
 
-        if($my_ans){
-            if( ! $my_ans->submitted){
-                $all_submitted = false;
+            if($my_ans){
+                if( ! $my_ans->submitted){
+                    $all_submitted = false;
+                }
             }
+
+
+            $evaluators     = get_evaluators_by_attempt_id($this->attempt->id);
+            foreach($evaluators as $ev){
+                if( ! $ev->submitted){
+                    $all_submitted = false;
+                }
+            }
+
+            if($all_submitted){
+                $attempt = array();
+                if( ! $this->attempt->finished_date){
+                    $attempt['finished_date'] = time();
+                }
+                if( ! $this->attempt->report_ready){
+                    $attempt['report_ready'] = 1;
+                }
+                if($attempt){
+                    $this->db->where('id', $this->attempt->id);
+                    $this->db->update('survey_attempt', $attempt);
+                }
+            }
+        }else{
+            $all_submitted = '';
         }
 
 
-        $evaluators     = get_evaluators_by_attempt_id($this->attempt->id);
-        foreach($evaluators as $ev){
-            if( ! $ev->submitted){
-                $all_submitted = false;
-            }
-        }
-
-        if($all_submitted){
-            $attempt = array();
-            if( ! $this->attempt->finished_date){
-                $attempt['finished_date'] = time();
-            }
-            if( ! $this->attempt->report_ready){
-                $attempt['report_ready'] = 1;
-            }
-            if($attempt){
-                $this->db->where('id', $this->attempt->id);
-                $this->db->update('survey_attempt', $attempt);
-            }
-        }
 
 
 
