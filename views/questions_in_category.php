@@ -7,7 +7,7 @@
         ?>
     </div>
 
-    <h2>Showing questions for <strong><?=$cat->name?></strong>:</h2>
+    <h2>Questions for <strong><?=$cat->name?></strong>:</h2>
 
     <?php
     $sort_order = json_decode($cat->questions);
