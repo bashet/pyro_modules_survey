@@ -2,7 +2,7 @@
     <h2>Evaluators</h2>
     <p>
         In order to complete the diagnostic and access your report, at least three evaluators will need to have
-        submitted a response for each of the sixteen competencies.
+        submitted a response for each of the competencies.
         To get the most out of your report we would recommend trying to nominate at least 3 evaluators in each category.
     </p>
     <div id="number_of_evaluators_warning" style="display: none" class="alert alert-danger role="alert">
