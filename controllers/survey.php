@@ -1240,6 +1240,8 @@ class Survey extends Public_Controller {
             exit();
         }
 
+        $all_submitted = true;
+
         if($this->attempt){
             $answer = new stdClass();
             $answer->user_id    = $this->current_user->id;
@@ -1248,7 +1250,7 @@ class Survey extends Public_Controller {
 
             $my_ans = get_existing_answer($answer);
 
-            $all_submitted = true;
+
 
             if($my_ans){
                 if( ! $my_ans->submitted){
@@ -1278,7 +1280,7 @@ class Survey extends Public_Controller {
                 }
             }
         }else{
-            $all_submitted = '';
+            $all_submitted = false;
         }
 
 
