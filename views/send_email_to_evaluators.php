@@ -1,12 +1,15 @@
 <div id="send_email_to_evaluators-container">
     <h2>Send email notification to evaluators</h2>
-    <p>This is some example text we may add here. But at this moment I don't have idea what to write. I will ask Mark to
-        provide the appropriate text for this area. I hope this will look good as am writing many thinks which is probably cowshit.
-        Alright, enough let's see how does it look like.. </p>
+    <p>Your evaluators will now be notified that they have been nominated to contribute to your 360 diagnostic survey.
+        Please find below the default text which will be sent to all of your nominated evaluators.
+        To edit this message, please click in the box below prior to sending</p>
     <div class="row">
         <form id="frm_send_email_evaluators" method="post" action="#">
             <textarea id="email_body" name="email_body" class="form-control">
-                <p>I would be very grateful if you could complete the National College Modular Curriculum online 360 diagnostic leadership for me.  This important process is part of my professional development as a school leader and will help shape my learning within the modular curriclulum. A number of other people will also be rating me on these important competencies. Please could you ensure that you have completed this process by {specify date DD/MM/YYY}.</p>
+                <p>I would be very grateful if you could complete the Leadership CoLab 360 Diagnostic survey for me.
+                    This process forms an important part of my personal development.
+                    A number of other evaluators have also been nominated to complete this survey on my behalf.
+                    Please could I ask you to complete this survey by [DD/MM/YY].</p>
             </textarea>
         </form>
     </div>
