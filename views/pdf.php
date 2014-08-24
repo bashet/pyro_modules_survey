@@ -167,7 +167,7 @@ foreach($categories as $cat_id){
     $html .='<table width="180px" border="1" cellpadding="4" cellspacing="1">
                 <tr bgcolor="#f5f5f5">
                     <td><span style="background-color: rgb(245,237,22)">&nbsp;&nbsp;&nbsp;</span>&nbsp;Total others</td>
-                    <td><span style="background-color: rgb(90,167,61)">&nbsp;&nbsp;&nbsp;</span>&nbsp;Selft</td>
+                    <td><span style="background-color: rgb(90,167,61)">&nbsp;&nbsp;&nbsp;</span>&nbsp;Self</td>
                 </tr>
             </table>';
 
