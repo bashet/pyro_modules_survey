@@ -1765,4 +1765,20 @@ class Survey extends Public_Controller {
             ->set('participation', $participation)
             ->build('new_application');
     }
+
+    public function update_attempt_allowed(){
+        if($data = json_decode(json_encode($this->input->post()))){
+            $user_data = explode('-', $data->user_data);
+            $user_id = $user_data[1];
+            $participation = get_current_participation_by_user($user_id);
+
+            $this->db->where('id', $participation->id);
+            if($this->db->update('survey_participant', array('allowed' => $data->value))){
+                echo 'updated';
+            }else{
+                echo 'not possible to update!';
+            }
+
+        }
+    }
 }

@@ -3,7 +3,7 @@ $(function(){
         $('#all_users').dataTable();
     } );
 
-    $( "input[allow_attempt]" ).spinner({
+    var allow_attempt = $( "input[allow_attempt]" ).spinner({
         create: function( event, ui ) {
             //add custom classes and icons
             $(this)
@@ -13,6 +13,16 @@ $(function(){
             //larger buttons on touch devices
             if('touchstart' in document.documentElement)
                 $(this).closest('.ui-spinner').addClass('ui-spinner-touch');
+        },
+        change: function( event, ui ) {
+            $.ajax({
+                type:   'post',
+                url:    base_url + 'index.php/survey/update_attempt_allowed',
+                data:   {user_data:this.id,value:this.value},
+                success: function(data, status){
+                    //alert(data);
+                }
+            });
         }
     });
 
