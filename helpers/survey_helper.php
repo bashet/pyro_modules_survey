@@ -879,6 +879,15 @@ if( ! function_exists('get_all_participation')){
     }
 }
 
+if( ! function_exists('get_current_participation_by_user') ){
+    function get_current_participation_by_user($user_id){
+        $ci =& get_instance();
+        $query = $ci->db->get_where('survey_participant', array('uid'=>$user_id, 'active'=>1)); // expected to get only one row
+
+        return $query->row();
+
+    }
+}
 
 if( ! function_exists('is_programme_used') ){
     function is_programme_used($id = '', $participation){

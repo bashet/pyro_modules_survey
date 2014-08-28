@@ -8,3 +8,6 @@
 .dd-item:hover {
     cursor: move;
 }
+.allow_attempt{
+    text-align: center;
+}

@@ -3,6 +3,19 @@ $(function(){
         $('#all_users').dataTable();
     } );
 
+    $( "input[allow_attempt]" ).spinner({
+        create: function( event, ui ) {
+            //add custom classes and icons
+            $(this)
+                .next().addClass('btn btn-success').html('<i class="ace-icon fa fa-plus"></i>')
+                .next().addClass('btn btn-danger').html('<i class="ace-icon fa fa-minus"></i>')
+
+            //larger buttons on touch devices
+            if('touchstart' in document.documentElement)
+                $(this).closest('.ui-spinner').addClass('ui-spinner-touch');
+        }
+    });
+
     $('button[activate]').button().click(function(){
         var button_id       = this.id;
         var button_id_array = button_id.split('-');
