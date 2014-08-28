@@ -35,9 +35,10 @@ class Survey extends Public_Controller {
             if($this->participation){
                 $this->client          = get_client_by_id($this->participation->cid);
                 $this->programme       = get_programme_by_id($this->participation->pid);
+                $this->attempt_remaining = $this->participation->allowed - get_total_attempt($this->participation);
             }
 
-            $this->attempt_remaining = $this->participation->allowed - get_total_attempt($this->participation);
+
 
             $this->attempt         = get_current_attempt_by_user_id($this->current_user->id);
             if($this->attempt){
