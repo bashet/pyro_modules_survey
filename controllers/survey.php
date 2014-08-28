@@ -768,6 +768,10 @@ class Survey extends Public_Controller {
             ->build('programme_request');
     }
 
+    public function approve_new_programme($request_id){
+        echo $request_id;
+    }
+
     public function manage_users(){
         if(! $this->current_user->id){
             redirect($this->config->base_url());

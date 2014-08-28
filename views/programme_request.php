@@ -55,8 +55,13 @@
                             echo '<td>'.$request->new_prog_name.'</td>';
                             echo '<td style="text-align: center"><a href="{{ url:site }}survey/history/'.$request->user_id.'" target="_blank"><span class="glyphicon glyphicon-list-alt"></span></td>';
                             echo '<td style="text-align: center">'.date('d/m/Y', $request->date_applied).'</td>';
-                            echo '<td style="text-align: center"><button class="btn btn-xs btn-info"><i class="fa fa-check"></i></button></td>';
+                            echo '<td style="text-align: center"><button approve id="approve-'.$request->id.'" class="btn btn-xs btn-info"><i class="fa fa-check"></i></button></td>';
                             echo '</tr>';
+
+                            echo '<input type="hidden" id="user_name-'.$request->id.'" value="'.$request->name.'">';
+                            echo '<input type="hidden" id="org_name-'.$request->id.'" value="'.$request->org_name.'">';
+                            echo '<input type="hidden" id="pro_name-'.$request->id.'" value="'.$request->new_prog_name.'">';
+
                             $i++;
                         }
 
@@ -90,3 +95,17 @@
         </div>
     </div>
 </div>
+
+<!-------------------------------------------------------------------------------------------------------->
+<div id="dialog-confirm-request_approval" class="hide">
+    <div class="alert alert-info bigger-110">
+        You are about to approve <strong><span id="dialog_user_name"></span></strong> from <span id="dialog_org_name"></span> to participate in <span id="dialog_pro_name"></span> !
+    </div>
+
+    <div class="space-6"></div>
+
+    <p class="bigger-110 bolder center grey">
+        <i class="ace-icon fa fa-hand-o-right blue bigger-120"></i>
+        Are you sure?
+    </p>
+</div><!-- #dialog-confirm -->
