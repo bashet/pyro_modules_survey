@@ -1,10 +1,18 @@
 <div id="new_application-container">
     <br><br>
     <div class="well well-lg">
+        <?php if($application){ ?>
+            <div class="alert alert-danger">
+                <p>You have already submitted an application for a new programme. You are not allowed to make another application until current one has been approved.</p>
+                <p>Please contact your organisation manager to approve your current application.</p>
+            </div>
+
+        <?php }else{ ?>
         <p>I agree that in applying for a 360 diagnostic for a new programme, existing diagnostics will be archived.
             You will still be able to access the reports for all previously completed diagnostics via the History tab.</p>
 
         <button class="btn btn-large btn-purple" data-toggle="modal" data-target="#apply_new_programme_modal">Apply for new programme</button>
+        <?php } ?>
     </div>
 </div>
 

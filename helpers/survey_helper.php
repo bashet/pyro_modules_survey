@@ -901,3 +901,12 @@ if( ! function_exists('is_programme_used') ){
     }
 }
 
+if( ! function_exists('get_active_application') ){
+    function get_active_application($user_id){
+        $ci =& get_instance();
+        $query = $ci->db->get_where('survey_new_application', array('uid'=>$user_id, 'status'=>1)); // expected to get only one row
+
+        return $query->row();
+    }
+}
+

@@ -1757,6 +1757,7 @@ class Survey extends Public_Controller {
     public function new_application(){
         $programmes     = get_all_programme();
         $participation  = get_all_participation($this->current_user->id);
+        $application    = get_active_application($this->current_user->id);
 
         $this->template
             ->title($this->module_details['name'], 'apply for new programme')
@@ -1764,6 +1765,7 @@ class Survey extends Public_Controller {
             ->set('programmes', $programmes)
             ->set('participation', $participation)
             ->set('client', $this->client)
+            ->set('application', $application)
             ->build('new_application');
     }
 
