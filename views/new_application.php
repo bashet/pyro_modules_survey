@@ -17,12 +17,12 @@
             </div>
 
             <div class="modal-body">
-                <form class="form-horizontal" role="form" id="frm_link_programme" method="post" action="{{url:site}}survey/new_programme_application">
+                <form class="form-horizontal" role="form" id="frm_new_programme_application" method="post" action="{{url:site}}survey/new_programme_application">
 
                     <div class="form-group">
-                        <label for="survey_id" class="col-sm-4 control-label">Select programme</label>
+                        <label for="new_programme_id" class="col-sm-4 control-label">Select programme</label>
                         <div class="col-sm-8">
-                            <select name="survey_id" id="survey_id" class="form-control">
+                            <select name="programme_id" id="new_programme_id" class="form-control">
                                 <option value="0"></option>
                                 <?php
                                 foreach($programmes as $p){
@@ -34,6 +34,7 @@
                             </select>
                         </div>
                     </div>
+                    <input type="hidden" name="client_id" value="<?=$client->id?>">
                 </form>
             </div>
 

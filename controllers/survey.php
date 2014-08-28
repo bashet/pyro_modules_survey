@@ -1755,15 +1755,34 @@ class Survey extends Public_Controller {
     }
 
     public function new_application(){
-        $programmes = get_all_programme();
-        $participation = get_all_participation($this->current_user->id);
+        $programmes     = get_all_programme();
+        $participation  = get_all_participation($this->current_user->id);
 
         $this->template
             ->title($this->module_details['name'], 'apply for new programme')
             ->set_breadcrumb('Apply for new programme')
             ->set('programmes', $programmes)
             ->set('participation', $participation)
+            ->set('client', $this->client)
             ->build('new_application');
+    }
+
+    public function new_programme_application(){
+        if($data = json_decode(json_encode($this->input->post()))){
+            $new_programme_id = $data->programme_id;
+
+            $participant = array(
+                'uid'   => $this->current_user->id,
+                'cid'   => $data->client_id,
+                'pid'   => $new_programme_id,
+                'create_date' => time()
+            );
+
+            if($this->db->insert('survey_new_application', $participant)){
+
+                redirect($this->config->base_url());
+            }
+        }
     }
 
     public function update_attempt_allowed(){

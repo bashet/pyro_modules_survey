@@ -95,4 +95,11 @@ $(function(){
             }
         });
     });
+
+    $('#btn_apply_new_programme').button().click(function(){
+        var new_programme_id = $('#new_programme_id').val();
+        if(new_programme_id != '0'){
+            $('#frm_new_programme_application').submit();
+        }
+    });
 });
