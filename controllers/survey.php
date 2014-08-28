@@ -752,17 +752,20 @@ class Survey extends Public_Controller {
         }
 
         $client = $this->survey_m->get_client_by_manager_id($this->current_user->id);
-        $users = '';
+
         if($this->current_user->group_id == 1){
-            $active_request = get_all_requests_for_admin();
+            $active_request     = get_all_active_requests_for_admin();
+            $approved_request   = get_all_approved_requests_for_admin();
         }else{
-            //$users = get_all_active_requests_by_client($client->id);
+            $active_request     = get_all_active_requests_for_admin();
+            $approved_request   = get_all_approved_requests_for_admin();
         }
 
         $this->template
             ->title($this->module_details['name'], 'manage users')
             ->set_breadcrumb('Manage Users')
             ->set('active_request', $active_request)
+            ->set('approved_request', $approved_request)
             ->set('client', $client)
             ->append_js('module::manage_users.js')
             ->build('programme_request');
@@ -802,7 +805,7 @@ class Survey extends Public_Controller {
                     Events::trigger('email', $user_email, 'array');
 
                     $this->db->where('id', $request_id);
-                    $this->db->update('survey_new_application', array('status' => 0));
+                    $this->db->update('survey_new_application', array('status' => 0, 'approval_date' => time()));
                 }
             }
         }

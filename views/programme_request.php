@@ -88,7 +88,31 @@
                     </tr>
                     </thead>
                     <tbody>
+                    <?php
+                    if($approved_request){
+                        $i = 1;
+                        foreach($approved_request as $request){
+                            $current_participation  = get_current_participation_by_user($request->user_id);
+                            $programme              = get_programme_by_id($current_participation->pid);
 
+                            echo '<tr>';
+                            echo '<td>'.$i.'</td>';
+                            echo '<td>'.$request->name.'</td>';
+                            echo '<td>'.$request->org_name.'</td>';
+                            if($this->current_user->group == 'admin'){
+                                echo '<td>'.$programme->name.'</td>';
+                            }
+                            echo '<td>'.$request->new_prog_name.'</td>';
+                            echo '<td style="text-align: center"><a href="{{ url:site }}survey/history/'.$request->user_id.'" target="_blank"><span class="glyphicon glyphicon-list-alt"></span></td>';
+                            echo '<td style="text-align: center">'.date('d/m/Y', $request->date_applied).'</td>';
+                            echo '<td style="text-align: center">'.date('d/m/Y', $request->approval_date).'</td>';
+                            echo '</tr>';
+
+                            $i++;
+                        }
+
+                    }
+                    ?>
                     </tbody>
                 </table>
             </div>
