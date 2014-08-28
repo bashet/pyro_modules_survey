@@ -14,6 +14,7 @@ $(function(){
             if('touchstart' in document.documentElement)
                 $(this).closest('.ui-spinner').addClass('ui-spinner-touch');
         },
+        min: 0,
         change: function( event, ui ) {
             $.ajax({
                 type:   'post',

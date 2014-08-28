@@ -35,7 +35,7 @@ class Survey extends Public_Controller {
             if($this->participation){
                 $this->client          = get_client_by_id($this->participation->cid);
                 $this->programme       = get_programme_by_id($this->participation->pid);
-                $this->attempt_remaining = $this->participation->allowed - get_total_attempt($this->participation);
+                $this->attempt_remaining = $this->participation->allowed - get_total_attempts_by_user_n_programme($this->participation->uid, $this->participation->pid);
             }
 
 
@@ -1770,13 +1770,16 @@ class Survey extends Public_Controller {
         if($data = json_decode(json_encode($this->input->post()))){
             $user_data = explode('-', $data->user_data);
             $user_id = $user_data[1];
-            $participation = get_current_participation_by_user($user_id);
+
+            $participation      = get_current_participation_by_user($user_id);
+            $remaining_attempts = $participation->allowed - get_total_attempts_by_user_n_programme($participation->uid, $participation->pid);
+            $new_allocation     = $participation->allowed + ($data->value - $remaining_attempts);
 
             $this->db->where('id', $participation->id);
-            if($this->db->update('survey_participant', array('allowed' => $data->value))){
-                echo 'updated';
+            if($this->db->update('survey_participant', array('allowed' => $new_allocation))){
+                echo '1';
             }else{
-                echo 'not possible to update!';
+                echo '0';
             }
 
         }

@@ -901,20 +901,3 @@ if( ! function_exists('is_programme_used') ){
     }
 }
 
-if( ! function_exists('get_total_attempt') ){
-    function get_total_attempt($participation){
-        $ci =& get_instance();
-        $result = 0;
-        if(isset($ci->current_user->id)){
-            if($ci->current_user->group == 'user'){
-                if($participation){
-                    $programme      = get_programme_by_id($participation->pid);
-                    $result         = get_total_attempts_by_user_n_programme($ci->current_user->id, $programme->id);
-                }
-            }
-        }
-
-        return $result;
-
-    }
-}
