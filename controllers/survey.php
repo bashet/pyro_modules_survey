@@ -1780,6 +1780,19 @@ class Survey extends Public_Controller {
 
             if($this->db->insert('survey_new_application', $participant)){
 
+                $manager = get_manager_by_uni($data->client_id);
+
+                $mail = array();
+                $mail['subject']			= Settings::get('site_name') . ' - New Programme Application'; // No translation needed as this is merely a fallback to Email Template subject
+                $mail['slug'] 				= 'new_programme_approval';
+                $mail['to'] 				= $manager['email'];
+                $mail['manager_name']       = $manager['name'];
+                $mail['from'] 				= Settings::get('server_email');
+                $mail['name']				= Settings::get('site_name');
+                $mail['reply-to']			= Settings::get('contact_email');
+
+                Events::trigger('email', $mail, 'array');
+
                 redirect('survey/new_application_success_msg');
             }
         }
