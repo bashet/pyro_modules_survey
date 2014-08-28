@@ -55,12 +55,14 @@
                             echo '<td>'.$request->new_prog_name.'</td>';
                             echo '<td style="text-align: center"><a href="{{ url:site }}survey/history/'.$request->user_id.'" target="_blank"><span class="glyphicon glyphicon-list-alt"></span></td>';
                             echo '<td style="text-align: center">'.date('d/m/Y', $request->date_applied).'</td>';
-                            echo '<td style="text-align: center"><button approve id="approve-'.$request->id.'" class="btn btn-xs btn-info"><i class="fa fa-check"></i></button></td>';
-                            echo '</tr>';
-
+                            echo '<td style="text-align: center"><button approve id="approve-'.$request->id.'" class="btn btn-xs btn-info"><i class="fa fa-check"></i></button>';
                             echo '<input type="hidden" id="user_name-'.$request->id.'" value="'.$request->name.'">';
                             echo '<input type="hidden" id="org_name-'.$request->id.'" value="'.$request->org_name.'">';
                             echo '<input type="hidden" id="pro_name-'.$request->id.'" value="'.$request->new_prog_name.'">';
+                            echo '</td>';
+                            echo '</tr>';
+
+
 
                             $i++;
                         }
