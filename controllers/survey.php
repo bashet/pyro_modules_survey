@@ -745,6 +745,29 @@ class Survey extends Public_Controller {
         redirect('survey/clients');
     }
 
+    public function programme_request(){
+        if(! $this->current_user->id){
+            redirect($this->config->base_url());
+            exit();
+        }
+
+        $client = $this->survey_m->get_client_by_manager_id($this->current_user->id);
+        $users = '';
+        if($this->current_user->group_id == 1){
+            $active_request = get_all_requests_for_admin();
+        }else{
+            //$users = get_all_active_requests_by_client($client->id);
+        }
+
+        $this->template
+            ->title($this->module_details['name'], 'manage users')
+            ->set_breadcrumb('Manage Users')
+            ->set('active_request', $active_request)
+            ->set('client', $client)
+            ->append_js('module::manage_users.js')
+            ->build('programme_request');
+    }
+
     public function manage_users(){
         if(! $this->current_user->id){
             redirect($this->config->base_url());

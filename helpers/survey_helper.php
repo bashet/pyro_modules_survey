@@ -910,3 +910,27 @@ if( ! function_exists('get_active_application') ){
     }
 }
 
+if( ! function_exists('get_all_requests_for_admin') ){
+    function get_all_requests_for_admin(){
+        $ci =& get_instance();
+        $sql = "select
+                    new_app.id as id,
+                    new_app.uid as user_id,
+                    CONCAT(u.first_name, ' ', u.last_name) as name,
+                    c.name as org_name,
+                    prog.name as new_prog_name,
+                    new_app.create_date as date_applied
+                from default_survey_new_application new_app
+                join default_profiles u
+                on u.user_id = new_app.uid
+                join default_survey_clients c
+                on c.id = new_app.cid
+                join default_survey_programme prog
+                on prog.id = new_app.pid";
+        $query = $ci->db->query($sql); // expected to get only one row
+        // $this->db->count_all_results();
+
+        return $query->result();
+    }
+}
+
