@@ -1780,9 +1780,16 @@ class Survey extends Public_Controller {
 
             if($this->db->insert('survey_new_application', $participant)){
 
-                redirect($this->config->base_url());
+                redirect('survey/new_application_success_msg');
             }
         }
+    }
+
+    public function new_application_success_msg(){
+        $this->template
+            ->title($this->module_details['name'], 'apply for new programme')
+            ->set_breadcrumb('Apply for new programme')
+            ->build('new_application_success_msg');
     }
 
     public function update_attempt_allowed(){
