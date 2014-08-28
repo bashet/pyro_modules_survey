@@ -963,6 +963,59 @@ if( ! function_exists('get_all_approved_requests_for_admin') ){
     }
 }
 
+if( ! function_exists('get_all_active_requests_for_client') ){
+    function get_all_active_requests_for_client($cid){
+        $ci =& get_instance();
+        $sql = "select
+                    new_app.id as id,
+                    new_app.uid as user_id,
+                    CONCAT(u.first_name, ' ', u.last_name) as name,
+                    c.name as org_name,
+                    prog.name as new_prog_name,
+                    new_app.create_date as date_applied,
+                    new_app.status as status
+                from default_survey_new_application new_app
+                join default_profiles u
+                on u.user_id = new_app.uid
+                join default_survey_clients c
+                on c.id = new_app.cid
+                join default_survey_programme prog
+                on prog.id = new_app.pid
+                where new_app.status=1 and c.id = ".$cid;
+        $query = $ci->db->query($sql); // expected to get only one row
+        // $this->db->count_all_results();
+
+        return $query->result();
+    }
+}
+
+if( ! function_exists('get_all_approved_requests_for_client') ){
+    function get_all_approved_requests_for_client($cid){
+        $ci =& get_instance();
+        $sql = "select
+                    new_app.id as id,
+                    new_app.uid as user_id,
+                    CONCAT(u.first_name, ' ', u.last_name) as name,
+                    c.name as org_name,
+                    prog.name as new_prog_name,
+                    new_app.create_date as date_applied,
+                    new_app.approval_date as approval_date,
+                    new_app.status as status
+                from default_survey_new_application new_app
+                join default_profiles u
+                on u.user_id = new_app.uid
+                join default_survey_clients c
+                on c.id = new_app.cid
+                join default_survey_programme prog
+                on prog.id = new_app.pid
+                where new_app.status=0 and c.id = ". $cid;
+        $query = $ci->db->query($sql); // expected to get only one row
+        // $this->db->count_all_results();
+
+        return $query->result();
+    }
+}
+
 if( ! function_exists('get_programme_request_by_id') ){
     function get_programme_request_by_id($request_id){
         $ci =& get_instance();

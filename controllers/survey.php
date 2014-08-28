@@ -757,8 +757,8 @@ class Survey extends Public_Controller {
             $active_request     = get_all_active_requests_for_admin();
             $approved_request   = get_all_approved_requests_for_admin();
         }else{
-            $active_request     = get_all_active_requests_for_admin();
-            $approved_request   = get_all_approved_requests_for_admin();
+            $active_request     = get_all_active_requests_for_client($client->id);
+            $approved_request   = get_all_approved_requests_for_client($client->id);
         }
 
         $this->template
