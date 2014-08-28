@@ -17,6 +17,7 @@ class Survey extends Public_Controller {
     public $client              = '';
     public $attempt             = '';
     public $total_evaluators    = '';
+    public $attempt_remaining   = 0;
 
 	public function __construct()
 	{
@@ -35,6 +36,8 @@ class Survey extends Public_Controller {
                 $this->client          = get_client_by_id($this->participation->cid);
                 $this->programme       = get_programme_by_id($this->participation->pid);
             }
+
+            $this->attempt_remaining = $this->participation->allowed - get_total_attempt($this->participation);
 
             $this->attempt         = get_current_attempt_by_user_id($this->current_user->id);
             if($this->attempt){
@@ -893,6 +896,7 @@ class Survey extends Public_Controller {
             ->set('attempt', $this->attempt)
             ->set('total_evaluators', $this->total_evaluators)
             ->set('allowed_evaluators', $this->allowed_evaluators)
+            ->set('attempt_remaining',$this->attempt_remaining)
             ->append_js('module::save_evaluators.js');
 
         if($this->attempt){

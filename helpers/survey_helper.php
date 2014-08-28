@@ -613,6 +613,16 @@ if( ! function_exists('get_all_attempts_by_user_n_programme') ){
     }
 }
 
+if( ! function_exists('get_total_attempts_by_user_n_programme') ){
+    function get_total_attempts_by_user_n_programme($user_id = '', $programme_id){
+        $ci =& get_instance();
+        $ci->db->where('user_id', $user_id);
+        $ci->db->where('programme_id', $programme_id);
+        $ci->db->from('survey_attempt');
+        return $ci->db->count_all_results();
+    }
+}
+
 if( ! function_exists('re_build_cat') ){
     function re_build_cat($survey, $data){
         $categories = json_decode($survey->q_cat, true);
@@ -879,5 +889,23 @@ if( ! function_exists('is_programme_used') ){
             }
         }
         return $status;
+    }
+}
+
+if( ! function_exists('get_total_attempt') ){
+    function get_total_attempt($participation){
+        $ci =& get_instance();
+        $result = 0;
+        if(isset($ci->current_user->id)){
+            if($ci->current_user->group == 'user'){
+                if($participation){
+                    $programme      = get_programme_by_id($participation->pid);
+                    $result         = get_total_attempts_by_user_n_programme($ci->current_user->id, $programme->id);
+                }
+            }
+        }
+
+        return $result;
+
     }
 }

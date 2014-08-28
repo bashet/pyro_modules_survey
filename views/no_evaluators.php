@@ -8,7 +8,7 @@
     <div id="number_of_evaluators_warning" style="display: none" class="alert alert-danger role="alert">
 
     </div>
-
+<?php if($attempt_remaining){?>
     <form id="frm_save_evaluators" method="post" action="{{ url:site }}survey/save_evaluators">
         <table class="table table-bordered table-hover">
             <thead>
@@ -54,6 +54,11 @@
             </button>
         </div>
     </form>
+<?php }else{?>
+    <div class="alert alert-danger">
+        <p>Unfortunately you have completed all the number of attempts allocated to you. Please contact your organisation manager if you wish to do more attempt for this programme.</p>
+    </div>
+<?php } ?>
 </div>
 
 <!-- Modal -->
