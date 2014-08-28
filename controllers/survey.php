@@ -768,8 +768,45 @@ class Survey extends Public_Controller {
             ->build('programme_request');
     }
 
-    public function approve_new_programme($request_id){
-        echo $request_id;
+    public function approve_new_programme($request_id = ''){
+        if($request_id){
+            $request = get_programme_request_by_id($request_id);
+
+            $current_participation = get_current_participation_by_user($request->uid);
+
+            $this->db->where('id', $current_participation->id);
+            if($this->db->update('survey_participant', array('active' => 0))){
+                $new_participation = array(
+                    'uid'   => $request->uid,
+                    'cid'   => $request->cid,
+                    'pid'   => $request->pid
+                );
+
+                if($this->db->insert('survey_participant', $new_participation)){
+
+                    $user   = get_user_by_id($request->uid);
+                    $client = get_client_by_id($request->cid);
+                    $manager = get_manager_by_uni($request->cid);
+                    $user_email = array();
+
+                    $user_email['subject']			= Settings::get('site_name') . ' - New Programme Participation Approved'; // No translation needed as this is merely a fallback to Email Template subject
+                    $user_email['slug'] 		    = 'new-programme-approved';
+                    $user_email['to'] 				= $user->email;
+                    $user_email['user_name']        = get_user_full_name($request->uid);
+                    $user_email['client_name']      = $client->name;
+                    $user_email['manager_name']     = $manager['name'];
+                    $user_email['from'] 			= Settings::get('server_email');
+                    $user_email['name']				= Settings::get('site_name');
+                    $user_email['reply-to']			= Settings::get('contact_email');
+
+                    Events::trigger('email', $user_email, 'array');
+
+                    $this->db->where('id', $request_id);
+                    $this->db->update('survey_new_application', array('status' => 0));
+                }
+            }
+        }
+        redirect('survey/programme_request');
     }
 
     public function manage_users(){

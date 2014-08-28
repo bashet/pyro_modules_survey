@@ -919,7 +919,8 @@ if( ! function_exists('get_all_requests_for_admin') ){
                     CONCAT(u.first_name, ' ', u.last_name) as name,
                     c.name as org_name,
                     prog.name as new_prog_name,
-                    new_app.create_date as date_applied
+                    new_app.create_date as date_applied,
+                    new_app.status as status
                 from default_survey_new_application new_app
                 join default_profiles u
                 on u.user_id = new_app.uid
@@ -931,6 +932,15 @@ if( ! function_exists('get_all_requests_for_admin') ){
         // $this->db->count_all_results();
 
         return $query->result();
+    }
+}
+
+if( ! function_exists('get_programme_request_by_id') ){
+    function get_programme_request_by_id($request_id){
+        $ci =& get_instance();
+        $query = $ci->db->get_where('survey_new_application', array('id'=>$request_id)); // expected to get only one row
+
+        return $query->row();
     }
 }
 
