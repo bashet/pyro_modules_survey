@@ -1,6 +1,8 @@
 $(function(){
     $(document).ready(function() {
         $('#all_users').dataTable();
+        $('#tbl_active_request').dataTable();
+        $('#tbl_approved_request').dataTable();
     } );
 
     $('button[approve]').button().click(function(){

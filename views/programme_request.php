@@ -22,7 +22,7 @@
 
         <div class="tab-content">
             <div id="new_request" class="tab-pane fade in active">
-                <table class="table table-bordered table-striped table-responsive">
+                <table id="tbl_active_request" class="table table-bordered table-striped table-responsive">
                     <thead>
                     <tr>
                         <th>SN</th>
@@ -72,7 +72,7 @@
             </div>
 
             <div id="approved_request" class="tab-pane fade">
-                <table class="table table-bordered">
+                <table id="tbl_approved_request" class="table table-bordered">
                     <thead>
                     <tr>
                         <th>SN</th>
