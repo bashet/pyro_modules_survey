@@ -8,6 +8,7 @@
         <tr>
             <th style="width: 8%">SN</th>
             <th>Name</th>
+            <th>Logo</th>
             <th style="width: 20%">Manager</th>
             <th style="width: 10%">Edit</th>
             <th style="width: 10%">Active</th>
@@ -21,6 +22,10 @@
             echo '<tr>';
             echo '<td>'.$i.'</td>';
             echo '<td>'.$d->name.'</td>';
+            echo '<td>
+                        <button set_logo id="set_logo-'.$d->id.'" style="float: left; text-decoration: none" class="btn btn-link btn-xs" data-toggle="modal" data-target="#mdl_upload_logo"><span class="glyphicon glyphicon-picture"></span></button>
+                        <button style="float: right; text-decoration: none" class="btn btn-link btn-xs"><span style="color: red" class="glyphicon glyphicon-remove"></span></button>
+                </td>';
             echo '<td style="text-align: center"><a href="#" assign_manager id="assign_manager-'.$d->id.'" title="Assign Manager" style="text-decoration:none"><i class="fa fa-sitemap fa-lg"></i>&nbsp;&nbsp; '.get_manager($d->manager_uid).'</a></td>';
             echo '<td style="text-align: center"><a href="#" edit_clients id="edit_clients-'.$d->id.'" title="Edit '.$d->name.'"><i class="fa fa-pencil-square-o fa-lg"></i></a></td>';
             if($d->active){
@@ -123,3 +128,49 @@
         Are you sure?
     </p>
 </div><!-- #dialog-confirm -->
+
+<div class="modal fade" id="mdl_upload_logo" tabindex="-1" role="dialog" aria-labelledby="update_clientsLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="update_clientsLabel">Update organisation logo</h4>
+            </div>
+
+            <div class="modal-body">
+                <form class="form-horizontal" role="form" id="frm_upload_logo" method="post" action="{{url:site}}survey/set_logo">
+                    <?php //print_r($folders_tree)?>
+                    <div class="form-group">
+                        <label for="client_name" class="col-sm-4 control-label">Select Logo</label>
+                        <div class="col-sm-8">
+                            <select id="folder_select" class="form-control" name="folder">
+                                <?php
+                                foreach($file_folders as $folder){
+                                    $indent = repeater('&raquo; ', $folder->depth);
+                                    echo '<option value="'.$folder->id.'">'.$indent.$folder->name.'</option>';
+                                }
+                                ?>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form_inputs" id="survey-folder">
+                        <h3>Images</h3>
+                        <fieldset>
+                            <div id="image_list">
+
+                            </div>
+                        </fieldset>
+                    </div>
+
+                    <input type="hidden" id="client_id_to_set_logo" name="client_id" value="">
+                    <input type="hidden" id="user_id" name="user_id" value="{{ user:id }}">
+                </form>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" id="clients_popup_logo_close" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" id="save_clients_logo">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>

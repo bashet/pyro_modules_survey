@@ -29,6 +29,7 @@ class Survey extends Public_Controller {
 		$this->load->model('survey_m');
 		$this->lang->load('survey');
         $this->load->helper('survey');
+        $this->load->library('files/files');
 
         if(isset($this->current_user->id)){
             $this->participation   = $this->survey_m->get_current_participation($this->current_user->id);
@@ -671,15 +672,61 @@ class Survey extends Public_Controller {
             redirect($this->config->base_url());
             exit();
         }
+        $this->load->model('files/file_folders_m');
+
+        //get files folders
+        $file_folders = $this->file_folders_m->get_folders();
+        $folders_tree = array();
+        foreach($file_folders as $folder)
+        {
+            $indent = repeater('&raquo; ', $folder->depth);
+            $folders_tree[$folder->id] = $indent.$folder->name;
+        }
 
         $clients = $this->survey_m->get_all_clients();
 
         $this->template
             ->title($this->module_details['name'], 'manage clients')
-            ->set('clients', $clients)
             ->set_breadcrumb('Organisations')
+            ->set('clients', $clients)
+            ->set('file_folders', $file_folders)
+            ->set('folders_tree', $folders_tree)
             ->append_js('module::clients.js')
             ->build('clients');
+    }
+
+    public function get_images_in_folder($id, $options = array()) {
+
+        if (isset($options['offset'])){
+            $this->db->limit($options['offset']);
+        }
+
+        if (isset($options['limit'])){
+            $this->db->limit($options['limit']);
+        }
+
+        return $this->db
+            ->select('files.*')
+            ->where('folder_id', $id)
+            ->where('files.type', 'i')
+            ->get('files')
+            ->result();
+
+    }
+
+    public function ajax_select_folder($folder_id){
+        //load files model
+        $this->load->model('files/file_folders_m');
+
+        $folder = $this->file_folders_m->get($folder_id);
+
+        if (isset($folder->id)){
+            $folder->images = $this->get_images_in_folder($folder->id);
+
+            return $this->template->build_json($folder);
+        }
+
+        echo FALSE;
     }
 
     public function save_clients(){
@@ -1890,6 +1937,12 @@ class Survey extends Public_Controller {
                 echo '0';
             }
 
+        }
+    }
+
+    public function set_logo(){
+        if($data = json_decode(json_encode($this->input->post()))){
+            var_dump($data);
         }
     }
 }

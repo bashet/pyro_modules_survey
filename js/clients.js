@@ -132,4 +132,37 @@ $(function(){
         });
 
     });
+
+    $('button[set_logo]').click(function(){
+        var button_id = this.id;
+        var button_id_array = button_id.split('-');
+        var clients_id = button_id_array[1];
+        $('#client_id_to_set_logo').val(clients_id);
+    });
+
+    $('#folder_select').change(function(){
+        $.ajax({
+            type : 'GET',
+            url:base_url + 'index.php/survey/ajax_select_folder/' + $(this).val(),
+            dataType : 'json',
+            success: function(data){
+                if (data) {
+
+                    // remove images from last selection
+                    $('#image_list').empty();
+
+                    if (data.images) {
+
+                        $.each(data.images, function(i, image){
+                            $('#image_list').append(
+                                '<img class="dragable-img ui-widget-content" src="' + base_url + 'files/thumb/' + image.id + '" alt="' + image.name + '" title="Title: ' + image.name + '" data-id="'+image.id+'" data-des="'+image.description+'">'
+                            );
+                        });
+
+
+                    }
+                }
+            }
+        });
+    });
 });
