@@ -149,7 +149,10 @@ $(function(){
                 if (data) {
 
                     // remove images from last selection
-                    $('#image_list').empty();
+                    var image_list = $('#image_list');
+                    image_list.empty();
+
+                    image_list.append('<hr>');
 
                     if (data.images) {
 
@@ -163,8 +166,6 @@ $(function(){
                                 '</label>'
                             );
                         });
-
-
                     }
                 }
             }

@@ -19,12 +19,14 @@
         <?php
         $i = 1;
         foreach($clients as $d){
+
             echo '<tr>';
             echo '<td>'.$i.'</td>';
             echo '<td>'.$d->name.'</td>';
-            echo '<td>
-                        <button set_logo id="set_logo-'.$d->id.'" style="float: left; text-decoration: none" class="btn btn-link btn-xs" data-toggle="modal" data-target="#mdl_upload_logo"><span class="glyphicon glyphicon-picture"></span></button>
-                        <button style="float: right; text-decoration: none" class="btn btn-link btn-xs"><span style="color: red" class="glyphicon glyphicon-remove"></span></button>
+            echo '<td style="text-align: center">
+                        <button set_logo id="set_logo-'.$d->id.'" style="text-decoration: none;" class="btn btn-link btn-xs" data-toggle="modal" data-target="#mdl_upload_logo" title="'.$d->logo.'">
+                            <span class="glyphicon glyphicon-picture" '.(($d->logo) ? '' : 'style="color:red"' ).'></span>
+                        </button>
                 </td>';
             echo '<td style="text-align: center"><a href="#" assign_manager id="assign_manager-'.$d->id.'" title="Assign Manager" style="text-decoration:none"><i class="fa fa-sitemap fa-lg"></i>&nbsp;&nbsp; '.get_manager($d->manager_uid).'</a></td>';
             echo '<td style="text-align: center"><a href="#" edit_clients id="edit_clients-'.$d->id.'" title="Edit '.$d->name.'"><i class="fa fa-pencil-square-o fa-lg"></i></a></td>';
@@ -160,6 +162,8 @@
 
                             </div>
                         </fieldset>
+                        <hr>
+                        <label><input type="radio" name="image" value="default">Set default</label>
                     </div>
 
                     <input type="hidden" id="client_id_to_set_logo" name="client_id" value="">
