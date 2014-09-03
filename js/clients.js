@@ -170,4 +170,11 @@ $(function(){
             }
         });
     });
+
+    $('#save_clients_logo').button().click(function(){
+        $body = $("body");
+        $body.addClass("loading");
+        $('#mdl_upload_logo').modal('hide');
+        $('#frm_upload_logo').submit();
+    });
 });

@@ -1942,7 +1942,10 @@ class Survey extends Public_Controller {
 
     public function set_logo(){
         if($data = json_decode(json_encode($this->input->post()))){
-            var_dump($data);
+            $this->db->where('id', $data->client_id );
+            if($this->db->update('survey_clients', array('logo' => $data->image))){
+                redirect('survey/clients');
+            }
         }
     }
 }
