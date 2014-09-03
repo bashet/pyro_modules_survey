@@ -154,8 +154,13 @@ $(function(){
                     if (data.images) {
 
                         $.each(data.images, function(i, image){
+                            var my_image = '<img src="' + base_url + 'files/thumb/' + image.id + '" alt="' + image.name + '" title="Title: ' + image.name + '">';
+
                             $('#image_list').append(
-                                '<img class="dragable-img ui-widget-content" src="' + base_url + 'files/thumb/' + image.id + '" alt="' + image.name + '" title="Title: ' + image.name + '" data-id="'+image.id+'" data-des="'+image.description+'">'
+                                '<label>' +
+                                '<input type="radio" name="image" value="'+ image.id +'">' +
+                                    my_image +
+                                '</label>'
                             );
                         });
 
