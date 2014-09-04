@@ -203,9 +203,9 @@ if( ! function_exists('get_page_4') ){
     function get_page_4(){
         $html = '
 
-        <p><strong>Why could there be a difference between your views and those of your raters?</strong></p>
+        <p><strong>Why could there be a difference between your views and those of your evaluators?</strong></p>
 
-        <p>Your raters will only be able to rate you against the competencies based on the behaviours, attitudes or preferences
+        <p>Your evaluator will only be able to rate you against the competencies based on the behaviours, attitudes or preferences
         you typically demonstrate. Perhaps you think you are coming across in a certain way, but this is not how you are
         perceived by others. Alternatively, you may not be aware that you are behaving or doing certain things, so feedback
         provided by your colleagues will prompt a greater awareness of what they see you typically doing. Or perhaps, there
