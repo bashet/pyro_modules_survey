@@ -11,8 +11,18 @@ class MYPDF extends TCPDF {
 
     //Page header
     public function Header() {
+        $ci =& get_instance();
+        $ci->load->library('session');
         // Logo
-        $image_file = K_PATH_IMAGES.'CoLab-Logo.jpg';
+        if($ci->session->userdata('logo')){
+            $image_file = $ci->session->userdata('logo');
+        }else{
+            $image_file = K_PATH_IMAGES.'CoLab-Logo.jpg';
+        }
+
+        //$image_file = K_PATH_IMAGES.'CoLab-Logo.jpg';
+
+
         $this->Image($image_file, 175, 2, 30, '', 'JPG', '', 'T', false, 300, '', false, false, 0, false, false, false);
         // Set font
         $this->SetFont('helvetica', 'B', 20);

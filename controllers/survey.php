@@ -1106,10 +1106,11 @@ class Survey extends Public_Controller {
 
         if(( ! $missing_fields) && ( ! $all_empty) && ($duplicate_entry == '') && ($data_exist == '') && ($total_entered >= 3) && ( ! $error)){
             $attempt = array(
-                'user_id' => $this->current_user->id,
-                'programme_id' => $this->programme->id,
-                'survey_id' => $this->session->userdata('survey_id'),
-                'create_date' => time(),
+                'user_id'       => $this->current_user->id,
+                'programme_id'  => $this->programme->id,
+                'survey_id'     => $this->session->userdata('survey_id'),
+                'client_id'     => $this->client->id,
+                'create_date'   => time(),
             );
 
             if($this->db->insert('survey_attempt', $attempt)){
@@ -1433,6 +1434,7 @@ class Survey extends Public_Controller {
         }
         $this->load->helper('pdf');
         $this->load->helper('report');
+        $this->load->library('session');
 
         $data = array();
 
@@ -1443,6 +1445,19 @@ class Survey extends Public_Controller {
         $data['programme']  = $programme;
         $survey             = get_survey_by_id($attempt->survey_id);
         $data['survey']     = $survey;
+
+        $client             = get_client_by_id($attempt->client_id);
+        //var_dump($client);
+        if($client->logo){
+            $logo           = $this->config->base_url().'files/thumb/'.$client->logo;
+            $this->session->set_userdata(array('logo' => $logo));
+        }else{
+            $logo           = "";
+            $this->session->unset_userdata(array('logo' => $logo ));
+        }
+
+
+
 
         if($this->current_user->group == 'user'){
             $user_id = $this->current_user->id;
