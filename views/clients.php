@@ -148,6 +148,7 @@
                         <label for="client_name" class="col-sm-4 control-label">Select Logo</label>
                         <div class="col-sm-8">
                             <select id="folder_select" class="form-control" name="folder">
+                                <option value=""></option>
                                 <?php
                                 foreach($file_folders as $folder){
                                     $indent = repeater('&raquo; ', $folder->depth);
