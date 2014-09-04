@@ -11,6 +11,7 @@
             {{ if user:group == 'admin'}}
             <th>Organisation</th>
             {{ endif }}
+            <th>Programme</th>
             <th>Active</th>
             <th>Attempt Remaining</th>
             <th>History</th>
@@ -22,8 +23,9 @@
         if($users){
             $i = 1;
             foreach($users as $user){
-                $participation = get_current_participation_by_user($user->id);
-                $attempt_remaining = $participation->allowed - get_total_attempts_by_user_n_programme($participation->uid, $participation->pid);
+                $participation      = get_current_participation_by_user($user->id);
+                $attempt_remaining  = $participation->allowed - get_total_attempts_by_user_n_programme($participation->uid, $participation->pid);
+                $programme          = get_programme_by_id($participation->pid);
                 echo '<tr>';
                 echo '<td style="text-align: center">'.$i.'</td>';
                 echo '<td>'.$user->display_name.'</td>';
@@ -32,6 +34,8 @@
                     <?php echo '<td>'.$user->org.'</td>';?>
                   {{ endif }}
                 <?php
+
+                echo '<td>'.$programme->name.'</td>';
 
                 if($user->active){
                     echo '<td style="text-align: center"><button activate id="activate_user-'.$user->id.'-0" class="btn btn-link"><span class="glyphicon glyphicon-ok"></span></button></td>';
