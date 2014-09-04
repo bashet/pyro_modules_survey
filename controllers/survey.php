@@ -1970,4 +1970,19 @@ class Survey extends Public_Controller {
 
         }
     }
+
+    public function export_user($client_id){
+        $this->load->dbutil();
+        $this->load->helper('download');
+        $sql = "SELECT distinct sp.uid as user_id, pro.first_name as first_name, pro.last_name as last_name, u.email as email
+                FROM default_survey_participant  sp
+                join default_users u
+                on u.id = sp.uid
+                join default_profiles pro
+                on sp.uid = pro.user_id
+                where sp.cid=$client_id";
+        $query = $this->db->query($sql);
+        $data = $this->dbutil->csv_from_result($query, ',');
+        force_download('CSV_Report.csv', $data);
+    }
 }

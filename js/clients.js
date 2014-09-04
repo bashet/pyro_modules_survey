@@ -181,4 +181,6 @@ $(function(){
         $('#mdl_upload_logo').modal('hide');
         $('#frm_upload_logo').submit();
     });
+
+
 });
