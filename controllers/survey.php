@@ -1413,10 +1413,6 @@ class Survey extends Public_Controller {
             $all_submitted = false;
         }
 
-
-
-
-
         $this->template
             ->title($this->module_details['name'], 'report')
             ->set_breadcrumb('Report')
@@ -1424,6 +1420,18 @@ class Survey extends Public_Controller {
             ->set('all_submitted', $all_submitted)
             ->set('self_submit', $self_submit)
             ->build('report');
+    }
+
+    public function report_viewer($attempt_id = ''){
+
+        $this->template
+            ->title($this->module_details['name'], 'Report')
+            ->set_layout('report')
+            ->set('attempt_id', $attempt_id)
+            ->set('base_url', $this->config->base_url())
+            ->append_css('module::loader.css')
+            ->append_js('module::pace.min.js')
+            ->build('report_viewer');
     }
 
     public function view_report($attempt_id = ''){

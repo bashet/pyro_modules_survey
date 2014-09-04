@@ -462,7 +462,9 @@ if(! function_exists('get_report_pdf')){
 
         $attempt = get_current_attempt_by_id($data->attempt_id);
         if($attempt->report_ready){
-            $result = '<a href="{{ url:site }}survey/view_report/'.$data->attempt_id.'" target="_blank"><span class="glyphicon glyphicon-list-alt"></span>&nbsp;&nbsp;&nbsp;View this report</a>';
+            //$result = '<a href="{{ url:site }}survey/view_report/'.$data->attempt_id.'" target="_blank"><span class="glyphicon glyphicon-list-alt"></span>&nbsp;&nbsp;&nbsp;View this report</a>';
+            $result = '<a href="{{ url:site }}survey/report_viewer/'.$data->attempt_id.'" target="_blank"><span class="glyphicon glyphicon-list-alt"></span>&nbsp;&nbsp;&nbsp;View this report</a>';
+            //$result = '<button  view_report class="btn btn-sm btn-info" id="report-'.$data->attempt_id.'"><span class="glyphicon glyphicon-list-alt"></span>&nbsp;&nbsp;&nbsp;View this report</a>';
         }else{
             $result = 'Report is not ready yet';
         }
