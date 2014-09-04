@@ -67,19 +67,19 @@ if( ! function_exists('get_page_2') ){
         covers the following themes:</p>
 
         <p>The information provided will help you compare your own view of your current leadership ability as well as the views
-        of your raters. This will help you to make informed choices regarding your leadership development focussing on your
+        of your evaluators. This will help you to make informed choices regarding your leadership development focussing on your
         strengths and areas for development.</p>
 
         <p>This report is organised into a number of sections:</p>
         <ul>
-            <li>Your raters - this shows how many people completed rating of your competencies</li>
+            <li>Your evaluators - this shows how many people completed rating of your competencies</li>
             <li>Your competency summary tables - these show your overall rating for each competency</li>
             <li>Your strengths – detail on your five highest scoring competencies</li>
             <li>Your areas for development - detail on your five lowest scoring competencies</li>
-            <li>Competency detail - this provides definitions, levels, and a breakdown of responses by rater group for each
+            <li>Competency detail - this provides definitions, levels, and a breakdown of responses by evaluator group for each
                 individual competency</li>
             <li>Competency frequency table - this shows the frequency of specific scoring of each competency, broken down by
-                type of rater</li>
+                type of evaluator</li>
         </ul>
 
 
