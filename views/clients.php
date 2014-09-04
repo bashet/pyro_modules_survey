@@ -24,7 +24,7 @@
             echo '<td>'.$i.'</td>';
             echo '<td>'.$d->name.'</td>';
             echo '<td style="text-align: center">
-                        <button set_logo id="set_logo-'.$d->id.'" style="text-decoration: none;" class="btn btn-link btn-xs" data-toggle="modal" data-target="#mdl_upload_logo" title="'.$d->logo.'">
+                        <button set_logo id="set_logo-'.$d->id.'" style="text-decoration: none;" class="btn btn-link btn-xs" data-toggle="modal" data-target="#mdl_upload_logo" title="'.(($d->logo)? 'Logo found':'Logo not found').'">
                             <span class="glyphicon glyphicon-picture" '.(($d->logo) ? '' : 'style="color:red"' ).'></span>
                         </button>
                 </td>';

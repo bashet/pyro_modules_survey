@@ -157,14 +157,17 @@ $(function(){
                     if (data.images) {
 
                         $.each(data.images, function(i, image){
-                            var my_image = '<img src="' + base_url + 'files/thumb/' + image.id + '" alt="' + image.name + '" title="Title: ' + image.name + '">';
+                            if((image.extension == '.jpg') || (image.extension == '.JPG')){
+                                var my_image = '<img src="' + base_url + 'files/thumb/' + image.id + '" alt="' + image.name + '" title="Title: ' + image.name + '">';
 
-                            $('#image_list').append(
-                                '<label>' +
-                                '<input type="radio" name="image" value="'+ image.id +'">' +
-                                    my_image +
-                                '</label>'
-                            );
+                                $('#image_list').append(
+                                    '<label>' +
+                                        '<input type="radio" name="image" value="'+ image.id +'">' +
+                                        my_image +
+                                        '</label>'
+                                );
+                            }
+
                         });
                     }
                 }
