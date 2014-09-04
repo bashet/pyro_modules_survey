@@ -5,47 +5,50 @@
 
         <p><strong>NB: Please avoid opening multiple diagnostics simultaneously</strong></p>
     </div>
-    <table data-role="table" id="movie-table" data-mode="reflow" class="ui-responsive table-stroke">
-        <thead>
-        <tr>
-            <th>SN</th>
-            <th>Name of the diagnostic</th>
-            <th>Start date</th>
-            <th>Participant completed</th>
-            <th>Participant submitted</th>
-            <th>Completion date</th>
-            <th>Report</th>
-        </tr>
-        </thead>
-        <tbody>
-        <?php
-        if($user_history){
-            $i = 1;
-            foreach($user_history as $history){
-                echo '<tr>';
-                echo '<td>'.$i.'</td>';
-                echo '<td>'.$history->programme_name.'</td>';
-                echo '<td>'.date('d/m/Y', $history->start_date).'</td>';
-                if($history->finished){
-                    echo '<td style="text-align:center; color: #008000"><i class="fa fa-check"></i></td>';
-                }else{
-                    echo '<td style="text-align:center; color: red"><i class="fa fa-times"></i></td>';
-                }
+    <div class="table-responsive">
+        <table class="table table-bordered table-striped">
+            <thead>
+            <tr>
+                <th>SN</th>
+                <th>Name of the diagnostic</th>
+                <th>Start date</th>
+                <th>Participant completed</th>
+                <th>Participant submitted</th>
+                <th>Completion date</th>
+                <th>Report</th>
+            </tr>
+            </thead>
+            <tbody>
+            <?php
+            if($user_history){
+                $i = 1;
+                foreach($user_history as $history){
+                    echo '<tr>';
+                    echo '<td>'.$i.'</td>';
+                    echo '<td>'.$history->programme_name.'</td>';
+                    echo '<td>'.date('d/m/Y', $history->start_date).'</td>';
+                    if($history->finished){
+                        echo '<td style="text-align:center; color: #008000"><i class="fa fa-check"></i></td>';
+                    }else{
+                        echo '<td style="text-align:center; color: red"><i class="fa fa-times"></i></td>';
+                    }
 
-                if($history->submitted){
-                    echo '<td style="text-align:center; color: #008000"><i class="fa fa-check"></i></td>';
-                }else{
-                    echo '<td style="text-align:center; color: red"><i class="fa fa-times"></i></td>';
-                }
+                    if($history->submitted){
+                        echo '<td style="text-align:center; color: #008000"><i class="fa fa-check"></i></td>';
+                    }else{
+                        echo '<td style="text-align:center; color: red"><i class="fa fa-times"></i></td>';
+                    }
 
-                echo '<td>'.(($history->submit_date)? date('d/m/Y', $history->submit_date):'').'</td>';
-                echo '<td>'.get_report_pdf($history).'</td>';
-                echo '</tr>';
-                $i++;
+                    echo '<td>'.(($history->submit_date)? date('d/m/Y', $history->submit_date):'').'</td>';
+                    echo '<td>'.get_report_pdf($history).'</td>';
+                    echo '</tr>';
+                    $i++;
+                }
             }
-        }
-        ?>
-        </tbody>
-    </table>
+            ?>
+            </tbody>
+        </table>
+    </div>
+
 </div>
 <!--<div id="targetDiv" style="width: 100%"></div>-->
