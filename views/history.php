@@ -5,7 +5,7 @@
 
         <p><strong>NB: Please avoid opening multiple diagnostics simultaneously</strong></p>
     </div>
-    <table class="table table-bordered table-hove">
+    <table data-role="table" id="movie-table" data-mode="reflow" class="ui-responsive table-stroke">
         <thead>
         <tr>
             <th>SN</th>
