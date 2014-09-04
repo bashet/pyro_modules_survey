@@ -271,8 +271,8 @@ if( ! function_exists('get_page_5') ){
         }
         </style>
 
-        <p><strong>Your raters</strong></p>
-        <p>You had the following number of raters complete the survey:</p>
+        <p><strong>Your evaluator</strong></p>
+        <p>You had the following number of evaluators complete the survey:</p>
         <table border="1" cellpadding="4" cellspacing="1">
             <tr bgcolor="#f0f8ff">
                 <td width="150">Number of respondents</td>
