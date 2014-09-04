@@ -1449,7 +1449,7 @@ class Survey extends Public_Controller {
         $client             = get_client_by_id($attempt->client_id);
         //var_dump($client);
         if($client->logo){
-            $logo           = $this->config->base_url().'files/thumb/'.$client->logo;
+            $logo           = $this->config->base_url().'index.php/files/large/'.$client->logo;
             $this->session->set_userdata(array('logo' => $logo));
         }else{
             $logo           = "";

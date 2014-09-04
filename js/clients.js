@@ -158,8 +158,7 @@ $(function(){
 
                         $.each(data.images, function(i, image){
                             if((image.extension == '.jpg') || (image.extension == '.JPG')){
-                                //{{ url:site }}files/large/37abcdf62251be42f7cba530b32d6614.jpg
-                                var my_image = '<img src="' + base_url + 'files/large/' + image.id + '" alt="' + image.name + '" title="Title: ' + image.name + '">';
+                                var my_image = '<img src="' + base_url + 'index.php/files/thumb/' + image.id + '" alt="' + image.name + '" title="Title: ' + image.name + '">';
 
                                 $('#image_list').append(
                                     '<label>' +
