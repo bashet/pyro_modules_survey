@@ -97,7 +97,7 @@ $html = get_page_2();
 $pdf->writeHTML($html, true, false, true, false, '');
 //======================================= page 3 ===========================================
 $pdf->AddPage();
-$html = get_page_3();
+$html = get_page_3($total_questions, $categories);
 $pdf->writeHTML($html, true, false, true, false, '');
 //======================================= page 4 ===========================================
 $pdf->AddPage();

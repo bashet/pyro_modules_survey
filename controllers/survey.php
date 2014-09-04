@@ -1479,6 +1479,7 @@ class Survey extends Public_Controller {
         $answers = get_existing_answer($answer);
         $data['user_answer'] = $answers;
         $data['total_evaluators'] = get_total_evaluators_by_attempt_id($attempt_id);
+        $data['total_questions']  = get_total_question_in_survey($survey->id);
 
         $this->load->view('pdf', $data);
     }

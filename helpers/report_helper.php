@@ -104,7 +104,7 @@ if( ! function_exists('get_page_2') ){
 }
 
 if( ! function_exists('get_page_3') ){
-    function get_page_3(){
+    function get_page_3($total_questions, $categories){
         $html = '
         <style>
             th {
@@ -160,12 +160,13 @@ if( ! function_exists('get_page_3') ){
         and where there might be areas for you to develop.They are not like an examination result or performance
         assessment.</p>
         <p><strong>Competency clusters</strong></p>
-        <p>The 16 competencies in the 360 leadership diagnostic are structured into three clusters:</p>
-        <ul>
-            <li>Educational Excellence</li>
-            <li>Operational Management</li>
-            <li>Strategic leadership</li>
-        </ul>
+        <p>The '.$total_questions.' competencies in the 360 leadership diagnostic are structured into three clusters:</p>
+        <ul>';
+            foreach($categories as $cat){
+                $c = get_category_by_id($cat);
+                $html .= '<li>'.$c->name.'</li>';
+            }
+        $html .= '</ul>
 
         <p>All the competencies measured in this report are presented and organised these clusters. When interpreting your
         feedback it may be worthwhile for you to consider whether some clusters are more important to you in your
