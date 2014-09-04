@@ -306,11 +306,11 @@ if( ! function_exists('get_page_10') ){
         $html = '
         <p><strong>Your competency detail report</strong></p>
         <p>The competency detail report has a section for each competency in the same order as shown in your competency
-        summary table. Each section shows the average of responses given by each rater group for that competency in a
-        graph. The responses will only be separated out when you have sufficient raters of each category.</p>
+        summary table. Each section shows the average of responses given by each evaluator group for that competency in a
+        graph. The responses will only be separated out when you have sufficient evaluators of each category.</p>
 
         <p>To the right of the graph is a record of the number of ratings given for you at each level for that competency. If you
-        selected your manager as a rater, their ratings are counted within the “peers” group.</p>
+        selected your manager as a evaluator, their ratings are counted within the “peers” group.</p>
 
         <p>The section also describes the competency and the levels within in it, just as you saw in the diagnostic itself.</p>
         ';
