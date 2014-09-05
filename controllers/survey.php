@@ -1427,9 +1427,10 @@ class Survey extends Public_Controller {
         $base_url = $this->config->base_url();
 
         $file = $base_url.'reports/'.$attempt_id.'.pdf';
+        $found = 1;
 
         if( ! file_exists('./reports/'.$attempt_id.'.pdf')){
-            $this->view_report($attempt_id);
+            $found = 0;
         }
 
 
@@ -1439,6 +1440,7 @@ class Survey extends Public_Controller {
             ->set('attempt_id', $attempt_id)
             ->set('base_url', $this->config->base_url())
             ->set('file', $file)
+            ->set('found', $found)
             ->append_css('module::loader.css')
             ->append_js('module::pace.min.js')
             ->build('report_viewer');

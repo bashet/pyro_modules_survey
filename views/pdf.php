@@ -454,5 +454,6 @@ $pdf->writeHTML($html, true, false, true, false, '');
 $pdf->lastPage();
 
 //Close and output PDF document
-$pdf->Output($file, 'F');
+$pdf->Output($file, 'F'); // save for next view
+$pdf->Output('Report.pdf', 'I'); // show now
 
