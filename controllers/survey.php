@@ -1424,11 +1424,21 @@ class Survey extends Public_Controller {
 
     public function report_viewer($attempt_id = ''){
 
+        $base_url = $this->config->base_url();
+
+        $file = $base_url.'reports/'.$attempt_id.'.pdf';
+
+        if( ! file_exists('./reports/'.$attempt_id.'.pdf')){
+            $this->view_report($attempt_id);
+        }
+
+
         $this->template
             ->title($this->module_details['name'], 'Report')
             ->set_layout('report')
             ->set('attempt_id', $attempt_id)
             ->set('base_url', $this->config->base_url())
+            ->set('file', $file)
             ->append_css('module::loader.css')
             ->append_js('module::pace.min.js')
             ->build('report_viewer');
@@ -1488,6 +1498,7 @@ class Survey extends Public_Controller {
         $data['user_answer'] = $answers;
         $data['total_evaluators'] = get_total_evaluators_by_attempt_id($attempt_id);
         $data['total_questions']  = get_total_question_in_survey($survey->id);
+        $data['file']             = './reports/'.$attempt_id.'.pdf';
 
         $this->load->view('pdf', $data);
     }

@@ -454,5 +454,5 @@ $pdf->writeHTML($html, true, false, true, false, '');
 $pdf->lastPage();
 
 //Close and output PDF document
-$pdf->Output('Report_360_leadershipCo_Lab.pdf', 'I');
+$pdf->Output($file, 'F');
 
