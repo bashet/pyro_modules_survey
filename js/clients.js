@@ -2,6 +2,10 @@
 $(function(){
     $(document).ready(function() {
         $('#all_clients').dataTable();
+
+        $('button[set_logo]').tooltipster({
+            contentAsHTML: true
+        });
     } );
 
     $('#save_clients').button().click(function(){

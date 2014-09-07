@@ -25,8 +25,14 @@
             echo '<td>'.$i.'</td>';
             echo '<td>'.$d->name.'</td>';
             echo '<td style="text-align: center">
-                        <button set_logo id="set_logo-'.$d->id.'" style="text-decoration: none;" class="btn btn-link btn-xs" data-toggle="modal" data-target="#mdl_upload_logo" title="'.(($d->logo)? 'Logo found':'Logo not found').'">
-                            <span class="glyphicon glyphicon-picture" '.(($d->logo) ? '' : 'style="color:red"' ).'></span>
+                        <button set_logo
+                            id="set_logo-'.$d->id.'"
+                            style="text-decoration:none"
+                            class="btn btn-link btn-xs"
+                            data-toggle="modal"
+                            data-target="#mdl_upload_logo"
+                            title="'.(($d->logo)?'&lt;img src=&quot;'.$this->config->base_url().'index.php/files/thumb/'.$d->logo.'&quot; /&gt;':'Default logo used').'">
+                                <span class="glyphicon glyphicon-picture" '.(($d->logo) ? '' : 'style="color:red"' ).'></span>
                         </button>
                 </td>';
             echo '<td style="text-align: center"><a href="#" assign_manager id="assign_manager-'.$d->id.'" title="Assign Manager" style="text-decoration:none"><i class="fa fa-sitemap fa-lg"></i>&nbsp;&nbsp; '.get_manager($d->manager_uid).'</a></td>';
