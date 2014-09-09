@@ -36,6 +36,8 @@ if( ! function_exists('get_page_1')){
         $html  .= '<br>';
         $html  .= '<span style="font-size:2em">'.$user->first_name . ' ' . $user->last_name.'</span>';
         $html  .= '<br>';
+        $html  .= '<span>Cohort: '.$user->cohort . '</span>';
+        $html  .= '<br>';
         $html  .= '<span>'.$programme->name.' - '.numToText($i).' attempt</span>';
         $html  .= '<br>';
         $html  .= '<span>'.date('M d, Y', $attempt->finished_date).'</span>';
