@@ -11,6 +11,7 @@
             {{ if user:group == 'admin'}}
             <th>Organisation</th>
             {{ endif }}
+            <th>Cohort</th>
             <th>Programme</th>
             <th>Active</th>
             <th>Attempt Remaining</th>
@@ -35,6 +36,7 @@
                   {{ endif }}
                 <?php
 
+                echo '<td>'.$user->cohort.'</td>';
                 echo '<td>'.$programme->name.'</td>';
 
                 if($user->active){

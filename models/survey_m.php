@@ -188,7 +188,7 @@ class survey_m extends MY_Model {
 
     public function get_all_users_for_admin(){
 
-        $sql = 'select u.id as id, u.email as email, c.name as org, u.active as active, u.last_login as last_login, p.display_name as display_name
+        $sql = 'select u.id as id, u.email as email, c.name as org, u.active as active, u.last_login as last_login, p.display_name as display_name, p.cohort as cohort
                 from default_users u
                 join default_profiles p
                 on p.user_id = u.id
