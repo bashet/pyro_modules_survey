@@ -2002,6 +2002,7 @@ class Survey extends Public_Controller {
                       pro.last_name as last_name,
                       u.email as email,
                       org.name as organisation,
+                      pro.cohort as cohort,
                       ifnull(attempt.programme,prog.name) as programme,
                       ifnull(attempt.total_attempt,0) as total_attempt,
                       DATE_FORMAT(pro.created, '%d-%m-%Y') as registration_date
@@ -2034,6 +2035,7 @@ class Survey extends Public_Controller {
                       pro.last_name as last_name,
                       u.email as email,
                       org.name as organisation,
+                      pro.cohort as cohort,
                       ifnull(attempt.programme,prog.name) as programme,
                       ifnull(attempt.total_attempt,0) as total_attempt,
                       DATE_FORMAT(pro.created, '%d-%m-%Y') as registration_date
