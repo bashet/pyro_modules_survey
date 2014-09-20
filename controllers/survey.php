@@ -1569,6 +1569,19 @@ class Survey extends Public_Controller {
         $answer_data->survey_id  = $this->survey->id;
 
         $ex_ans = get_existing_answer($answer_data);
+        if($this->attempt){
+            if( ! $this->attempt->report_ready){
+                if($ex_ans){
+                    $my_answer = json_decode($ex_ans->answers);
+                    if(count((array)$my_answer) == $this->total_questions){
+                        $this->db->where('id', $ex_ans->id);
+                        $this->db->update('survey_user_answer', array('finished' => 1));
+                    }
+                }
+            }
+        }
+
+        $ex_ans = get_existing_answer($answer_data);// re initialisation
 
         $my_answer = json_decode($ex_ans->answers);
 
