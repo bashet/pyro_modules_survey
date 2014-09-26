@@ -14,7 +14,8 @@
                 <th>Start date</th>
                 <th>Participant completed</th>
                 <th>Participant submitted</th>
-                <th>Completion date</th>
+                <th>Completion date (user)</th>
+                <th>Evaluators</th>
                 <th>Report</th>
             </tr>
             </thead>
@@ -40,6 +41,7 @@
                     }
 
                     echo '<td>'.(($history->submit_date)? date('d/m/Y', $history->submit_date):'').'</td>';
+                    echo '<td>'.get_submitted_evaluators($history->id).'/'.get_total_evaluators_by_attempt_id($history->id).'</td>';
                     echo '<td>'.get_report_pdf($history).'</td>';
                     echo '</tr>';
                     $i++;

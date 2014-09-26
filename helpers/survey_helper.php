@@ -461,15 +461,29 @@ if(! function_exists('get_report_pdf')){
     function get_report_pdf($data){
         // $data has all the fields from user_answer table
 
-        $attempt = get_current_attempt_by_id($data->attempt_id);
+        $attempt = get_current_attempt_by_id($data->id);
         if($attempt->report_ready){
-            //$result = '<a href="{{ url:site }}survey/view_report/'.$data->attempt_id.'" target="_blank"><span class="glyphicon glyphicon-list-alt"></span>&nbsp;&nbsp;&nbsp;View this report</a>';
-            $result = '<a href="{{ url:site }}survey/report_viewer/'.$data->attempt_id.'" target="_blank"><span class="glyphicon glyphicon-list-alt"></span>&nbsp;&nbsp;&nbsp;View this report</a>';
-            //$result = '<button  view_report class="btn btn-sm btn-info" id="report-'.$data->attempt_id.'"><span class="glyphicon glyphicon-list-alt"></span>&nbsp;&nbsp;&nbsp;View this report</a>';
+            $result = '<a
+                            href="{{ url:site }}survey/report_viewer/'.$data->id.'"
+                            target="_blank"
+                        >
+                        <span class="glyphicon glyphicon-list-alt"></span>
+                        &nbsp;&nbsp;&nbsp;View this report
+                        </a>';
         }else{
             $result = 'Report is not ready yet';
         }
         return $result;
+    }
+}
+
+if(! function_exists('get_submitted_evaluators')){
+    function get_submitted_evaluators($attempt_id){
+        $ci =& get_instance();
+
+        $query  = $ci->db->query("SELECT count(id)as total FROM default_survey_evaluators where attempt_id=$attempt_id and !isnull(answers)");
+        $record = $query->row();
+        return $record->total;
     }
 }
 
