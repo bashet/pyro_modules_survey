@@ -459,6 +459,7 @@ if(! function_exists('get_user_answer_history')){
 
 if(! function_exists('get_report_pdf')){
     function get_report_pdf($data){
+        $ci =& get_instance();
         // $data has all the fields from user_answer table
 
         $attempt = get_current_attempt_by_id($data->id);
@@ -471,7 +472,23 @@ if(! function_exists('get_report_pdf')){
                         &nbsp;&nbsp;&nbsp;View this report
                         </a>';
         }else{
-            $result = 'Report is not ready yet';
+            if($ci->current_user->group != 'user'){
+                $result = '<a
+                            href="{{ url:site }}survey/report_viewer/'.$data->id.'"
+                            target="_blank"
+                        >
+                        &nbsp;Generate report
+                        </a>';
+                if(get_submitted_evaluators($data->id) >= 3){
+                    $result = 'Report is not ready yet - '.$result;
+                }else{
+                    $result = 'Report is not ready yet';
+                }
+
+            }else{
+                $result = 'Report is not ready yet';
+            }
+
         }
         return $result;
     }
@@ -481,7 +498,7 @@ if(! function_exists('get_submitted_evaluators')){
     function get_submitted_evaluators($attempt_id){
         $ci =& get_instance();
 
-        $query  = $ci->db->query("SELECT count(id)as total FROM default_survey_evaluators where attempt_id=$attempt_id and !isnull(answers)");
+        $query  = $ci->db->query("SELECT count(id)as total FROM default_survey_evaluators where attempt_id=$attempt_id and answers !=''");
         $record = $query->row();
         return $record->total;
     }
