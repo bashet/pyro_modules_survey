@@ -1466,6 +1466,18 @@ class Survey extends Public_Controller {
         $survey             = get_survey_by_id($attempt->survey_id);
         $data['survey']     = $survey;
 
+        $attempt_update = array();
+        if( ! $attempt->finished_date){
+            $attempt_update['finished_date'] = time();
+        }
+        if( ! $attempt->report_ready){
+            $attempt_update['report_ready'] = 1;
+        }
+        if($attempt_update){
+            $this->db->where('id', $attempt->id);
+            $this->db->update('survey_attempt', $attempt_update);
+        }
+
         $client             = get_client_by_id($attempt->client_id);
         //var_dump($client);
         if($client->logo){
