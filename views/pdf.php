@@ -91,7 +91,7 @@ $pl_image = 'http://test.leadershipcolab360.org.uk/addons/shared_addons/modules/
 $pl_dtl1  = 'http://test.leadershipcolab360.org.uk/addons/shared_addons/modules/survey/img/details1.jpg';
 $pl_dtl2  = 'http://test.leadershipcolab360.org.uk/addons/shared_addons/modules/survey/img/details2.jpg';
 
-
+/*
 //======================================= page 1 ===========================================
 $pdf->AddPage();
 $html = get_page_1($all_attempt, $programme, $attempt);
@@ -312,7 +312,7 @@ $pdf->writeHTML($html, true, false, true, false, '');
 //======================================= page 11 ===========================================
 $pdf->AddPage();
 $html = get_page_10();
-$pdf->writeHTML($html, true, false, true, false, '');
+$pdf->writeHTML($html, true, false, true, false, '');*/
 //======================================= page 12 ===========================================
 foreach($categories as $cat_id){
     $cat = get_category_by_id($cat_id);
@@ -343,7 +343,7 @@ foreach($categories as $cat_id){
                     $html .= '</tr>';
                     $html .= '<tr>';
                     $html .= '<td>';
-                    $html .= '<img src="'.$pl_dtl1.'" height="245">';
+                    $html .= '<img src="'.$pl_dtl1.'" height="185">';
                     $html .= '</td>';
                     $html .= '<td>';
                     $html .= '<br><br><p><strong>Number of ratings at each level</strong><br>
@@ -354,13 +354,13 @@ foreach($categories as $cat_id){
                     $html .= '</td>';
                     $html .= '</tr>';
                     $html .= '<tr>';
-                    $html .= '<td width="45%">';
+                    $html .= '<td width="35%">';
                     $html .= '<p><strong>'.$q->title.'</strong></p>';
                     $html .= '<strong>Definition</strong>'.$q->description;
                     $html .= '<strong>Why it matters</strong>'.$q->matter;
                     $html .= '<strong>Key question:</strong>'.$q->text2;
                     $html .= '</td>';
-                    $html .= '<td width="55%">';
+                    $html .= '<td width="65%">';
                     $html .= '<strong>Response 4 - '.$answer->option_4_label.'</strong>';
                     $html .= $answer->option_4;
                     $html .= '<strong>Response 3 - '.$answer->option_3_label.'</strong>';
