@@ -849,7 +849,7 @@ if( !function_exists('get_self_marking_details') ){
 
         $my_answer = json_decode($answers->answers, true);
 
-        return ((56*$my_answer[$q_id])/4);
+        return ((42*$my_answer[$q_id])/4);
     }
 }
 
@@ -864,7 +864,7 @@ if( ! function_exists('get_evaluators_total_details') ){
             $total_evaluator = $total_evaluator + 1;
         }
 
-        return ((56*($total_answer/$total_evaluator))/4);
+        return ((42*($total_answer/$total_evaluator))/4);
     }
 }
 

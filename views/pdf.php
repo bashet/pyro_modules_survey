@@ -91,7 +91,7 @@ $pl_image = 'http://test.leadershipcolab360.org.uk/addons/shared_addons/modules/
 $pl_dtl1  = 'http://test.leadershipcolab360.org.uk/addons/shared_addons/modules/survey/img/details1.jpg';
 $pl_dtl2  = 'http://test.leadershipcolab360.org.uk/addons/shared_addons/modules/survey/img/details2.jpg';
 
-/*
+
 //======================================= page 1 ===========================================
 $pdf->AddPage();
 $html = get_page_1($all_attempt, $programme, $attempt);
@@ -312,7 +312,7 @@ $pdf->writeHTML($html, true, false, true, false, '');
 //======================================= page 11 ===========================================
 $pdf->AddPage();
 $html = get_page_10();
-$pdf->writeHTML($html, true, false, true, false, '');*/
+$pdf->writeHTML($html, true, false, true, false, '');
 //======================================= page 12 ===========================================
 foreach($categories as $cat_id){
     $cat = get_category_by_id($cat_id);
@@ -328,31 +328,33 @@ foreach($categories as $cat_id){
                     $html = '
                             <style>
                                 td {
-                                    border: 2px solid #ffffff;
+                                    border: 1px solid #ffffff;
                                 }
                             </style>';
 
                     $html .= '<table border="0" cellpadding="6" cellspacing="1">';
                     $html .= '<tr>';
-                    $html .= '<td>';
-                    $html .= '<p><strong>'.$cat->name.'</strong></p>';
-                    $html .= '<p>Category: '.$q->title.'</p>';
-                    $html .= '</td>';
-                    $html .= '<td>';
-                    $html .= '</td>';
+                        $html .= '<td width="90%">';
+                        $html .= '<p><strong>'.$cat->name.'</strong></p>';
+                        $html .= '<p>Category: '.$q->title.'</p>';
+                        $html .= '</td>';
+
+                        $html .= '<td width="10%">';
+                        $html .= '</td>';
                     $html .= '</tr>';
                     $html .= '<tr>';
-                    $html .= '<td>';
-                    $html .= '<img src="'.$pl_dtl1.'" height="185">';
-                    $html .= '</td>';
-                    $html .= '<td>';
-                    $html .= '<br><br><p><strong>Number of ratings at each level</strong><br>
+                        $html .= '<td width="50%">';
+                        $html .= '<img src="'.$pl_dtl1.'" height="185">';
+                        $html .= '</td>';
+
+                        $html .= '<td width="50%">';
+                        $html .= '<br><br><p><strong>Number of ratings at each level</strong><br>
                                                 <br>Response 4 x '.get_evaluators_total_num($evaluators, $q->id, 4).'<br>
                                                 <br>Response 3 x '.get_evaluators_total_num($evaluators, $q->id, 3).'<br>
                                                 <br>Response 2 x '.get_evaluators_total_num($evaluators, $q->id, 2).'<br>
                                                 <br>Response 1 x '.get_evaluators_total_num($evaluators, $q->id, 1).'</p>';
-                    $html .= '</td>';
-                    $html .= '</tr>';
+                        $html .= '</td>';
+                    $html .= '</tr>';//--------------------------------
                     $html .= '<tr>';
                     $html .= '<td width="35%">';
                     $html .= '<p><strong>'.$q->title.'</strong></p>';
@@ -373,14 +375,14 @@ foreach($categories as $cat_id){
                     $html .= '</tr>';
 
                     $html .= '</table>';
-                    $params = TCPDF_STATIC::serializeTCPDFtagParameters(array(28, 110.8, 20, -get_evaluators_total_details($evaluators, $q->id), 'DF', array(0,0,0,0), array(0,128,225)));
+                    $params = TCPDF_STATIC::serializeTCPDFtagParameters(array(20, 96, 20, -get_evaluators_total_details($evaluators, $q->id), 'DF', array(0,0,0,0), array(0,128,225)));
                     $html .= '<tcpdf method="Rect" params="'.$params.'"/>';
 
-                    $params = TCPDF_STATIC::serializeTCPDFtagParameters(array(65, 110.8, 20, -get_self_marking_details($user_answer, $q->id), 'DF', array(0,0,0,0), array(0,128,225)));
+                    $params = TCPDF_STATIC::serializeTCPDFtagParameters(array(50, 96, 20, -get_self_marking_details($user_answer, $q->id), 'DF', array(0,0,0,0), array(0,128,225)));
                     $html .= '<tcpdf method="Rect" params="'.$params.'"/>';
 
                     $pdf->writeHTML($html, true, false, true, false, '');
-
+                    //print_r($html);
                 }
             }
 
