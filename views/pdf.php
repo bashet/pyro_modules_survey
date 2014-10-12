@@ -83,11 +83,14 @@ if (@file_exists(dirname(__FILE__).'/lang/eng.php')) {
 
 // set font
 $pdf->SetFont('dejavusans', '', 8);
-$pl_image = $base_url .'addons/shared_addons/modules/survey/img/performance_level.jpg';
+//$pl_image = $base_url .'addons/shared_addons/modules/survey/img/performance_level.jpg';
 //$pl_dtl1  = $base_url .'addons/shared_addons/modules/survey/img/details1.jpg';
-//var_dump($pl_dtl1);
+//$pl_dtl2  = $base_url .'addons/shared_addons/modules/survey/img/details2.jpg';
+
+$pl_image = 'http://test.leadershipcolab360.org.uk/addons/shared_addons/modules/survey/img/performance_level.jpg';
 $pl_dtl1  = 'http://test.leadershipcolab360.org.uk/addons/shared_addons/modules/survey/img/details1.jpg';
-$pl_dtl2  = $base_url .'addons/shared_addons/modules/survey/img/details2.jpg';
+$pl_dtl2  = 'http://test.leadershipcolab360.org.uk/addons/shared_addons/modules/survey/img/details2.jpg';
+
 
 //======================================= page 1 ===========================================
 $pdf->AddPage();
