@@ -11,8 +11,18 @@ class MYPDF extends TCPDF {
 
     //Page header
     public function Header() {
+        $ci =& get_instance();
+        $ci->load->library('session');
         // Logo
-        $image_file = K_PATH_IMAGES.'Colab-Logo.jpg';
+        if($ci->session->userdata('logo')){
+            $image_file = $ci->session->userdata('logo');
+        }else{
+            $image_file = K_PATH_IMAGES.'CoLab-Logo.jpg';
+        }
+
+        //$image_file = K_PATH_IMAGES.'CoLab-Logo.jpg';
+
+
         $this->Image($image_file, 175, 2, 30, '', 'JPG', '', 'T', false, 300, '', false, false, 0, false, false, false);
         // Set font
         $this->SetFont('helvetica', 'B', 20);
@@ -73,9 +83,14 @@ if (@file_exists(dirname(__FILE__).'/lang/eng.php')) {
 
 // set font
 $pdf->SetFont('dejavusans', '', 8);
-$pl_image = $base_url .'addons/shared_addons/modules/survey/img/performance_level.jpg';
-$pl_dtl1  = $base_url .'addons/shared_addons/modules/survey/img/details1.jpg';
-$pl_dtl2  = $base_url .'addons/shared_addons/modules/survey/img/details2.jpg';
+//$pl_image = $base_url .'addons/shared_addons/modules/survey/img/performance_level.jpg';
+//$pl_dtl1  = $base_url .'addons/shared_addons/modules/survey/img/details1.jpg';
+//$pl_dtl2  = $base_url .'addons/shared_addons/modules/survey/img/details2.jpg';
+
+$pl_image = 'http://test.leadershipcolab360.org.uk/addons/shared_addons/modules/survey/img/performance_level.jpg';
+$pl_dtl1  = 'http://test.leadershipcolab360.org.uk/addons/shared_addons/modules/survey/img/details1.jpg';
+$pl_dtl2  = 'http://test.leadershipcolab360.org.uk/addons/shared_addons/modules/survey/img/details2.jpg';
+
 
 //======================================= page 1 ===========================================
 $pdf->AddPage();
@@ -87,7 +102,7 @@ $html = get_page_2();
 $pdf->writeHTML($html, true, false, true, false, '');
 //======================================= page 3 ===========================================
 $pdf->AddPage();
-$html = get_page_3();
+$html = get_page_3($total_questions, $categories);
 $pdf->writeHTML($html, true, false, true, false, '');
 //======================================= page 4 ===========================================
 $pdf->AddPage();
@@ -167,7 +182,7 @@ foreach($categories as $cat_id){
     $html .='<table width="180px" border="1" cellpadding="4" cellspacing="1">
                 <tr bgcolor="#f5f5f5">
                     <td><span style="background-color: rgb(245,237,22)">&nbsp;&nbsp;&nbsp;</span>&nbsp;Total others</td>
-                    <td><span style="background-color: rgb(90,167,61)">&nbsp;&nbsp;&nbsp;</span>&nbsp;Selft</td>
+                    <td><span style="background-color: rgb(90,167,61)">&nbsp;&nbsp;&nbsp;</span>&nbsp;Self</td>
                 </tr>
             </table>';
 
@@ -313,39 +328,41 @@ foreach($categories as $cat_id){
                     $html = '
                             <style>
                                 td {
-                                    border: 2px solid #ffffff;
+                                    border: 1px solid #ffffff;
                                 }
                             </style>';
 
                     $html .= '<table border="0" cellpadding="6" cellspacing="1">';
                     $html .= '<tr>';
-                    $html .= '<td>';
-                    $html .= '<p><strong>'.$cat->name.'</strong></p>';
-                    $html .= '<p>Category: '.$q->title.'</p>';
-                    $html .= '</td>';
-                    $html .= '<td>';
-                    $html .= '</td>';
+                        $html .= '<td width="90%">';
+                        $html .= '<p><strong>'.$cat->name.'</strong></p>';
+                        $html .= '<p>Category: '.$q->title.'</p>';
+                        $html .= '</td>';
+
+                        $html .= '<td width="10%">';
+                        $html .= '</td>';
                     $html .= '</tr>';
                     $html .= '<tr>';
-                    $html .= '<td>';
-                    $html .= '<img src="'.$pl_dtl1.'" height="245">';
-                    $html .= '</td>';
-                    $html .= '<td>';
-                    $html .= '<br><br><p><strong>Number of ratings at each level</strong><br>
+                        $html .= '<td width="50%">';
+                        $html .= '<img src="'.$pl_dtl1.'" height="185">';
+                        $html .= '</td>';
+
+                        $html .= '<td width="50%">';
+                        $html .= '<br><br><p><strong>Number of ratings at each level</strong><br>
                                                 <br>Response 4 x '.get_evaluators_total_num($evaluators, $q->id, 4).'<br>
                                                 <br>Response 3 x '.get_evaluators_total_num($evaluators, $q->id, 3).'<br>
                                                 <br>Response 2 x '.get_evaluators_total_num($evaluators, $q->id, 2).'<br>
                                                 <br>Response 1 x '.get_evaluators_total_num($evaluators, $q->id, 1).'</p>';
-                    $html .= '</td>';
-                    $html .= '</tr>';
+                        $html .= '</td>';
+                    $html .= '</tr>';//--------------------------------
                     $html .= '<tr>';
-                    $html .= '<td width="45%">';
+                    $html .= '<td width="35%">';
                     $html .= '<p><strong>'.$q->title.'</strong></p>';
                     $html .= '<strong>Definition</strong>'.$q->description;
                     $html .= '<strong>Why it matters</strong>'.$q->matter;
                     $html .= '<strong>Key question:</strong>'.$q->text2;
                     $html .= '</td>';
-                    $html .= '<td width="55%">';
+                    $html .= '<td width="65%">';
                     $html .= '<strong>Response 4 - '.$answer->option_4_label.'</strong>';
                     $html .= $answer->option_4;
                     $html .= '<strong>Response 3 - '.$answer->option_3_label.'</strong>';
@@ -358,14 +375,14 @@ foreach($categories as $cat_id){
                     $html .= '</tr>';
 
                     $html .= '</table>';
-                    $params = TCPDF_STATIC::serializeTCPDFtagParameters(array(28, 110.8, 20, -get_evaluators_total_details($evaluators, $q->id), 'DF', array(0,0,0,0), array(0,128,225)));
+                    $params = TCPDF_STATIC::serializeTCPDFtagParameters(array(20, 96, 20, -get_evaluators_total_details($evaluators, $q->id), 'DF', array(0,0,0,0), array(0,128,225)));
                     $html .= '<tcpdf method="Rect" params="'.$params.'"/>';
 
-                    $params = TCPDF_STATIC::serializeTCPDFtagParameters(array(65, 110.8, 20, -get_self_marking_details($user_answer, $q->id), 'DF', array(0,0,0,0), array(0,128,225)));
+                    $params = TCPDF_STATIC::serializeTCPDFtagParameters(array(50, 96, 20, -get_self_marking_details($user_answer, $q->id), 'DF', array(0,0,0,0), array(0,128,225)));
                     $html .= '<tcpdf method="Rect" params="'.$params.'"/>';
 
                     $pdf->writeHTML($html, true, false, true, false, '');
-
+                    //print_r($html);
                 }
             }
 
@@ -444,5 +461,6 @@ $pdf->writeHTML($html, true, false, true, false, '');
 $pdf->lastPage();
 
 //Close and output PDF document
-$pdf->Output('Report_360_leadershipCo_Lab.pdf', 'I');
+$pdf->Output($file, 'F'); // save for next view
+$pdf->Output('Report.pdf', 'I'); // show now
 

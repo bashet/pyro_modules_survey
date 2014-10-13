@@ -17,6 +17,7 @@ class Survey extends Public_Controller {
     public $client              = '';
     public $attempt             = '';
     public $total_evaluators    = '';
+    public $attempt_remaining   = 0;
 
 	public function __construct()
 	{
@@ -28,13 +29,17 @@ class Survey extends Public_Controller {
 		$this->load->model('survey_m');
 		$this->lang->load('survey');
         $this->load->helper('survey');
+        $this->load->library('files/files');
 
         if(isset($this->current_user->id)){
             $this->participation   = $this->survey_m->get_current_participation($this->current_user->id);
             if($this->participation){
                 $this->client          = get_client_by_id($this->participation->cid);
                 $this->programme       = get_programme_by_id($this->participation->pid);
+                $this->attempt_remaining = $this->participation->allowed - get_total_attempts_by_user_n_programme($this->participation->uid, $this->participation->pid);
             }
+
+
 
             $this->attempt         = get_current_attempt_by_user_id($this->current_user->id);
             if($this->attempt){
@@ -257,16 +262,93 @@ class Survey extends Public_Controller {
 
         if($id){
             $this->db->delete('survey_question_categories', array('id' => $id));
+
+            $this->db->like('q_cat', $id);
+            $query = $this->db->get('survey');
+            $result = $query->result();
+            foreach($result as $survey){
+                $category = json_decode($survey->q_cat, true);
+                $new_cat = array();
+                $i = 1;
+                foreach($category as $key=>$c_no){
+                    if($c_no != $id){
+                        $new_cat[$i] = $c_no;
+                        $i++;
+                    }
+                }
+
+                $this->db->where('id', $survey->id);
+                $this->db->update('survey', array('q_cat' => json_encode($new_cat)));
+            }
+
+
         }
         redirect('survey/question_categories');
     }
 // ============================================= Manage questions ======================================================
+
+    public function questions_in_category($cat_id = ''){
+        if(! $this->current_user->id){
+            redirect($this->config->base_url());
+            exit();
+        }
+        $category   = '';
+        $questions  = '';
+        if($cat_id){
+            $category   = get_category_by_id($cat_id);
+            $questions  = get_questions_by_category($cat_id);
+        }else{
+            redirect($this->config->base_url());
+        }
+
+
+        $this->template
+            ->title($this->module_details['name'], 'manage questions')
+            ->set('cat', $category)
+            ->set('questions', $questions)
+            ->set_breadcrumb('Category', '/survey/question_categories/')
+            ->set_breadcrumb('Questions')
+            ->append_css('module::question.css')
+            ->append_js('module::question.js')
+            ->build('questions_in_category');
+    }
+
+    public function organise_questions($cat_id = ''){
+        if(! $this->current_user->id){
+            redirect($this->config->base_url());
+            exit();
+        }
+        $category   = '';
+        $questions  = '';
+        if($cat_id){
+            $category   = get_category_by_id($cat_id);
+            $questions  = get_questions_by_category($cat_id);
+        }else{
+            redirect($this->config->base_url());
+        }
+
+
+        $this->template
+            ->title($this->module_details['name'], 'manage questions')
+            ->set('cat', $category)
+            ->set('questions', $questions)
+            ->set_breadcrumb('Question category', '/survey/questions_in_category/'.$cat_id)
+            ->set_breadcrumb('Organise questions')
+            ->append_css('module::question.css')
+            ->append_js('module::question.js')
+            ->append_js('module::organise_questions.js')
+            ->build('organise_questions');
+    }
 
     public function questions($survey_id = ''){
 
         if(! $this->current_user->id){
             redirect($this->config->base_url());
             exit();
+        }
+
+        if(! $survey_id){
+            redirect($this->config->base_url());
         }
 
         $categories = $this->survey_m->get_all_question_categories();
@@ -295,28 +377,22 @@ class Survey extends Public_Controller {
         }
     }
 
-    public function add_new_question($survey_id = ''){
+    public function add_new_question($cat_id = ''){
         if(! $this->current_user->id){
             redirect($this->config->base_url());
             exit();
         }
-        if($survey_id){
-            // we will go ahead to do the next job
-            $survey     = $this->get_survey_by_id($survey_id, $output = 'object');
-        }else{
-            // wrong entry kick to ass
-            $survey     = '';
+        if( ! $cat_id){
+            redirect($this->config->base_url());
         }
-        $question_categories = $this->survey_m->get_all_question_categories();
+        $category = get_category_by_id($cat_id);
 
         $this->template
             ->title($this->module_details['name'], 'manage questions')
-            ->set('survey_id', $survey_id)
-            ->set('survey', $survey)
-            ->set('question_categories', $question_categories)
+            ->set('category', $category)
+            ->set('cat_id', $cat_id)
             ->append_js('module::question.js')
-            ->set_breadcrumb('Survey', '/survey/'.$survey_id)
-            ->set_breadcrumb('Questions', '/survey/questions/'.$survey_id)
+            ->set_breadcrumb('Question category', '/survey/questions_in_category/'.$cat_id)
             ->set_breadcrumb('Add new question')
             ->build('add_new_question');
     }
@@ -346,9 +422,23 @@ class Survey extends Public_Controller {
             ->set_breadcrumb('Survey', '/survey')
             ->set_breadcrumb('Questions', '/survey/questions/'.$survey_id)
             ->set_breadcrumb('Organise')
-            ->append_css('module::organise.css')
             ->append_js('module::organise.js')
             ->build('organise');
+    }
+
+    public function update_position_in_category(){
+        $data       = json_decode(json_encode($this->input->post()));
+        $results    = $data->results;
+        $i          = 1;
+        $questions = array();
+        foreach($results as $q){
+            $questions[$i] = $q->id;
+            $i++;
+        }
+        $this->db->where('id', $data->cat_id);
+        $this->db->update('survey_question_categories', array('questions' =>json_encode($questions)));
+
+        echo json_encode($results);
     }
 
     public function update_position(){
@@ -389,11 +479,9 @@ class Survey extends Public_Controller {
             exit();
         }
         $data = $this->input->post();
-
+        $cat_id = $data['cat_id'];
         if($this->survey_m->question_form_validate($data)){
-            $cat_id = $data['question_category'];
             $question = array(
-                'survey_id'     => $data['survey_id'],
                 'cat_id'        => $cat_id,
                 'title'         => $data['question_title'],
                 'description'   => $data['description'],
@@ -429,9 +517,9 @@ class Survey extends Public_Controller {
 
                 $this->db->insert('survey_answer_options', $answers);
             }
-            echo json_encode(array('survey_id'=>$data['survey_id'], 'validate'=>true));
+            echo json_encode(array('cat_id'=>$cat_id, 'validate'=>true));
         }else{
-            echo json_encode(array('survey_id'=>$data['survey_id'], 'validated'=>false, 'data'=>$data));
+            echo json_encode(array('cat_id'=>$cat_id, 'validated'=>false, 'data'=>$data));
         }
 
     }
@@ -446,8 +534,7 @@ class Survey extends Public_Controller {
         if($this->survey_m->question_form_validate($data)){
             $q_id = $data['q_id'];
             $question = array(
-                'survey_id'     => $data['survey_id'],
-                'cat_id'        => $data['question_category'],
+                'cat_id'        => $data['cat_id'],
                 'title'         => $data['question_title'],
                 'description'   => $data['description'],
                 'matter'        => $data['matter'],
@@ -477,32 +564,29 @@ class Survey extends Public_Controller {
                 $this->db->where('id', $data['option_id']);
                 $this->db->update('survey_answer_options', $answers);
             }
-            echo json_encode(array('survey_id'=>$data['survey_id'], 'validate'=>true));
+            echo json_encode(array('cat_id'=>$data['cat_id'], 'validate'=>true));
         }else{
-            echo json_encode(array('survey_id'=>$data['survey_id'], 'validated'=>false, 'data'=>$data));
+            echo json_encode(array('cat_id'=>$data['cat_id'], 'validated'=>false, 'data'=>$data));
         }
 
     }
-    public function edit_question($survey_id = '', $q_id = ''){
+    public function edit_question($cat_id = '', $q_id = ''){
         if(! $this->current_user->id){
             redirect($this->config->base_url());
             exit();
         }
 
-        $survey     = $this->get_survey_by_id($survey_id, $output = 'object');
         $question   = $this->get_question_by_id($q_id, $output = 'object');
-        $q_cat      = $this->survey_m->get_all_question_categories();
+        $category   = get_category_by_id($cat_id);
         $options    = get_option_by_question_id($q_id);
 
         $this->template
             ->title($this->module_details['name'], 'Edit question')
-            ->set('survey_id', $survey_id)
             ->set('question',$question)
             ->set('options', $options)
-            ->set('survey', $survey)
-            ->set('q_cat', $q_cat)
+            ->set('category', $category)
             ->append_js('module::question.js')
-            ->set_breadcrumb('Survey', '/survey/'.$survey_id)
+            ->set_breadcrumb('Question category', '/survey/questions_in_category/'.$cat_id)
             ->set_breadcrumb('Edit question')
             ->build('edit_question');
     }
@@ -519,7 +603,7 @@ class Survey extends Public_Controller {
 
         }
     }
-    public function delete_question($survey_id = '', $q_id = ''){
+    public function delete_question($cat_id = '', $q_id = ''){
         if(! $this->current_user->id){
             redirect($this->config->base_url());
             exit();
@@ -527,8 +611,23 @@ class Survey extends Public_Controller {
         if($q_id){
             $this->db->delete('survey_answer_options', array('question_id' => $q_id));
             $this->db->delete('survey_questions', array('id' => $q_id));
+            $category = get_category_by_id($cat_id);
+
+            $questions = json_decode($category->questions, true);
+            $new_questions = array();
+            $i = 1;
+            foreach($questions as $key=>$q_no){
+                if($q_no != $q_id){
+                    $new_questions[$i] = $q_no;
+                    $i++;
+                }
+            }
+
+            $this->db->where('id', $cat_id);
+            $this->db->update('survey_question_categories', array('questions' => json_encode($new_questions)));
+
         }
-        redirect('survey/questions/'.$survey_id);
+        redirect('survey/questions_in_category/'.$cat_id);
     }
 // ============================================= default options =======================================================
 
@@ -573,15 +672,61 @@ class Survey extends Public_Controller {
             redirect($this->config->base_url());
             exit();
         }
+        $this->load->model('files/file_folders_m');
+
+        //get files folders
+        $file_folders = $this->file_folders_m->get_folders();
+        $folders_tree = array();
+        foreach($file_folders as $folder)
+        {
+            $indent = repeater('&raquo; ', $folder->depth);
+            $folders_tree[$folder->id] = $indent.$folder->name;
+        }
 
         $clients = $this->survey_m->get_all_clients();
 
         $this->template
             ->title($this->module_details['name'], 'manage clients')
-            ->set('clients', $clients)
             ->set_breadcrumb('Organisations')
+            ->set('clients', $clients)
+            ->set('file_folders', $file_folders)
+            ->set('folders_tree', $folders_tree)
             ->append_js('module::clients.js')
             ->build('clients');
+    }
+
+    public function get_images_in_folder($id, $options = array()) {
+
+        if (isset($options['offset'])){
+            $this->db->limit($options['offset']);
+        }
+
+        if (isset($options['limit'])){
+            $this->db->limit($options['limit']);
+        }
+
+        return $this->db
+            ->select('files.*')
+            ->where('folder_id', $id)
+            ->where('files.type', 'i')
+            ->get('files')
+            ->result();
+
+    }
+
+    public function ajax_select_folder($folder_id){
+        //load files model
+        $this->load->model('files/file_folders_m');
+
+        $folder = $this->file_folders_m->get($folder_id);
+
+        if (isset($folder->id)){
+            $folder->images = $this->get_images_in_folder($folder->id);
+
+            return $this->template->build_json($folder);
+        }
+
+        echo FALSE;
     }
 
     public function save_clients(){
@@ -645,6 +790,73 @@ class Survey extends Public_Controller {
         $this->db->where('id', $data['client_id']);
         $this->db->update('survey_clients', $client);
         redirect('survey/clients');
+    }
+
+    public function programme_request(){
+        if(! $this->current_user->id){
+            redirect($this->config->base_url());
+            exit();
+        }
+
+        $client = $this->survey_m->get_client_by_manager_id($this->current_user->id);
+
+        if($this->current_user->group_id == 1){
+            $active_request     = get_all_active_requests_for_admin();
+            $approved_request   = get_all_approved_requests_for_admin();
+        }else{
+            $active_request     = get_all_active_requests_for_client($client->id);
+            $approved_request   = get_all_approved_requests_for_client($client->id);
+        }
+
+        $this->template
+            ->title($this->module_details['name'], 'manage users')
+            ->set_breadcrumb('Manage Users')
+            ->set('active_request', $active_request)
+            ->set('approved_request', $approved_request)
+            ->set('client', $client)
+            ->append_js('module::manage_users.js')
+            ->build('programme_request');
+    }
+
+    public function approve_new_programme($request_id = ''){
+        if($request_id){
+            $request = get_programme_request_by_id($request_id);
+
+            $current_participation = get_current_participation_by_user($request->uid);
+
+            $this->db->where('id', $current_participation->id);
+            if($this->db->update('survey_participant', array('active' => 0))){
+                $new_participation = array(
+                    'uid'   => $request->uid,
+                    'cid'   => $request->cid,
+                    'pid'   => $request->pid
+                );
+
+                if($this->db->insert('survey_participant', $new_participation)){
+
+                    $user   = get_user_by_id($request->uid);
+                    $client = get_client_by_id($request->cid);
+                    $manager = get_manager_by_uni($request->cid);
+                    $user_email = array();
+
+                    $user_email['subject']			= Settings::get('site_name') . ' - New Programme Participation Approved'; // No translation needed as this is merely a fallback to Email Template subject
+                    $user_email['slug'] 		    = 'new-programme-approved';
+                    $user_email['to'] 				= $user->email;
+                    $user_email['user_name']        = get_user_full_name($request->uid);
+                    $user_email['client_name']      = $client->name;
+                    $user_email['manager_name']     = $manager['name'];
+                    $user_email['from'] 			= Settings::get('server_email');
+                    $user_email['name']				= Settings::get('site_name');
+                    $user_email['reply-to']			= Settings::get('contact_email');
+
+                    Events::trigger('email', $user_email, 'array');
+
+                    $this->db->where('id', $request_id);
+                    $this->db->update('survey_new_application', array('status' => 0, 'approval_date' => time()));
+                }
+            }
+        }
+        redirect('survey/programme_request');
     }
 
     public function manage_users(){
@@ -733,13 +945,17 @@ class Survey extends Public_Controller {
 
         $ex_ans = get_existing_answer($answer_data);
 
-        if( ! $this->attempt->report_ready){
-            if($ex_ans){
-                $my_answer = json_decode($ex_ans->answers);
-                if(count((array)$my_answer) == $this->total_questions){
-                    $this->db->where('id', $ex_ans->id);
-                    $this->db->update('survey_user_answer', array('finished' => 1));
-                    redirect('survey/user_review_all');
+        if($this->attempt){
+            if( ! $this->attempt->report_ready){
+                if($ex_ans){
+                    $my_answer = json_decode($ex_ans->answers);
+                    if(count((array)$my_answer) == $this->total_questions){
+                        $this->db->where('id', $ex_ans->id);
+                        $this->db->update('survey_user_answer', array('finished' => 1));
+                        redirect('survey/user_review_all');
+                    }
+                }else{
+                    $my_answer = '';
                 }
             }else{
                 $my_answer = '';
@@ -747,6 +963,7 @@ class Survey extends Public_Controller {
         }else{
             $my_answer = '';
         }
+
 
 
 
@@ -762,7 +979,7 @@ class Survey extends Public_Controller {
         $this->template
             ->title($this->module_details['name'], 'manage users')
             ->set_breadcrumb('User survey')
-            ->set('questions', $questions)
+            ->set('survey', $this->survey)
             ->set('total_evaluators', $this->total_evaluators)
             ->set('attempt', $this->attempt)
             ->set('total_questions', $this->total_questions)
@@ -794,17 +1011,23 @@ class Survey extends Public_Controller {
             ->set('attempt', $this->attempt)
             ->set('total_evaluators', $this->total_evaluators)
             ->set('allowed_evaluators', $this->allowed_evaluators)
+            ->set('attempt_remaining',$this->attempt_remaining)
             ->append_js('module::save_evaluators.js');
 
-        if($this->attempt->report_ready){
-            $this->template->build('no_evaluators');
-        }else{
-            if($evaluators){
-                $this->template->build('evaluators');
-            }else{
+        if($this->attempt){
+            if($this->attempt->report_ready){
                 $this->template->build('no_evaluators');
+            }else{
+                if($evaluators){
+                    $this->template->build('evaluators');
+                }else{
+                    $this->template->build('no_evaluators');
+                }
             }
+        }else{
+            $this->template->build('no_evaluators');
         }
+
 
     }
 
@@ -883,10 +1106,11 @@ class Survey extends Public_Controller {
 
         if(( ! $missing_fields) && ( ! $all_empty) && ($duplicate_entry == '') && ($data_exist == '') && ($total_entered >= 3) && ( ! $error)){
             $attempt = array(
-                'user_id' => $this->current_user->id,
-                'programme_id' => $this->programme->id,
-                'survey_id' => $this->session->userdata('survey_id'),
-                'create_date' => time(),
+                'user_id'       => $this->current_user->id,
+                'programme_id'  => $this->programme->id,
+                'survey_id'     => $this->session->userdata('survey_id'),
+                'client_id'     => $this->client->id,
+                'create_date'   => time(),
             );
 
             if($this->db->insert('survey_attempt', $attempt)){
@@ -1070,7 +1294,7 @@ class Survey extends Public_Controller {
                 }
 
                 //var_dump($data);
-                redirect('survey/successful');
+                redirect('survey/send_email_to_evaluators_successful');
             }
 
             $this->template
@@ -1119,7 +1343,7 @@ class Survey extends Public_Controller {
 
             }
             //var_dump($data);
-            redirect('survey/successful');
+            redirect('survey/send_email_to_evaluators_successful');
         }
 
         $this->template
@@ -1136,51 +1360,90 @@ class Survey extends Public_Controller {
             exit();
         }
 
-        $answer = new stdClass();
-        $answer->user_id    = $this->current_user->id;
-        $answer->attempt_id = $this->attempt->id;
-        $answer->survey_id  = $this->survey->id;
+        $all_submitted  = true;
+        $self_submit    = true;
 
-        $my_ans = get_existing_answer($answer);
+        if($this->attempt){
+            $answer = new stdClass();
+            $answer->user_id    = $this->current_user->id;
+            $answer->attempt_id = $this->attempt->id;
+            $answer->survey_id  = $this->survey->id;
 
-        $all_submitted = true;
+            $my_ans = get_existing_answer($answer);
 
-        if($my_ans){
-            if( ! $my_ans->submitted){
+
+
+            if($my_ans){
+                if( ! $my_ans->submitted){
+                    $all_submitted = false;
+                    $self_submit    = false;
+                }
+            }else{
+                $all_submitted  = false;
+                $self_submit    = false;
+            }
+
+
+            $evaluators     = get_evaluators_by_attempt_id($this->attempt->id);
+            if($evaluators){
+                foreach($evaluators as $ev){
+                    if( ! $ev->submitted){
+                        $all_submitted = false;
+                    }
+                }
+            }else{
                 $all_submitted = false;
             }
+
+
+            if($all_submitted){
+                $attempt = array();
+                if( ! $this->attempt->finished_date){
+                    $attempt['finished_date'] = time();
+                }
+                if( ! $this->attempt->report_ready){
+                    $attempt['report_ready'] = 1;
+                }
+                if($attempt){
+                    $this->db->where('id', $this->attempt->id);
+                    $this->db->update('survey_attempt', $attempt);
+                }
+            }
+        }else{
+            $all_submitted = false;
         }
-
-
-        $evaluators     = get_evaluators_by_attempt_id($this->attempt->id);
-        foreach($evaluators as $ev){
-            if( ! $ev->submitted){
-                $all_submitted = false;
-            }
-        }
-
-        if($all_submitted){
-            $attempt = array();
-            if( ! $this->attempt->finished_date){
-                $attempt['finished_date'] = time();
-            }
-            if( ! $this->attempt->report_ready){
-                $attempt['report_ready'] = 1;
-            }
-            if($attempt){
-                $this->db->where('id', $this->attempt->id);
-                $this->db->update('survey_attempt', $attempt);
-            }
-        }
-
-
 
         $this->template
             ->title($this->module_details['name'], 'report')
             ->set_breadcrumb('Report')
             ->set('attempt', $this->attempt)
             ->set('all_submitted', $all_submitted)
+            ->set('self_submit', $self_submit)
             ->build('report');
+    }
+
+    public function report_viewer($attempt_id = ''){
+
+        $base_url = $this->config->base_url();
+
+        $file = $base_url.'reports/'.$attempt_id.'.pdf';
+        $found = 1;
+
+        if( ! file_exists('./reports/'.$attempt_id.'.pdf')){
+            $found = 0;
+        }
+
+
+        $this->template
+            ->title($this->module_details['name'], 'Report')
+            ->set_layout('report')
+            ->set('attempt_id', $attempt_id)
+            ->set('base_url', $this->config->base_url())
+            ->set('file', $file)
+            ->set('found', $found)
+            ->append_css('module::loader.css')
+            ->append_js('module::pace.min.js')
+            ->build('report_viewer');
     }
 
     public function view_report($attempt_id = ''){
@@ -1191,6 +1454,7 @@ class Survey extends Public_Controller {
         }
         $this->load->helper('pdf');
         $this->load->helper('report');
+        $this->load->library('session');
 
         $data = array();
 
@@ -1201,20 +1465,54 @@ class Survey extends Public_Controller {
         $data['programme']  = $programme;
         $survey             = get_survey_by_id($attempt->survey_id);
         $data['survey']     = $survey;
-        $data['all_attempt']= get_all_attempts_by_user_n_programme($this->current_user->id, $programme->id);
+
+        $attempt_update = array();
+        if( ! $attempt->finished_date){
+            $attempt_update['finished_date'] = time();
+        }
+        if( ! $attempt->report_ready){
+            $attempt_update['report_ready'] = 1;
+        }
+        if($attempt_update){
+            $this->db->where('id', $attempt->id);
+            $this->db->update('survey_attempt', $attempt_update);
+        }
+
+        $client             = get_client_by_id($attempt->client_id);
+        //var_dump($client);
+        if($client->logo){
+            $logo           = $this->config->base_url().'index.php/files/large/'.$client->logo;
+            $this->session->set_userdata(array('logo' => $logo));
+        }else{
+            $logo           = "";
+            $this->session->unset_userdata(array('logo' => $logo ));
+        }
+
+
+
+
+        if($this->current_user->group == 'user'){
+            $user_id = $this->current_user->id;
+        }else{
+            $user_id = $attempt->user_id;
+        }
+
+        $data['all_attempt']= get_all_attempts_by_user_n_programme($user_id, $programme->id);
         $data['questions']  = get_questions_by_survey_id($survey->id);
         $data['categories'] = json_decode($survey->q_cat);
-        $data['user_id']    = $this->current_user->id;
+        $data['user_id']    = $user_id;
         $data['evaluators'] = get_evaluators_by_attempt_id($attempt_id);
         $data['programme']  = get_programme_by_id($attempt->programme_id);
 
         $answer = new stdClass();
-        $answer->user_id = $this->current_user->id;
+        $answer->user_id = $user_id;
         $answer->attempt_id = $attempt_id;
         $answer->survey_id = $survey->id;
         $answers = get_existing_answer($answer);
         $data['user_answer'] = $answers;
         $data['total_evaluators'] = get_total_evaluators_by_attempt_id($attempt_id);
+        $data['total_questions']  = get_total_question_in_survey($survey->id);
+        $data['file']             = './reports/'.$attempt_id.'.pdf';
 
         $this->load->view('pdf', $data);
     }
@@ -1233,18 +1531,27 @@ class Survey extends Public_Controller {
             ->build('another_report');
     }
 
-    public function history(){
+    public function history($user_id = ''){
         if(! $this->current_user->id){
             redirect($this->config->base_url());
             exit();
         }
-        $user_history = get_user_answer_history($this->current_user->id);
 
+        if($this->current_user->group != 'user'){
+            if($user_id){
+                $user_history   = get_user_answer_history($user_id);
+                $user           = get_profile_by_user_id($user_id);
+            }
+        }else{
+            $user_history   = get_user_answer_history($this->current_user->id);
+            $user           = get_profile_by_user_id($this->current_user->id);
+        }
 
         $this->template
             ->title($this->module_details['name'], 'history')
             ->set_breadcrumb('History')
             ->set('user_history', $user_history)
+            ->set('user', $user)
             ->build('history');
     }
 
@@ -1273,13 +1580,26 @@ class Survey extends Public_Controller {
         $answer_data->survey_id  = $this->survey->id;
 
         $ex_ans = get_existing_answer($answer_data);
+        if($this->attempt){
+            if( ! $this->attempt->report_ready){
+                if($ex_ans){
+                    $my_answer = json_decode($ex_ans->answers);
+                    if(count((array)$my_answer) == $this->total_questions){
+                        $this->db->where('id', $ex_ans->id);
+                        $this->db->update('survey_user_answer', array('finished' => 1));
+                    }
+                }
+            }
+        }
+
+        $ex_ans = get_existing_answer($answer_data);// re initialisation
 
         $my_answer = json_decode($ex_ans->answers);
 
         $this->template
             ->title($this->module_details['name'], 'review answer')
             ->set_breadcrumb('Review')
-            ->set('questions', $questions)
+            ->set('survey', $this->survey)
             ->set('ex_ans', $ex_ans)
             ->set('my_answer', $my_answer)
             ->set('total_questions', $this->total_questions)
@@ -1357,6 +1677,18 @@ class Survey extends Public_Controller {
             ->title($this->module_details['name'], 'confirmation')
             ->build('user_survey_submit');
     }
+    public function send_email_to_evaluators_successful(){
+        $this->template
+            ->set_layout('user_survey')
+            ->title($this->module_details['name'], 'confirmation')
+            ->build('user_survey_submit');
+    }
+    public function successful_submitted_by_evaluator(){
+        $this->template
+            ->set_layout('user_survey')
+            ->title($this->module_details['name'], 'confirmation')
+            ->build('evaluator_submit');
+    }
 
     public function update_user_answer(){
         $data = $this->input->post();
@@ -1369,7 +1701,7 @@ class Survey extends Public_Controller {
 
         if($ex_ans){
             // need to update with new answer to existing answer
-            $answer->answers    = rebuild_answer($data, $ex_ans);
+            $answer->answers    = rebuild_answer($data, $ex_ans->answers);
             $this->db->where('id', $ex_ans->id);
             if($this->db->update('survey_user_answer', $answer)){
                 echo 'updated success';
@@ -1417,7 +1749,7 @@ class Survey extends Public_Controller {
         $this->survey   = get_survey_by_id($this->session->userdata('survey_id'));
         $this->total_questions = get_total_question_in_survey($this->survey->id);
 
-        $questions      = get_questions_by_survey_id($this->survey->id);
+        //$questions      = get_questions_by_survey_id($this->survey->id);
 
         $evaluator = get_evaluator_by_link($this->session->userdata('link'));
 
@@ -1443,7 +1775,7 @@ class Survey extends Public_Controller {
         $this->template
             ->set_layout('evaluator_response')
             ->title($this->module_details['name'], 'evaluator response')
-            ->set('questions', $questions)
+            ->set('survey', $this->survey)
             ->set('attempt', $this->attempt)
             ->set('total_questions', $this->total_questions)
             ->set('q_no', $q_no)
@@ -1499,14 +1831,14 @@ class Survey extends Public_Controller {
             $this->session->set_userdata(array('all_answered' => 1));
         }
 
-        $questions      = get_questions_by_survey_id($this->survey->id);
+        //$questions      = get_questions_by_survey_id($this->survey->id);
 
         $this->template
             ->set_layout('evaluator_response')
             ->title($this->module_details['name'], 'review answer')
             ->set_breadcrumb('Review')
             ->set('evaluator', $evaluator)
-            ->set('questions', $questions)
+            ->set('survey', $this->survey)
             ->set('my_answer', $my_answer)
             ->set('total_questions', $this->total_questions)
             ->append_js('module::evaluator_survey.js')
@@ -1570,5 +1902,185 @@ class Survey extends Public_Controller {
 
     public function get_total_evaluators(){
         echo get_total_evaluators_by_attempt_id($this->attempt->id);
+    }
+
+    public function get_category_by_id($id = ''){
+        if($id){
+            echo json_encode(get_category_by_id($id));
+        }
+    }
+
+    public function remove_category($survey_id, $cat_id){
+        $query  = $this->db->get_where('survey', array('id' =>$survey_id));
+        $survey = $query->row();
+
+        $category = json_decode($survey->q_cat, true);
+        $new_cat = array();
+        $i = 1;
+        foreach($category as $key=>$c_no){
+            if($c_no != $cat_id){
+                $new_cat[$i] = $c_no;
+                $i++;
+            }
+        }
+
+        $this->db->where('id', $survey_id);
+        $this->db->update('survey', array('q_cat' => json_encode($new_cat)));
+        redirect('survey/questions/'. $survey_id);
+    }
+
+    public function new_application(){
+        $programmes     = get_all_programme();
+        $participation  = get_all_participation($this->current_user->id);
+        $application    = get_active_application($this->current_user->id);
+
+        $this->template
+            ->title($this->module_details['name'], 'apply for new programme')
+            ->set_breadcrumb('Apply for new programme')
+            ->set('programmes', $programmes)
+            ->set('participation', $participation)
+            ->set('client', $this->client)
+            ->set('application', $application)
+            ->build('new_application');
+    }
+
+    public function new_programme_application(){
+        if($data = json_decode(json_encode($this->input->post()))){
+            $new_programme_id = $data->programme_id;
+
+            $participant = array(
+                'uid'   => $this->current_user->id,
+                'cid'   => $data->client_id,
+                'pid'   => $new_programme_id,
+                'create_date' => time()
+            );
+
+            if($this->db->insert('survey_new_application', $participant)){
+
+                $manager = get_manager_by_uni($data->client_id);
+
+                $mail = array();
+                $mail['subject']			= Settings::get('site_name') . ' - New Programme Application'; // No translation needed as this is merely a fallback to Email Template subject
+                $mail['slug'] 				= 'new_programme_approval';
+                $mail['to'] 				= $manager['email'];
+                $mail['manager_name']       = $manager['name'];
+                $mail['from'] 				= Settings::get('server_email');
+                $mail['name']				= Settings::get('site_name');
+                $mail['reply-to']			= Settings::get('contact_email');
+
+                Events::trigger('email', $mail, 'array');
+
+                redirect('survey/new_application_success_msg');
+            }
+        }
+    }
+
+    public function new_application_success_msg(){
+        $this->template
+            ->title($this->module_details['name'], 'apply for new programme')
+            ->set_breadcrumb('Apply for new programme')
+            ->build('new_application_success_msg');
+    }
+
+    public function update_attempt_allowed(){
+        if($data = json_decode(json_encode($this->input->post()))){
+            $user_data = explode('-', $data->user_data);
+            $user_id = $user_data[1];
+
+            $participation      = get_current_participation_by_user($user_id);
+            $remaining_attempts = $participation->allowed - get_total_attempts_by_user_n_programme($participation->uid, $participation->pid);
+            $new_allocation     = $participation->allowed + ($data->value - $remaining_attempts);
+
+            $this->db->where('id', $participation->id);
+            if($this->db->update('survey_participant', array('allowed' => $new_allocation))){
+                echo '1';
+            }else{
+                echo '0';
+            }
+
+        }
+    }
+
+    public function set_logo(){
+        if($data = json_decode(json_encode($this->input->post()))){
+            $this->db->where('id', $data->client_id );
+            if($data->image == 'default'){
+                if($this->db->update('survey_clients', array('logo' => ''))){
+                    redirect('survey/clients');
+                }
+            }else{
+                if($this->db->update('survey_clients', array('logo' => $data->image))){
+                    redirect('survey/clients');
+                }
+            }
+
+        }
+    }
+
+    public function export_user($client_id){
+        $this->load->dbutil();
+        $this->load->helper('download');
+        $sql = "SELECT
+                      distinct sp.uid as user_id,
+                      pro.first_name as first_name,
+                      pro.last_name as last_name,
+                      u.email as email,
+                      org.name as organisation,
+                      pro.cohort as cohort,
+                      ifnull(attempt.programme,prog.name) as programme,
+                      ifnull(attempt.total_attempt,0) as total_attempt,
+                      DATE_FORMAT(pro.created, '%d-%m-%Y') as registration_date
+                FROM default_survey_participant  sp
+                join default_users u
+                on u.id = sp.uid
+                join default_profiles pro
+                on sp.uid = pro.user_id
+                join default_survey_clients org
+                on org.id = sp.cid
+                join default_survey_programme prog
+	            on prog.id = sp.pid
+                left join (select attempt.user_id as user_id, attempt.programme_id as prog_id, prog.name as programme, count(attempt.id) as total_attempt
+                        from default_survey_programme prog
+                    join default_survey_attempt attempt
+                    on attempt.programme_id = prog.id
+                    group by attempt.user_id, attempt.programme_id) attempt
+                on attempt.user_id = sp.uid
+                where sp.cid=$client_id";
+        $query = $this->db->query($sql);
+        $data = $this->dbutil->csv_from_result($query, ',');
+        force_download('CSV_Report.csv', $data);
+    }
+    public function export_all_user(){
+        $this->load->dbutil();
+        $this->load->helper('download');
+        $sql = "SELECT
+                      distinct sp.uid as user_id,
+                      pro.first_name as first_name,
+                      pro.last_name as last_name,
+                      u.email as email,
+                      org.name as organisation,
+                      pro.cohort as cohort,
+                      ifnull(attempt.programme,prog.name) as programme,
+                      ifnull(attempt.total_attempt,0) as total_attempt,
+                      DATE_FORMAT(pro.created, '%d-%m-%Y') as registration_date
+                FROM default_survey_participant  sp
+                join default_users u
+                on u.id = sp.uid
+                join default_profiles pro
+                on sp.uid = pro.user_id
+                join default_survey_clients org
+                on org.id = sp.cid
+                join default_survey_programme prog
+	            on prog.id = sp.pid
+                left join (select attempt.user_id as user_id, attempt.programme_id as prog_id, prog.name as programme, count(attempt.id) as total_attempt
+                        from default_survey_programme prog
+                    join default_survey_attempt attempt
+                    on attempt.programme_id = prog.id
+                    group by attempt.user_id, attempt.programme_id) attempt
+                on attempt.user_id = sp.uid
+                ";
+        $query = $this->db->query($sql);
+        $data = $this->dbutil->csv_from_result($query, ',');
+        force_download('CSV_Report.csv', $data);
     }
 }

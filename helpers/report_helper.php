@@ -10,13 +10,15 @@ if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 if( ! function_exists('get_page_1')){
     function get_page_1($all_attempt, $programme, $attempt){
-        $ci =& get_instance();
 
-        $user       = get_profile_by_user_id($ci->current_user->id);
+        $user       = get_profile_by_user_id($attempt->user_id);
 
         $i = 0;
         foreach($all_attempt as $atm){
             if($attempt->id == $atm->id){
+                $i = $i+1;
+                break;
+            }else{
                 $i = $i+1;
             }
         }
@@ -33,6 +35,8 @@ if( ! function_exists('get_page_1')){
         $html  .= '<br>';
         $html  .= '<br>';
         $html  .= '<span style="font-size:2em">'.$user->first_name . ' ' . $user->last_name.'</span>';
+        $html  .= '<br>';
+        $html  .= '<span>Cohort: '.$user->cohort . '</span>';
         $html  .= '<br>';
         $html  .= '<span>'.$programme->name.' - '.numToText($i).' attempt</span>';
         $html  .= '<br>';
@@ -65,19 +69,19 @@ if( ! function_exists('get_page_2') ){
         covers the following themes:</p>
 
         <p>The information provided will help you compare your own view of your current leadership ability as well as the views
-        of your raters. This will help you to make informed choices regarding your leadership development focussing on your
+        of your evaluators. This will help you to make informed choices regarding your leadership development focussing on your
         strengths and areas for development.</p>
 
         <p>This report is organised into a number of sections:</p>
         <ul>
-            <li>Your raters - this shows how many people completed rating of your competencies</li>
+            <li>Your evaluators - this shows how many people completed rating of your competencies</li>
             <li>Your competency summary tables - these show your overall rating for each competency</li>
             <li>Your strengths – detail on your five highest scoring competencies</li>
             <li>Your areas for development - detail on your five lowest scoring competencies</li>
-            <li>Competency detail - this provides definitions, levels, and a breakdown of responses by rater group for each
+            <li>Competency detail - this provides definitions, levels, and a breakdown of responses by evaluator group for each
                 individual competency</li>
             <li>Competency frequency table - this shows the frequency of specific scoring of each competency, broken down by
-                type of rater</li>
+                type of evaluator</li>
         </ul>
 
 
@@ -102,7 +106,7 @@ if( ! function_exists('get_page_2') ){
 }
 
 if( ! function_exists('get_page_3') ){
-    function get_page_3(){
+    function get_page_3($total_questions, $categories){
         $html = '
         <style>
             th {
@@ -158,12 +162,13 @@ if( ! function_exists('get_page_3') ){
         and where there might be areas for you to develop.They are not like an examination result or performance
         assessment.</p>
         <p><strong>Competency clusters</strong></p>
-        <p>The 16 competencies in the 360 leadership diagnostic are structured into three clusters:</p>
-        <ul>
-            <li>Educational Excellence</li>
-            <li>Operational Management</li>
-            <li>Strategic leadership</li>
-        </ul>
+        <p>The '.$total_questions.' competencies in the 360 leadership diagnostic are structured into three clusters:</p>
+        <ul>';
+            foreach($categories as $cat){
+                $c = get_category_by_id($cat);
+                $html .= '<li>'.$c->name.'</li>';
+            }
+        $html .= '</ul>
 
         <p>All the competencies measured in this report are presented and organised these clusters. When interpreting your
         feedback it may be worthwhile for you to consider whether some clusters are more important to you in your
@@ -200,9 +205,9 @@ if( ! function_exists('get_page_4') ){
     function get_page_4(){
         $html = '
 
-        <p><strong>Why could there be a difference between your views and those of your raters?</strong></p>
+        <p><strong>Why could there be a difference between your views and those of your evaluators?</strong></p>
 
-        <p>Your raters will only be able to rate you against the competencies based on the behaviours, attitudes or preferences
+        <p>Your evaluator will only be able to rate you against the competencies based on the behaviours, attitudes or preferences
         you typically demonstrate. Perhaps you think you are coming across in a certain way, but this is not how you are
         perceived by others. Alternatively, you may not be aware that you are behaving or doing certain things, so feedback
         provided by your colleagues will prompt a greater awareness of what they see you typically doing. Or perhaps, there
@@ -268,8 +273,8 @@ if( ! function_exists('get_page_5') ){
         }
         </style>
 
-        <p><strong>Your raters</strong></p>
-        <p>You had the following number of raters complete the survey:</p>
+        <p><strong>Your evaluator</strong></p>
+        <p>You had the following number of evaluators complete the survey:</p>
         <table border="1" cellpadding="4" cellspacing="1">
             <tr bgcolor="#f0f8ff">
                 <td width="150">Number of respondents</td>
@@ -303,11 +308,11 @@ if( ! function_exists('get_page_10') ){
         $html = '
         <p><strong>Your competency detail report</strong></p>
         <p>The competency detail report has a section for each competency in the same order as shown in your competency
-        summary table. Each section shows the average of responses given by each rater group for that competency in a
-        graph. The responses will only be separated out when you have sufficient raters of each category.</p>
+        summary table. Each section shows the average of responses given by each evaluator group for that competency in a
+        graph. The responses will only be separated out when you have sufficient evaluators of each category.</p>
 
         <p>To the right of the graph is a record of the number of ratings given for you at each level for that competency. If you
-        selected your manager as a rater, their ratings are counted within the “peers” group.</p>
+        selected your manager as a evaluator, their ratings are counted within the “peers” group.</p>
 
         <p>The section also describes the competency and the levels within in it, just as you saw in the diagnostic itself.</p>
         ';

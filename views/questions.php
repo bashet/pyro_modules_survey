@@ -3,22 +3,18 @@
     <div style="padding-bottom: 10px">
         <?php
         if($survey_id){
-            if($survey->q_cat){
-                echo '<a href="{{ url:site }}survey/add_new_question/'.$survey_id.'" class="btn btn-primary" ><span class="icon-question"></span> Add new question</a>';
-            }else{
-                echo '<button class="btn btn-primary" data-toggle="modal" data-target="#no_category"><span class="icon-question"></span> Add new question</button>';
-            }
             echo '<button class="btn btn-primary" data-toggle="modal" data-target="#add_category"><span class="icon-sitemap"></span> Add category</button>';
-            echo '<a href="{{ url:site }}survey/organise/'.$survey_id.'" class="btn btn-primary" ><span class="icon-reorder"></span> Organise questions</a>';
+            echo '<a href="{{ url:site }}survey/organise/'.$survey_id.'" class="btn btn-primary" ><span class="icon-reorder"></span> Organise questions and category</a>';
 
         }else{
-            echo '<button class="btn btn-primary" disabled><span class="icon-plus"></span> Add new question</button>';
             echo '<button class="btn btn-primary" disabled><span class="icon-plus"></span> Add category</button>';
-            echo '<button class="btn btn-primary" disabled><span class="icon-reorder"></span> Organise questions</button>';
+            echo '<button class="btn btn-primary" disabled><span class="icon-reorder"></span> Organise questions and category</button>';
         }
         ?>
 
     </div>
+
+    <h2>Questions for <strong><?=$survey->name?></strong></h2>
 
     <div id="question_categories">
         <?php
@@ -26,7 +22,8 @@
             $my_categories = json_decode($survey->q_cat);
             foreach($my_categories as $My_cat){
                 $cat = get_category_by_id($My_cat);
-                echo '<h3>'.$cat->name.'</h3>';
+                echo '<h3>'.$cat->name.'<button btn_remove_cat class="btn btn-xs" id="'.$survey->id.'-'.$cat->id.'" style="float:right">Un-link <i class="fa fa-chain-broken"></i></button></h3>';
+
                 echo '<div>';
                 echo '<div question id="q_cat-'.$cat->id.'">';
                 $questions = get_questions_by_category($cat->id);
@@ -38,10 +35,7 @@
                             echo '<div>';
                             ?>
                             <?php $options = get_option_by_question_id($q->id)?>
-                            <div style="float: right">
-                                <a href="{{url:site}}survey/edit_question/<?=$survey_id.'/'.$q->id?>" class="btn btn-warning" title="Edit"><span class="fa fa-edit fa-2x"></span></a>
-                                <a delete_question id="delete_question-<?=$q->id?>" class="btn btn-danger" title="Delete"><span class="fa fa-trash-o fa-2x"></span></a>
-                            </div>
+
                             <table class="table q_table">
                                 <tr>
                                     <th>Description</th>
@@ -151,7 +145,7 @@
 
     <div id="dialog-confirm" class="hide">
         <div class="alert alert-info bigger-110">
-            question "<span id="item_name"></span>" will be permanently deleted and cannot be recovered.
+            You are about to remove <span id="category_name"></span> category from <?=$survey->name?>.
         </div>
 
         <div class="space-6"></div>

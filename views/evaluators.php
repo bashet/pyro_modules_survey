@@ -2,7 +2,7 @@
     <h2>Evaluators</h2>
     <p>
         In order to complete the diagnostic and access your report, at least three evaluators will need to have
-        submitted a response for each of the sixteen competencies.
+        submitted a response for each of the competencies.
         To get the most out of your report we would recommend trying to nominate at least 3 evaluators in each category.
     </p>
 
@@ -70,9 +70,9 @@
                     echo    '<td style="text-align:center">
                                 <select name="relation_'.$i.'" id="relation_'.$i.'" class="form-control">
                                     <option value="">Please select</option>
-                                        <option value="Direct Report">Direct Report</option>
-                                        <option value="Peer">Peer</option>
-                                        <option value="Other">Other</option>
+                                    <option value="Line Manager">Line Manager</option>
+                                    <option value="Peer">Peer</option>
+                                    <option value="Team Members">Team Members</option>
                                 </select>
                             </td>';
                     echo    '<td></td>';

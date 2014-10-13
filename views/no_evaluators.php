@@ -2,13 +2,13 @@
     <h2>Evaluators</h2>
     <p>
         In order to complete the diagnostic and access your report, at least three evaluators will need to have
-        submitted a response for each of the sixteen competencies.
+        submitted a response for each of the competencies.
         To get the most out of your report we would recommend trying to nominate at least 3 evaluators in each category.
     </p>
     <div id="number_of_evaluators_warning" style="display: none" class="alert alert-danger role="alert">
 
     </div>
-
+<?php if($attempt_remaining){?>
     <form id="frm_save_evaluators" method="post" action="{{ url:site }}survey/save_evaluators">
         <table class="table table-bordered table-hover">
             <thead>
@@ -33,9 +33,9 @@
                 echo    '<td style="text-align:center">
                             <select name="relation_'.$i.'" id="relation_'.$i.'" class="form-control">
                                 <option value="">Please select</option>
-                                    <option value="Direct Report">Direct Report</option>
-                                    <option value="Peer">Peer</option>
-                                    <option value="Other">Other</option>
+                                <option value="Line Manager">Line Manager</option>
+                                <option value="Peer">Peer</option>
+                                <option value="Team Members">Team Members</option>
                             </select>
                         </td>';
                 echo    '</tr>';
@@ -54,6 +54,11 @@
             </button>
         </div>
     </form>
+<?php }else{?>
+    <div class="alert alert-danger">
+        <p>Unfortunately you have completed all the number of attempts allocated to you. Please contact your organisation manager if you wish to do more attempt for this programme.</p>
+    </div>
+<?php } ?>
 </div>
 
 <!-- Modal -->

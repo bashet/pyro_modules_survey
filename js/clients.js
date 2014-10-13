@@ -2,6 +2,10 @@
 $(function(){
     $(document).ready(function() {
         $('#all_clients').dataTable();
+
+        $('button[set_logo]').tooltipster({
+            contentAsHTML: true
+        });
     } );
 
     $('#save_clients').button().click(function(){
@@ -132,4 +136,55 @@ $(function(){
         });
 
     });
+
+    $('button[set_logo]').click(function(){
+        var button_id = this.id;
+        var button_id_array = button_id.split('-');
+        var clients_id = button_id_array[1];
+        $('#client_id_to_set_logo').val(clients_id);
+    });
+
+    $('#folder_select').change(function(){
+        $.ajax({
+            type : 'GET',
+            url:base_url + 'index.php/survey/ajax_select_folder/' + $(this).val(),
+            dataType : 'json',
+            success: function(data){
+                if (data) {
+
+                    // remove images from last selection
+                    var image_list = $('#image_list');
+                    image_list.empty();
+
+                    image_list.append('<hr>');
+
+                    if (data.images) {
+
+                        $.each(data.images, function(i, image){
+                            if((image.extension == '.jpg') || (image.extension == '.JPG')){
+                                var my_image = '<img src="' + base_url + 'index.php/files/thumb/' + image.id + '" alt="' + image.name + '" title="Title: ' + image.name + '">';
+
+                                $('#image_list').append(
+                                    '<label>' +
+                                        '<input type="radio" name="image" value="'+ image.id +'">' +
+                                        my_image +
+                                        '</label>'
+                                );
+                            }
+
+                        });
+                    }
+                }
+            }
+        });
+    });
+
+    $('#save_clients_logo').button().click(function(){
+        $body = $("body");
+        $body.addClass("loading");
+        $('#mdl_upload_logo').modal('hide');
+        $('#frm_upload_logo').submit();
+    });
+
+
 });

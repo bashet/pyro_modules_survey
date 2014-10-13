@@ -23,35 +23,49 @@
         </tr>
         </thead>
         <?php
-        $i = 1;
-        if($questions){
-            foreach($questions as $q){
-                $answer = get_answers_by_q_id($q->id);
-                $q_id = $q->id;
-                echo '<tr>';
-                echo '<td>'.$i.'</td>';
-                echo '<td>'.$q->text1.'</td>';
-                if(isset($my_answer->$q_id)){
-                    if($my_answer->$q_id == 1){
-                        echo '<td><strong>Level 1:</strong>&NonBreakingSpace;'.$answer->option_1_label.'</td>';
-                    }elseif($my_answer->$q_id == 2){
-                        echo '<td><strong>Level 2:</strong>&NonBreakingSpace;'.$answer->option_2_label.'</td>';
-                    }elseif($my_answer->$q_id == 3){
-                        echo '<td><strong>Level 3:</strong>&NonBreakingSpace;'.$answer->option_3_label.'</td>';
-                    }elseif($my_answer->$q_id == 4){
-                        echo '<td><strong>Level 4:</strong>&NonBreakingSpace;'.$answer->option_4_label.'</td>';
-                    }else{
-                        echo '<td></td>';
+        $categories = json_decode($survey->q_cat);
+        if($categories){
+            $i = 1;
+            foreach($categories as $cat_id){
+                $cat = get_category_by_id($cat_id);
+                if($cat){
+                    if($cat->questions){
+                        $cat_questions = json_decode($cat->questions);
+                        foreach($cat_questions as $question_id){
+                            $q = get_question_by_id($question_id);
+                            if($q){
+                                $answer = get_answers_by_q_id($q->id);
+                                $q_id = $q->id;
+                                echo '<tr>';
+                                echo '<td>'.$i.'</td>';
+                                echo '<td>'.$q->text1.'</td>';
+                                if(isset($my_answer->$q_id)){
+                                    if($my_answer->$q_id == 1){
+                                        echo '<td><strong>Level 1:</strong>&NonBreakingSpace;'.$answer->option_1_label.'</td>';
+                                    }elseif($my_answer->$q_id == 2){
+                                        echo '<td><strong>Level 2:</strong>&NonBreakingSpace;'.$answer->option_2_label.'</td>';
+                                    }elseif($my_answer->$q_id == 3){
+                                        echo '<td><strong>Level 3:</strong>&NonBreakingSpace;'.$answer->option_3_label.'</td>';
+                                    }elseif($my_answer->$q_id == 4){
+                                        echo '<td><strong>Level 4:</strong>&NonBreakingSpace;'.$answer->option_4_label.'</td>';
+                                    }else{
+                                        echo '<td></td>';
+                                    }
+                                }else{
+                                    echo '<td></td>';
+                                }
+                                if(! $ex_ans->submitted)
+                                    echo '<td><a href="{{ url:site }}survey/user_review_single/'.$i.'/'.$q->id.'"><span class="glyphicon glyphicon-pencil"></span></a></td>';
+                                echo '</tr>';
+                                $i++;
+                            }
+                        }
                     }
-                }else{
-                    echo '<td></td>';
                 }
-                if(! $ex_ans->submitted)
-                echo '<td><a href="{{ url:site }}survey/user_review_single/'.$i.'/'.$q->id.'"><span class="glyphicon glyphicon-pencil"></span></a></td>';
-                echo '</tr>';
-                $i++;
             }
         }
+
+
         ?>
         <tbody>
 

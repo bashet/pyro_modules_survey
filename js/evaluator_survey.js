@@ -87,7 +87,7 @@ $(function(){
 
                                     }else{
                                         if(msg.updated == true){
-                                            window.location.href = base_url + 'index.php/survey/successful';
+                                            window.location.href = base_url + 'index.php/survey/successful_submitted_by_evaluator';
                                         }
                                     }
                                 }

@@ -339,9 +339,16 @@ if(! function_exists('get_total_evaluators_by_attempt_id')){
 if(! function_exists('get_total_question_in_survey')){
     function get_total_question_in_survey($survey_id){
         $ci =& get_instance();
-
-        $ci->db->where('survey_id', $survey_id);
-        return $ci->db->count_all_results('survey_questions');
+        $total = 0;
+        $query = $ci->db->get_where('survey', array('id' => $survey_id));
+        $survey = $query->row();
+        $categories = json_decode($survey->q_cat);
+        foreach($categories as $cat){
+            $query = $ci->db->get_where('survey_question_categories', array('id' => $cat));
+            $questions = $query->row();
+            $total = $total + count(json_decode($questions->questions, true));
+        }
+        return $total;
     }
 }
 
@@ -434,7 +441,17 @@ if(! function_exists('get_user_answer_history')){
         if($user_id){
             $ci =& get_instance();
 
-            $query = $ci->db->get_where('survey_user_answer', array('user_id' => $user_id));
+            $sql = "SELECT atm.id as id, atm.user_id as user_id, atm.survey_id as survey_id, atm.create_date as start_date, ans.finished as finished,
+                        ans.submitted as submitted, ans.submit_date as submit_date,
+                        ans.answers as answers, atm.programme_id as programme_id, pro.name as programme_name
+                    from default_survey_attempt atm
+                    left join default_survey_user_answer ans
+                    on ans.attempt_id = atm.id
+                    join default_survey_programme pro
+                    on pro.id = atm.programme_id
+                    where atm.user_id = $user_id";
+
+            $query = $ci->db->query($sql);
             return $query->result();
         }
     }
@@ -442,15 +459,48 @@ if(! function_exists('get_user_answer_history')){
 
 if(! function_exists('get_report_pdf')){
     function get_report_pdf($data){
+        $ci =& get_instance();
         // $data has all the fields from user_answer table
 
-        $attempt = get_current_attempt_by_id($data->attempt_id);
+        $attempt = get_current_attempt_by_id($data->id);
         if($attempt->report_ready){
-            $result = '<a href="{{ url:site }}survey/view_report/'.$data->attempt_id.'" target="_blank"><span class="glyphicon glyphicon-list-alt"></span>&nbsp;&nbsp;&nbsp;View this report</a>';
+            $result = '<a
+                            href="{{ url:site }}survey/report_viewer/'.$data->id.'"
+                            target="_blank"
+                        >
+                        <span class="glyphicon glyphicon-list-alt"></span>
+                        &nbsp;&nbsp;&nbsp;View this report
+                        </a>';
         }else{
-            $result = 'Report is not ready yet';
+            if($ci->current_user->group != 'user'){
+                $result = '<a
+                            href="{{ url:site }}survey/report_viewer/'.$data->id.'"
+                            target="_blank"
+                        >
+                        &nbsp;Generate report
+                        </a>';
+                if(get_submitted_evaluators($data->id) >= 3){
+                    $result = 'Report is not ready yet - '.$result;
+                }else{
+                    $result = 'Report is not ready yet';
+                }
+
+            }else{
+                $result = 'Report is not ready yet';
+            }
+
         }
         return $result;
+    }
+}
+
+if(! function_exists('get_submitted_evaluators')){
+    function get_submitted_evaluators($attempt_id){
+        $ci =& get_instance();
+
+        $query  = $ci->db->query("SELECT count(id)as total FROM default_survey_evaluators where attempt_id=$attempt_id and answers !=''");
+        $record = $query->row();
+        return $record->total;
     }
 }
 
@@ -474,13 +524,19 @@ if( ! function_exists('generate_email_template_for_evaluator')){
         $email_template = get_email_template('email-to-evaluators');
         $user = get_profile_by_user_id($ci->current_user->id);
 
+        $participation   = $ci->survey_m->get_current_participation($ci->current_user->id);
+
+        $client          = get_client_by_id($participation->cid);
+
+
         $email_body = '<p>Dear '.$evaluator->name.',</p>';
         $email_body .= $data['email_body']. '<br>';
         $email_body .= '<p>Please click to the link below:</p>';
         $link        = $ci->config->base_url().'index.php/survey/evaluator_response/'.$evaluator->link_md5;
         $email_body .= '<a href="'.$link.'">'.$link.'</a>';
-        $email_body .= '<br><br><p>Regards,<br>';
-        $email_body .= $user->first_name . ' ' . $user->last_name.'</p>';
+        $email_body .= '<br><br><p>Yours faithfully,<br>';
+        $email_body .= $user->first_name . ' ' . $user->last_name.'<br>';
+        $email_body .= 'Leadership Colab on behalf of '.$client->name.'</p>';
 
         $ci->db->where('id', $email_template->id);
         if($ci->db->update('email_templates', array('body' => $email_body))){
@@ -588,6 +644,29 @@ if( ! function_exists('get_all_attempts_by_user_n_programme') ){
         }else{
             return '';
         }
+    }
+}
+
+if( ! function_exists('get_all_attempts_by_user') ){
+    function get_all_attempts_by_user($user_id = ''){
+        if($user_id){
+            $ci =& get_instance();
+            //$ci->db->order_by('id', 'desc');
+            $query = $ci->db->get_where('survey_attempt', array('user_id' => $user_id));
+            return $query->result();
+        }else{
+            return '';
+        }
+    }
+}
+
+if( ! function_exists('get_total_attempts_by_user_n_programme') ){
+    function get_total_attempts_by_user_n_programme($user_id = '', $programme_id){
+        $ci =& get_instance();
+        $ci->db->where('user_id', $user_id);
+        $ci->db->where('programme_id', $programme_id);
+        $ci->db->from('survey_attempt');
+        return $ci->db->count_all_results();
     }
 }
 
@@ -770,7 +849,7 @@ if( !function_exists('get_self_marking_details') ){
 
         $my_answer = json_decode($answers->answers, true);
 
-        return ((56*$my_answer[$q_id])/4);
+        return ((42*$my_answer[$q_id])/4);
     }
 }
 
@@ -785,7 +864,7 @@ if( ! function_exists('get_evaluators_total_details') ){
             $total_evaluator = $total_evaluator + 1;
         }
 
-        return ((56*($total_answer/$total_evaluator))/4);
+        return ((42*($total_answer/$total_evaluator))/4);
     }
 }
 
@@ -837,3 +916,169 @@ if( ! function_exists('get_evaluators_total_num') ){
         return $result;
     }
 }
+if( ! function_exists('get_all_participation')){
+    function get_all_participation($user_id = ''){
+        $ci =& get_instance();
+        $query = $ci->db->get_where('survey_participant', array('uid'=>$user_id)); // expected to get only one row
+
+        return $query->result();
+
+    }
+}
+
+if( ! function_exists('get_current_participation_by_user') ){
+    function get_current_participation_by_user($user_id){
+        $ci =& get_instance();
+        $query = $ci->db->get_where('survey_participant', array('uid'=>$user_id, 'active'=>1)); // expected to get only one row
+
+        return $query->row();
+
+    }
+}
+
+if( ! function_exists('get_participation_by_programme') ){
+    function get_participation_by_programme($pid){
+        $ci =& get_instance();
+        $query = $ci->db->get_where('survey_participant', array('pid'=>$pid)); // expected to get only one row
+
+        return $query->row();
+
+    }
+}
+
+if( ! function_exists('is_programme_used') ){
+    function is_programme_used($id = '', $participation){
+        $status = false;
+        foreach($participation as $p){
+            if($p->pid == $id){
+                $status = true;
+            }
+        }
+        return $status;
+    }
+}
+
+if( ! function_exists('get_active_application') ){
+    function get_active_application($user_id){
+        $ci =& get_instance();
+        $query = $ci->db->get_where('survey_new_application', array('uid'=>$user_id, 'status'=>1)); // expected to get only one row
+
+        return $query->row();
+    }
+}
+
+if( ! function_exists('get_all_active_requests_for_admin') ){
+    function get_all_active_requests_for_admin(){
+        $ci =& get_instance();
+        $sql = "select
+                    new_app.id as id,
+                    new_app.uid as user_id,
+                    CONCAT(u.first_name, ' ', u.last_name) as name,
+                    c.name as org_name,
+                    prog.name as new_prog_name,
+                    new_app.create_date as date_applied,
+                    new_app.status as status
+                from default_survey_new_application new_app
+                join default_profiles u
+                on u.user_id = new_app.uid
+                join default_survey_clients c
+                on c.id = new_app.cid
+                join default_survey_programme prog
+                on prog.id = new_app.pid
+                where new_app.status=1";
+        $query = $ci->db->query($sql); // expected to get only one row
+        // $this->db->count_all_results();
+
+        return $query->result();
+    }
+}
+
+if( ! function_exists('get_all_approved_requests_for_admin') ){
+    function get_all_approved_requests_for_admin(){
+        $ci =& get_instance();
+        $sql = "select
+                    new_app.id as id,
+                    new_app.uid as user_id,
+                    CONCAT(u.first_name, ' ', u.last_name) as name,
+                    c.name as org_name,
+                    prog.name as new_prog_name,
+                    new_app.create_date as date_applied,
+                    new_app.approval_date as approval_date,
+                    new_app.status as status
+                from default_survey_new_application new_app
+                join default_profiles u
+                on u.user_id = new_app.uid
+                join default_survey_clients c
+                on c.id = new_app.cid
+                join default_survey_programme prog
+                on prog.id = new_app.pid
+                where new_app.status=0";
+        $query = $ci->db->query($sql); // expected to get only one row
+        // $this->db->count_all_results();
+
+        return $query->result();
+    }
+}
+
+if( ! function_exists('get_all_active_requests_for_client') ){
+    function get_all_active_requests_for_client($cid){
+        $ci =& get_instance();
+        $sql = "select
+                    new_app.id as id,
+                    new_app.uid as user_id,
+                    CONCAT(u.first_name, ' ', u.last_name) as name,
+                    c.name as org_name,
+                    prog.name as new_prog_name,
+                    new_app.create_date as date_applied,
+                    new_app.status as status
+                from default_survey_new_application new_app
+                join default_profiles u
+                on u.user_id = new_app.uid
+                join default_survey_clients c
+                on c.id = new_app.cid
+                join default_survey_programme prog
+                on prog.id = new_app.pid
+                where new_app.status=1 and c.id = ".$cid;
+        $query = $ci->db->query($sql); // expected to get only one row
+        // $this->db->count_all_results();
+
+        return $query->result();
+    }
+}
+
+if( ! function_exists('get_all_approved_requests_for_client') ){
+    function get_all_approved_requests_for_client($cid){
+        $ci =& get_instance();
+        $sql = "select
+                    new_app.id as id,
+                    new_app.uid as user_id,
+                    CONCAT(u.first_name, ' ', u.last_name) as name,
+                    c.name as org_name,
+                    prog.name as new_prog_name,
+                    new_app.create_date as date_applied,
+                    new_app.approval_date as approval_date,
+                    new_app.status as status
+                from default_survey_new_application new_app
+                join default_profiles u
+                on u.user_id = new_app.uid
+                join default_survey_clients c
+                on c.id = new_app.cid
+                join default_survey_programme prog
+                on prog.id = new_app.pid
+                where new_app.status=0 and c.id = ". $cid;
+        $query = $ci->db->query($sql); // expected to get only one row
+        // $this->db->count_all_results();
+
+        return $query->result();
+    }
+}
+
+if( ! function_exists('get_programme_request_by_id') ){
+    function get_programme_request_by_id($request_id){
+        $ci =& get_instance();
+        $query = $ci->db->get_where('survey_new_application', array('id'=>$request_id)); // expected to get only one row
+
+        return $query->row();
+    }
+}
+
