@@ -82,7 +82,7 @@ if (@file_exists(dirname(__FILE__).'/lang/eng.php')) {
 // ---------------------------------------------------------
 
 // set font
-$pdf->SetFont('dejavusans', '', 8);
+$pdf->SetFont('dejavusans', '', 7.5);
 //$pl_image = $base_url .'addons/shared_addons/modules/survey/img/performance_level.jpg';
 //$pl_dtl1  = $base_url .'addons/shared_addons/modules/survey/img/details1.jpg';
 //$pl_dtl2  = $base_url .'addons/shared_addons/modules/survey/img/details2.jpg';
@@ -356,13 +356,13 @@ foreach($categories as $cat_id){
                         $html .= '</td>';
                     $html .= '</tr>';//--------------------------------
                     $html .= '<tr>';
-                    $html .= '<td width="35%">';
+                    $html .= '<td width="40%">';
                     $html .= '<p><strong>'.$q->title.'</strong></p>';
                     $html .= '<strong>Definition</strong>'.$q->description;
                     $html .= '<strong>Why it matters</strong>'.$q->matter;
                     $html .= '<strong>Key question:</strong>'.$q->text2;
                     $html .= '</td>';
-                    $html .= '<td width="65%">';
+                    $html .= '<td width="60%">';
                     $html .= '<strong>Response 4 - '.$answer->option_4_label.'</strong>';
                     $html .= $answer->option_4;
                     $html .= '<strong>Response 3 - '.$answer->option_3_label.'</strong>';
