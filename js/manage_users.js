@@ -3,9 +3,9 @@ $(function(){
         $('#all_users').dataTable();
         $('#tbl_active_request').dataTable();
         $('#tbl_approved_request').dataTable();
-        $('#example').dataTable( {
+        /*$('#example').dataTable( {
             "sAjaxSource": 'http://localhost/colab0710/data.txt'
-        } );
+        } );*/
     } );
 
     $('button[approve]').button().click(function(){
