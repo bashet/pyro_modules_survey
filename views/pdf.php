@@ -63,7 +63,7 @@ $pdf->setFooterFont(Array(PDF_FONT_NAME_DATA, '', PDF_FONT_SIZE_DATA));
 $pdf->SetDefaultMonospacedFont(PDF_FONT_MONOSPACED);
 
 // set margins
-$pdf->SetMargins(PDF_MARGIN_LEFT, 35, PDF_MARGIN_RIGHT);
+$pdf->SetMargins(PDF_MARGIN_LEFT, 25, PDF_MARGIN_RIGHT);
 $pdf->SetHeaderMargin(PDF_MARGIN_HEADER);
 //$pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
 
@@ -375,10 +375,10 @@ foreach($categories as $cat_id){
                     $html .= '</tr>';
 
                     $html .= '</table>';
-                    $params = TCPDF_STATIC::serializeTCPDFtagParameters(array(20, 95.6, 20, -get_evaluators_total_details($evaluators, $q->id), 'DF', array(0,0,0,0), array(0,128,225)));
+                    $params = TCPDF_STATIC::serializeTCPDFtagParameters(array(25, 85.6, 20, -get_evaluators_total_details($evaluators, $q->id), 'DF', array(0,0,0,0), array(0,128,225)));
                     $html .= '<tcpdf method="Rect" params="'.$params.'"/>';
 
-                    $params = TCPDF_STATIC::serializeTCPDFtagParameters(array(50, 95.6, 20, -get_self_marking_details($user_answer, $q->id), 'DF', array(0,0,0,0), array(0,128,225)));
+                    $params = TCPDF_STATIC::serializeTCPDFtagParameters(array(50, 85.6, 20, -get_self_marking_details($user_answer, $q->id), 'DF', array(0,0,0,0), array(0,128,225)));
                     $html .= '<tcpdf method="Rect" params="'.$params.'"/>';
 
                     $pdf->writeHTML($html, true, false, true, false, '');
@@ -392,7 +392,7 @@ foreach($categories as $cat_id){
 }
 
 
-//======================================= page 32 ===========================================
+//======================================= Last Page ===========================================
 $pdf->AddPage();
 $html = '<style>
             th {
@@ -405,6 +405,10 @@ $html = '<style>
                 text-align: center;
             }
         </style>';
+$html .= '<br>';
+$html .= '<br>';
+$html .= '<br>';
+$html .= '<br>';
 foreach($categories as $cat_id){
     $cat = get_category_by_id($cat_id);
     $sort_order = json_decode($cat->questions);
