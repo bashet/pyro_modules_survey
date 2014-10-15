@@ -55,6 +55,21 @@
         </tbody>
     </table>
 
+    <!--<table id="example" class="display table table-bordered table-hover" width="100%" cellspacing="0">
+        <thead>
+        <tr>
+            <th>Name</th>
+            <th>Position</th>
+            <th>Office</th>
+            <th>Extn.</th>
+            <th>Start date</th>
+            <th>Salary</th>
+        </tr>
+        </thead>
+
+
+    </table>-->
+
 
 </div>
 

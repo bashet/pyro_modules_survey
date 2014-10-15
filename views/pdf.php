@@ -63,7 +63,7 @@ $pdf->setFooterFont(Array(PDF_FONT_NAME_DATA, '', PDF_FONT_SIZE_DATA));
 $pdf->SetDefaultMonospacedFont(PDF_FONT_MONOSPACED);
 
 // set margins
-$pdf->SetMargins(PDF_MARGIN_LEFT, 35, PDF_MARGIN_RIGHT);
+$pdf->SetMargins(PDF_MARGIN_LEFT, 25, PDF_MARGIN_RIGHT);
 $pdf->SetHeaderMargin(PDF_MARGIN_HEADER);
 //$pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
 
@@ -82,7 +82,7 @@ if (@file_exists(dirname(__FILE__).'/lang/eng.php')) {
 // ---------------------------------------------------------
 
 // set font
-$pdf->SetFont('dejavusans', '', 8);
+$pdf->SetFont('dejavusans', '', 7.5);
 //$pl_image = $base_url .'addons/shared_addons/modules/survey/img/performance_level.jpg';
 //$pl_dtl1  = $base_url .'addons/shared_addons/modules/survey/img/details1.jpg';
 //$pl_dtl2  = $base_url .'addons/shared_addons/modules/survey/img/details2.jpg';
@@ -110,7 +110,7 @@ $html = get_page_4();
 $pdf->writeHTML($html, true, false, true, false, '');
 //======================================= page 5 ===========================================
 $pdf->AddPage();
-$html = get_page_5($total_evaluators);
+$html = get_page_5($submitted_evaluators);
 $pdf->writeHTML($html, true, false, true, false, '');
 //======================================= page 6 ===========================================
 foreach($categories as $cat_id){
@@ -151,7 +151,7 @@ foreach($categories as $cat_id){
                 <td colspan="3">'.$cat->name.'</td>
             </tr>';
     if($questions){
-        $y = 58;
+        $y = 48;
         foreach($sort_order as $order){
             foreach($questions as $q){
                 if($order == $q->id){
@@ -356,13 +356,13 @@ foreach($categories as $cat_id){
                         $html .= '</td>';
                     $html .= '</tr>';//--------------------------------
                     $html .= '<tr>';
-                    $html .= '<td width="35%">';
+                    $html .= '<td width="40%">';
                     $html .= '<p><strong>'.$q->title.'</strong></p>';
                     $html .= '<strong>Definition</strong>'.$q->description;
                     $html .= '<strong>Why it matters</strong>'.$q->matter;
                     $html .= '<strong>Key question:</strong>'.$q->text2;
                     $html .= '</td>';
-                    $html .= '<td width="65%">';
+                    $html .= '<td width="60%">';
                     $html .= '<strong>Response 4 - '.$answer->option_4_label.'</strong>';
                     $html .= $answer->option_4;
                     $html .= '<strong>Response 3 - '.$answer->option_3_label.'</strong>';
@@ -375,10 +375,10 @@ foreach($categories as $cat_id){
                     $html .= '</tr>';
 
                     $html .= '</table>';
-                    $params = TCPDF_STATIC::serializeTCPDFtagParameters(array(20, 96, 20, -get_evaluators_total_details($evaluators, $q->id), 'DF', array(0,0,0,0), array(0,128,225)));
+                    $params = TCPDF_STATIC::serializeTCPDFtagParameters(array(22, 85.6, 20, -get_evaluators_total_details($evaluators, $q->id), 'DF', array(0,0,0,0), array(0,128,225)));
                     $html .= '<tcpdf method="Rect" params="'.$params.'"/>';
 
-                    $params = TCPDF_STATIC::serializeTCPDFtagParameters(array(50, 96, 20, -get_self_marking_details($user_answer, $q->id), 'DF', array(0,0,0,0), array(0,128,225)));
+                    $params = TCPDF_STATIC::serializeTCPDFtagParameters(array(50, 85.6, 20, -get_self_marking_details($user_answer, $q->id), 'DF', array(0,0,0,0), array(0,128,225)));
                     $html .= '<tcpdf method="Rect" params="'.$params.'"/>';
 
                     $pdf->writeHTML($html, true, false, true, false, '');
@@ -392,7 +392,7 @@ foreach($categories as $cat_id){
 }
 
 
-//======================================= page 32 ===========================================
+//======================================= Last Page ===========================================
 $pdf->AddPage();
 $html = '<style>
             th {
@@ -405,6 +405,10 @@ $html = '<style>
                 text-align: center;
             }
         </style>';
+$html .= '<br>';
+$html .= '<br>';
+$html .= '<br>';
+$html .= '<br>';
 foreach($categories as $cat_id){
     $cat = get_category_by_id($cat_id);
     $sort_order = json_decode($cat->questions);

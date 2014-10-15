@@ -997,8 +997,9 @@ class Survey extends Public_Controller {
             exit();
         }
 
-        if($this->attempt){
-            $evaluators     = get_evaluators_by_attempt_id($this->attempt->id);
+        $attempt = get_current_active_attempt_by_user_id($this->current_user->id);
+        if($attempt){
+            $evaluators     = get_evaluators_by_attempt_id($attempt->id);
         }else{
             $evaluators     = '';
         }
@@ -1049,8 +1050,9 @@ class Survey extends Public_Controller {
         $error          = array();
         $total_entered  = 4;
         $entry          = 0;
-        if($this->attempt){
-            $evaluators = get_evaluators_by_attempt_id($this->attempt->id);
+        $attempt = get_current_active_attempt_by_user_id($this->current_user->id);
+        if($attempt){
+            $evaluators = get_evaluators_by_attempt_id($attempt->id);
         }else{
             $evaluators = '';
         }
@@ -1513,6 +1515,7 @@ class Survey extends Public_Controller {
         $data['total_evaluators'] = get_total_evaluators_by_attempt_id($attempt_id);
         $data['total_questions']  = get_total_question_in_survey($survey->id);
         $data['file']             = './reports/'.$attempt_id.'.pdf';
+        $data['submitted_evaluators'] = get_submitted_evaluators($attempt_id);
 
         $this->load->view('pdf', $data);
     }

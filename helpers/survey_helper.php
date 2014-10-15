@@ -318,6 +318,17 @@ if(! function_exists('get_current_attempt_by_user_id')){
     }
 }
 
+if(! function_exists('get_current_active_attempt_by_user_id')){
+    function get_current_active_attempt_by_user_id($id = ''){
+        $ci =& get_instance();
+
+        $ci->db->limit(1);
+        $ci->db->order_by("id", "desc");
+        $query = $ci->db->get_where('survey_attempt', array('user_id' => $id, 'report_ready'=>0));
+        return $query->row();
+    }
+}
+
 if(! function_exists('get_evaluators_by_attempt_id')){
     function get_evaluators_by_attempt_id($attempt_id){
         $ci =& get_instance();
