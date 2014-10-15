@@ -1515,6 +1515,7 @@ class Survey extends Public_Controller {
         $data['total_evaluators'] = get_total_evaluators_by_attempt_id($attempt_id);
         $data['total_questions']  = get_total_question_in_survey($survey->id);
         $data['file']             = './reports/'.$attempt_id.'.pdf';
+        $data['submitted_evaluators'] = get_submitted_evaluators($attempt_id);
 
         $this->load->view('pdf', $data);
     }

@@ -110,7 +110,7 @@ $html = get_page_4();
 $pdf->writeHTML($html, true, false, true, false, '');
 //======================================= page 5 ===========================================
 $pdf->AddPage();
-$html = get_page_5($total_evaluators);
+$html = get_page_5($submitted_evaluators);
 $pdf->writeHTML($html, true, false, true, false, '');
 //======================================= page 6 ===========================================
 foreach($categories as $cat_id){
