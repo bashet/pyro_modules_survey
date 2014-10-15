@@ -151,7 +151,7 @@ foreach($categories as $cat_id){
                 <td colspan="3">'.$cat->name.'</td>
             </tr>';
     if($questions){
-        $y = 58;
+        $y = 48;
         foreach($sort_order as $order){
             foreach($questions as $q){
                 if($order == $q->id){
@@ -375,7 +375,7 @@ foreach($categories as $cat_id){
                     $html .= '</tr>';
 
                     $html .= '</table>';
-                    $params = TCPDF_STATIC::serializeTCPDFtagParameters(array(25, 85.6, 20, -get_evaluators_total_details($evaluators, $q->id), 'DF', array(0,0,0,0), array(0,128,225)));
+                    $params = TCPDF_STATIC::serializeTCPDFtagParameters(array(22, 85.6, 20, -get_evaluators_total_details($evaluators, $q->id), 'DF', array(0,0,0,0), array(0,128,225)));
                     $html .= '<tcpdf method="Rect" params="'.$params.'"/>';
 
                     $params = TCPDF_STATIC::serializeTCPDFtagParameters(array(50, 85.6, 20, -get_self_marking_details($user_answer, $q->id), 'DF', array(0,0,0,0), array(0,128,225)));
