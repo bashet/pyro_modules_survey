@@ -66,7 +66,7 @@ $(function(){
                 }
             }
         });
-        event.preventDefault();
+        //event.preventDefault();
     });
 
     $('button[delete_evaluator]').button().click(function(){
