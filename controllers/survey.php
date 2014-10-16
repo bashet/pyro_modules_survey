@@ -1247,17 +1247,7 @@ class Survey extends Public_Controller {
 
             }
 
-        }else{
-            echo json_encode(array(
-                'missing fields'=>$missing_fields,
-                'all empty'=>$all_empty,
-                'duplicate entry' =>$duplicate_entry,
-                'data exist'=>$data_exist,
-                'total entered'=>$total_entered,
-                'error'=>$error
-            )) ;
         }
-
 
         echo json_encode(
                         array(
