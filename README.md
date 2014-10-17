@@ -10,3 +10,6 @@ To install wkHTMLtoPDF
 <pre>tar xvjf wkhtmltopdf-0.9.9-static-amd64.tar.bz2</pre>
 <pre>mv wkhtmltopdf-amd64 /usr/bin/wkhtmltopdf</pre>
 <pre>chmod 777 /usr/bin/wkhtmltopdf</pre>
+
+
+chmod 777 -R addons/ assets/ system/cms/logs/ system/cms/cache/ uploads/ reports/
