@@ -865,15 +865,9 @@ class Survey extends Public_Controller {
             exit();
         }
         $client = $this->survey_m->get_client_by_manager_id($this->current_user->id);
-        if($this->current_user->group_id == 1){
-            $users = $this->survey_m->get_all_users_for_admin();
-        }else{
-            $users = $this->survey_m->get_all_users_by_client($client->id);
-        }
 
         $this->template
             ->title($this->module_details['name'], 'manage users')
-            ->set('users', $users)
             ->set('client', $client)
             ->set_breadcrumb('Manage Users')
             ->append_js('module::manage_users.js')
