@@ -196,7 +196,7 @@ class survey_m extends MY_Model {
                 on sp.uid = u.id
 				join default_survey_clients c
 				on sp.cid = c.id
-				order by display_name';
+				order by full_name';
         $quuery = $this->db->query($sql);
         $data = array();
         $i = 1;
@@ -208,8 +208,8 @@ class survey_m extends MY_Model {
             }else{
                 $this_row[] = '<button activate id="activate_user-'.$row->id.'-1" class="btn btn-link"><span class="glyphicon glyphicon-remove"></span></button>';
             }
-            $this_row[] = '<a href="{{ url:site }}survey/history/'.$row->id.'"><span class="glyphicon glyphicon-list-alt"></span>';
-            $this_row[] = $row->last_login;
+            $this_row[] = '<a href="history/'.$row->id.'"><span class="glyphicon glyphicon-list-alt"></span>';
+            $this_row[] = date('d/m/Y : h:i:s a', $row->last_login);
             $i++;
             $data[] = $this_row;
         }
