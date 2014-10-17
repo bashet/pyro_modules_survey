@@ -188,7 +188,7 @@ class survey_m extends MY_Model {
 
     public function get_all_users_for_admin(){
 
-        $sql = 'select u.id as id, u.email as email, c.name as org, u.active as active, u.last_login as last_login, p.display_name as display_name, p.cohort as cohort
+        $sql = 'select u.id as id, u.email as email, c.name as org, u.active as active, u.last_login as last_login, concat(p.first_name, " ", p.last_name) as full_name, p.cohort as cohort
                 from default_users u
                 join default_profiles p
                 on p.user_id = u.id
@@ -198,7 +198,23 @@ class survey_m extends MY_Model {
 				on sp.cid = c.id
 				order by display_name';
         $quuery = $this->db->query($sql);
-        return $quuery->result();
+        $data = array();
+        $i = 1;
+        foreach($quuery->result() as $row){
+            $this_row = array($i, $row->full_name, $row->email, $row->org, $row->cohort);
+
+            if($row->active){
+                $this_row[] = '<button activate id="activate_user-'.$row->id.'-0" class="btn btn-link"><span class="glyphicon glyphicon-ok"></span></button>';
+            }else{
+                $this_row[] = '<button activate id="activate_user-'.$row->id.'-1" class="btn btn-link"><span class="glyphicon glyphicon-remove"></span></button>';
+            }
+            $this_row[] = '<a href="{{ url:site }}survey/history/'.$row->id.'"><span class="glyphicon glyphicon-list-alt"></span>';
+            $this_row[] = $row->last_login;
+            $i++;
+            $data[] = $this_row;
+        }
+        //return $quuery->result();
+        return $data;
     }
 
     public function get_current_participation($id = ''){

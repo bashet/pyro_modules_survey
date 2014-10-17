@@ -1,11 +1,13 @@
 $(function(){
     $(document).ready(function() {
-        $('#all_users').dataTable();
+        $('#all_users').dataTable({
+            "sAjaxSource": base_url+'index.php/survey/get_all_users_ajax'
+        });
         $('#tbl_active_request').dataTable();
         $('#tbl_approved_request').dataTable();
-        /*$('#example').dataTable( {
-            "sAjaxSource": 'http://localhost/colab0710/data.txt'
-        } );*/
+        $('#example').dataTable( {
+            "sAjaxSource": base_url+'data.txt'
+        } );
     } );
 
     $('button[approve]').button().click(function(){

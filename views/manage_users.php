@@ -12,16 +12,16 @@
             <th>Organisation</th>
             {{ endif }}
             <th>Cohort</th>
-            <th>Programme</th>
+<!--            <th>Programme</th>-->
             <th>Active</th>
-            <th>Attempt Remaining</th>
+            <!--<th>Attempt Remaining</th>-->
             <th>History</th>
             <th>Last Login</th>
         </tr>
         </thead>
-        <tbody>
+        <!--<tbody>
         <?php
-        if($users){
+/*        if($users){
             $i = 1;
             foreach($users as $user){
                 $participation      = get_current_participation_by_user($user->id);
@@ -31,11 +31,11 @@
                 echo '<td style="text-align: center">'.$i.'</td>';
                 echo '<td>'.$user->display_name.'</td>';
                 echo '<td>'.$user->email.'</td>';
-                ?>{{ if user:group == 'admin'}}
-                    <?php echo '<td>'.$user->org.'</td>';?>
+                */?>{{ if user:group == 'admin'}}
+                    <?php /*echo '<td>'.$user->org.'</td>';*/?>
                   {{ endif }}
                 <?php
-
+/*
                 echo '<td>'.$user->cohort.'</td>';
                 echo '<td>'.$programme->name.'</td>';
 
@@ -51,8 +51,8 @@
                 $i++;
             }
         }
-        ?>
-        </tbody>
+        */?>
+        </tbody>-->
     </table>
 
     <!--<table id="example" class="display table table-bordered table-hover" width="100%" cellspacing="0">
@@ -66,8 +66,6 @@
             <th>Salary</th>
         </tr>
         </thead>
-
-
     </table>-->
 
 
