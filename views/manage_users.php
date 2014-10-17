@@ -12,9 +12,9 @@
             <th>Organisation</th>
             {{ endif }}
             <th>Cohort</th>
-<!--            <th>Programme</th>-->
+            <th>Programme</th>
             <th>Active</th>
-            <!--<th>Attempt Remaining</th>-->
+            <th>Attempt Remaining</th>
             <th>History</th>
             <th>Last Login</th>
         </tr>

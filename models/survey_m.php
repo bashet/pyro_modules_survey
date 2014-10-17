@@ -188,7 +188,7 @@ class survey_m extends MY_Model {
 
     public function get_all_users_for_admin(){
 
-        $sql = 'select u.id as id, u.email as email, c.name as org, u.active as active, u.last_login as last_login, concat(p.first_name, " ", p.last_name) as full_name, p.cohort as cohort
+        $sql = 'select u.id as id, u.email as email, c.name as org, u.active as active, u.last_login as last_login, concat(p.first_name, " ", p.last_name) as full_name, p.cohort as cohort, pro.name as programme
                 from default_users u
                 join default_profiles p
                 on p.user_id = u.id
@@ -196,24 +196,30 @@ class survey_m extends MY_Model {
                 on sp.uid = u.id
 				join default_survey_clients c
 				on sp.cid = c.id
+				join default_survey_programme pro
+				on sp.pid = pro.id
 				order by full_name';
         $quuery = $this->db->query($sql);
         $data = array();
         $i = 1;
         foreach($quuery->result() as $row){
+            $participation      = get_current_participation_by_user($row->id);
+            $attempt_remaining  = $participation->allowed - get_total_attempts_by_user_n_programme($participation->uid, $participation->pid);
+
             $this_row = array($i, $row->full_name, $row->email, $row->org, $row->cohort);
+            $this_row[] = $row->programme;
 
             if($row->active){
                 $this_row[] = '<button activate id="activate_user-'.$row->id.'-0" class="btn btn-link"><span class="glyphicon glyphicon-ok"></span></button>';
             }else{
                 $this_row[] = '<button activate id="activate_user-'.$row->id.'-1" class="btn btn-link"><span class="glyphicon glyphicon-remove"></span></button>';
             }
+            $this_row[] = '<input id="allow_attempt-'.$row->id.'" class="allow_attempt" value="'.$attempt_remaining.'" allow_attempt>';
             $this_row[] = '<a href="history/'.$row->id.'"><span class="glyphicon glyphicon-list-alt"></span>';
             $this_row[] = date('d/m/Y : h:i:s a', $row->last_login);
             $i++;
             $data[] = $this_row;
         }
-        //return $quuery->result();
         return $data;
     }
 
