@@ -26,10 +26,9 @@
             foreach($users as $user){
                 $participation      = get_current_participation_by_user($user->id);
                 $attempt_remaining  = $participation->allowed - get_total_attempts_by_user_n_programme($participation->uid, $participation->pid);
-                $programme          = get_programme_by_id($participation->pid);
                 echo '<tr>';
                 echo '<td style="text-align: center">'.$i.'</td>';
-                echo '<td>'.$user->display_name.'</td>';
+                echo '<td>'.$user->full_name.'</td>';
                 echo '<td>'.$user->email.'</td>';
                 */?>{{ if user:group == 'admin'}}
                     <?php /*echo '<td>'.$user->org.'</td>';*/?>
@@ -37,7 +36,7 @@
                 <?php
 /*
                 echo '<td>'.$user->cohort.'</td>';
-                echo '<td>'.$programme->name.'</td>';
+                echo '<td>'.$user->programme.'</td>';
 
                 if($user->active){
                     echo '<td style="text-align: center"><button activate id="activate_user-'.$user->id.'-0" class="btn btn-link"><span class="glyphicon glyphicon-ok"></span></button></td>';
@@ -54,20 +53,6 @@
         */?>
         </tbody>-->
     </table>
-
-    <!--<table id="example" class="display table table-bordered table-hover" width="100%" cellspacing="0">
-        <thead>
-        <tr>
-            <th>Name</th>
-            <th>Position</th>
-            <th>Office</th>
-            <th>Extn.</th>
-            <th>Start date</th>
-            <th>Salary</th>
-        </tr>
-        </thead>
-    </table>-->
-
 
 </div>
 

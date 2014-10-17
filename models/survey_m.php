@@ -203,16 +203,16 @@ class survey_m extends MY_Model {
         $data = array();
         $i = 1;
         foreach($quuery->result() as $row){
-            $participation      = get_current_participation_by_user($row->id);
-            $attempt_remaining  = $participation->allowed - get_total_attempts_by_user_n_programme($participation->uid, $participation->pid);
+            //$participation      = get_current_participation_by_user($row->id);
+            $attempt_remaining  = 1;//$participation->allowed - get_total_attempts_by_user_n_programme($participation->uid, $participation->pid);
 
             $this_row = array($i, $row->full_name, $row->email, $row->org, $row->cohort);
             $this_row[] = $row->programme;
 
             if($row->active){
-                $this_row[] = '<button activate id="activate_user-'.$row->id.'-0" class="btn btn-link"><span class="glyphicon glyphicon-ok"></span></button>';
+                $this_row[] = '<button activate id="activate_user-'.$row->id.'-0" class="btn btn-link" onclick="activate_user('.$row->id.', 0);"><span class="glyphicon glyphicon-ok"></span></button>';
             }else{
-                $this_row[] = '<button activate id="activate_user-'.$row->id.'-1" class="btn btn-link"><span class="glyphicon glyphicon-remove"></span></button>';
+                $this_row[] = '<button activate id="activate_user-'.$row->id.'-1" class="btn btn-link" onclick="activate_user('.$row->id.', 1);"><span class="glyphicon glyphicon-remove"></span></button>';
             }
             $this_row[] = '<input id="allow_attempt-'.$row->id.'" class="allow_attempt" value="'.$attempt_remaining.'" allow_attempt>';
             $this_row[] = '<a href="history/'.$row->id.'"><span class="glyphicon glyphicon-list-alt"></span>';
@@ -221,6 +221,7 @@ class survey_m extends MY_Model {
             $data[] = $this_row;
         }
         return $data;
+        //return $quuery->result();
     }
 
     public function get_current_participation($id = ''){
