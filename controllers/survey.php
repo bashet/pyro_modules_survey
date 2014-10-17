@@ -1040,7 +1040,6 @@ class Survey extends Public_Controller {
 
         $data    = json_decode(json_encode($this->input->post()));
 
-        $total          = count((array)$data);
         $all_empty      = true;
         $success        = false;
         $total_empty    = 0;
@@ -1090,7 +1089,9 @@ class Survey extends Public_Controller {
 
                 }
             }else{
-                $total_empty++;
+                if($field != 'submit_evaluators'){
+                    $total_empty = $total_empty + 1;
+                }
             }
 
 
@@ -1124,7 +1125,7 @@ class Survey extends Public_Controller {
                     $this->session->set_userdata(array('attempt_id' => $this->attempt->id));
                 }
 
-                for($i = 1; $i <= $total/3; $i++){
+                for($i = 1; $i <= $this->allowed_evaluators; $i++){
                     $name   = 'name_'.$i;
                     $email  = 'email_'.$i;
                     $rel    = 'relation_'.$i;
@@ -1170,7 +1171,6 @@ class Survey extends Public_Controller {
 
         $data    = json_decode(json_encode($this->input->post()));
 
-        $total          = count((array)$data);
         $all_empty      = true;
         $success        = false;
         $total_empty    = 0;
@@ -1211,7 +1211,9 @@ class Survey extends Public_Controller {
 
                 }
             }else{
-                $total_empty++;
+                if($field != 'submit_evaluators'){
+                    $total_empty = $total_empty + 1;
+                }
             }
 
 
@@ -1224,7 +1226,7 @@ class Survey extends Public_Controller {
 
         if(( ! $missing_fields) && ( ! $all_empty) && ($duplicate_entry == '') && ($data_exist == '') && ($total_entered >= 3) && ( ! $error)){
             $start = $this->total_evaluators + 1;
-            for($i = $start; $i <= $total/3; $i++){
+            for($i = $start; $i <= $this->allowed_evaluators; $i++){
                 $name   = 'name_'.$i;
                 $email  = 'email_'.$i;
                 $rel    = 'relation_'.$i;
@@ -1246,7 +1248,6 @@ class Survey extends Public_Controller {
             }
 
         }
-
 
         echo json_encode(
                         array(
