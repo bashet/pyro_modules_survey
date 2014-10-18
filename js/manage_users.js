@@ -36,7 +36,7 @@ function activate_user(user_id, active){
                             $body.removeClass("loading");
                         }
                     });
-                    //window.location.href = base_url + 'index.php/survey/activate_user/' + user_id + '/' + active;
+
                 }
             }
             ,
