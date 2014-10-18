@@ -1,5 +1,12 @@
 <div id="history-container">
-    <h2>Diagnostics for <?php echo $user->first_name . ' ' . $user->last_name; ?></h2>
+    <div class="container-fluid">
+        <h2>Diagnostics for <?php echo $user->first_name . ' ' . $user->last_name; ?></h2>
+        {{ if user:group != 'user'}}
+        <div style="float: right">Attempt Remaining: <input id="allow_attempt-<?php echo $user->user_id;?>" class="allow_attempt" value="<?php echo $attempt_remaining;?>" allow_attempt></div>
+        {{ endif }}
+    </div>
+
+
     <div class="well well-sm">
         <p>Please find below all diagnostics for {{ if user:group == 'user' }}you {{ else }}<?php echo $user->first_name . ' ' . $user->last_name; ?>{{endif}}</p>
 
