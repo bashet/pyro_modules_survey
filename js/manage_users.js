@@ -88,28 +88,5 @@ $(function(){
 
     });
 
-    $( "input[allow_attempt]" ).spinner({
-        create: function( event, ui ) {
-            //add custom classes and icons
-            $(this)
-                .next().addClass('btn btn-success').html('<i class="ace-icon fa fa-plus"></i>')
-                .next().addClass('btn btn-danger').html('<i class="ace-icon fa fa-minus"></i>')
-
-            //larger buttons on touch devices
-            if('touchstart' in document.documentElement)
-                $(this).closest('.ui-spinner').addClass('ui-spinner-touch');
-        },
-        min: 0,
-        change: function( event, ui ) {
-            $.ajax({
-                type:   'post',
-                url:    base_url + 'index.php/survey/update_attempt_allowed',
-                data:   {user_data:this.id,value:this.value},
-                success: function(data, status){
-                    //alert(data);
-                }
-            });
-        }
-    });
 
 });
