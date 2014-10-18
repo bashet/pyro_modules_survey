@@ -18,7 +18,25 @@ function activate_user(user_id, active){
                     $( this ).dialog( "close" );
                     $body = $("body");
                     $body.addClass("loading");
-                    window.location.href = base_url + 'index.php/survey/activate_user/' + user_id + '/' + active;
+                    $.ajax({
+                        url: base_url + 'index.php/survey/activate_user/' + user_id + '/' + active,
+                        success:function(data,status){
+                            var test = 'test';
+                            var my_span = '#activate_span-'+user_id;
+
+                            if(data == 1){
+                                $(my_span).parent().get(0).onclick = function(){activate_user(user_id, 0)};
+                                $(my_span).removeClass('glyphicon-remove' );
+                                $(my_span).addClass('glyphicon-ok' );
+                            }else{
+                                $(my_span).parent().get(0).onclick = function(){activate_user(user_id, 1)};
+                                $(my_span).removeClass('glyphicon-ok' );
+                                $(my_span).addClass('glyphicon-remove' );
+                            }
+                            $body.removeClass("loading");
+                        }
+                    });
+                    //window.location.href = base_url + 'index.php/survey/activate_user/' + user_id + '/' + active;
                 }
             }
             ,

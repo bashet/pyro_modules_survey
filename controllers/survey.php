@@ -929,7 +929,8 @@ class Survey extends Public_Controller {
             }
 
         }
-        redirect('survey/manage_users');
+        echo $active;
+        //redirect('survey/manage_users');
     }
 
     public function user_survey(){

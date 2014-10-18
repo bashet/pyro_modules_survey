@@ -193,9 +193,9 @@ class survey_m extends MY_Model {
             $this_row[] = $row->programme;
 
             if($row->active){
-                $this_row[] = '<button activate id="activate_user-'.$row->id.'-0" class="btn btn-link" onclick="activate_user('.$row->id.', 0);"><span class="glyphicon glyphicon-ok"></span></button>';
+                $this_row[] = '<button type="button" id="activate_user-'.$row->id.'-0" class="btn btn-link" onclick="activate_user('.$row->id.', 0);"><span class="glyphicon glyphicon-ok"></span></button>';
             }else{
-                $this_row[] = '<button activate id="activate_user-'.$row->id.'-1" class="btn btn-link" onclick="activate_user('.$row->id.', 1);"><span class="glyphicon glyphicon-remove"></span></button>';
+                $this_row[] = '<button type="button" id="activate_user-'.$row->id.'-1" class="btn btn-link" onclick="activate_user('.$row->id.', 1);"><span class="glyphicon glyphicon-remove"></span></button>';
             }
 
             $this_row[] = '<a href="history/'.$row->id.'"><span class="glyphicon glyphicon-list-alt"></span>';
@@ -229,9 +229,9 @@ class survey_m extends MY_Model {
             $this_row[] = $row->programme;
 
             if($row->active){
-                $this_row[] = '<button activate id="activate_user-'.$row->id.'-0" class="btn btn-link" onclick="activate_user('.$row->id.', 0);"><span class="glyphicon glyphicon-ok"></span></button>';
+                $this_row[] = '<button activate id="activate_user-'.$row->id.'-0" class="btn btn-link" onclick="activate_user('.$row->id.', 0);"><span id="activate_span-'.$row->id.'" class="glyphicon glyphicon-ok"></span></button>';
             }else{
-                $this_row[] = '<button activate id="activate_user-'.$row->id.'-1" class="btn btn-link" onclick="activate_user('.$row->id.', 1);"><span class="glyphicon glyphicon-remove"></span></button>';
+                $this_row[] = '<button activate id="activate_user-'.$row->id.'-1" class="btn btn-link" onclick="activate_user('.$row->id.', 1);"><span id="activate_span-'.$row->id.'" class="glyphicon glyphicon-remove"></span></button>';
             }
 
             $this_row[] = '<a href="history/'.$row->id.'"><span class="glyphicon glyphicon-list-alt"></span>';
