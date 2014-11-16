@@ -509,7 +509,7 @@ if(! function_exists('get_submitted_evaluators')){
     function get_submitted_evaluators($attempt_id){
         $ci =& get_instance();
 
-        $query  = $ci->db->query("SELECT count(id)as total FROM default_survey_evaluators where attempt_id=$attempt_id and answers !=''");
+        $query  = $ci->db->query("SELECT count(id)as total FROM default_survey_evaluators where attempt_id=$attempt_id and submitted =1");
         $record = $query->row();
         return $record->total;
     }
