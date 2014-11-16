@@ -338,6 +338,15 @@ if(! function_exists('get_evaluators_by_attempt_id')){
     }
 }
 
+if(! function_exists('get_submitted_evaluators_by_attempt_id')){
+    function get_submitted_evaluators_by_attempt_id($attempt_id){
+        $ci =& get_instance();
+
+        $query = $ci->db->get_where('survey_evaluators', array('attempt_id' => $attempt_id, 'submitted' => 1));
+        return $query->result();
+    }
+}
+
 if(! function_exists('get_total_evaluators_by_attempt_id')){
     function get_total_evaluators_by_attempt_id($attempt_id){
         $ci =& get_instance();

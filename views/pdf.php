@@ -220,7 +220,7 @@ $html .=    '<table border="1" cellpadding="4" cellspacing="1">
                 $html .= '<tr>';
                 $html .= '<td>'.$i.'</td>';
                 $html .= '<td>'.get_question_title_by_q_id($q_no).'</td>';
-                $html .= '<td style="text-align:center">'.round($ans/$total_evaluators,2).'</td>';
+                $html .= '<td style="text-align:center">'.round($ans/$submitted_evaluators,2).'</td>';
                 $html .= '<td style="text-align:center">'.$my_answer[$q_no].'</td>';
                 $html .= '</tr>';
                 $i++;
@@ -247,7 +247,7 @@ foreach($top_answers as $q_no => $ans){
     $html .= '<tr>';
     $html .= '<td>'.$i.'</td>';
     $html .= '<td>'.get_question_title_by_q_id($q_no).'</td>';
-    $html .= '<td style="text-align:center">'.round($ans/$total_evaluators,2).'</td>';
+    $html .= '<td style="text-align:center">'.round($ans/$submitted_evaluators,2).'</td>';
     $html .= '<td style="text-align:center">'.$my_answer[$q_no].'</td>';
     $html .= '</tr>';
     $i++;
