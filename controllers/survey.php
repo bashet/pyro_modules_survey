@@ -1761,6 +1761,7 @@ class Survey extends Public_Controller {
             ->set_layout('evaluator_response')
             ->title($this->module_details['name'], 'evaluator response')
             ->set('evaluator', $evaluator)
+            ->set('attempt', $this->attempt)
             ->build('evaluator_response');
     }
     public function evaluator_survey(){

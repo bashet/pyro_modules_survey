@@ -4,6 +4,16 @@
 
     <p>Welcome to the National College 360 degree leadership diagnostic</p>
 
+    <?php
+    if($attempt->report_ready){
+        echo '<div class="well">
+            <div class="alert alert-danger">This survey is already expired!</div>
+        </div>';
+    }else{
+
+    ?>
+
+
     <p>This diagnostic is designed to get feedback on this persons strengths and areas for development in a number of competencies related to leadership.
         This feedback will be from you and from a selection of other raters. The diagnostic will help identify what
         level they are working at for each of nineteen competencies. These are grouped into three clusters with specific competencies within each cluster.</p>
@@ -22,5 +32,8 @@
     <div style="float: right">
         <a href="{{ url:site }}survey/evaluator_survey" class="btn btn-success">Continue <span class="glyphicon glyphicon-circle-arrow-right"></span></a>
     </div>
+    <?php
+    }
+    ?>
 
 </div>
