@@ -766,9 +766,11 @@ if( ! function_exists('get_evaluators_total') ){
         $total_answer       = 0;
         $total_evaluator    = 0;
         foreach($evaluators as $ev){
-            $answers = json_decode($ev->answers, true);
-            $total_answer = $total_answer + $answers[$q_id];
-            $total_evaluator = $total_evaluator + 1;
+            if($ev->submitted){
+                $answers = json_decode($ev->answers, true);
+                $total_answer = $total_answer + $answers[$q_id];
+                $total_evaluator = $total_evaluator + 1;
+            }
         }
 
         return ((90*($total_answer/$total_evaluator))/4);
@@ -781,9 +783,11 @@ if( ! function_exists('get_evaluators_total_avg') ){
         $total_answer = 0;
         $total_evaluator    = 0;
         foreach($evaluators as $ev){
-            $answers = json_decode($ev->answers, true);
-            $total_answer = $total_answer + $answers[$q_id];
-            $total_evaluator = $total_evaluator + 1;
+            if($ev->submitted){
+                $answers = json_decode($ev->answers, true);
+                $total_answer = $total_answer + $answers[$q_id];
+                $total_evaluator = $total_evaluator + 1;
+            }
         }
 
         return round($total_answer/$total_evaluator,2);
