@@ -52,7 +52,7 @@
                                         echo '<td></td>';
                                     }
                                 }else{
-                                    echo '<td></td>';
+                                    echo '<td style="text-align: center"><span style="color: red; font-weight: bold">?</span></td>';
                                 }
                                 if(! $evaluator->submitted)
                                     echo '<td><a href="{{ url:site }}survey/evaluator_review_single/'.$i.'/'.$q->id.'"><span class="glyphicon glyphicon-pencil"></span></a></td>';
