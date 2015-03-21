@@ -53,9 +53,14 @@ function activate_user(user_id, active){
 
 $(function(){
     $(document).ready(function() {
-        $('#all_users').dataTable({
+        $('#tbl_active_users').dataTable({
 
-            "sAjaxSource": base_url+'index.php/survey/get_all_users_ajax'
+            "sAjaxSource": base_url+'index.php/survey/get_all_active_users_ajax'
+        });
+
+        $('#tbl_non_active_users').dataTable({
+
+            "sAjaxSource": base_url+'index.php/survey/get_all_not_active_users_ajax'
         });
 
         $('#tbl_active_request').dataTable();

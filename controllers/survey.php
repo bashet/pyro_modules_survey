@@ -891,6 +891,38 @@ class Survey extends Public_Controller {
         //print_r(array('aaData'=>$users));
     }
 
+    public function get_all_active_users_ajax(){
+        if(! $this->current_user->id){
+            redirect($this->config->base_url());
+            exit();
+        }
+        $client = $this->survey_m->get_client_by_manager_id($this->current_user->id);
+        if($this->current_user->group_id == 1){
+            $users = $this->survey_m->get_all_active_users_for_admin();
+        }else{
+            $users = $this->survey_m->get_all_active_users_by_client($client->id);
+        }
+
+        echo json_encode(array('aaData'=>$users));
+        //print_r(array('aaData'=>$users));
+    }
+
+    public function get_all_not_active_users_ajax(){
+        if(! $this->current_user->id){
+            redirect($this->config->base_url());
+            exit();
+        }
+        $client = $this->survey_m->get_client_by_manager_id($this->current_user->id);
+        if($this->current_user->group_id == 1){
+            $users = $this->survey_m->get_all_non_active_users_for_admin();
+        }else{
+            $users = $this->survey_m->get_all_non_active_users_by_client($client->id);
+        }
+
+        echo json_encode(array('aaData'=>$users));
+        //print_r(array('aaData'=>$users));
+    }
+
     public function activate_user($user_id = '', $active = 0){
         if(! $this->current_user->id){
             redirect($this->config->base_url());
