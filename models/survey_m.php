@@ -217,8 +217,7 @@ class survey_m extends MY_Model {
                 on sp.uid = u.id
 				join default_survey_programme pro
 				on sp.pid = pro.id
-				where sp.cid = '.$client_id.'
-				where u.active = 1
+				where sp.cid = '.$client_id.' and u.active = 1
 				order by full_name';
         $quuery = $this->db->query($sql);
         $data = array();
@@ -253,8 +252,7 @@ class survey_m extends MY_Model {
                 on sp.uid = u.id
 				join default_survey_programme pro
 				on sp.pid = pro.id
-				where sp.cid = '.$client_id.'
-				where u.active = 0
+				where sp.cid = '.$client_id.' and u.active = 0
 				order by full_name';
         $quuery = $this->db->query($sql);
         $data = array();
