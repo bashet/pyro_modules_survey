@@ -55,7 +55,8 @@
                         echo    '<td style="text-align:center"><a href="{{ url:site }}survey/send_email_to_single_evaluator/'.$e->link_md5.'" class="btn btn-link" style="text-decoration: none"><i class="fa fa-envelope"></i></a></td>';
                         echo    '<td style="text-align:center"><button delete_evaluator type="button" '.(($e->start_date)?'disabled':'').' id="'.$e->id.'-'.$e->name.'" class="btn btn-link" style="text-decoration: none;"><i class="fa fa-trash-o" '.((!$e->start_date)?'style="color:red"':'').'></i></button></td>';
                         //echo    '<td style="text-align:center"><button type="button" copy_link id="copy_link-'.$e->id.'" class="btn btn-link z-clip" style="text-decoration: none"><span class="glyphicon glyphicon-link"></span></button></td>';
-                        echo    '<td style="text-align:center"><a style="text-decoration: none" href="'.$link.'"><span class="glyphicon glyphicon-link"></span></a></td>';
+                        //echo    '<td style="text-align:center"><a style="text-decoration: none" copy_this href="'.$link.'"><span class="glyphicon glyphicon-link"></span></a></td>';
+                        echo    '<td style="text-align:center"><button copy_this id="'.$e->link_md5.'" class="btn btn-sm" value="'.$link.'" data-toggle="popover" data-trigger="focus" data-content="Link copied to clipboard!"><span class="glyphicon glyphicon-link"></span></button></td>';
                         echo    '<input id="link-'.$e->id.'" type="hidden" value="'.$link.'">';
                         echo    '</tr>';
                     }

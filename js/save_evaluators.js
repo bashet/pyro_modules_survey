@@ -1,7 +1,20 @@
 $(function(){
 
 
-    $("button[copy_link]").on('click', function (e) {
+    $('button[copy_this]').click(function(e){
+        e.preventDefault();
+        var id = this.id;
+        var this_element = '#'+id;
+        clipboard.copy({
+            'text/plain': this.value,
+            'text/html': '<i>here</i> is some <b>rich text</b>'
+        }).then(
+            function(){$(this_element).popover('show');},
+            function(err){alert('Could not copy this link location! Please report this to the administrator');}
+        );
+    });
+
+    /*$("button[copy_link]").on('click', function (e) {
         e.preventDefault();
     }).zclip({
         path: 'http://www.steamdev.com/zclip/js/ZeroClipboard.swf',
@@ -11,7 +24,7 @@ $(function(){
             var element = '#link-' + button_id_array[1];
             return $(element).val();
         }
-    });
+    });*/
 
 
     $('#frm_save_evaluators').on('submit', function(event){
