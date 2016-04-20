@@ -28,7 +28,7 @@
 
     <p>If you want to find out more about using this diagnostic, please follow the 'View diagnostic guidance' link below.</p>
 
-    <a href="#" class="btn btn-info">View diagnostic guidance</a>
+    <a href="{{ url:site }}guidance" class="btn btn-info">View diagnostic guidance</a>
     <div style="float: right">
         <a href="{{ url:site }}survey/evaluator_survey" class="btn btn-success">Continue <span class="glyphicon glyphicon-circle-arrow-right"></span></a>
     </div>
