@@ -1783,7 +1783,7 @@ class Survey extends Public_Controller {
 
             $this->attempt  = get_current_attempt_by_id($evaluator->attempt_id);
             $this->programme = get_programme_by_id($this->attempt->programme_id);
-            $this->survey   = get_survey_by_id($this->programme->survey);
+            $this->survey   = get_survey_by_id($this->attempt->survey_id);
 
             $this->session->set_userdata(array('attempt_id' => $this->attempt->id));
             $this->session->set_userdata(array('survey_id' => $this->survey->id));
@@ -1870,6 +1870,7 @@ class Survey extends Public_Controller {
         $link   = $this->session->userdata('link');
         $evaluator = get_evaluator_by_link($link);
         $this->attempt  = get_current_attempt_by_id($evaluator->attempt_id);
+	    var_dump($this->attempt);
         $this->survey   = get_survey_by_id($this->attempt->survey_id);
         $this->total_questions = get_total_question_in_survey($this->survey->id);
 
