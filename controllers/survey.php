@@ -1870,8 +1870,8 @@ class Survey extends Public_Controller {
         $link   = $this->session->userdata('link');
         $evaluator = get_evaluator_by_link($link);
         $this->attempt  = get_current_attempt_by_id($evaluator->attempt_id);
-	    var_dump($this->attempt);
-        $this->survey   = get_survey_by_id($this->attempt->survey_id);
+        $this->survey   = get_survey_by_id($this->session->userdata('survey_id'));
+	    //var_dump($this->survey);
         $this->total_questions = get_total_question_in_survey($this->survey->id);
 
         $my_answer = json_decode($evaluator->answers);
