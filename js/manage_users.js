@@ -54,13 +54,19 @@ function activate_user(user_id, active){
 $(function(){
     $(document).ready(function() {
         $('#tbl_active_users').dataTable({
-
-            "sAjaxSource": base_url+'index.php/survey/get_all_active_users_ajax'
+            "sAjaxSource": base_url+'index.php/survey/get_all_active_users_ajax',
+            aoColumnDefs: [
+                { sClass: "center", "aTargets": [ 6,7 ] },
+                { "bSortable": false, "aTargets": [ 6,7 ] }
+            ]
         });
 
         $('#tbl_non_active_users').dataTable({
-
-            "sAjaxSource": base_url+'index.php/survey/get_all_not_active_users_ajax'
+            "sAjaxSource": base_url+'index.php/survey/get_all_not_active_users_ajax',
+            aoColumnDefs: [
+                { sClass: "center", "aTargets": [ 6,7 ] },
+                { "bSortable": false, "aTargets": [ 6,7 ] }
+            ]
         });
 
         $('#tbl_active_request').dataTable();
