@@ -1,6 +1,10 @@
 <div id="history-container">
     <div class="container-fluid">
-        <h2>Diagnostics for <?php echo $user->first_name . ' ' . $user->last_name; ?></h2>
+        <h2>Diagnostics for <?php echo $user->first_name . ' ' . $user->last_name; ?>
+            {{ if user:group == 'admin' }}
+            <a href="<?php echo site_url().'/survey/login/'.$user->id; ?>" class="btn btn-white pull-right"><i class="fa fa-power-off"></i> Login As</a>
+            {{ endif }}
+        </h2>
         {{ if user:group != 'user'}}
         <div style="float: right">Attempt Remaining: <input id="allow_attempt-<?php echo $user->user_id;?>" class="allow_attempt" value="<?php echo $attempt_remaining;?>" allow_attempt></div>
         {{ endif }}

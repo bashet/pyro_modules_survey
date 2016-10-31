@@ -2136,4 +2136,9 @@ class Survey extends Public_Controller {
         $data = $this->dbutil->csv_from_result($query, ',');
         force_download('CSV_Report.csv', $data);
     }
+
+    public function login($user_id){
+	    $this->load->library('session');
+	    var_dump($this->session->userdata('email'));
+    }
 }
