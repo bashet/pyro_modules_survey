@@ -56,7 +56,7 @@ $(function(){
         $('#tbl_active_users').dataTable({
             "sAjaxSource": base_url+'index.php/survey/get_all_active_users_ajax',
             aoColumnDefs: [
-                { sClass: "center", "aTargets": [ 6,7 ] },
+                { sClass: "center", "aTargets": [ 0,4,5,6,7 ] },
                 { "bSortable": false, "aTargets": [ 6,7 ] }
             ]
         });
@@ -64,7 +64,7 @@ $(function(){
         $('#tbl_non_active_users').dataTable({
             "sAjaxSource": base_url+'index.php/survey/get_all_not_active_users_ajax',
             aoColumnDefs: [
-                { sClass: "center", "aTargets": [ 6,7 ] },
+                { sClass: "center", "aTargets": [ 0,4,5,6,7 ] },
                 { "bSortable": false, "aTargets": [ 6,7 ] }
             ]
         });
