@@ -2142,4 +2142,64 @@ class Survey extends Public_Controller {
 	    $this->load->library('session');
 	    var_dump($this->session->userdata('email'));
     }
+
+    public function fix(){
+	    $sql = 'select * from default_survey_evaluators';
+	    $query = $this->db->query($sql);
+		$i = 0;
+
+	    foreach($query->result() as $row){
+		    if($row->answers){
+			    $attempt  = get_current_attempt_by_id($row->attempt_id);
+			    //var_dump($attempt);
+			    $programme = get_programme_by_id($attempt->programme_id);
+			    //var_dump($programme);
+			    $survey   = get_survey_by_id($programme->survey);
+			    if($survey){
+
+				    $total_questions = get_total_question_in_survey($survey->id);
+
+				    $my_answer = json_decode($row->answers);
+				    $my_answer = get_object_vars($my_answer);
+				    //print_r($my_answer['31']);
+				    /*foreach ($my_answer as $key=>$value){
+					    var_dump($key);
+				    }*/
+					//var_dump(count($my_answer));
+				    if(count($my_answer) > $total_questions){
+					    $new_answer = array();
+					    //print_r($my_answer);
+					    //echo '<hr>';
+					    //echo $total_questions . '-'. count($my_answer) . '<br>';
+					    $q = 0;
+					    foreach (json_decode($survey->q_cat) as $cat){
+						    $questions = get_questions_by_category($cat);
+						    foreach ($questions as $question){
+							    $q++;
+							    if(isset($my_answer[$question->id])){
+								    $new_answer[$question->id] = $my_answer[$question->id];
+							    }
+						    }
+					    }
+					    $evaluator = array(
+						    'answers' => json_encode($new_answer)
+					    );
+					    $this->db->where('id', $row->id);
+					    $this->db->update('survey_evaluators', $evaluator);
+					    //print_r($new_answer);
+					    $i++;
+					    //echo '<hr>';
+					    //break;
+				    }
+				    //print_r($new_answer);
+				   //break;
+			    }
+
+		    }
+	    }
+
+	    if($i){
+		    echo $i;
+	    }
+    }
 }
