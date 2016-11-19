@@ -1509,7 +1509,8 @@ class Survey extends Public_Controller {
         $data['attempt']    = $attempt;
         $programme          = get_programme_by_id($attempt->programme_id);
         $data['programme']  = $programme;
-        $survey             = get_survey_by_id($attempt->survey_id);
+        //$survey             = get_survey_by_id($attempt->survey_id);
+	  	$survey             = get_survey_by_id($programme->survey);
         $data['survey']     = $survey;
 
         $attempt_update = array();
