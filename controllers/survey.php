@@ -2139,10 +2139,37 @@ class Survey extends Public_Controller {
         force_download('CSV_Report.csv', $data);
     }
 
-    public function login($user_id){
-	    $this->load->library('session');
-	    var_dump($this->session->userdata('email'));
-    }
+	public function login($user_id) {
+		$this->load->library('session');
+
+		$current_user = $this->session->userdata('id');
+
+	  	$this->session->set_userdata(array('old_user_id' => $current_user));
+
+	  	$user = get_user_by_id($user_id);
+
+	  	$this->load->library('ion_auth');
+
+	  	if($user){
+		  if($this->ion_auth->force_login($user_id)){
+			redirect($this->config->base_url());
+		  }else{
+			echo 'something went wrong!';
+		  }
+		}
+	}
+
+	public function adminlogin(){
+		$this->load->library('session');
+		if($user_id = $this->session->userdata('old_user_id')){
+			if($this->ion_auth->force_login($user_id)){
+			  	$this->session->unset_userdata('old_user_id');
+			  	redirect($this->config->base_url());
+			}else{
+			  	echo 'something went wrong!';
+			}
+		}
+	}
 
     public function fix(){
 	    $sql = 'select * from default_survey_evaluators';
