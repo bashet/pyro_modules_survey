@@ -40,7 +40,7 @@
             if($d->active){
                 echo '<td class="center"><button activate class="btn btn-link" id="client-'.$d->id.'-'.$d->active.'" title="Click to de-activate '.$d->name.'" style="text-decoration:none"><span class="glyphicon glyphicon-ok"></span></button></td>';
             }else{
-                echo '<td class="center"><button activate class="btn btn-link" id="client-'.$d->id.'-'.$d->active.'" title="Click to activate '.$d->name.'" style="text-decoration:none"><span class="glyphicon glyphicon-remove"></span></button></td>';
+                echo '<td class="center"><button activate class="btn btn-link" id="client-'.$d->id.'-'.$d->active.'" title="Click to activate '.$d->name.'" style="text-decoration:none"><span class="glyphicon glyphicon-remove red"></span></button></td>';
             }
             echo '<td class="center"><a href="'.$this->config->base_url().'index.php/survey/export_user/'.$d->id.'" class="btn btn-link"><span class="glyphicon glyphicon-export"></span></a></td>';
             echo '</tr>';
