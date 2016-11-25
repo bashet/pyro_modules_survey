@@ -1,7 +1,11 @@
 
 $(function(){
     $(document).ready(function() {
-        $('#all_clients').dataTable();
+        $('#all_clients').dataTable({
+            "aoColumnDefs": [
+                { 'bSortable': false, 'aTargets': [ 2,4,5,6 ] }
+            ]
+        });
 
         $('button[set_logo]').tooltipster({
             contentAsHTML: true
