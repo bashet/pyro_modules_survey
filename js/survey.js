@@ -1,7 +1,11 @@
 
 $(function(){
     $(document).ready(function() {
-        $('#all_survey').dataTable();
+        $('#all_survey').dataTable({
+            "aoColumnDefs": [
+                { 'bSortable': false, 'aTargets': [ 3,4,5 ] }
+            ]
+        });
     } );
 
     $('#save_survey').button().click(function(){

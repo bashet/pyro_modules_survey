@@ -6,12 +6,12 @@
     <table id="all_clients" class="table table-bordered table-hover" style="width:100%">
         <thead>
         <tr>
-            <th style="width: 8%">SN</th>
+            <th class="center" style="width: 8%">SN</th>
             <th>Name</th>
             <th>Logo</th>
-            <th style="width: 20%">Manager</th>
-            <th style="width: 10%">Edit</th>
-            <th style="width: 10%">Active</th>
+            <th class="center" style="width: 20%">Manager</th>
+            <th class="center" style="width: 10%">Edit</th>
+            <th class="center" style="width: 10%">Active</th>
             <th>Export</th>
         </tr>
         </thead>
@@ -22,9 +22,9 @@
         foreach($clients as $d){
 
             echo '<tr>';
-            echo '<td>'.$i.'</td>';
-            echo '<td>'.$d->name.'</td>';
-            echo '<td style="text-align: center">
+            echo '<td class="center">'.$i.'</td>';
+            echo '<td><a href="{{url:site}}survey/client/'.$d->id.'">'.$d->name.'</a></td>';
+            echo '<td class="center">
                         <button set_logo
                             id="set_logo-'.$d->id.'"
                             style="text-decoration:none"
@@ -35,14 +35,14 @@
                                 <span class="glyphicon glyphicon-picture" '.(($d->logo) ? '' : 'style="color:red"' ).'></span>
                         </button>
                 </td>';
-            echo '<td style="text-align: center"><a href="#" assign_manager id="assign_manager-'.$d->id.'" title="Assign Manager" style="text-decoration:none"><i class="fa fa-sitemap fa-lg"></i>&nbsp;&nbsp; '.get_manager($d->manager_uid).'</a></td>';
-            echo '<td style="text-align: center"><a href="#" edit_clients id="edit_clients-'.$d->id.'" title="Edit '.$d->name.'"><i class="fa fa-pencil-square-o fa-lg"></i></a></td>';
+            echo '<td class="center"><a href="#" assign_manager id="assign_manager-'.$d->id.'" title="Assign Manager" style="text-decoration:none"><i class="fa fa-sitemap fa-lg"></i>&nbsp;&nbsp; '.get_manager($d->manager_uid).'</a></td>';
+            echo '<td class="center"><a href="#" edit_clients id="edit_clients-'.$d->id.'" title="Edit '.$d->name.'"><i class="fa fa-pencil-square-o fa-lg"></i></a></td>';
             if($d->active){
-                echo '<td style="text-align: center"><button activate class="btn btn-link" id="client-'.$d->id.'-'.$d->active.'" title="Click to de-activate '.$d->name.'" style="text-decoration:none"><span class="glyphicon glyphicon-ok"></span></button></td>';
+                echo '<td class="center"><button activate class="btn btn-link" id="client-'.$d->id.'-'.$d->active.'" title="Click to de-activate '.$d->name.'" style="text-decoration:none"><span class="glyphicon glyphicon-ok"></span></button></td>';
             }else{
-                echo '<td style="text-align: center"><button activate class="btn btn-link" id="client-'.$d->id.'-'.$d->active.'" title="Click to activate '.$d->name.'" style="text-decoration:none"><span class="glyphicon glyphicon-remove"></span></button></td>';
+                echo '<td class="center"><button activate class="btn btn-link" id="client-'.$d->id.'-'.$d->active.'" title="Click to activate '.$d->name.'" style="text-decoration:none"><span class="glyphicon glyphicon-remove"></span></button></td>';
             }
-            echo '<td style="text-align: center;"><a href="'.$this->config->base_url().'index.php/survey/export_user/'.$d->id.'" class="btn btn-link"><span class="glyphicon glyphicon-export"></span></a></td>';
+            echo '<td class="center"><a href="'.$this->config->base_url().'index.php/survey/export_user/'.$d->id.'" class="btn btn-link"><span class="glyphicon glyphicon-export"></span></a></td>';
             echo '</tr>';
             $i++;
         }
