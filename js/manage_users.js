@@ -69,6 +69,14 @@ $(function(){
             ]
         });
 
+        $('#table_archived_users').dataTable({
+            "sAjaxSource": base_url+'index.php/survey/get_all_archived_users_ajax',
+            aoColumnDefs: [
+                { sClass: "center", "aTargets": [ 0,4,5,6,7 ] },
+                { "bSortable": false, "aTargets": [ 6,7 ] }
+            ]
+        });
+
         $('#tbl_active_request').dataTable();
         $('#tbl_approved_request').dataTable();
 

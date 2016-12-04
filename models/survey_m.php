@@ -184,27 +184,8 @@ class survey_m extends MY_Model {
 				join default_survey_programme pro
 				on sp.pid = pro.id
 				where sp.cid = '.$client_id.' order by full_name';
-        $quuery = $this->db->query($sql);
-        $data = array();
-        $i = 1;
-        foreach($quuery->result() as $row){
-
-            $this_row = array($i, $row->full_name, $row->email, $row->cohort);
-            $this_row[] = $row->programme;
-
-            if($row->active){
-                $this_row[] = '<button type="button" id="activate_user-'.$row->id.'-0" class="btn btn-link" onclick="activate_user('.$row->id.', 0);"><span id="activate_span-'.$row->id.'" class="glyphicon glyphicon-ok"></span></button>';
-            }else{
-                $this_row[] = '<button type="button" id="activate_user-'.$row->id.'-1" class="btn btn-link" onclick="activate_user('.$row->id.', 1);"><span id="activate_span-'.$row->id.'" class="glyphicon glyphicon-remove"></span></button>';
-            }
-
-            $this_row[] = '<a href="history/'.$row->id.'"><span class="glyphicon glyphicon-list-alt"></span>';
-            $this_row[] = date('d/m/Y : h:i:s a', $row->last_login);
-            $i++;
-            $data[] = $this_row;
-        }
-        return $data;
-
+        $query = $this->db->query($sql);
+	    return $this->build_user_table_client($query->result());
     }
 
     public function get_all_active_users_by_client($client_id){
@@ -219,27 +200,8 @@ class survey_m extends MY_Model {
 				on sp.pid = pro.id
 				where sp.cid = '.$client_id.' and u.active = 1
 				order by full_name';
-        $quuery = $this->db->query($sql);
-        $data = array();
-        $i = 1;
-        foreach($quuery->result() as $row){
-
-            $this_row = array($i, $row->full_name, $row->email, $row->cohort);
-            $this_row[] = $row->programme;
-
-            if($row->active){
-                $this_row[] = '<button type="button" id="activate_user-'.$row->id.'-0" class="btn btn-link" onclick="activate_user('.$row->id.', 0);"><span id="activate_span-'.$row->id.'" class="glyphicon glyphicon-ok"></span></button>';
-            }else{
-                $this_row[] = '<button type="button" id="activate_user-'.$row->id.'-1" class="btn btn-link" onclick="activate_user('.$row->id.', 1);"><span id="activate_span-'.$row->id.'" class="glyphicon glyphicon-remove"></span></button>';
-            }
-
-            $this_row[] = '<a href="history/'.$row->id.'"><span class="glyphicon glyphicon-list-alt"></span>';
-            $this_row[] = date('d/m/Y : h:i:s a', $row->last_login);
-            $i++;
-            $data[] = $this_row;
-        }
-        return $data;
-
+        $query = $this->db->query($sql);
+	    return $this->build_user_table_client($query->result());
     }
 
     public function get_all_non_active_users_by_client($client_id){
@@ -254,27 +216,31 @@ class survey_m extends MY_Model {
 				on sp.pid = pro.id
 				where sp.cid = '.$client_id.' and u.active = 0
 				order by full_name';
-        $quuery = $this->db->query($sql);
-        $data = array();
-        $i = 1;
-        foreach($quuery->result() as $row){
+        $query = $this->db->query($sql);
 
-            $this_row = array($i, $row->full_name, $row->email, $row->cohort);
-            $this_row[] = $row->programme;
+		return $this->build_user_table_client($query->result());
+    }
 
-            if($row->active){
-                $this_row[] = '<button type="button" id="activate_user-'.$row->id.'-0" class="btn btn-link" onclick="activate_user('.$row->id.', 0);"><span id="activate_span-'.$row->id.'" class="glyphicon glyphicon-ok"></span></button>';
-            }else{
-                $this_row[] = '<button type="button" id="activate_user-'.$row->id.'-1" class="btn btn-link" onclick="activate_user('.$row->id.', 1);"><span id="activate_span-'.$row->id.'" class="glyphicon glyphicon-remove"></span></button>';
-            }
+    public function build_user_table_client($records){
+	    $data = array();
+	    $i = 1;
+	    foreach($records as $row){
 
-            $this_row[] = '<a href="history/'.$row->id.'"><span class="glyphicon glyphicon-list-alt"></span>';
-            $this_row[] = date('d/m/Y : h:i:s a', $row->last_login);
-            $i++;
-            $data[] = $this_row;
-        }
-        return $data;
+		    $this_row = array($i, $row->full_name, $row->email, $row->cohort);
+		    $this_row[] = $row->programme;
 
+		    if($row->active){
+			    $this_row[] = '<button type="button" id="activate_user-'.$row->id.'-0" class="btn btn-link" onclick="activate_user('.$row->id.', 0);"><span id="activate_span-'.$row->id.'" class="glyphicon glyphicon-ok"></span></button>';
+		    }else{
+			    $this_row[] = '<button type="button" id="activate_user-'.$row->id.'-1" class="btn btn-link" onclick="activate_user('.$row->id.', 1);"><span id="activate_span-'.$row->id.'" class="glyphicon glyphicon-remove"></span></button>';
+		    }
+
+		    $this_row[] = '<a href="history/'.$row->id.'"><span class="glyphicon glyphicon-list-alt"></span>';
+		    $this_row[] = date('d/m/Y : h:i:s a', $row->last_login);
+		    $i++;
+		    $data[] = $this_row;
+	    }
+	    return $data;
     }
 
     public function get_all_users_for_admin(){
@@ -290,27 +256,9 @@ class survey_m extends MY_Model {
 				join default_survey_programme pro
 				on sp.pid = pro.id
 				order by full_name';
-        $quuery = $this->db->query($sql);
-        $data = array();
-        $i = 1;
-        foreach($quuery->result() as $row){
+        $query = $this->db->query($sql);
 
-            $this_row = array($i, $row->full_name, $row->email, $row->org, $row->cohort);
-            $this_row[] = $row->programme;
-
-            if($row->active){
-                $this_row[] = '<button activate id="activate_user-'.$row->id.'-0" class="btn btn-link" onclick="activate_user('.$row->id.', 0);"><span id="activate_span-'.$row->id.'" class="glyphicon glyphicon-ok"></span></button>';
-            }else{
-                $this_row[] = '<button activate id="activate_user-'.$row->id.'-1" class="btn btn-link" onclick="activate_user('.$row->id.', 1);"><span id="activate_span-'.$row->id.'" class="glyphicon glyphicon-remove"></span></button>';
-            }
-
-            $this_row[] = '<a href="history/'.$row->id.'"><span class="glyphicon glyphicon-list-alt"></span>';
-            $this_row[] = date('d/m/Y : h:i:s a', $row->last_login);
-            $i++;
-            $data[] = $this_row;
-        }
-        return $data;
-
+	    return $this->build_user_table_admin($query->result());
     }
 
     public function get_all_active_users_for_admin(){
@@ -328,32 +276,15 @@ class survey_m extends MY_Model {
 				where u.active = 1
 				order by full_name
 				';
-        $quuery = $this->db->query($sql);
-        $data = array();
-        $i = 1;
-        foreach($quuery->result() as $row){
+        $query = $this->db->query($sql);
 
-            $this_row = array($i, $row->full_name, $row->email, $row->org, $row->cohort);
-            $this_row[] = $row->programme;
-
-            if($row->active){
-                $this_row[] = '<button activate id="activate_user-'.$row->id.'-0" class="btn btn-link" onclick="activate_user('.$row->id.', 0);"><span id="activate_span-'.$row->id.'" class="glyphicon glyphicon-ok"></span></button>';
-            }else{
-                $this_row[] = '<button activate id="activate_user-'.$row->id.'-1" class="btn btn-link" onclick="activate_user('.$row->id.', 1);"><span id="activate_span-'.$row->id.'" class="glyphicon glyphicon-remove"></span></button>';
-            }
-
-            $this_row[] = '<a href="history/'.$row->id.'"><span class="glyphicon glyphicon-list-alt"></span>';
-            $this_row[] = date('d/m/Y : h:i:s a', $row->last_login);
-            $i++;
-            $data[] = $this_row;
-        }
-        return $data;
+        return $this->build_user_table_admin($query->result());
 
     }
 
-    public function get_all_non_active_users_for_admin(){
+	public function get_all_non_active_users_for_admin(){
 
-        $sql = 'select u.id as id, u.email as email, c.name as org, u.active as active, u.last_login as last_login, concat(p.first_name, " ", p.last_name) as full_name, p.cohort as cohort, pro.name as programme
+		$sql = 'select u.id as id, u.email as email, c.name as org, u.active as active, u.last_login as last_login, concat(p.first_name, " ", p.last_name) as full_name, p.cohort as cohort, pro.name as programme
                 from default_users u
                 join default_profiles p
                 on p.user_id = u.id
@@ -366,27 +297,33 @@ class survey_m extends MY_Model {
 				where u.active = 0
 				order by full_name
 				';
-        $quuery = $this->db->query($sql);
-        $data = array();
-        $i = 1;
-        foreach($quuery->result() as $row){
+		$query = $this->db->query($sql);
 
-            $this_row = array($i, $row->full_name, $row->email, $row->org, $row->cohort);
-            $this_row[] = $row->programme;
+		return $this->build_user_table_admin($query->result());
 
-            if($row->active){
-                $this_row[] = '<button activate id="activate_user-'.$row->id.'-0" class="btn btn-link" onclick="activate_user('.$row->id.', 0);"><span id="activate_span-'.$row->id.'" class="glyphicon glyphicon-ok"></span></button>';
-            }else{
-                $this_row[] = '<button activate id="activate_user-'.$row->id.'-1" class="btn btn-link" onclick="activate_user('.$row->id.', 1);"><span id="activate_span-'.$row->id.'" class="glyphicon glyphicon-remove"></span></button>';
-            }
+	}
 
-            $this_row[] = '<a href="history/'.$row->id.'"><span class="glyphicon glyphicon-list-alt"></span>';
-            $this_row[] = date('d/m/Y : h:i:s a', $row->last_login);
-            $i++;
-            $data[] = $this_row;
-        }
-        return $data;
+    public function build_user_table_admin($records){
+	    $data = array();
+	    $i = 1;
+	    foreach($records as $row){
 
+		    $this_row = array($i, $row->full_name, $row->email, $row->org, $row->cohort);
+		    $this_row[] = $row->programme;
+
+		    if($row->active){
+			    $this_row[] = '<button activate id="activate_user-'.$row->id.'-0" class="btn btn-link" onclick="activate_user('.$row->id.', 0);"><span id="activate_span-'.$row->id.'" class="glyphicon glyphicon-ok"></span></button>';
+		    }else{
+			    $this_row[] = '<button activate id="activate_user-'.$row->id.'-1" class="btn btn-link" onclick="activate_user('.$row->id.', 1);"><span id="activate_span-'.$row->id.'" class="glyphicon glyphicon-remove"></span></button>';
+		    }
+
+		    $this_row[] = '<a href="history/'.$row->id.'"><span class="glyphicon glyphicon-list-alt"></span>';
+		    $this_row[] = date('d/m/Y : h:i:s a', $row->last_login);
+		    $i++;
+		    $data[] = $this_row;
+	    }
+
+	    return $data;
     }
 
     public function get_current_participation($id = ''){
