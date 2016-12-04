@@ -1,7 +1,11 @@
 
 $(function(){
     $(document).ready(function() {
-        $('#all_question_categories').dataTable();
+        $('#all_question_categories').dataTable({
+            "aoColumnDefs": [
+                { 'bSortable': false, 'aTargets': [ 3,4,5 ] }
+            ]
+        });
     } );
 
     $('#save_question_categories').button().click(function(){
