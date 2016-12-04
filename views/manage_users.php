@@ -9,19 +9,26 @@
             <li class="active">
                 <a data-toggle="tab" href="#active_users">
                     <i class="green ace-icon icon-ok-sign bigger-120"></i>
-                    Active users
+                    Active
                 </a>
             </li>
 
             <li>
                 <a data-toggle="tab" href="#non-active_users">
                     <i class="red ace-icon icon-remove-sign bigger-120"></i>
-                    Non-active users
+                    Registrations
+                </a>
+            </li>
+
+            <li>
+                <a data-toggle="tab" href="#archived_users">
+                    <i class="gray ace-icon icon-archive bigger-120"></i>
+                    Archive
                 </a>
             </li>
         </ul>
-        <div class="tab-content">
-            <div id="active_users" class="tab-pane fade in active">
+        <div class="tab-content no-padding">
+            <div id="active_users" class="tab-pane fade in active table-responsive">
                 <table id="tbl_active_users" class="table table-bordered table-hover" style="width:100%">
                     <thead>
                     <tr>
@@ -38,10 +45,9 @@
                         <th>Last Login</th>
                     </tr>
                     </thead>
-
                 </table>
             </div>
-            <div id="non-active_users" class="tab-pane fade">
+            <div id="non-active_users" class="tab-pane fade table-responsive">
                 <table id="tbl_non_active_users" class="table table-bordered table-hover" style="width:100%">
                     <thead>
                     <tr>
@@ -58,7 +64,26 @@
                         <th>Last Login</th>
                     </tr>
                     </thead>
+                </table>
+            </div>
 
+            <div id="archived_users" class="tab-pane fade table-responsive">
+                <table id="table_archived_users" class="table table-bordered table-hover" style="width:100%">
+                    <thead>
+                    <tr>
+                        <th>SN</th>
+                        <th>Name</th>
+                        <th>Email</th>
+                        {{ if user:group == 'admin'}}
+                        <th>Organisation</th>
+                        {{ endif }}
+                        <th>Cohort</th>
+                        <th>Programme</th>
+                        <th>Active</th>
+                        <th>History</th>
+                        <th>Last Login</th>
+                    </tr>
+                    </thead>
                 </table>
             </div>
         </div>
