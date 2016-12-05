@@ -1,5 +1,55 @@
 function activate_user(user_id, active){
-    if(active == '1'){
+    $body = $("body");
+    bootbox.dialog({
+        message: "<h3>What do you want to do with the selected user?</h3>",
+        title: "Manager User Account",
+        buttons: {
+            archive: {
+                label: (active == '1' ? "Activate" : "Send to Archive"),
+                className: (active == '1' ? "hide" : "btn-warning"),
+                callback: function() {
+                    $.ajax({
+                        url: base_url + 'index.php/survey/archive_user/' + user_id,
+                        success:function(data,status){
+                            window.location.reload();
+                        }
+                    });
+                }
+            },
+            success: {
+                label: (active == '1' ? "Activate" : "De-activate"),
+                className: (active == '1' ? "btn-success" : "btn-danger"),
+                callback: function() {
+                    $.ajax({
+                        url: base_url + 'index.php/survey/activate_user/' + user_id + '/' + active,
+                        success:function(data,status){
+                            window.location.reload();
+                        }
+                    });
+                }
+            },
+            danger: {
+                label: "Reject",
+                className: (active == '1' ? "btn-danger" : "hide"),
+                callback: function() {
+                    $.ajax({
+                        url: base_url + 'index.php/survey/reject_user/' + user_id,
+                        success:function(data,status){
+                            window.location.reload();
+                        }
+                    });
+                }
+            },
+            cancel: {
+                label: "Nothing",
+                className: "btn-default",
+                callback: function() {
+
+                }
+            }
+        }
+    });
+    /*if(active == '1'){
         $('#user_activation').html('activate');
     }else{
         $('#user_activation').html('de-activate');
@@ -48,12 +98,13 @@ function activate_user(user_id, active){
                 }
             }
         ]
-    });
+    });*/
 }
 
 $(function(){
     $(document).ready(function() {
-        $('#tbl_active_users').dataTable({
+        var active_user = $('#tbl_active_users').dataTable({
+            "bStateSave": true,
             "sAjaxSource": base_url+'index.php/survey/get_all_active_users_ajax',
             aoColumnDefs: [
                 { sClass: "center", "aTargets": [ 0,4,5,6,7 ] },
@@ -61,7 +112,8 @@ $(function(){
             ]
         });
 
-        $('#tbl_non_active_users').dataTable({
+        var non_active_user = $('#tbl_non_active_users').dataTable({
+            "bStateSave": true,
             "sAjaxSource": base_url+'index.php/survey/get_all_not_active_users_ajax',
             aoColumnDefs: [
                 { sClass: "center", "aTargets": [ 0,4,5,6,7 ] },
@@ -69,7 +121,8 @@ $(function(){
             ]
         });
 
-        $('#table_archived_users').dataTable({
+        var archived_user = $('#table_archived_users').dataTable({
+            "bStateSave": true,
             "sAjaxSource": base_url+'index.php/survey/get_all_archived_users_ajax',
             aoColumnDefs: [
                 { sClass: "center", "aTargets": [ 0,4,5,6,7 ] },
@@ -79,6 +132,36 @@ $(function(){
 
         $('#tbl_active_request').dataTable();
         $('#tbl_approved_request').dataTable();
+
+        $('#tbl_active_users tbody').on( 'click', 'tr', function () {
+            if ( $(this).hasClass('selected') ) {
+                $(this).removeClass('selected');
+            }
+            else {
+                active_user.$('tr.selected').removeClass('selected');
+                $(this).addClass('selected');
+            }
+        } );
+
+        $('#tbl_non_active_users tbody').on( 'click', 'tr', function () {
+            if ( $(this).hasClass('selected') ) {
+                $(this).removeClass('selected');
+            }
+            else {
+                non_active_user.$('tr.selected').removeClass('selected');
+                $(this).addClass('selected');
+            }
+        } );
+
+        $('#table_archived_users tbody').on( 'click', 'tr', function () {
+            if ( $(this).hasClass('selected') ) {
+                $(this).removeClass('selected');
+            }
+            else {
+                archived_user.$('tr.selected').removeClass('selected');
+                $(this).addClass('selected');
+            }
+        } );
 
     } );
 
