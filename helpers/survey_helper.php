@@ -503,7 +503,7 @@ if(! function_exists('get_report_pdf')){
 
         $attempt = get_current_attempt_by_id($data->id);
         if($attempt->report_ready){
-            $result = '<a
+            $result = '<a class="btn btn-inverse btn-xs"
                             href="{{ url:site }}survey/report_viewer/'.$data->id.'"
                             target="_blank"
                         >
@@ -512,7 +512,7 @@ if(! function_exists('get_report_pdf')){
                         </a>';
         }else{
             if($ci->current_user->group != 'user'){
-                $result = '<a
+                $result = '<a class="btn btn-inverse btn-xs"
                             href="{{ url:site }}survey/report_viewer/'.$data->id.'"
                             target="_blank"
                         >
