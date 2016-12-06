@@ -928,11 +928,12 @@ class Survey extends Public_Controller {
 			redirect($this->config->base_url());
 			exit();
 		}
-		$client = $this->survey_m->get_client_by_manager_id($this->current_user->id);
+
 		if($this->current_user->group_id == 1){
-			$users = $this->survey_m->get_all_non_active_users_for_admin();
+			$users = $this->survey_m->get_all_archived_users_for_admin();
 		}else{
-			$users = $this->survey_m->get_all_non_active_users_by_client($client->id);
+			$client = $this->survey_m->get_client_by_manager_id($this->current_user->id);
+			$users = $this->survey_m->get_all_archived_users_for_client($client->id);
 		}
 
 		echo json_encode(array('aaData'=>$users));

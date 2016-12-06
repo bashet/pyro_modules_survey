@@ -4,18 +4,6 @@ function activate_user(user_id, active){
         message: "<h3>What do you want to do with the selected user?</h3>",
         title: "Manager User Account",
         buttons: {
-            archive: {
-                label: (active == '1' ? "Activate" : "Send to Archive"),
-                className: (active == '1' ? "hide" : "btn-warning"),
-                callback: function() {
-                    $.ajax({
-                        url: base_url + 'index.php/survey/archive_user/' + user_id,
-                        success:function(data,status){
-                            window.location.reload();
-                        }
-                    });
-                }
-            },
             success: {
                 label: (active == '1' ? "Activate" : "De-activate"),
                 className: (active == '1' ? "btn-success" : "btn-danger"),
@@ -125,8 +113,8 @@ $(function(){
             "bStateSave": true,
             "sAjaxSource": base_url+'index.php/survey/get_all_archived_users_ajax',
             aoColumnDefs: [
-                { sClass: "center", "aTargets": [ 0,4,5,6,7 ] },
-                { "bSortable": false, "aTargets": [ 6,7 ] }
+                { sClass: "center", "aTargets": [ 0,4,5,6 ] },
+                { "bSortable": false, "aTargets": [ 6 ] }
             ]
         });
 

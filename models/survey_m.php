@@ -199,7 +199,26 @@ class survey_m extends MY_Model {
 				join default_survey_programme pro
 				on sp.pid = pro.id
 				where sp.cid = '.$client_id.' and u.active = 1
+				order by full_name'; // deprecated
+
+        $sql = 'SELECT sp.uid as id, u.email as email, u.active as active, u.last_login as last_login, concat(p.first_name, " ", p.last_name) as full_name, p.cohort as cohort, c.name as org, pro.name as programme 
+				FROM default_survey_participant sp
+				inner join (SELECT user_id, programme_id, sum(report_ready) as report 
+				FROM default_survey_attempt
+				group by user_id, programme_id) sa
+				on sa.user_id = sp.uid and sa.programme_id = sp.pid
+				inner join default_users u
+				on u.id = sp.uid
+				join default_profiles p
+				on p.user_id = u.id
+				join default_survey_clients c
+				on sp.cid = c.id
+				join default_survey_programme pro
+				on sp.pid = pro.id
+				where sp.active=1 and sp.allowed > sa.report and sp.cid = '.$client_id.'
 				order by full_name';
+
+
         $query = $this->db->query($sql);
 	    return $this->build_user_table_client($query->result());
     }
@@ -263,17 +282,21 @@ class survey_m extends MY_Model {
 
     public function get_all_active_users_for_admin(){
 
-        $sql = 'select u.id as id, u.email as email, c.name as org, u.active as active, u.last_login as last_login, concat(p.first_name, " ", p.last_name) as full_name, p.cohort as cohort, pro.name as programme
-                from default_users u
-                join default_profiles p
-                on p.user_id = u.id
-                join default_survey_participant sp
-                on sp.uid = u.id
+        $sql = 'SELECT sp.uid as id, u.email as email, u.active as active, u.last_login as last_login, concat(p.first_name, " ", p.last_name) as full_name, p.cohort as cohort, c.name as org, pro.name as programme 
+				FROM default_survey_participant sp
+				inner join (SELECT user_id, programme_id, sum(report_ready) as report 
+				FROM default_survey_attempt
+				group by user_id, programme_id) sa
+				on sa.user_id = sp.uid and sa.programme_id = sp.pid
+				inner join default_users u
+				on u.id = sp.uid
+				join default_profiles p
+				on p.user_id = u.id
 				join default_survey_clients c
 				on sp.cid = c.id
 				join default_survey_programme pro
 				on sp.pid = pro.id
-				where u.active = 1
+				where sp.active = 1 and sp.allowed > sa.report
 				order by full_name
 				';
         $query = $this->db->query($sql);
@@ -325,6 +348,86 @@ class survey_m extends MY_Model {
 
 	    return $data;
     }
+
+	public function get_all_archived_users_for_admin(){
+
+		$sql = 'SELECT sp.uid as id, u.email as email, u.active as active, u.last_login as last_login, concat(p.first_name, " ", p.last_name) as full_name, p.cohort as cohort, c.name as org, pro.name as programme 
+				FROM default_survey_participant sp
+				inner join (SELECT user_id, programme_id, sum(report_ready) as report 
+				FROM default_survey_attempt
+				group by user_id, programme_id) sa
+				on sa.user_id = sp.uid and sa.programme_id = sp.pid
+				inner join default_users u
+				on u.id = sp.uid
+				join default_profiles p
+				on p.user_id = u.id
+				join default_survey_clients c
+				on sp.cid = c.id
+				join default_survey_programme pro
+				on sp.pid = pro.id
+				where sp.active=1 and sp.allowed=sa.report
+				order by full_name
+				';
+		$query = $this->db->query($sql);
+
+		return $this->build_archived_user_table_admin($query->result());
+
+	}
+
+	public function build_archived_user_table_admin($records){
+		$data = array();
+		$i = 1;
+		foreach($records as $row){
+
+			$this_row = array($i, $row->full_name, $row->email, $row->org, $row->cohort);
+			$this_row[] = $row->programme;
+			$this_row[] = '<a href="history/'.$row->id.'"><span class="glyphicon glyphicon-list-alt"></span>';
+			$this_row[] = date('d/m/Y : h:i:s a', $row->last_login);
+			$i++;
+			$data[] = $this_row;
+		}
+
+		return $data;
+	}
+
+	public function get_all_archived_users_for_client($client_id){
+
+		$sql = 'SELECT sp.uid as id, u.email as email, u.active as active, u.last_login as last_login, concat(p.first_name, " ", p.last_name) as full_name, p.cohort as cohort, c.name as org, pro.name as programme 
+				FROM default_survey_participant sp
+				inner join (SELECT user_id, programme_id, sum(report_ready) as report 
+				FROM default_survey_attempt
+				group by user_id, programme_id) sa
+				on sa.user_id = sp.uid and sa.programme_id = sp.pid
+				inner join default_users u
+				on u.id = sp.uid
+				join default_profiles p
+				on p.user_id = u.id
+				join default_survey_clients c
+				on sp.cid = c.id
+				join default_survey_programme pro
+				on sp.pid = pro.id
+				where sp.active=1 and sp.allowed=sa.report and sp.cid = '.$client_id.'
+				order by full_name';
+		$query = $this->db->query($sql);
+
+		return $this->build_archived_user_table_client($query->result());
+	}
+
+	public function build_archived_user_table_client($records){
+		$data = array();
+		$i = 1;
+		foreach($records as $row){
+
+			$this_row = array($i, $row->full_name, $row->email, $row->cohort);
+			$this_row[] = $row->programme;
+
+			$this_row[] = '<a href="history/'.$row->id.'"><span class="glyphicon glyphicon-list-alt"></span>';
+			$this_row[] = date('d/m/Y : h:i:s a', $row->last_login);
+			$i++;
+			$data[] = $this_row;
+		}
+		return $data;
+	}
 
     public function get_current_participation($id = ''){
         $query = $this->db->get_where('survey_participant', array('uid'=>$id, 'active'=>1)); // expected to get only one row
