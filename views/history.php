@@ -1,6 +1,6 @@
 <div id="history-container">
-    <div class="container-fluid">
-        <h2>Diagnostics for <?php echo $user->first_name . ' ' . $user->last_name; ?>
+    <div class="container-fluid no-padding">
+        <h2><?php echo $user->first_name . ' ' . $user->last_name; ?>
             {{ if user:group == 'admin' || user:group == 'manager'}}
             <a href="<?php echo site_url().'/survey/login/'.$user->id; ?>" class="btn btn-white pull-right"><i class="fa fa-power-off"></i> Login As</a>
             {{ endif }}
@@ -11,7 +11,7 @@
     </div>
 
 
-    <div class="well well-sm">
+    <div class="alert alert-block alert-info">
         <p>Please find below all diagnostics for {{ if user:group == 'user' }}you {{ else }}<?php echo $user->first_name . ' ' . $user->last_name; ?>{{endif}}</p>
 
         <p><strong>NB: Please avoid opening multiple diagnostics simultaneously</strong></p>
@@ -21,11 +21,9 @@
             <thead>
             <tr>
                 <th>SN</th>
-                <th>Name of the diagnostic</th>
-                <th>Start date</th>
-                <th>Participant completed</th>
-                <th>Participant submitted</th>
-                <th>Completion date (user)</th>
+                <th>Programme</th>
+                <th>Organisation</th>
+                <th>Self-Assessment</th>
                 <th>Evaluators</th>
                 <th>Report</th>
             </tr>
@@ -38,19 +36,7 @@
                     echo '<tr>';
                     echo '<td>'.$i.'</td>';
                     echo '<td>'.$history->programme_name.'</td>';
-                    echo '<td>'.date('d/m/Y', $history->start_date).'</td>';
-                    if($history->finished){
-                        echo '<td style="text-align:center; color: #008000"><i class="fa fa-check"></i></td>';
-                    }else{
-                        echo '<td style="text-align:center; color: red"><i class="fa fa-times"></i></td>';
-                    }
-
-                    if($history->submitted){
-                        echo '<td style="text-align:center; color: #008000"><i class="fa fa-check"></i></td>';
-                    }else{
-                        echo '<td style="text-align:center; color: red"><i class="fa fa-times"></i></td>';
-                    }
-
+	                echo '<td>'.$org->name.'</td>';
                     echo '<td>'.(($history->submit_date)? date('d/m/Y', $history->submit_date):'').'</td>';
                     echo '<td>'.get_submitted_evaluators($history->id).'/'.get_total_evaluators_by_attempt_id($history->id).'</td>';
                     echo '<td>'.get_report_pdf($history).'</td>';

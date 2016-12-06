@@ -1614,13 +1614,16 @@ class Survey extends Public_Controller {
 
         $participation      = get_current_participation_by_user($user->user_id);
         $attempt_remaining  = $participation->allowed - get_total_attempts_by_user_n_programme($participation->uid, $participation->pid);
+		$org = get_client_by_id($participation->cid);
 
         $this->template
             ->title($this->module_details['name'], 'history')
             ->set_breadcrumb('History')
             ->set('user_history', $user_history)
             ->set('attempt_remaining', $attempt_remaining)
+            ->set('participation', $participation)
             ->set('user', $user)
+            ->set('org', $org)
             ->build('history');
     }
 
