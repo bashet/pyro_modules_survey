@@ -2188,6 +2188,17 @@ class Survey extends Public_Controller {
 		}
 	}
 
+	public function reject_user($user_id){
+		$user = get_user_by_id($user_id);
+		if($user){
+			if($this->db->delete('users', array('id' => $user_id))){
+				// notify the user about the rejection!
+				echo $user->email;
+			}
+		}
+
+	}
+
     public function fix(){
 	    $sql = 'select * from default_survey_evaluators';
 	    $query = $this->db->query($sql);
