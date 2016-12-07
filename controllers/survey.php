@@ -2289,4 +2289,12 @@ class Survey extends Public_Controller {
 
 		redirect('survey/client/'. $posted_data['client_id']);
 	}
+
+	public function detach_client_programme(){
+		$posted_data = $this->input->post();
+
+		$status = $this->db->delete('survey_client_programmes', array('client_id'       => $posted_data['client_id'], 'programme_id'    => $posted_data['programme_id']));
+
+		echo $status;
+	}
 }

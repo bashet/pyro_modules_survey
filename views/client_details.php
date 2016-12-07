@@ -14,10 +14,12 @@
         <tr>
             <th>Programmes</th>
             <td>
-                <ul class="list-group">
+                <ul id="client_programme" class="list-group">
                 <?php
                 foreach ($client_programmes as $programme){
-                    echo '<li class="list-group-item">'.get_programme_name_by_id($programme->programme_id).' <button class="btn btn-xs btn-danger pull-right"> <i class="icon-remove"></i> </button>  </li>';
+                    echo '<li class="list-group-item">'
+                         . get_programme_name_by_id($programme->programme_id)
+                         . ' <button id="'.$programme->client_id.'-'.$programme->programme_id.'" class="btn btn-xs btn-danger pull-right detach_programme"> <i class="icon-remove"></i> </button>  </li>';
                 }
                 ?>
                 </ul>

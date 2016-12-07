@@ -32,4 +32,32 @@ $(function () {
             $('#frm_add_programme').submit();
        }
     });
+
+    $('#client_programme').on('click', '.detach_programme', function () {
+        var data = this.id;
+        var dataArray = data.split('-');
+
+        swal({
+            title: "Are you sure?",
+            text: "You are about to detach a programme from organisation!",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#DD6B55",
+            confirmButtonText: "Yes, detach it!",
+            closeOnConfirm: false,
+            showLoaderOnConfirm: true,
+            html: false
+        }, function(){
+            $.ajax({
+                url: base_url + 'index.php/survey/detach_client_programme',
+                type: "POST",
+                data: {client_id: dataArray[0], programme_id: dataArray[1]}
+            }).done(function (result) {
+                setTimeout(function(){
+                    swal('Successfully detached!', '', 'success');
+                    window.location.reload();
+                }, 2000);
+            });
+        });
+    });
 });
