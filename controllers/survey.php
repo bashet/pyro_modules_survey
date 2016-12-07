@@ -2274,6 +2274,19 @@ class Survey extends Public_Controller {
 		  ->set('client', $client)
 		  ->set('programmes', $programmes)
 		  ->set('client_programmes', $client_programmes)
+		  ->append_js('module::client_details.js')
 		  ->build('client_details');
+	}
+
+	public function add_client_programme(){
+		$posted_data = $this->input->post();
+		$client_programme = array(
+		  'client_id'       => $posted_data['client_id'],
+		  'programme_id'    => $posted_data['programme_id']
+		);
+
+		$this->db->insert('survey_client_programmes', $client_programme);
+
+		redirect('survey/client/'. $posted_data['client_id']);
 	}
 }
