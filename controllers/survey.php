@@ -2297,4 +2297,12 @@ class Survey extends Public_Controller {
 
 		echo $status;
 	}
+
+	public function get_client_programme(){
+		$data = $this->input->post();
+
+		$programmes = get_programmes_details_by_client($data['client_id']);
+
+		echo json_encode($programmes);
+	}
 }
