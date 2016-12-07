@@ -7,7 +7,7 @@ $(function(){
         var this_element = '#'+id;
         clipboard.copy({
             'text/plain': this.value,
-            'text/html': '<i>here</i> is some <b>rich text</b>'
+            'text/html': this.value
         }).then(
             function(){$(this_element).popover('show');},
             function(err){alert('Could not copy this link location! Please report this to the administrator');}
