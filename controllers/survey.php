@@ -2005,9 +2005,12 @@ class Survey extends Public_Controller {
     }
 
     public function new_application(){
-        $programmes     = get_all_programme();
+        //$programmes     = get_all_programme();
         $participation  = get_all_participation($this->current_user->id);
         $application    = get_active_application($this->current_user->id);
+
+        $org = get_organisation_by_user($this->current_user->id);
+	    $programmes = get_programmes_by_client($org->id);
 
         $this->template
             ->title($this->module_details['name'], 'apply for new programme')

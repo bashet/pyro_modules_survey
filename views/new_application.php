@@ -34,8 +34,8 @@
                                 <option value="0"></option>
                                 <?php
                                 foreach($programmes as $p){
-                                    if( ! is_programme_used($p->id, $participation)){
-                                        echo '<option value="'.$p->id.'">'.$p->name.'</option>';
+                                    if( ! is_programme_used($p->programme_id, $participation)){
+                                        echo '<option value="'.$p->programme_id.'">'.get_programme_name_by_id($p->programme_id).'</option>';
                                     }
                                 }
                                 ?>

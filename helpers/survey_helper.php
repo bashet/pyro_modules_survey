@@ -1025,6 +1025,18 @@ if( ! function_exists('get_active_application') ){
     }
 }
 
+if( ! function_exists('get_organisation_by_user')){
+	function get_organisation_by_user($user_id){
+		$ci =& get_instance();
+
+		$query = $ci->db->get_where('survey_participant', array('uid' => $user_id), 1);
+
+		$org =  $query->row();
+
+		return get_client_by_id($org->cid);
+	}
+}
+
 if( ! function_exists('get_all_active_requests_for_admin') ){
     function get_all_active_requests_for_admin(){
         $ci =& get_instance();
