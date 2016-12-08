@@ -1,8 +1,8 @@
 <div id="send_email_to_evaluators-container">
-    <h2>Send email notification to evaluators</h2>
-    <p>Your evaluators will now be notified that they have been nominated to contribute to your 360 diagnostic survey.
+    <h2>Evaluator Invitation</h2>
+    <!--<p>Your evaluators will now be notified that they have been nominated to contribute to your 360 diagnostic survey.
         Please find below the default text which will be sent to all of your nominated evaluators.
-        To edit this message, please click in the box below prior to sending</p>
+        To edit this message, please click in the box below prior to sending</p>-->
     <div class="row">
         <form id="frm_send_email_evaluators" method="post" action="#">
             <textarea id="email_body" name="email_body" class="form-control">

@@ -33,10 +33,10 @@
                             echo '<table class="table table-bordered">';
                             echo '<tr>';
                             $q_id = $q->id;
-                            echo '<td style="text-align:center"><input answer type="radio" name="q_answer-'.$q->id.'" value="1" '.(isset($my_answer->$q_id) && ($my_answer->$q_id == 1)?'checked':'').'></td>';
-                            echo '<td style="text-align:center"><input answer type="radio" name="q_answer-'.$q->id.'" value="2" '.(isset($my_answer->$q_id) && ($my_answer->$q_id == 2)?'checked':'').'></td>';
-                            echo '<td style="text-align:center"><input answer type="radio" name="q_answer-'.$q->id.'" value="3" '.(isset($my_answer->$q_id) && ($my_answer->$q_id == 3)?'checked':'').'></td>';
-                            echo '<td style="text-align:center"><input answer type="radio" name="q_answer-'.$q->id.'" value="4" '.(isset($my_answer->$q_id) && ($my_answer->$q_id == 4)?'checked':'').'></td>';
+                            echo '<td style="text-align:center" width="25%"><input answer type="radio" name="q_answer-'.$q->id.'" value="1" '.(isset($my_answer->$q_id) && ($my_answer->$q_id == 1)?'checked':'').'></td>';
+                            echo '<td style="text-align:center" width="25%"><input answer type="radio" name="q_answer-'.$q->id.'" value="2" '.(isset($my_answer->$q_id) && ($my_answer->$q_id == 2)?'checked':'').'></td>';
+                            echo '<td style="text-align:center" width="25%"><input answer type="radio" name="q_answer-'.$q->id.'" value="3" '.(isset($my_answer->$q_id) && ($my_answer->$q_id == 3)?'checked':'').'></td>';
+                            echo '<td style="text-align:center" width="25%"><input answer type="radio" name="q_answer-'.$q->id.'" value="4" '.(isset($my_answer->$q_id) && ($my_answer->$q_id == 4)?'checked':'').'></td>';
                             echo '</tr>';
                             echo '<tr>';
                             echo '<td><strong>'.$answer->option_1_label.'</strong>'.$answer->option_1.'</td>';

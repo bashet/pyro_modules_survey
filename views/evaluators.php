@@ -1,10 +1,9 @@
 <div id="evaluators-container">
     <h2>Evaluators</h2>
     <p>
-        In order to complete the diagnostic and access your report, at least three evaluators will need to have
-        submitted a response for each of the competencies.
-        To get the most out of your report we would recommend trying to nominate at least 3 evaluators in each category.
+        A minimum of 3 evaluators are required to initiate and complete a 360 Diagnostic.
     </p>
+    <p>To get the most out of your Diagnostic, we recommend nominating at least 3 evaluators from each relationship category.</p>
 
     <div id="number_of_evaluators_warning" style="display: none" class="alert alert-danger role="alert">
 
