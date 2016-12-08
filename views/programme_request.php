@@ -20,9 +20,9 @@
 
         </ul>
 
-        <div class="tab-content">
-            <div id="new_request" class="tab-pane fade in active">
-                <table id="tbl_active_request" class="table table-bordered table-striped table-responsive">
+        <div class="tab-content no-padding">
+            <div id="new_request" class="tab-pane fade in active table-responsive">
+                <table id="tbl_active_request" class="table table-bordered table-striped ">
                     <thead>
                     <tr>
                         <th>SN</th>
@@ -73,7 +73,7 @@
                 </table>
             </div>
 
-            <div id="approved_request" class="tab-pane fade">
+            <div id="approved_request" class="tab-pane fade table-responsive">
                 <table id="tbl_approved_request" class="table table-bordered">
                     <thead>
                     <tr>
