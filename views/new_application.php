@@ -8,8 +8,8 @@
             </div>
 
         <?php }else{ ?>
-        <p>I agree that in applying for a 360 diagnostic for a new programme, existing diagnostics will be archived.
-            You will still be able to access the reports for all previously completed diagnostics via the History tab.</p>
+        <p>I agree that in applying for a new 360 Diagnostic programme,
+            any active surveys will be closed and that any completed Diagnostic surveys will be archived but accessible in the Overview section</p>
 
         <button class="btn btn-large btn-purple" data-toggle="modal" data-target="#apply_new_programme_modal">Apply for new programme</button>
         <?php } ?>
