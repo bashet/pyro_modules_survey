@@ -65,7 +65,44 @@ $(function(){
     });
 
     $('#submit_answer').button().click(function(){
-        $( "#dialog-confirm" ).removeClass('hide').dialog({
+
+        swal({
+            title: "Are you sure?",
+            text: "Please note, this submission cannot be amended, edited or deleted once submitted",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#DD6B55",
+            confirmButtonText: "Submit",
+            closeOnConfirm: false,
+            showLoaderOnConfirm: true,
+            html: false
+        }, function(){
+
+            $.ajax({
+                type:   'post',
+                url: base_url + 'index.php/survey/user_survey_submit',
+                data:   {user_id:user_id, attempt_id:attempt_id, survey_id:survey_id},
+                success: function(data) {
+                    if(data){
+                        var msg = jQuery.parseJSON( data );
+                        if(msg.finished == false){
+
+                        }else{
+                            if(msg.updated == true){
+                                setTimeout(function(){
+                                    swal('Successfully submitted!', '', 'success');
+                                    window.location.href = base_url + 'index.php/survey/successful';
+                                }, 2000);
+                            }
+                        }
+                    }
+                }
+            });
+
+        });
+
+
+        /*$( "#dialog-confirm" ).removeClass('hide').dialog({
             resizable: false,
             modal: true,
             title: "<div class='widget-header'><h4 class='smaller'><i class='ace-icon fa fa-exclamation-triangle red'></i> Submit your answer!</h4></div>",
@@ -106,7 +143,7 @@ $(function(){
                     }
                 }
             ]
-        });
+        });*/
 
     });
 
