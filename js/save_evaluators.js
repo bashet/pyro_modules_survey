@@ -94,7 +94,7 @@ $(function(){
             url: base_url + 'index.php/survey/get_total_evaluators',
             success: function(data,status) {
                 if(data <= 3){
-                    alert('You must keep at least 3 evaluators to get the final report!');
+                    swal('A minimum of 3 evaluators are required', '', 'error');
                 }else{
                     $( "#delete_evaluator_dialog_confirm" ).removeClass('hide').dialog({
                         resizable: false,
