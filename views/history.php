@@ -23,9 +23,11 @@
                 <th>SN</th>
                 <th>Programme</th>
                 <th>Organisation</th>
+                <th>Reg Request</th>
+                <th>Reg Approved</th>
                 <th>Self-Assessment</th>
                 <th>Evaluators</th>
-                <th>Report</th>
+                <th class="center">Report</th>
             </tr>
             </thead>
             <tbody>
@@ -34,12 +36,14 @@
                 $i = 1;
                 foreach($user_history as $history){
                     echo '<tr>';
-                    echo '<td>'.$i.'</td>';
+                    echo '<td class="center">'.$i.'</td>';
                     echo '<td>'.$history->programme_name.'</td>';
 	                echo '<td>'.$org->name.'</td>';
-                    echo '<td>'.(($history->submit_date)? date('d/m/Y', $history->submit_date):'').'</td>';
-                    echo '<td>'.get_submitted_evaluators($history->id).'/'.get_total_evaluators_by_attempt_id($history->id).'</td>';
-                    echo '<td>'.get_report_pdf($history).'</td>';
+	                echo '<td class="center">'. date('d/m/Y', $history->reg_date) .'</td>';
+	                echo '<td class="center"></td>';
+                    echo '<td class="center">'.(($history->submit_date)? date('d/m/Y', $history->submit_date):'').'</td>';
+                    echo '<td class="center">'.get_submitted_evaluators($history->id).'/'.get_total_evaluators_by_attempt_id($history->id).'</td>';
+                    echo '<td class="center">'.get_report_pdf($history).'</td>';
                     echo '</tr>';
                     $i++;
                 }

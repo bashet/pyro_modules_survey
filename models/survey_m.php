@@ -201,21 +201,21 @@ class survey_m extends MY_Model {
 				where sp.cid = '.$client_id.' and u.active = 1
 				order by full_name'; // deprecated
 
-        $sql = 'SELECT sp.uid as id, u.email as email, u.active as active, u.last_login as last_login, concat(p.first_name, " ", p.last_name) as full_name, p.cohort as cohort, c.name as org, pro.name as programme 
-				FROM default_survey_participant sp
-				inner join (SELECT user_id, programme_id, sum(report_ready) as report 
+        $sql = 'SELECT u.id as id, u.group_id, u.email as email, u.active as active, u.last_login as last_login, concat(p.first_name, " ", p.last_name) as full_name, p.cohort as cohort, c.name as org, pro.name as programme 
+				FROM default_users u
+                left outer join default_profiles p
+				on p.user_id = u.id
+                left join (SELECT * from default_survey_participant s where s.active=1) sp
+                on u.id = sp.uid
+                left join default_survey_clients c
+				on sp.cid = c.id
+				left join default_survey_programme pro
+				on sp.pid = pro.id
+                left join (SELECT user_id, programme_id, sum(report_ready) as report 
 				FROM default_survey_attempt
 				group by user_id, programme_id) sa
-				on sa.user_id = sp.uid and sa.programme_id = sp.pid
-				inner join default_users u
-				on u.id = sp.uid
-				join default_profiles p
-				on p.user_id = u.id
-				join default_survey_clients c
-				on sp.cid = c.id
-				join default_survey_programme pro
-				on sp.pid = pro.id
-				where sp.active=1 and sp.allowed > sa.report and sp.cid = '.$client_id.'
+				on sp.uid = sa.user_id and sp.pid = sa.programme_id 
+                where u.active = 1 and sp.cid = '.$client_id.'
 				order by full_name';
 
 
@@ -282,23 +282,23 @@ class survey_m extends MY_Model {
 
     public function get_all_active_users_for_admin(){
 
-        $sql = 'SELECT sp.uid as id, u.email as email, u.active as active, u.last_login as last_login, concat(p.first_name, " ", p.last_name) as full_name, p.cohort as cohort, c.name as org, pro.name as programme 
-				FROM default_survey_participant sp
-				inner join (SELECT user_id, programme_id, sum(report_ready) as report 
+        $sql = 'SELECT u.id as id, u.group_id, u.email as email, u.active as active, u.last_login as last_login, concat(p.first_name, " ", p.last_name) as full_name, p.cohort as cohort, c.name as org, pro.name as programme 
+				FROM default_users u
+                left outer join default_profiles p
+				on p.user_id = u.id
+                left join (SELECT * from default_survey_participant s where s.active=1) sp
+                on u.id = sp.uid
+                left join default_survey_clients c
+				on sp.cid = c.id
+				left join default_survey_programme pro
+				on sp.pid = pro.id
+                left join (SELECT user_id, programme_id, sum(report_ready) as report 
 				FROM default_survey_attempt
 				group by user_id, programme_id) sa
-				on sa.user_id = sp.uid and sa.programme_id = sp.pid
-				inner join default_users u
-				on u.id = sp.uid
-				join default_profiles p
-				on p.user_id = u.id
-				join default_survey_clients c
-				on sp.cid = c.id
-				join default_survey_programme pro
-				on sp.pid = pro.id
-				where sp.active = 1 and sp.allowed > sa.report
-				order by full_name
-				';
+				on sp.uid = sa.user_id and sp.pid = sa.programme_id
+                where u.active = 1
+				order by full_name';
+
         $query = $this->db->query($sql);
 
         return $this->build_user_table_admin($query->result());
@@ -351,22 +351,21 @@ class survey_m extends MY_Model {
 
 	public function get_all_archived_users_for_admin(){
 
-		$sql = 'SELECT sp.uid as id, u.email as email, u.active as active, u.last_login as last_login, concat(p.first_name, " ", p.last_name) as full_name, p.cohort as cohort, c.name as org, pro.name as programme 
-				FROM default_survey_participant sp
-				inner join (SELECT user_id, programme_id, sum(report_ready) as report 
+		$sql = 'SELECT u.id as id, u.group_id, u.email as email, u.active as active, u.last_login as last_login, concat(p.first_name, " ", p.last_name) as full_name, p.cohort as cohort, c.name as org, pro.name as programme 
+				FROM default_users u
+                left outer join default_profiles p
+				on p.user_id = u.id
+                left join (SELECT * from default_survey_participant s where s.active=1) sp
+                on u.id = sp.uid
+                left join default_survey_clients c
+				on sp.cid = c.id
+				left join default_survey_programme pro
+				on sp.pid = pro.id
+                left join (SELECT user_id, programme_id, sum(report_ready) as report 
 				FROM default_survey_attempt
 				group by user_id, programme_id) sa
-				on sa.user_id = sp.uid and sa.programme_id = sp.pid
-				inner join default_users u
-				on u.id = sp.uid
-				join default_profiles p
-				on p.user_id = u.id
-				join default_survey_clients c
-				on sp.cid = c.id
-				join default_survey_programme pro
-				on sp.pid = pro.id
-				where sp.active=1 and sp.allowed=sa.report
-				order by full_name
+				on u.id = sa.user_id and sp.pid = sa.programme_id
+                where u.active = 1 and sp.allowed = sa.report
 				';
 		$query = $this->db->query($sql);
 
@@ -408,6 +407,22 @@ class survey_m extends MY_Model {
 				on sp.pid = pro.id
 				where sp.active=1 and sp.allowed=sa.report and sp.cid = '.$client_id.'
 				order by full_name';
+
+		$sql = 'SELECT u.id as id, u.group_id, u.email as email, u.active as active, u.last_login as last_login, concat(p.first_name, " ", p.last_name) as full_name, p.cohort as cohort, c.name as org, pro.name as programme 
+				FROM default_users u
+                left outer join default_profiles p
+				on p.user_id = u.id
+                left join (SELECT * from default_survey_participant s where s.active=1) sp
+                on u.id = sp.uid
+                left join default_survey_clients c
+				on sp.cid = c.id
+				left join default_survey_programme pro
+				on sp.pid = pro.id
+                left join (SELECT user_id, programme_id, sum(report_ready) as report 
+				FROM default_survey_attempt
+				group by user_id, programme_id) sa
+				on u.id = sa.user_id and sp.pid = sa.programme_id
+                where u.active = 1 and sp.allowed = sa.report and sp.cid = '.$client_id.' order by full_name';
 		$query = $this->db->query($sql);
 
 		return $this->build_archived_user_table_client($query->result());

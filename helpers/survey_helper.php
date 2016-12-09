@@ -296,6 +296,10 @@ if(! function_exists('register_user_for_specific_uni')){
 
             Events::trigger('email', $user_email, 'array');
 
+            $participant['first_time_application'] = 1;
+            $participant['create_date'] = time();
+	        $ci->db->insert('survey_new_application', $participant);
+
         }
 
     }
@@ -495,7 +499,7 @@ if(! function_exists('get_user_answer_history')){
         if($user_id){
             $ci =& get_instance();
 
-            $sql = "SELECT atm.id as id, atm.user_id as user_id, atm.survey_id as survey_id, atm.create_date as start_date, ans.finished as finished,
+            $sql = "SELECT atm.id as id, atm.user_id as user_id, u.created_on as reg_date, atm.survey_id as survey_id, atm.create_date as start_date, ans.finished as finished,
                         ans.submitted as submitted, ans.submit_date as submit_date,
                         ans.answers as answers, atm.programme_id as programme_id, pro.name as programme_name
                     from default_survey_attempt atm
@@ -503,6 +507,8 @@ if(! function_exists('get_user_answer_history')){
                     on ans.attempt_id = atm.id
                     join default_survey_programme pro
                     on pro.id = atm.programme_id
+                    join default_users u
+                    on u.id = atm.user_id
                     where atm.user_id = $user_id";
 
             $query = $ci->db->query($sql);
@@ -1055,7 +1061,7 @@ if( ! function_exists('get_all_active_requests_for_admin') ){
                 on c.id = new_app.cid
                 join default_survey_programme prog
                 on prog.id = new_app.pid
-                where new_app.status=1";
+                where new_app.status = 1 and new_app.first_time_application = 0";
         $query = $ci->db->query($sql); // expected to get only one row
         // $this->db->count_all_results();
 
@@ -1082,7 +1088,7 @@ if( ! function_exists('get_all_approved_requests_for_admin') ){
                 on c.id = new_app.cid
                 join default_survey_programme prog
                 on prog.id = new_app.pid
-                where new_app.status=0";
+                where new_app.status = 0 and new_app.first_time_application = 0";
         $query = $ci->db->query($sql); // expected to get only one row
         // $this->db->count_all_results();
 
@@ -1108,7 +1114,7 @@ if( ! function_exists('get_all_active_requests_for_client') ){
                 on c.id = new_app.cid
                 join default_survey_programme prog
                 on prog.id = new_app.pid
-                where new_app.status=1 and c.id = ".$cid;
+                where new_app.status=1 and new_app.first_time_application = 0 and c.id = ".$cid ;
         $query = $ci->db->query($sql); // expected to get only one row
         // $this->db->count_all_results();
 
@@ -1135,7 +1141,7 @@ if( ! function_exists('get_all_approved_requests_for_client') ){
                 on c.id = new_app.cid
                 join default_survey_programme prog
                 on prog.id = new_app.pid
-                where new_app.status=0 and c.id = ". $cid;
+                where new_app.status=0 and new_app.first_time_application = 0 and c.id = ". $cid;
         $query = $ci->db->query($sql); // expected to get only one row
         // $this->db->count_all_results();
 

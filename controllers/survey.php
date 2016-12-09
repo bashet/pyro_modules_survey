@@ -975,6 +975,15 @@ class Survey extends Public_Controller {
                 $data['reply-to']			= Settings::get('contact_email');
 
                 Events::trigger('email', $data, 'array');
+
+                // update first approval date
+	            $application = array(
+	              'approval_date' => time(),
+	              'status' => 0,
+	            );
+	            $this->db->where('uid',$user_id);
+	            $this->db->where('first_time_application', 1);
+	            $this->db->update('survey_new_application', $application);
             }
 
         }
