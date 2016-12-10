@@ -1762,7 +1762,7 @@ class Survey extends Public_Controller {
         $this->template
             ->set_layout('user_survey')
             ->title($this->module_details['name'], 'confirmation')
-            ->build('user_survey_submit');
+            ->build('send_email_to_evaluators_successful');
     }
     public function successful_submitted_by_evaluator(){
         $this->template

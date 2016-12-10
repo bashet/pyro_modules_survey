@@ -1,9 +1,9 @@
-<div id="send_email_to_evaluators-container">
+<div id="send_email_to_evaluators-container container-fluid">
     <h2>Evaluator Invitation</h2>
     <!--<p>Your evaluators will now be notified that they have been nominated to contribute to your 360 diagnostic survey.
         Please find below the default text which will be sent to all of your nominated evaluators.
         To edit this message, please click in the box below prior to sending</p>-->
-    <div class="row">
+    <div class="">
         <form id="frm_send_email_evaluators" method="post" action="#">
             <textarea id="email_body" name="email_body" class="form-control">
                 <p>I would be very grateful if you could complete the Leadership CoLab 360 Diagnostic survey for me.
@@ -15,7 +15,7 @@
     </div>
 
     <br>
-    <div class="row" style="float: right">
+    <div class="" style="float: right">
         <button class="btn btn-primary" id="btn_send_email"><span class="glyphicon glyphicon-envelope"></span>  Send Email</button>
     </div>
 </div>
