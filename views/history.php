@@ -40,7 +40,7 @@
                     echo '<td>'.$history->programme_name.'</td>';
 	                echo '<td>'.$org->name.'</td>';
 	                echo '<td class="center">'. date('d/m/Y', $history->reg_date) .'</td>';
-	                echo '<td class="center"></td>';
+	                echo '<td class="center">'.get_reg_approval_date($history->user_id, $history->programme_id).'</td>';
                     echo '<td class="center">'.(($history->submit_date)? date('d/m/Y', $history->submit_date):'').'</td>';
                     echo '<td class="center">'.get_submitted_evaluators($history->id).'/'.get_total_evaluators_by_attempt_id($history->id).'</td>';
                     echo '<td class="center">'.get_report_pdf($history).'</td>';

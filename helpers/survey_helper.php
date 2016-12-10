@@ -494,6 +494,26 @@ if(! function_exists('rebuild_answer')){
     }
 }
 
+if( ! function_exists('get_reg_approval_date')){
+	function get_reg_approval_date($user_id, $programme_id){
+		$ci =& get_instance();
+
+		$date = '';
+
+		$query = $ci->db->get_where('survey_new_application', array('uid' => $user_id, 'pid' => $programme_id));
+
+		if ($query->num_rows() > 0)
+		{
+			$row = $query->row();
+
+			$date = date('d/m/Y', $row->approval_date);
+
+		}
+
+		return $date;
+	}
+}
+
 if(! function_exists('get_user_answer_history')){
     function get_user_answer_history($user_id = ''){
         if($user_id){
