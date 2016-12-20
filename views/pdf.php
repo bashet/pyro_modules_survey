@@ -23,7 +23,7 @@ class MYPDF extends TCPDF {
         //$image_file = K_PATH_IMAGES.'CoLab-Logo.jpg';
 
 
-        $this->Image($image_file, 175, 2, 30, '', 'JPG', '', 'T', false, 300, '', false, false, 0, false, false, false);
+        $this->Image($image_file, 175, 260, 30, '', 'JPG', '', 'T', false, 300, '', false, false, 0, false, false, false);
         // Set font
         $this->SetFont('helvetica', 'B', 20);
         // Title

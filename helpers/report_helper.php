@@ -13,6 +13,11 @@ if( ! function_exists('get_page_1')){
 
         $user       = get_profile_by_user_id($attempt->user_id);
 
+	    $path = base_url().'top_banner.png';
+	    $type = pathinfo($path, PATHINFO_EXTENSION);
+	    $image_data = file_get_contents($path);
+	    $top_banner = 'data:image/' . $type . ';base64,' . base64_encode($image_data);
+
         $i = 0;
         foreach($all_attempt as $atm){
             if($attempt->id == $atm->id){
@@ -23,26 +28,40 @@ if( ! function_exists('get_page_1')){
             }
         }
 
-        $html   = '<br>';
+        $client = get_client_by_id($attempt->client_id);
+
+        $html   = '';
+	    $html   .= '<img src="'.$top_banner.'" />';
         $html  .= '<br>';
         $html  .= '<br>';
         $html  .= '<br>';
+	    $html  .= '<p style="text-align: center;font-size: 3em;">Personal Feedback Report</p>';
         $html  .= '<br>';
         $html  .= '<br>';
         $html  .= '<br>';
+	    $html  .= '<br>';
+	    $html  .= '<br>';
+	    $html  .= '<br>';
         $html  .= '<br>';
+	    $html   .= '<p>';
+        $html  .= '<span style="font-size:2em">Name: '.$user->first_name . ' ' . $user->last_name.'</span>';
         $html  .= '<br>';
+	    $html  .= '<br>';
+        $html  .= '<span style="font-size:2em">Programme: ' . $programme->name .'</span>';
+	    $html  .= '<br>';
+	    $html  .= '<br>';
+	    $html  .= '<span style="font-size:2em">Organisation: '. $client->name .'</span>';
+	    $html  .= '<br>';
+	    $html  .= '<br>';
+        $html  .= '<span style="font-size:2em">Cohort: '.$user->cohort . '</span>';
         $html  .= '<br>';
+	    $html  .= '<br>';
+        $html  .= '<span style="font-size:2em">Survey Number: '.numToText($i).'</span>';
         $html  .= '<br>';
-        $html  .= '<span style="font-size:2em">'.$user->first_name . ' ' . $user->last_name.'</span>';
-        $html  .= '<br>';
-        $html  .= '<span>Cohort: '.$user->cohort . '</span>';
-        $html  .= '<br>';
-        $html  .= '<span>'.$programme->name.' - '.numToText($i).' attempt</span>';
-        //$html  .= '<br>';
-        //$html  .= '<span>'.date('M d, Y', $attempt->submit_date).'</span>';
-        $html  .= '<br>';
-        $html  .= 'Personal Feedback Report';
+	    $html  .= '<br>';
+        $html  .= '<span style="font-size:2em">Completion Date:'.date('M d, Y', $attempt->finished_date).'</span>';
+        $html  .= '</p>';
+
 
         return $html;
     }

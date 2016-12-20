@@ -1591,6 +1591,12 @@ class Survey extends Public_Controller {
         $this->load->view('pdf', $data);
     }
 
+    public function test(){
+
+		echo 'testing....';
+
+    }
+
     public function generate_report($attempt_id = ''){
 
         $attempt            = get_current_attempt_by_id($attempt_id);
