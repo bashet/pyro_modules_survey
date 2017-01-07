@@ -35,31 +35,30 @@ if( ! function_exists('get_page_1')){
         $html  .= '<br>';
         $html  .= '<br>';
         $html  .= '<br>';
-	    $html  .= '<p style="text-align: center;font-size: 3em;">Personal Feedback Report</p>';
         $html  .= '<br>';
         $html  .= '<br>';
         $html  .= '<br>';
 	    $html  .= '<br>';
 	    $html  .= '<br>';
 	    $html  .= '<br>';
-        $html  .= '<br>';
+	    $html  .= '<p style="font-size: 1.5em;"><b>Personal Feedback Report</b></p>';
 	    $html   .= '<p>';
-        $html  .= '<span style="font-size:2em">Name: '.$user->first_name . ' ' . $user->last_name.'</span>';
+        $html  .= '<span style="font-size:1.5em"><b>Name: '.$user->first_name . ' ' . $user->last_name.'</b></span>';
         $html  .= '<br>';
 	    $html  .= '<br>';
-        $html  .= '<span style="font-size:2em">Programme: ' . $programme->name .'</span>';
+        $html  .= '<span style="font-size:1.5em"><b>Programme:</b> ' . $programme->name .'</span>';
 	    $html  .= '<br>';
 	    $html  .= '<br>';
-	    $html  .= '<span style="font-size:2em">Organisation: '. $client->name .'</span>';
+	    $html  .= '<span style="font-size:1.5em"><b>Organisation:</b> '. $client->name .'</span>';
 	    $html  .= '<br>';
 	    $html  .= '<br>';
-        $html  .= '<span style="font-size:2em">Cohort: '.$user->cohort . '</span>';
+        $html  .= '<span style="font-size:1.5em"><b>Cohort:</b> '.$user->cohort . '</span>';
         $html  .= '<br>';
 	    $html  .= '<br>';
-        $html  .= '<span style="font-size:2em">Survey Number: '.numToText($i).'</span>';
+        $html  .= '<span style="font-size:1.5em"><b>Survey Number:</b> '.numToText($i).'</span>';
         $html  .= '<br>';
 	    $html  .= '<br>';
-        $html  .= '<span style="font-size:2em">Completion Date:'.date('M d, Y', $attempt->finished_date).'</span>';
+        $html  .= '<span style="font-size:1.5em"><b>Completion Date: </b>'.date('M d, Y', $attempt->finished_date).'</span>';
         $html  .= '</p>';
 
 
