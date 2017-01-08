@@ -100,7 +100,7 @@ if(! function_exists('get_all_manager')){
     function get_all_manager(){
         $ci =& get_instance();
 
-        $sql = 'select p.display_name as display_name, u.id as id
+        $sql = 'select concat(p.first_name, " ", p.last_name) as name, p.display_name as display_name, u.id as id
                 from default_users u
                 join default_profiles p
                 on p.user_id = u.id
@@ -165,6 +165,15 @@ if(! function_exists('get_programmes_by_client')){
 		$ci =& get_instance();
 
 		$query = $ci->db->get_where('survey_client_programmes', array('client_id'=> $id));
+		return $query->result();
+	}
+}
+
+if(! function_exists('get_managers_by_client')){
+	function get_managers_by_client($id){
+		$ci =& get_instance();
+
+		$query = $ci->db->get_where('survey_client_managers', array('client_id'=> $id));
 		return $query->result();
 	}
 }

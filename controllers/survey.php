@@ -2284,6 +2284,8 @@ class Survey extends Public_Controller {
     	$client = get_client_by_id($id);
 		$programmes = get_all_programme();
 		$client_programmes = get_programmes_by_client($id);
+		$managers = get_all_manager();
+	    $client_managers = get_managers_by_client($id);
 
 		$this->template
 		  ->title($this->module_details['name'], 'Organisation Details')
@@ -2291,6 +2293,8 @@ class Survey extends Public_Controller {
 		  ->set_breadcrumb('Organisation Details')
 		  ->set('client', $client)
 		  ->set('programmes', $programmes)
+		  ->set('managers', $managers)
+		  ->set('client_managers', $client_managers)
 		  ->set('client_programmes', $client_programmes)
 		  ->append_js('module::client_details.js')
 		  ->build('client_details');
@@ -2322,5 +2326,30 @@ class Survey extends Public_Controller {
 		$programmes = get_programmes_details_by_client($data['client_id']);
 
 		echo json_encode($programmes);
+	}
+
+	public function add_client_manager(){
+		$posted_data = $this->input->post();
+		$client_manager = array(
+		  'client_id'       => $posted_data['client_id'],
+		  'manager_id'    => $posted_data['manager_id']
+		);
+
+		$this->db->insert('survey_client_managers', $client_manager);
+
+		redirect('survey/client/'. $posted_data['client_id']);
+	}
+
+	public function detach_client_manager(){
+		$posted_data = $this->input->post();
+
+		$status = $this->db->delete('survey_client_managers',
+			  array(
+			    'client_id' => $posted_data['client_id'],
+			    'manager_id' => $posted_data['manager_id']
+			  )
+		);
+
+		echo $status;
 	}
 }
