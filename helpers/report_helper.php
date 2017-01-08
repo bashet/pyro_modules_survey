@@ -40,7 +40,10 @@ if( ! function_exists('get_page_1')){
         $html  .= '<br>';
 	    $html  .= '<br>';
 	    $html  .= '<br>';
-	    $html  .= '<br>';
+	    $html  .= '<table>';
+	    $html  .= '<tr>';
+	    $html  .= '<td>&nbsp;</td>';
+	    $html  .= '<td width="400">';
 	    $html  .= '<p style="font-size: 1.5em;"><b>Personal Feedback Report</b></p>';
 	    $html   .= '<p>';
         $html  .= '<span style="font-size:1.5em"><b>Name: '.$user->first_name . ' ' . $user->last_name.'</b></span>';
@@ -60,6 +63,12 @@ if( ! function_exists('get_page_1')){
 	    $html  .= '<br>';
         $html  .= '<span style="font-size:1.5em"><b>Completion Date: </b>'.date('M d, Y', $attempt->finished_date).'</span>';
         $html  .= '</p>';
+	    $html  .= '</td>';
+	    $html  .= '<td>&nbsp;</td>';
+	    $html  .= '<td>&nbsp;</td>';
+	    $html  .= '<td>&nbsp;</td>';
+	    $html  .= '</tr>';
+	    $html  .= '</table>';
 
 
         return $html;

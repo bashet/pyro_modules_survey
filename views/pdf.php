@@ -95,10 +95,12 @@ $pl_dtl2  = 'http://leadershipcolab-360.org.uk/addons/shared_addons/modules/surv
 //======================================= page 1 ===========================================
 $pdf->AddPage();
 $html = get_page_1($all_attempt, $programme, $attempt);
+$pdf->SetMargins(0, 25, 0);
 $pdf->writeHTML($html, true, false, true, false, '');
 //======================================= page 2 ===========================================
 $pdf->AddPage();
 $html = get_page_2();
+$pdf->SetMargins(PDF_MARGIN_LEFT, 25, PDF_MARGIN_RIGHT);
 $pdf->writeHTML($html, true, false, true, false, '');
 //======================================= page 3 ===========================================
 $pdf->AddPage();
