@@ -1,5 +1,8 @@
 <div id="programme_request-container">
     <p></p>
+    {{ if user:group == 'manager' }}
+    <h2><?php echo $client->name?></h2>
+    {{ endif }}
     <div class="tabbable">
         <ul class="nav nav-tabs" id="myTab">
             <li class="active">

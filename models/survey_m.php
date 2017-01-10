@@ -173,6 +173,12 @@ class survey_m extends MY_Model {
         return $query->row();
     }
 
+	public function get_clients_by_manager_id($manager_id){
+		$query = $this->db->get_where('survey_client_managers', array('manager_id'=>$manager_id));
+
+		return $query->row();
+	}
+
     public function get_all_users_by_client($client_id){
 
         $sql = 'select u.id as id, u.email as email, u.active as active, u.last_login as last_login, concat(p.first_name, " ", p.last_name) as full_name, p.cohort as cohort, pro.name as programme
