@@ -1,7 +1,26 @@
 <div id="programme_request-container">
     <p></p>
     {{ if user:group == 'manager' }}
-    <h2><?php echo $client->name?></h2>
+    <div class="row">
+        <div class="col-md-6">
+            <h2><?php echo $client->name?></h2>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <select id="switch_organisation" class="pull-right">
+                    <option value="<?=$client->id?>"><?=$client->name?></option>
+					<?php
+					foreach ($clients  as $c){
+						if($client->id != $c->client_id){
+							echo '<option value="'. $c->client_id .'">'. get_client_name($c->client_id) .'</option>';
+						}
+					}
+					?>
+                </select>
+            </div>
+        </div>
+    </div>
+    <hr>
     {{ endif }}
     <div class="tabbable">
         <ul class="nav nav-tabs" id="myTab">

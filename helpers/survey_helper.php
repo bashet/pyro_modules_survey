@@ -1072,6 +1072,16 @@ if( ! function_exists('get_organisation_by_user')){
 	}
 }
 
+if( ! function_exists('get_client_name') ){
+	function get_client_name($id){
+		$ci =& get_instance();
+
+		$query = $ci->db->get_where('survey_clients', array('id'=> $id));
+		$client = $query->row();
+		return $client->name;
+	}
+}
+
 if( ! function_exists('get_all_active_requests_for_admin') ){
     function get_all_active_requests_for_admin(){
         $ci =& get_instance();

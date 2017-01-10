@@ -176,6 +176,12 @@ class survey_m extends MY_Model {
 	public function get_clients_by_manager_id($manager_id){
 		$query = $this->db->get_where('survey_client_managers', array('manager_id'=>$manager_id));
 
+		return $query->result();
+	}
+
+	public function get_first_client_by_manager_id($manager_id){
+		$query = $this->db->get_where('survey_client_managers', array('manager_id'=>$manager_id));
+
 		return $query->row();
 	}
 

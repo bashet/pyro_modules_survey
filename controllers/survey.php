@@ -802,8 +802,8 @@ class Survey extends Public_Controller {
 	    if($this->current_user->group_id == 3){
 		    if( ! $my_org = $this->session->userdata('my_org')){
 			    //$client = $this->survey_m->get_client_by_manager_id($this->current_user->id);
-			    $clients = $this->survey_m->get_clients_by_manager_id($this->current_user->id); // get first row only as object
-			    $my_org = $clients->client_id;
+			    $first_client = $this->survey_m->get_first_client_by_manager_id($this->current_user->id); // get first row only as object
+			    $my_org = $first_client->client_id;
 			    $this->session->set_userdata(array('my_org' => $my_org));
 		    }
 		    $client = get_client_by_id($my_org);
@@ -876,20 +876,23 @@ class Survey extends Public_Controller {
 	    $this->load->library('session');
 
         $client = '';
+	    $clients = '';
         if($this->current_user->group_id == 3){
         	if( ! $my_org = $this->session->userdata('my_org')){
 		        //$client = $this->survey_m->get_client_by_manager_id($this->current_user->id);
-		        $clients = $this->survey_m->get_clients_by_manager_id($this->current_user->id); // get first row only as object
-        		$my_org = $clients->client_id;
+		        $first_client = $this->survey_m->get_first_client_by_manager_id($this->current_user->id); // get first row only as object
+        		$my_org = $first_client->client_id;
 		        $this->session->set_userdata(array('my_org' => $my_org));
 	        }
 	        $client = get_client_by_id($my_org);
+        	$clients = $this->survey_m->get_clients_by_manager_id($this->current_user->id);
         }
 
 
         $this->template
             ->title($this->module_details['name'], 'manage users')
             ->set('client', $client)
+            ->set('clients', $clients)
             ->set_breadcrumb('Manage Users')
             ->append_js('module::manage_users.js')
             ->build('manage_users');
