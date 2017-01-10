@@ -798,7 +798,16 @@ class Survey extends Public_Controller {
             exit();
         }
 
-        $client = $this->survey_m->get_client_by_manager_id($this->current_user->id);
+	    $client = '';
+	    if($this->current_user->group_id == 3){
+		    if( ! $my_org = $this->session->userdata('my_org')){
+			    //$client = $this->survey_m->get_client_by_manager_id($this->current_user->id);
+			    $clients = $this->survey_m->get_clients_by_manager_id($this->current_user->id); // get first row only as object
+			    $my_org = $clients->client_id;
+			    $this->session->set_userdata(array('my_org' => $my_org));
+		    }
+		    $client = get_client_by_id($my_org);
+	    }
 
         if($this->current_user->group_id == 1){
             $active_request     = get_all_active_requests_for_admin();
@@ -864,7 +873,19 @@ class Survey extends Public_Controller {
             redirect($this->config->base_url());
             exit();
         }
-        $client = $this->survey_m->get_client_by_manager_id($this->current_user->id);
+	    $this->load->library('session');
+
+        $client = '';
+        if($this->current_user->group_id == 3){
+        	if( ! $my_org = $this->session->userdata('my_org')){
+		        //$client = $this->survey_m->get_client_by_manager_id($this->current_user->id);
+		        $clients = $this->survey_m->get_clients_by_manager_id($this->current_user->id); // get first row only as object
+        		$my_org = $clients->client_id;
+		        $this->session->set_userdata(array('my_org' => $my_org));
+	        }
+	        $client = get_client_by_id($my_org);
+        }
+
 
         $this->template
             ->title($this->module_details['name'], 'manage users')
@@ -880,10 +901,13 @@ class Survey extends Public_Controller {
             redirect($this->config->base_url());
             exit();
         }
-        $client = $this->survey_m->get_client_by_manager_id($this->current_user->id);
+
         if($this->current_user->group_id == 1){
             $users = $this->survey_m->get_all_users_for_admin();
         }else{
+	        $this->load->library('session');
+	        $my_org = $this->session->userdata('my_org');
+	        $client = get_client_by_id($my_org);
             $users = $this->survey_m->get_all_users_by_client($client->id);
         }
 
@@ -896,10 +920,13 @@ class Survey extends Public_Controller {
             redirect($this->config->base_url());
             exit();
         }
-        $client = $this->survey_m->get_client_by_manager_id($this->current_user->id);
+
         if($this->current_user->group_id == 1){
             $users = $this->survey_m->get_all_active_users_for_admin();
         }else{
+	        $this->load->library('session');
+	        $my_org = $this->session->userdata('my_org');
+	        $client = get_client_by_id($my_org);
             $users = $this->survey_m->get_all_active_users_by_client($client->id);
         }
 
@@ -912,10 +939,13 @@ class Survey extends Public_Controller {
             redirect($this->config->base_url());
             exit();
         }
-        $client = $this->survey_m->get_client_by_manager_id($this->current_user->id);
+
         if($this->current_user->group_id == 1){
             $users = $this->survey_m->get_all_non_active_users_for_admin();
         }else{
+	        $this->load->library('session');
+	        $my_org = $this->session->userdata('my_org');
+	        $client = get_client_by_id($my_org);
             $users = $this->survey_m->get_all_non_active_users_by_client($client->id);
         }
 
@@ -932,7 +962,9 @@ class Survey extends Public_Controller {
 		if($this->current_user->group_id == 1){
 			$users = $this->survey_m->get_all_archived_users_for_admin();
 		}else{
-			$client = $this->survey_m->get_client_by_manager_id($this->current_user->id);
+			$this->load->library('session');
+			$my_org = $this->session->userdata('my_org');
+			$client = get_client_by_id($my_org);
 			$users = $this->survey_m->get_all_archived_users_for_client($client->id);
 		}
 
