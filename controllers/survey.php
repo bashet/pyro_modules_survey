@@ -2261,10 +2261,20 @@ class Survey extends Public_Controller {
 
 	public function reject_user($user_id){
 		$user = get_user_by_id($user_id);
+		$profile = get_profile_by_user_id($user->id);
 		if($user){
 			if($this->db->delete('users', array('id' => $user_id))){
 				// notify the user about the rejection!
-				echo $user->email;
+				$data = array();
+				$data['subject']			= '360 Diagnostic: Registration Request Update'; // No translation needed as this is merely a fallback to Email Template subject
+				$data['slug'] 				= 'registration-rejected';
+				$data['to'] 				= $user->email;
+				$data['user_name']          = $profile->first_name . ' ' . $profile->last_name;
+				$data['from'] 				= Settings::get('server_email');
+				$data['name']				= Settings::get('site_name');
+				$data['reply-to']			= Settings::get('contact_email');
+
+				Events::trigger('email', $data, 'array');
 			}
 		}
 
