@@ -850,7 +850,7 @@ class Survey extends Public_Controller {
                     $manager = get_manager_by_uni($request->cid);
                     $user_email = array();
 
-                    $user_email['subject']			= Settings::get('site_name') . ' - New Programme Participation Approved'; // No translation needed as this is merely a fallback to Email Template subject
+                    $user_email['subject']			= '360 Diagnostic: Programme Request'; // No translation needed as this is merely a fallback to Email Template subject
                     $user_email['slug'] 		    = 'new-programme-approved';
                     $user_email['to'] 				= $user->email;
                     $user_email['user_name']        = get_user_full_name($request->uid);
