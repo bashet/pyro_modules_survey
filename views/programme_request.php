@@ -5,6 +5,7 @@
         <div class="col-md-6">
             <h2><?php echo $client->name?></h2>
         </div>
+	    <?php if(count($clients) > 1){ ?>
         <div class="col-md-6">
             <div class="form-group">
                 <select id="switch_organisation" class="pull-right">
@@ -19,6 +20,7 @@
                 </select>
             </div>
         </div>
+	    <?php } ?>
     </div>
     <hr>
     {{ endif }}

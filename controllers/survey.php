@@ -2234,7 +2234,8 @@ class Survey extends Public_Controller {
 
 	  	if($user){
 		  if($this->ion_auth->force_login($user_id)){
-			redirect($this->config->base_url());
+			  $this->session->unset_userdata('my_org');
+			  redirect($this->config->base_url());
 		  }else{
 			echo 'something went wrong!';
 		  }
