@@ -293,25 +293,33 @@ if(! function_exists('register_user_for_specific_uni')){
         $ci =& get_instance();
 
         if($ci->db->insert('survey_participant', $participant)){
-            $manager = get_manager_by_uni($data['uni']);
+	        $user   = get_user_by_id($uid);
+	        $client = get_client_by_id($data['uni']);
+	        $programme = get_programme_name_by_id($data['programme']);
+	        $cohort = get_cohort_by_user_id($uid);
 
-            // now send email to manager about new registration.
+	        // now send email to manager about new registration.
+	        $managers = get_managers_by_client($data['uni']);
+            foreach ($managers as $m){
+	            $manager = get_user_by_id($m->manager_id);
+	            $mail = array();
+	            $mail['subject']			= '360 Diagnostic: Registration Request'; // No translation needed as this is merely a fallback to Email Template subject
+	            $mail['slug'] 				= 'email-to-manager-for-approval';
+	            $mail['to'] 				= $manager->email;
+	            $mail['manager_name']       = get_user_full_name($manager->id);
+	            $mail['participant_name']   = get_user_full_name($uid);
+	            $mail['participant_email']  = $user->email;
+	            $mail['client']             = $client->name;
+	            $mail['programme']          = $programme;
+	            $mail['cohort']             = $cohort;
+	            $mail['from'] 				= Settings::get('server_email');
+	            $mail['name']				= Settings::get('site_name');
+	            $mail['reply-to']			= Settings::get('contact_email');
 
-            $mail = array();
-            $mail['subject']			= Settings::get('site_name') . ' - Registration Approval'; // No translation needed as this is merely a fallback to Email Template subject
-            $mail['slug'] 				= 'email-to-manager-for-approval';
-            $mail['to'] 				= $manager['email'];
-            $mail['manager_name']       = $manager['name'];
-            $mail['from'] 				= Settings::get('server_email');
-            $mail['name']				= Settings::get('site_name');
-            $mail['reply-to']			= Settings::get('contact_email');
+	            Events::trigger('email', $mail, 'array');
+            }
 
-            Events::trigger('email', $mail, 'array');
-
-            $user   = get_user_by_id($uid);
-            $client = get_client_by_id($data['uni']);
-            $programme = get_programme_name_by_id($data['programme']);
-            $cohort = get_cohort_by_user_id($uid);
+            // send email to user
             $user_email = array();
 
             $user_email['subject']			= Settings::get('site_name') . ' - Registration Approval'; // No translation needed as this is merely a fallback to Email Template subject
