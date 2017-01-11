@@ -993,7 +993,8 @@ class Survey extends Public_Controller {
         if($user_id){
             $user       = get_user_by_id($user_id);
             $profile    = get_profile_by_user_id($user_id);
-            $client     = $this->survey_m->get_client_by_manager_id($this->current_user->id);
+            $participation = get_current_participation_by_user($user->id);
+            $client     = get_client_by_id($participation->cid);
 
             if($active){
                 // need to de-activate
@@ -1009,11 +1010,15 @@ class Survey extends Public_Controller {
             if($this->db->update('users', $new_user)){
                 // send email notification to the user about the status changes
 
-                $data['subject']			= Settings::get('site_name') . ' - User Activation'; // No translation needed as this is merely a fallback to Email Template subject
+                $data['subject']			= '360 Diagnostic: Registration Request Update'; // No translation needed as this is merely a fallback to Email Template subject
                 $data['slug'] 				= $slug;
                 $data['to'] 				= $user->email;
                 $data['user_name']          = $profile->first_name . ' ' . $profile->last_name;
                 $data['client']             = $client->name;
+                $data['programme']          = get_programme_name_by_id($participation->pid);
+                $data['cohort']             = get_cohort_by_user_id($user->id);
+                $data['today']              = date('d/M/Y', time());
+                $data['email']              = $user->email;
                 $data['from'] 				= Settings::get('server_email');
                 $data['name']				= Settings::get('site_name');
                 $data['reply-to']			= Settings::get('contact_email');
