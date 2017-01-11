@@ -807,6 +807,7 @@ class Survey extends Public_Controller {
 			    $this->session->set_userdata(array('my_org' => $my_org));
 		    }
 		    $client = get_client_by_id($my_org);
+		    $clients = $this->survey_m->get_clients_by_manager_id($this->current_user->id);
 	    }
 
         if($this->current_user->group_id == 1){
@@ -823,6 +824,7 @@ class Survey extends Public_Controller {
             ->set('active_request', $active_request)
             ->set('approved_request', $approved_request)
             ->set('client', $client)
+            ->set('clients', $clients)
             ->append_js('module::manage_users.js')
             ->build('programme_request');
     }
@@ -866,6 +868,13 @@ class Survey extends Public_Controller {
             }
         }
         redirect('survey/programme_request');
+    }
+
+    public function switch_client($client_id){
+    	if($client_id){
+		    $this->load->library('session');
+		    $this->session->set_userdata(array('my_org' => $client_id));
+	    }
     }
 
     public function manage_users(){

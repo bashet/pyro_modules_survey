@@ -196,5 +196,16 @@ $(function(){
 
     });
 
+    $('#switch_organisation').change(function () {
+        $body = $("body");
+        $body.addClass("loading");
+        $.ajax({
+            url: base_url + 'index.php/survey/switch_client/' + this.value,
+            success:function(data,status){
+                window.location.reload();
+            }
+        });
+    });
+
 
 });
