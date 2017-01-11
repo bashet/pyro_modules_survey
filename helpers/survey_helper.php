@@ -561,7 +561,7 @@ if(! function_exists('get_report_pdf')){
                         &nbsp;&nbsp;&nbsp;View this report
                         </a>';
         }else{
-            if($ci->current_user->group != 'user'){
+            //if($ci->current_user->group != 'user'){
                 $result = '<a class="btn btn-inverse btn-xs"
                             href="{{ url:site }}survey/report_viewer/'.$data->id.'"
                             target="_blank"
@@ -574,9 +574,9 @@ if(! function_exists('get_report_pdf')){
                     $result = 'Report is not ready yet';
                 }
 
-            }else{
-                $result = 'Report is not ready yet';
-            }
+            //}else{
+            //    $result = 'Report is not ready yet';
+            //}
 
         }
         return $result;
