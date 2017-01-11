@@ -1475,6 +1475,52 @@ class Survey extends Public_Controller {
             ->build('send_email_to_evaluators');
     }
 
+	public function send_email_to_evaluators_not_submitted($attempt){
+		if(! $this->current_user->id){
+			redirect($this->config->base_url());
+			exit();
+		}
+
+		//$user = get_user_by_id($attempt->user_id);
+		$profile = get_profile_by_user_id($attempt->user_id);
+		$evaluators = get_evaluators_by_attempt_id($attempt->id);
+		$org = get_organisation_by_user($attempt->user_id);
+		$programme = get_programme_name_by_id($attempt->programme_id);
+
+		$all_attempt = get_all_attempts_by_user_n_programme($attempt->user_id, $attempt->programme_id);
+
+		$i = 0;
+		foreach($all_attempt as $atm){
+			if($attempt->id == $atm->id){
+				$i = $i+1;
+				break;
+			}else{
+				$i = $i+1;
+			}
+		}
+
+		foreach($evaluators as $evaluator){
+			if(! $evaluator->submitted){
+
+				$mail = array();
+				$mail['slug'] 				= 'email-to-not-submitted-evaluators';
+				$mail['to'] 				= $evaluator->email;
+				$mail['evaluator_name']     = $evaluator->name;
+				$mail['participant_name']   = $profile->first_name . ' ' . $profile->last_name;
+				$mail['org']                = $org->name;
+				$mail['programme']          = $programme;
+				$mail['cohort']             = $profile->cohort;
+				$mail['survey_number']      = numToText($i);
+				$mail['today']              = date('d/M/Y', time());
+				$mail['from'] 				= Settings::get('server_email');
+				$mail['name']				= Settings::get('site_name');
+				$mail['reply-to']			= Settings::get('contact_email');
+
+				Events::trigger('email', $mail, 'array');
+			}
+		}
+	}
+
     public function reports(){
         if(! $this->current_user->id){
             redirect($this->config->base_url());
@@ -1528,6 +1574,9 @@ class Survey extends Public_Controller {
                 if($attempt){
                     $this->db->where('id', $this->attempt->id);
                     $this->db->update('survey_attempt', $attempt);
+
+                    // Survey is completed, send email to evaluators who have not submitted yet
+	                $this->send_email_to_evaluators_not_submitted($this->attempt);
                 }
             }
         }else{
@@ -1598,6 +1647,8 @@ class Survey extends Public_Controller {
         if($attempt_update){
             $this->db->where('id', $attempt->id);
             $this->db->update('survey_attempt', $attempt_update);
+	        // Survey is completed, send email to evaluators who have not submitted yet
+	        $this->send_email_to_evaluators_not_submitted($attempt);
         }
 
         $client             = get_client_by_id($attempt->client_id);
