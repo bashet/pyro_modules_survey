@@ -70,6 +70,24 @@ if ( ! function_exists('get_user_full_name') ){
     }
 }
 
+if ( ! function_exists('get_cohort_by_user_id') ){
+	function get_cohort_by_user_id($u_id = ''){
+		$ci =& get_instance();
+		if($u_id){
+			$query = $ci->db->get_where('profiles', array('user_id'=>$u_id));
+			$user = $query->row();
+			if($user){
+				return $user->cohort;
+			}else{
+				return '';
+			}
+		}else{
+			return '';
+		}
+	}
+}
+
+
 if ( ! function_exists('get_user_by_id') ){
     function get_user_by_id($id = ''){
         $ci =& get_instance();
@@ -292,6 +310,8 @@ if(! function_exists('register_user_for_specific_uni')){
 
             $user   = get_user_by_id($uid);
             $client = get_client_by_id($data['uni']);
+            $programme = get_programme_name_by_id($data['programme']);
+            $cohort = get_cohort_by_user_id($uid);
             $user_email = array();
 
             $user_email['subject']			= Settings::get('site_name') . ' - Registration Approval'; // No translation needed as this is merely a fallback to Email Template subject
@@ -299,6 +319,8 @@ if(! function_exists('register_user_for_specific_uni')){
             $user_email['to'] 				= $user->email;
             $user_email['user_name']        = get_user_full_name($uid);
             $user_email['client']           = $client->name;
+            $user_email['programme']        = $programme;
+            $user_email['cohort']           = $cohort;
             $user_email['from'] 			= Settings::get('server_email');
             $user_email['name']				= Settings::get('site_name');
             $user_email['reply-to']			= Settings::get('contact_email');
