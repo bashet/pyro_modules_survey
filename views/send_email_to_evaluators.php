@@ -7,8 +7,8 @@
         <form id="frm_send_email_evaluators" method="post" action="#">
             <textarea id="email_body" name="email_body" class="form-control">
                 <p>I would be very grateful if you could complete the Leadership CoLab 360 Diagnostic survey for me.
-                    This process forms an important part of my personal development.
-                    A number of other evaluators have also been nominated to complete this survey on my behalf.
+                    This process forms an important part of my personal development. </p>
+                <p>This process forms an important part of my personal development. A number of other evaluators have also been nominated to complete this survey on my behalf.
                     Please could I ask you to complete this survey by [DD/MM/YY].</p>
             </textarea>
         </form>

@@ -650,12 +650,13 @@ if( ! function_exists('generate_email_template_for_evaluator')){
 
         $email_body = '<p>Dear '.$evaluator->name.',</p>';
         $email_body .= $data['email_body']. '<br>';
-        $email_body .= '<p>Please click to the link below:</p>';
+        $email_body .= '<p>Please click to the below link:</p>';
         $link        = $ci->config->base_url().'index.php/survey/evaluator_response/'.$evaluator->link_md5;
         $email_body .= '<a href="'.$link.'">'.$link.'</a>';
-        $email_body .= '<br><br><p>Yours faithfully,<br>';
+        $email_body .= '<br><br>Please note, you do not need to login to access this link';
+        $email_body .= '<br><br><p>Kind regards,<br>';
         $email_body .= $user->first_name . ' ' . $user->last_name.'<br>';
-        $email_body .= 'Leadership Colab on behalf of '.$client->name.'</p>';
+        $email_body .= '360 Diagnostic with '.$client->name.', '. get_programme_name_by_id($participation->pid) .'</p>';
 
         $ci->db->where('id', $email_template->id);
         if($ci->db->update('email_templates', array('body' => $email_body))){
