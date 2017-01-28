@@ -707,7 +707,7 @@ if( ! function_exists('get_evaluator_progress') ){
 
         $answered = count((array)$my_answer);
 
-        return number_format((($answered/$total_questions) * 100),2).'%';
+        return number_format((($answered/$total_questions) * 100),0).'%';
 
     }
 }

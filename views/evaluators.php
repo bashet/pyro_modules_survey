@@ -40,9 +40,9 @@
                         }elseif($e->submitted){
                             echo    '<td>Submitted</td>';
                         }elseif($e->finished){
-                            echo    '<td>'.get_evaluator_progress($e->id).', but not submitted </td>';
+                            echo    '<td class="center">'.get_evaluator_progress($e->id).', but not submitted </td>';
                         }else{
-                            echo    '<td>'.get_evaluator_progress($e->id).'</td>';
+                            echo    '<td class="center">'.get_evaluator_progress($e->id).'</td>';
                         }
 
                         if($e->re_email_sent){
