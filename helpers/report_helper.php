@@ -43,7 +43,7 @@ if( ! function_exists('get_page_1')){
 	    $html  .= '<table>';
 	    $html  .= '<tr>';
 	    $html  .= '<td>&nbsp;</td>';
-	    $html  .= '<td width="400">';
+	    $html  .= '<td width="700">';
 	    $html  .= '<p style="font-size: 1.5em;"><b>Personal Feedback Report</b></p>';
 	    $html   .= '<p>';
         $html  .= '<span style="font-size:1.5em"><b>Name: '.$user->first_name . ' ' . $user->last_name.'</b></span>';
