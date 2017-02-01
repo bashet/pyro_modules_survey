@@ -2222,32 +2222,38 @@ class Survey extends Public_Controller {
     public function export_user($client_id){
         $this->load->dbutil();
         $this->load->helper('download');
-        $sql = "SELECT
-                      distinct sp.uid as user_id,
-                      pro.first_name as first_name,
-                      pro.last_name as last_name,
-                      u.email as email,
-                      org.name as organisation,
-                      pro.cohort as cohort,
-                      ifnull(attempt.programme,prog.name) as programme,
-                      ifnull(attempt.total_attempt,0) as total_attempt,
-                      DATE_FORMAT(pro.created, '%d-%m-%Y') as registration_date
-                FROM default_survey_participant  sp
-                join default_users u
-                on u.id = sp.uid
-                join default_profiles pro
-                on sp.uid = pro.user_id
-                join default_survey_clients org
-                on org.id = sp.cid
-                join default_survey_programme prog
-	            on prog.id = sp.pid
-                left join (select attempt.user_id as user_id, attempt.programme_id as prog_id, prog.name as programme, count(attempt.id) as total_attempt
-                        from default_survey_programme prog
-                    join default_survey_attempt attempt
-                    on attempt.programme_id = prog.id
-                    group by attempt.user_id, attempt.programme_id) attempt
-                on attempt.user_id = sp.uid
-                where sp.cid=$client_id";
+        $sql = "select 
+					user.id as user_id, 
+					user.email as email, 
+					profile.first_name as first_name, 
+					profile.last_name as last_name, 
+					client.name as organisation, 
+					programme.name as programme, 
+					profile.cohort as cohort, 
+    				DATE_FORMAT(profile.created, '%d-%m-%Y') as registration_request, 
+    				DATE_FORMAT(from_unixtime(new_app.approval_date), '%d-%m-%Y') as registration_approved, 
+    				IF(self.submitted=1, 'Yes', 'No') as self_submitted,  
+    				concat(evaluator.submitted, ' out of ', evaluator.total) as evaluator_contribution, 
+    				IF(attempt.report_ready=1 AND evaluator.submitted=evaluator.total, 'Completed', IF(attempt.report_ready=1 AND evaluator.submitted!=evaluator.total, 'Closed', 'Pending')) as survey_status, 
+    				IF(attempt.report_ready=1, DATE_FORMAT(from_unixtime(attempt.finished_date), '%d-%m-%Y'), '') as report_date
+			from default_users user
+			join default_profiles profile
+				on user.id= profile.user_id
+			join default_survey_attempt attempt
+				on attempt.user_id = user.id
+			join default_survey_clients client
+				on client.id = attempt.client_id
+			join default_survey_programme programme
+				on programme.id = attempt.programme_id
+			left join default_survey_new_application new_app
+				on new_app.uid = user.id
+			join default_survey_user_answer self
+				on self.attempt_id = attempt.id
+			left join (SELECT attempt_id, sum(submitted) as submitted, count(id) as total 
+						FROM default_survey_evaluators
+						group by attempt_id) evaluator
+				on evaluator.attempt_id=attempt.id
+			where client.id =$client_id";
         $query = $this->db->query($sql);
         $data = $this->dbutil->csv_from_result($query, ',');
         force_download('CSV_Report.csv', $data);
