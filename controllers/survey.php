@@ -779,6 +779,15 @@ class Survey extends Public_Controller {
         $this->db->update('survey_clients', $new_client);
         redirect('survey/clients');
     }
+
+    public function ajax_delete_organisation(){
+	    $posted_data = $this->input->post();
+	    $this->db->delete('survey_clients', array('id' => $posted_data['client_id'])); // delete the actual client
+	    $this->db->delete('survey_client_managers', array('client_id' => $posted_data['client_id'])); // detach any managers attached to this client
+	    $this->db->delete('survey_client_programmes', array('client_id' => $posted_data['client_id'])); // detach any programme attached to this client
+	    echo json_encode($posted_data);
+    }
+
     public function update_manager(){
         if(! $this->current_user->id){
             redirect($this->config->base_url());

@@ -190,5 +190,35 @@ $(function(){
         $('#frm_upload_logo').submit();
     });
 
+    $('#all_clients').on('click', '.delete_clients', function () {
+        var target = this.id;
+        var targetArray = target.split('-');
+        var client_id = targetArray[1];
+        swal({
+            title: "Are you sure?",
+            text: "You are about to delete an organisation! This may cause serious data loose!",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#DD6B55",
+            confirmButtonText: "Yes, delete it!",
+            closeOnConfirm: false,
+            showLoaderOnConfirm: true
+        }, function () {
+            $.ajax({
+                type: 'POST',
+                url:base_url + 'index.php/survey/ajax_delete_organisation',
+                dataType: 'json',
+                data: {client_id: client_id},
+                success : function (msg) {
+                    setTimeout(function(){
+                        swal("Deleted!", "The selected organisation has been deleted.", "success");
+                        window.location.reload();
+                    }, 2000);
+
+                }
+            });
+        })
+    });
+
 
 });
