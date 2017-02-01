@@ -2232,6 +2232,7 @@ class Survey extends Public_Controller {
 					profile.cohort as cohort, 
     				DATE_FORMAT(profile.created, '%d-%m-%Y') as registration_request, 
     				DATE_FORMAT(from_unixtime(new_app.approval_date), '%d-%m-%Y') as registration_approved, 
+    				DATE_FORMAT(from_unixtime(attempt.create_date), '%d-%m-%Y') as survey_started, 
     				IF(self.submitted=1, 'Yes', 'No') as self_submitted,  
     				concat(evaluator.submitted, ' out of ', evaluator.total) as evaluator_contribution, 
     				IF(attempt.report_ready=1 AND evaluator.submitted=evaluator.total, 'Completed', IF(attempt.report_ready=1 AND evaluator.submitted!=evaluator.total, 'Closed', 'Pending')) as survey_status, 
