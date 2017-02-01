@@ -1,7 +1,7 @@
 <div id="questions-container">
 
     <form class="form-horizontal" role="form" id="frm_save_question" method="post" action="{{ url:site }}survey/save_question">
-        <legend>Question Content <span style="color: red">All the fields are mandatory to fill up</span></legend>
+        <legend>Question Content <span style="color: red">All fields are mandatory</span></legend>
         <div class="form-group">
             <label for="question_category" class="col-sm-2 control-label">Question category</label>
             <div class="col-sm-10">

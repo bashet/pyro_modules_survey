@@ -196,7 +196,7 @@ $(function(){
         var client_id = targetArray[1];
         swal({
             title: "Are you sure?",
-            text: "You are about to delete an organisation! This may cause serious data loose!",
+            text: "You are about to delete an organisation! This may cause serious data loss!",
             type: "warning",
             showCancelButton: true,
             confirmButtonColor: "#DD6B55",
