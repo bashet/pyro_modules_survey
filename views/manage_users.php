@@ -49,23 +49,24 @@
             </li>
         </ul>
         <div class="tab-content no-padding">
-            <div id="active_users" class="tab-pane fade in active table-responsive">
+            <div id="active_users" class="tab-pane fade in active">
                 <table id="tbl_active_users" class="table table-bordered table-hover" style="width:100%">
                     <thead>
                     <tr>
                         <th>SN</th>
-                        <th>Name</th>
+                        <th data-class="expand">Name</th>
                         <th>Email</th>
                         {{ if user:group == 'admin'}}
-                        <th>Organisation</th>
+                        <th data-hide="phone">Organisation</th>
                         {{ endif }}
-                        <th>Cohort</th>
-                        <th>Programme</th>
-                        <th>Active</th>
-                        <th>History</th>
-                        <th>Last Login</th>
+                        <th data-hide="phone">Cohort</th>
+                        <th data-hide="phone">Programme</th>
+                        <th data-hide="phone,tablet">Active</th>
+                        <th data-hide="phone">History</th>
+                        <th data-hide="phone,tablet">Last Login</th>
                     </tr>
                     </thead>
+                    <tbody></tbody>
                 </table>
             </div>
             <div id="non-active_users" class="tab-pane fade table-responsive">

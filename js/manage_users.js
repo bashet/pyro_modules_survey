@@ -91,13 +91,31 @@ function activate_user(user_id, active){
 
 $(function(){
     $(document).ready(function() {
+        var responsiveHelper = undefined;
+        var breakpointDefinition = {
+            tablet: 1024,
+            phone : 480
+        };
         var active_user = $('#tbl_active_users').dataTable({
             "bStateSave": true,
+            bAutoWidth     : false,
             "sAjaxSource": base_url+'index.php/survey/get_all_active_users_ajax',
             aoColumnDefs: [
                 { sClass: "center", "aTargets": [ 0,4,5,6,7 ] },
                 { "bSortable": false, "aTargets": [ 6,7 ] }
-            ]
+            ],
+            fnPreDrawCallback: function () {
+                // Initialize the responsive datatables helper once.
+                if (!responsiveHelper) {
+                    responsiveHelper = new ResponsiveDatatablesHelper(this, breakpointDefinition);
+                }
+            },
+            fnRowCallback  : function (nRow) {
+                responsiveHelper.createExpandIcon(nRow);
+            },
+            fnDrawCallback : function (oSettings) {
+                responsiveHelper.respond();
+            }
         });
 
         var non_active_user = $('#tbl_non_active_users').dataTable({
