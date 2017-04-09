@@ -50,7 +50,7 @@
         </ul>
         <div class="tab-content no-padding">
             <div id="active_users" class="tab-pane fade in active">
-                <table id="tbl_active_users" class="table table-bordered table-hover" style="width:100%">
+                <table id="tbl_active_users" class="table table-bordered table-hover table-striped" style="width:100%">
                     <thead>
                     <tr>
                         <th>SN</th>

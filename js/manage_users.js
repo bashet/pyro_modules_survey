@@ -97,6 +97,10 @@ $(function(){
             phone : 480
         };
         var active_user = $('#tbl_active_users').dataTable({
+            sPaginationType: 'bootstrap',
+            oLanguage      : {
+                sLengthMenu: '_MENU_ records per page'
+            },
             "bStateSave": true,
             bAutoWidth     : false,
             "sAjaxSource": base_url+'index.php/survey/get_all_active_users_ajax',
