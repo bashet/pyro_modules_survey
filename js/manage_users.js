@@ -105,7 +105,7 @@ $(function(){
             bAutoWidth     : false,
             "sAjaxSource": base_url+'index.php/survey/get_all_active_users_ajax',
             aoColumnDefs: [
-                { sClass: "center", "aTargets": [ 0,4,5,6,7 ] },
+                { sClass: "center", "aTargets": [ 0,4,5,6,7,8 ] },
                 { "bSortable": false, "aTargets": [ 6,7 ] }
             ],
             fnPreDrawCallback: function () {

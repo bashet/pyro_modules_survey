@@ -53,14 +53,14 @@
                 <table id="tbl_active_users" class="table table-bordered table-hover table-striped" style="width:100%">
                     <thead>
                     <tr>
-                        <th>SN</th>
-                        <th data-class="expand">Name</th>
-                        <th>Email</th>
+                        <th data-class="expand">SN</th>
+                        <th>Name</th>
+                        <th data-hide="phone">Email</th>
                         {{ if user:group == 'admin'}}
                         <th data-hide="phone">Organisation</th>
                         {{ endif }}
                         <th data-hide="phone">Cohort</th>
-                        <th data-hide="phone">Programme</th>
+                        <th data-hide="phone,tablet">Programme</th>
                         <th data-hide="phone,tablet">Active</th>
                         <th data-hide="phone">History</th>
                         <th data-hide="phone,tablet">Last Login</th>
