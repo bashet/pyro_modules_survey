@@ -3,7 +3,7 @@ $(function(){
     $(document).ready(function() {
         $('#all_clients').dataTable({
             "aoColumnDefs": [
-                { 'bSortable': false, 'aTargets': [ 2,3,4,5 ] }
+                { 'bSortable': false, 'aTargets': [ 2,3 ] }
             ]
         });
 
@@ -39,7 +39,7 @@ $(function(){
         $('#client_name').val('');
     });
 
-    $('a[edit_clients]').button().click(function(){
+    $('button[edit_clients]').button().click(function(){
         var button_id = this.id;
         var button_id_array = button_id.split('-');
         var clients_id = button_id_array[1];

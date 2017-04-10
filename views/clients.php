@@ -10,10 +10,7 @@
             <th>Name</th>
             <th>Logo</th>
 <!--            <th class="center" style="width: 20%">Manager</th>-->
-            <th class="center" style="width: 10%">Edit</th>
-            <th class="center" style="width: 10%">Delete</th>
-            <th class="center" style="width: 10%">Active</th>
-            <th>Export</th>
+            <th class="center"></th>
         </tr>
         </thead>
 
@@ -36,15 +33,17 @@
                                 <span class="glyphicon glyphicon-picture" '.(($d->logo) ? '' : 'style="color:red"' ).'></span>
                         </button>
                 </td>';
-            //echo '<td class="center"><a href="#" assign_manager id="assign_manager-'.$d->id.'" title="Assign Manager" style="text-decoration:none"><i class="fa fa-sitemap fa-lg"></i>&nbsp;&nbsp; '.get_manager($d->manager_uid).'</a></td>';
-            echo '<td class="center"><a href="#" edit_clients id="edit_clients-'.$d->id.'" title="Edit '.$d->name.'"><i class="fa fa-pencil-square-o fa-lg"></i></a></td>';
-	        echo '<td class="center"><button class="delete_clients btn btn-link" id="delete_clients-'.$d->id.'" title="Delete '.$d->name.'"><i class="fa fa-trash-o fa-lg"></i></button></td>';
+
+            echo '<td class="center"><div class="btn-group" role="group" aria-label="...">';
+            echo '<button type="button" class="btn btn-warning btn-sm" edit_clients id="edit_clients-'.$d->id.'" title="Edit '.$d->name.'"><i class="fa fa-pencil-square-o fa-lg"></i></button>';
+	        echo '<button type="button" class="delete_clients btn btn-danger btn-sm" id="delete_clients-'.$d->id.'" title="Delete '.$d->name.'"><i class="fa fa-trash-o fa-lg"></i></button>';
             if($d->active){
-                echo '<td class="center"><button activate class="btn btn-link" id="client-'.$d->id.'-'.$d->active.'" title="Click to de-activate '.$d->name.'" style="text-decoration:none"><span class="glyphicon glyphicon-ok"></span></button></td>';
+                echo '<button type="button" activate class="btn btn-primary btn-sm" id="client-'.$d->id.'-'.$d->active.'" title="Click to de-activate '.$d->name.'" style="text-decoration:none"><span class="glyphicon glyphicon-ok"></span></button>';
             }else{
-                echo '<td class="center"><button activate class="btn btn-link" id="client-'.$d->id.'-'.$d->active.'" title="Click to activate '.$d->name.'" style="text-decoration:none"><span class="glyphicon glyphicon-remove red"></span></button></td>';
+                echo '<button type="button" activate class="btn btn-primary btn-sm" id="client-'.$d->id.'-'.$d->active.'" title="Click to activate '.$d->name.'" style="text-decoration:none"><span class="glyphicon glyphicon-remove red"></span></button>';
             }
-            echo '<td class="center"><a href="'.$this->config->base_url().'index.php/survey/export_user/'.$d->id.'" class="btn btn-link"><span class="glyphicon glyphicon-export"></span></a></td>';
+            echo '<a href="'.$this->config->base_url().'index.php/survey/export_user/'.$d->id.'" class="btn btn-purple btn-sm"><span class="glyphicon glyphicon-export"></span></a>';
+            echo '</div></td>';
             echo '</tr>';
             $i++;
         }
