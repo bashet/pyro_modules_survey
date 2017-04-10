@@ -1,10 +1,33 @@
 
 $(function(){
     $(document).ready(function() {
+        var responsiveHelper = undefined;
+        var breakpointDefinition = {
+            tablet: 1024,
+            phone : 480
+        };
         $('#all_survey').dataTable({
+            sPaginationType: 'bootstrap',
+            oLanguage      : {
+                sLengthMenu: '_MENU_ records per page'
+            },
+            "bStateSave": true,
+            bAutoWidth     : false,
             "aoColumnDefs": [
-                { 'bSortable': false, 'aTargets': [ 3,4,5 ] }
-            ]
+                { 'bSortable': false, 'aTargets': [ 3,4] }
+            ],
+            fnPreDrawCallback: function () {
+                // Initialize the responsive datatables helper once.
+                if (!responsiveHelper) {
+                    responsiveHelper = new ResponsiveDatatablesHelper(this, breakpointDefinition);
+                }
+            },
+            fnRowCallback  : function (nRow) {
+                responsiveHelper.createExpandIcon(nRow);
+            },
+            fnDrawCallback : function (oSettings) {
+                responsiveHelper.respond();
+            }
         });
     } );
 
@@ -35,7 +58,7 @@ $(function(){
         $('#survey_description').val('');
     });
 
-    $('a[edit_survey]').button().click(function(){
+    $('#all_survey').on('click', '.edit_survey', function (e) {
         var button_id = this.id;
         var button_id_array = button_id.split('-');
         var survey_id = button_id_array[1];
@@ -54,9 +77,9 @@ $(function(){
                 //window.location.href = base_url + 'index.php/survey/survey';
             }
         });
-
     });
-    $('a[delete_survey]').button().click(function(){
+
+    $('#all_survey').on('click', '.delete_survey', function (e) {
         var button_id = this.id;
         var button_id_array = button_id.split('-');
         var survey_id = button_id_array[1];
@@ -67,38 +90,26 @@ $(function(){
             success: function(data,status) {
                 if(data){
                     var msg = jQuery.parseJSON( data );
-                    $('#item_name').html(msg.name);
-
-                    $( "#dialog-confirm" ).removeClass('hide').dialog({
-                        resizable: false,
-                        modal: true,
-                        title: "<div class='widget-header'><h4 class='smaller'><i class='ace-icon fa fa-exclamation-triangle red'></i> Delete Survey?</h4></div>",
-                        title_html: true,
-                        buttons: [
-                            {
-                                html: "<i class='ace-icon fa fa-trash-o bigger-110'></i>&nbsp; Delete selected items",
-                                "class" : "btn btn-danger btn-xs",
-                                click: function() {
-                                    $( this ).dialog( "close" );
-                                    $body = $("body");
-                                    $body.addClass("loading");
-                                    window.location.href = base_url + 'index.php/survey/delete_survey/'+survey_id;
-                                }
-                            }
-                            ,
-                            {
-                                html: "<i class='ace-icon fa fa-times bigger-110'></i>&nbsp; Cancel",
-                                "class" : "btn btn-xs",
-                                click: function() {
-                                    $( this ).dialog( "close" );
-                                }
-                            }
-                        ]
-                    });
+                    swal({
+                            title: "Are you sure?",
+                            text: 'Survey "'+ msg.name +'" will be permanently deleted and cannot be recovered!',
+                            type: "warning",
+                            showCancelButton: true,
+                            confirmButtonColor: "#DD6B55",
+                            confirmButtonText: "Yes, delete it!",
+                            showLoaderOnConfirm: true,
+                            closeOnConfirm: false
+                        },
+                        function(){
+                            $body = $("body");
+                            $body.addClass("loading");
+                            window.location.href = base_url + 'index.php/survey/delete_survey/'+survey_id;
+                        });
                 }
             }
         });
     });
+
 
     $('#btn_apply_new_programme').button().click(function(){
         var new_programme_id = $('#new_programme_id').val();
