@@ -49,16 +49,16 @@
                 <table id="tbl_active_request" class="table table-bordered table-striped ">
                     <thead>
                     <tr>
-                        <th>SN</th>
+                        <th data-class="expand">SN</th>
                         <th>Name</th>
                         {{ if user:group == 'admin'}}
-                        <th>Organisation</th>
+                        <th data-hide="phone,tablet">Organisation</th>
                         {{ endif }}
-                        <th>Current Programme</th>
-                        <th>New Programme</th>
-                        <th>History</th>
-                        <th>Date Applied</th>
-                        <th>Approve</th>
+                        <th data-hide="phone">Current Programme</th>
+                        <th data-hide="phone,tablet">New Programme</th>
+                        <th data-hide="phone">History</th>
+                        <th data-hide="phone">Date Applied</th>
+                        <th data-hide="phone">Approve</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -101,16 +101,16 @@
                 <table id="tbl_approved_request" class="table table-bordered">
                     <thead>
                     <tr>
-                        <th>SN</th>
+                        <th data-class="expand">SN</th>
                         <th>Name</th>
                         {{ if user:group == 'admin'}}
-                        <th>Organisation</th>
+                        <th data-hide="phone,tablet">Organisation</th>
                         {{ endif }}
-                        <th>Current Programme</th>
-                        <th>New Programme</th>
-                        <th>History</th>
-                        <th>Date Applied</th>
-                        <th>Approval Date</th>
+                        <th data-hide="phone">Current Programme</th>
+                        <th data-hide="phone,tablet">New Programme</th>
+                        <th data-hide="phone">History</th>
+                        <th data-hide="phone">Date Applied</th>
+                        <th data-hide="phone">Approval Date</th>
                     </tr>
                     </thead>
                     <tbody>

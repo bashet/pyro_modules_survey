@@ -91,7 +91,11 @@ function activate_user(user_id, active){
 
 $(function(){
     $(document).ready(function() {
-        var responsiveHelper = undefined;
+        var ActiveUserTable_responsiveHelper = undefined;
+        var nonUserTable_responsiveHelper = undefined;
+        var archiveUserTable_responsiveHelper = undefined;
+        var activeRequestTable_responsiveHelper = undefined;
+        var approvedRequestTable_responsiveHelper = undefined;
         var breakpointDefinition = {
             tablet: 1024,
             phone : 480
@@ -110,15 +114,15 @@ $(function(){
             ],
             fnPreDrawCallback: function () {
                 // Initialize the responsive datatables helper once.
-                if (!responsiveHelper) {
-                    responsiveHelper = new ResponsiveDatatablesHelper(this, breakpointDefinition);
+                if (!ActiveUserTable_responsiveHelper) {
+                    ActiveUserTable_responsiveHelper = new ResponsiveDatatablesHelper(this, breakpointDefinition);
                 }
             },
             fnRowCallback  : function (nRow) {
-                responsiveHelper.createExpandIcon(nRow);
+                ActiveUserTable_responsiveHelper.createExpandIcon(nRow);
             },
             fnDrawCallback : function (oSettings) {
-                responsiveHelper.respond();
+                ActiveUserTable_responsiveHelper.respond();
             }
         });
 
@@ -136,15 +140,15 @@ $(function(){
             ],
             fnPreDrawCallback: function () {
                 // Initialize the responsive datatables helper once.
-                if (!responsiveHelper) {
-                    responsiveHelper = new ResponsiveDatatablesHelper(this, breakpointDefinition);
+                if (!nonUserTable_responsiveHelper) {
+                    nonUserTable_responsiveHelper = new ResponsiveDatatablesHelper(this, breakpointDefinition);
                 }
             },
             fnRowCallback  : function (nRow) {
-                responsiveHelper.createExpandIcon(nRow);
+                nonUserTable_responsiveHelper.createExpandIcon(nRow);
             },
             fnDrawCallback : function (oSettings) {
-                responsiveHelper.respond();
+                nonUserTable_responsiveHelper.respond();
             }
         });
 
@@ -162,15 +166,15 @@ $(function(){
             ],
             fnPreDrawCallback: function () {
                 // Initialize the responsive datatables helper once.
-                if (!responsiveHelper) {
-                    responsiveHelper = new ResponsiveDatatablesHelper(this, breakpointDefinition);
+                if (!archiveUserTable_responsiveHelper) {
+                    archiveUserTable_responsiveHelper = new ResponsiveDatatablesHelper(this, breakpointDefinition);
                 }
             },
             fnRowCallback  : function (nRow) {
-                responsiveHelper.createExpandIcon(nRow);
+                archiveUserTable_responsiveHelper.createExpandIcon(nRow);
             },
             fnDrawCallback : function (oSettings) {
-                responsiveHelper.respond();
+                archiveUserTable_responsiveHelper.respond();
             }
         });
 
@@ -183,15 +187,15 @@ $(function(){
             bAutoWidth     : false,
             fnPreDrawCallback: function () {
                 // Initialize the responsive datatables helper once.
-                if (!responsiveHelper) {
-                    responsiveHelper = new ResponsiveDatatablesHelper(this, breakpointDefinition);
+                if (!activeRequestTable_responsiveHelper) {
+                    activeRequestTable_responsiveHelper = new ResponsiveDatatablesHelper(this, breakpointDefinition);
                 }
             },
             fnRowCallback  : function (nRow) {
-                responsiveHelper.createExpandIcon(nRow);
+                activeRequestTable_responsiveHelper.createExpandIcon(nRow);
             },
             fnDrawCallback : function (oSettings) {
-                responsiveHelper.respond();
+                activeRequestTable_responsiveHelper.respond();
             }
         });
         $('#tbl_approved_request').dataTable({
@@ -203,15 +207,15 @@ $(function(){
             bAutoWidth     : false,
             fnPreDrawCallback: function () {
                 // Initialize the responsive datatables helper once.
-                if (!responsiveHelper) {
-                    responsiveHelper = new ResponsiveDatatablesHelper(this, breakpointDefinition);
+                if (!approvedRequestTable_responsiveHelper) {
+                    approvedRequestTable_responsiveHelper = new ResponsiveDatatablesHelper(this, breakpointDefinition);
                 }
             },
             fnRowCallback  : function (nRow) {
-                responsiveHelper.createExpandIcon(nRow);
+                approvedRequestTable_responsiveHelper.createExpandIcon(nRow);
             },
             fnDrawCallback : function (oSettings) {
-                responsiveHelper.respond();
+                approvedRequestTable_responsiveHelper.respond();
             }
         });
 
