@@ -6,12 +6,12 @@
     <table id="all_question_categories" class="table table-bordered table-hover" style="width:100%">
         <thead>
         <tr>
-            <th style="width: 8%">SN</th>
+            <th data-class="expand">SN</th>
             <th>Name</th>
-            <th>Description</th>
+            <th data-hide="phone,tablet">Description</th>
             <th>Questions</th>
-            <th>Edit</th>
-            <th>Delete</th>
+            <th data-hide="phone">Edit</th>
+            <th data-hide="phone">Delete</th>
         </tr>
         </thead>
 
