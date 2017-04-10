@@ -6,11 +6,10 @@
     <table id="all_clients" class="table table-bordered table-hover" style="width:100%">
         <thead>
         <tr>
-            <th class="center" style="width: 8%">SN</th>
+            <th class="center expand">SN</th>
             <th>Name</th>
-            <th>Logo</th>
-<!--            <th class="center" style="width: 20%">Manager</th>-->
-            <th class="center"></th>
+            <th data-hide="phone">Logo</th>
+            <th data-hide="phone" class="center"></th>
         </tr>
         </thead>
 
@@ -38,12 +37,14 @@
             echo '<button type="button" class="btn btn-warning btn-sm" edit_clients id="edit_clients-'.$d->id.'" title="Edit '.$d->name.'"><i class="fa fa-pencil-square-o fa-lg"></i></button>';
 	        echo '<button type="button" class="delete_clients btn btn-danger btn-sm" id="delete_clients-'.$d->id.'" title="Delete '.$d->name.'"><i class="fa fa-trash-o fa-lg"></i></button>';
             if($d->active){
-                echo '<button type="button" activate class="btn btn-primary btn-sm" id="client-'.$d->id.'-'.$d->active.'" title="Click to de-activate '.$d->name.'" style="text-decoration:none"><span class="glyphicon glyphicon-ok"></span></button>';
+                echo '<button type="button" activate class="btn btn-primary btn-sm" id="client-'.$d->id.'-'.$d->active.'" title="Click to de-activate '.$d->name.'"><span class="glyphicon glyphicon-ok"></span></button>';
             }else{
                 echo '<button type="button" activate class="btn btn-primary btn-sm" id="client-'.$d->id.'-'.$d->active.'" title="Click to activate '.$d->name.'" style="text-decoration:none"><span class="glyphicon glyphicon-remove red"></span></button>';
             }
             echo '<a href="'.$this->config->base_url().'index.php/survey/export_user/'.$d->id.'" class="btn btn-purple btn-sm"><span class="glyphicon glyphicon-export"></span></a>';
-            echo '</div></td>';
+            echo '</div>';
+
+            echo '</td>';
             echo '</tr>';
             $i++;
         }

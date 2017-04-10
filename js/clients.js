@@ -1,10 +1,33 @@
 
 $(function(){
     $(document).ready(function() {
+        var responsiveHelper = undefined;
+        var breakpointDefinition = {
+            tablet: 1024,
+            phone : 480
+        };
         $('#all_clients').dataTable({
+            sPaginationType: 'bootstrap',
+            oLanguage      : {
+                sLengthMenu: '_MENU_ records per page'
+            },
+            "bStateSave": true,
+            bAutoWidth     : false,
             "aoColumnDefs": [
                 { 'bSortable': false, 'aTargets': [ 2,3 ] }
-            ]
+            ],
+            fnPreDrawCallback: function () {
+                // Initialize the responsive datatables helper once.
+                if (!responsiveHelper) {
+                    responsiveHelper = new ResponsiveDatatablesHelper(this, breakpointDefinition);
+                }
+            },
+            fnRowCallback  : function (nRow) {
+                responsiveHelper.createExpandIcon(nRow);
+            },
+            fnDrawCallback : function (oSettings) {
+                responsiveHelper.respond();
+            }
         });
 
         $('button[set_logo]').tooltipster({
