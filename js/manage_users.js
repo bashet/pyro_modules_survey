@@ -105,7 +105,7 @@ $(function(){
             bAutoWidth     : false,
             "sAjaxSource": base_url+'index.php/survey/get_all_active_users_ajax',
             aoColumnDefs: [
-                { sClass: "center", "aTargets": [ 0,4,5,6,7,8 ] },
+                { sClass: "center", "aTargets": [ 0] },
                 { "bSortable": false, "aTargets": [ 6,7 ] }
             ],
             fnPreDrawCallback: function () {
@@ -123,25 +123,97 @@ $(function(){
         });
 
         var non_active_user = $('#tbl_non_active_users').dataTable({
+            sPaginationType: 'bootstrap',
+            oLanguage      : {
+                sLengthMenu: '_MENU_ records per page'
+            },
             "bStateSave": true,
+            bAutoWidth     : false,
             "sAjaxSource": base_url+'index.php/survey/get_all_not_active_users_ajax',
             aoColumnDefs: [
                 { sClass: "center", "aTargets": [ 0,4,5,6,7 ] },
                 { "bSortable": false, "aTargets": [ 6,7 ] }
-            ]
+            ],
+            fnPreDrawCallback: function () {
+                // Initialize the responsive datatables helper once.
+                if (!responsiveHelper) {
+                    responsiveHelper = new ResponsiveDatatablesHelper(this, breakpointDefinition);
+                }
+            },
+            fnRowCallback  : function (nRow) {
+                responsiveHelper.createExpandIcon(nRow);
+            },
+            fnDrawCallback : function (oSettings) {
+                responsiveHelper.respond();
+            }
         });
 
         var archived_user = $('#table_archived_users').dataTable({
+            sPaginationType: 'bootstrap',
+            oLanguage      : {
+                sLengthMenu: '_MENU_ records per page'
+            },
             "bStateSave": true,
+            bAutoWidth     : false,
             "sAjaxSource": base_url+'index.php/survey/get_all_archived_users_ajax',
             aoColumnDefs: [
                 { sClass: "center", "aTargets": [ 0,4,5,6 ] },
                 { "bSortable": false, "aTargets": [ 6 ] }
-            ]
+            ],
+            fnPreDrawCallback: function () {
+                // Initialize the responsive datatables helper once.
+                if (!responsiveHelper) {
+                    responsiveHelper = new ResponsiveDatatablesHelper(this, breakpointDefinition);
+                }
+            },
+            fnRowCallback  : function (nRow) {
+                responsiveHelper.createExpandIcon(nRow);
+            },
+            fnDrawCallback : function (oSettings) {
+                responsiveHelper.respond();
+            }
         });
 
-        $('#tbl_active_request').dataTable();
-        $('#tbl_approved_request').dataTable();
+        $('#tbl_active_request').dataTable({
+            sPaginationType: 'bootstrap',
+            oLanguage      : {
+                sLengthMenu: '_MENU_ records per page'
+            },
+            "bStateSave": true,
+            bAutoWidth     : false,
+            fnPreDrawCallback: function () {
+                // Initialize the responsive datatables helper once.
+                if (!responsiveHelper) {
+                    responsiveHelper = new ResponsiveDatatablesHelper(this, breakpointDefinition);
+                }
+            },
+            fnRowCallback  : function (nRow) {
+                responsiveHelper.createExpandIcon(nRow);
+            },
+            fnDrawCallback : function (oSettings) {
+                responsiveHelper.respond();
+            }
+        });
+        $('#tbl_approved_request').dataTable({
+            sPaginationType: 'bootstrap',
+            oLanguage      : {
+                sLengthMenu: '_MENU_ records per page'
+            },
+            "bStateSave": true,
+            bAutoWidth     : false,
+            fnPreDrawCallback: function () {
+                // Initialize the responsive datatables helper once.
+                if (!responsiveHelper) {
+                    responsiveHelper = new ResponsiveDatatablesHelper(this, breakpointDefinition);
+                }
+            },
+            fnRowCallback  : function (nRow) {
+                responsiveHelper.createExpandIcon(nRow);
+            },
+            fnDrawCallback : function (oSettings) {
+                responsiveHelper.respond();
+            }
+        });
 
         $('#tbl_active_users tbody').on( 'click', 'tr', function () {
             if ( $(this).hasClass('selected') ) {

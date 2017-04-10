@@ -69,42 +69,44 @@
                     <tbody></tbody>
                 </table>
             </div>
-            <div id="non-active_users" class="tab-pane fade table-responsive">
+            <div id="non-active_users" class="tab-pane fade">
                 <table id="tbl_non_active_users" class="table table-bordered table-hover" style="width:100%">
                     <thead>
                     <tr>
-                        <th>SN</th>
+                        <th data-class="expand">SN</th>
                         <th>Name</th>
                         <th>Email</th>
                         {{ if user:group == 'admin'}}
-                        <th>Organisation</th>
+                        <th data-hide="phone,tablet">Organisation</th>
                         {{ endif }}
-                        <th>Cohort</th>
-                        <th>Programme</th>
-                        <th>Active</th>
-                        <th>History</th>
-                        <th>Last Login</th>
+                        <th data-hide="phone">Cohort</th>
+                        <th data-hide="phone">Programme</th>
+                        <th data-hide="phone">Active</th>
+                        <th data-hide="phone">History</th>
+                        <th data-hide="phone,tablet">Last Login</th>
                     </tr>
                     </thead>
+                    <tbody></tbody>
                 </table>
             </div>
 
-            <div id="archived_users" class="tab-pane fade table-responsive">
+            <div id="archived_users" class="tab-pane fade">
                 <table id="table_archived_users" class="table table-bordered table-hover" style="width:100%">
                     <thead>
                     <tr>
-                        <th>SN</th>
+                        <th data-class="expand">SN</th>
                         <th>Name</th>
-                        <th>Email</th>
+                        <th data-hide="phone">Email</th>
                         {{ if user:group == 'admin'}}
-                        <th>Organisation</th>
+                        <th data-hide="phone,tablet">Organisation</th>
                         {{ endif }}
-                        <th>Cohort</th>
-                        <th>Programme</th>
-                        <th>History</th>
-                        <th>Last Login</th>
+                        <th data-hide="phone,tablet">Cohort</th>
+                        <th data-hide="phone">Programme</th>
+                        <th data-hide="phone">History</th>
+                        <th data-hide="phone,tablet">Last Login</th>
                     </tr>
                     </thead>
+                    <tbody></tbody>
                 </table>
             </div>
         </div>
