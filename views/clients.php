@@ -6,7 +6,7 @@
     <table id="all_clients" class="table table-bordered table-hover" style="width:100%">
         <thead>
         <tr>
-            <th class="center expand">SN</th>
+            <th data-class="expand" class="center">SN</th>
             <th>Name</th>
             <th data-hide="phone">Logo</th>
             <th data-hide="phone" class="center"></th>
