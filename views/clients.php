@@ -34,14 +34,14 @@
                 </td>';
 
             echo '<td class="center"><div class="btn-group" role="group" aria-label="...">';
-            echo '<button type="button" class="btn btn-warning btn-sm" edit_clients id="edit_clients-'.$d->id.'" title="Edit '.$d->name.'"><i class="fa fa-pencil-square-o fa-lg"></i></button>';
-	        echo '<button type="button" class="delete_clients btn btn-danger btn-sm" id="delete_clients-'.$d->id.'" title="Delete '.$d->name.'"><i class="fa fa-trash-o fa-lg"></i></button>';
+            echo '<button type="button" class="btn btn-warning btn-xs" edit_clients id="edit_clients-'.$d->id.'" title="Edit '.$d->name.'"><i class="fa fa-pencil-square-o fa-lg"></i></button>';
+	        echo '<button type="button" class="delete_clients btn btn-danger btn-xs" id="delete_clients-'.$d->id.'" title="Delete '.$d->name.'"><i class="fa fa-trash-o fa-lg"></i></button>';
             if($d->active){
-                echo '<button type="button" activate class="btn btn-primary btn-sm" id="client-'.$d->id.'-'.$d->active.'" title="Click to de-activate '.$d->name.'"><span class="glyphicon glyphicon-ok"></span></button>';
+                echo '<button type="button" activate class="btn btn-primary btn-xs" id="client-'.$d->id.'-'.$d->active.'" title="Click to de-activate '.$d->name.'"><span class="glyphicon glyphicon-ok"></span></button>';
             }else{
-                echo '<button type="button" activate class="btn btn-primary btn-sm" id="client-'.$d->id.'-'.$d->active.'" title="Click to activate '.$d->name.'" style="text-decoration:none"><span class="glyphicon glyphicon-remove red"></span></button>';
+                echo '<button type="button" activate class="btn btn-primary btn-xs" id="client-'.$d->id.'-'.$d->active.'" title="Click to activate '.$d->name.'" style="text-decoration:none"><span class="glyphicon glyphicon-remove red"></span></button>';
             }
-            echo '<a href="'.$this->config->base_url().'index.php/survey/export_user/'.$d->id.'" class="btn btn-purple btn-sm"><span class="glyphicon glyphicon-export"></span></a>';
+            echo '<a href="'.$this->config->base_url().'index.php/survey/export_user/'.$d->id.'" class="btn btn-purple btn-xs"><span class="glyphicon glyphicon-export"></span></a>';
             echo '</div>';
 
             echo '</td>';
