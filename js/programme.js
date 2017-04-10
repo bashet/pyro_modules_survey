@@ -1,7 +1,34 @@
 
 $(function(){
     $(document).ready(function() {
-        $('#all_programme').dataTable();
+        var responsiveHelper = undefined;
+        var breakpointDefinition = {
+            tablet: 1024,
+            phone : 480
+        };
+        $('#all_programme').dataTable({
+            sPaginationType: 'bootstrap',
+            oLanguage      : {
+                sLengthMenu: '_MENU_ records per page'
+            },
+            "bStateSave": true,
+            bAutoWidth     : false,
+            "aoColumnDefs": [
+                { 'bSortable': false, 'aTargets': [ 3,4] }
+            ],
+            fnPreDrawCallback: function () {
+                // Initialize the responsive datatables helper once.
+                if (!responsiveHelper) {
+                    responsiveHelper = new ResponsiveDatatablesHelper(this, breakpointDefinition);
+                }
+            },
+            fnRowCallback  : function (nRow) {
+                responsiveHelper.createExpandIcon(nRow);
+            },
+            fnDrawCallback : function (oSettings) {
+                responsiveHelper.respond();
+            }
+        });
     } );
 
     $('#save_programme').button().click(function(){

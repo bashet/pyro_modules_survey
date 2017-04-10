@@ -7,13 +7,11 @@
     <table id="all_programme" class="table table-bordered table-hover" style="width:100%">
         <thead>
         <tr>
-            <th style="width: 8%">SN</th>
-            <th style="width: 20%">Name</th>
-            <th>Description</th>
-            <th style="width: 15%">Survey</th>
-            <th style="width: 8%">Edit</th>
-            <th style="width: 8%">Delete</th>
-            <th style="width: 8%">Active</th>
+            <th data-class="expand">SN</th>
+            <th>Name</th>
+            <th data-hide="phone,tablet">Description</th>
+            <th>Survey</th>
+            <th data-hide="phone">Actions</th>
         </tr>
         </thead>
 
@@ -25,14 +23,17 @@
             echo '<td>'.$i.'</td>';
             echo '<td>'.$d->name.'</td>';
             echo '<td>'.$d->description.'</td>';
-            echo '<td style="text-align: center"><button edit_survey id="edit_survey-'.$d->id.'" title="Change Survey"><i class="fa fa-comments"></i> '.get_survey_name_by_id($d->survey).'</button></td>';
-            echo '<td style="text-align: center"><button edit_programme id="edit_programme-'.$d->id.'" title="Edit '.$d->name.'"><i class="fa fa-pencil-square-o fa-lg"></i></button></td>';
-            echo '<td style="text-align: center"><button delete_programme id="del_programme-'.$d->id.'" title="Delete '.$d->name.'"><i class="fa fa-trash-o fa-lg"></i></button></td>';
+            echo '<td ><button edit_survey id="edit_survey-'.$d->id.'" title="Change Survey"><i class="fa fa-comments"></i> '.get_survey_name_by_id($d->survey).'</button></td>';
+
+            echo '<td><div class="btn-group btn-group-sm" role="group" aria-label="...">';
+            echo '<button edit_programme class="btn btn-warning btn-sm" id="edit_programme-'.$d->id.'" title="Edit '.$d->name.'"><i class="fa fa-pencil-square-o fa-lg"></i></button>';
+            echo '<button delete_programme class="btn btn-danger btn-sm" id="del_programme-'.$d->id.'" title="Delete '.$d->name.'"><i class="fa fa-trash-o fa-lg"></i></button>';
             if($d->active){
-                echo '<td style="text-align: center"><button activate id="active_programme-'.$d->id.'/'.$d->active.'" title="Click to de-activate '.$d->name.'"><span class="glyphicon glyphicon-ok"></span></button></td>';
+                echo '<button activate class="btn btn-info btn-sm" id="active_programme-'.$d->id.'/'.$d->active.'" title="Click to de-activate '.$d->name.'"><span class="glyphicon glyphicon-ok"></span></button>';
             }else{
-                echo '<td style="text-align: center"><button activate id="active_programme-'.$d->id.'/'.$d->active.'" title="Click to activate '.$d->name.'"><span class="glyphicon glyphicon-remove"></span></button></td>';
+                echo '<button activate class="btn btn-info btn-sm" id="active_programme-'.$d->id.'/'.$d->active.'" title="Click to activate '.$d->name.'"><span class="glyphicon glyphicon-remove"></span></button>';
             }
+            echo '</td></div>';
             echo '</tr>';
             $i++;
         }
