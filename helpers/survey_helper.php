@@ -549,7 +549,7 @@ if( ! function_exists('get_reg_approval_date')){
 
 		}
 
-		return $date;
+		return $date? $date : '&nbsp;';
 	}
 }
 

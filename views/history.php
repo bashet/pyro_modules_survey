@@ -16,7 +16,7 @@
 
         <p><strong>NB: Please avoid opening multiple diagnostics simultaneously</strong></p>
     </div>
-    <div class="table-responsive">
+    <div id="no-more-tables" class="">
         <table class="table table-bordered table-striped">
             <thead>
             <tr>
@@ -27,7 +27,7 @@
                 <th>Reg Approved</th>
                 <th>Self-Assessment</th>
                 <th>Evaluators</th>
-                <th class="center">Report</th>
+                <th>Report</th>
             </tr>
             </thead>
             <tbody>
@@ -36,14 +36,14 @@
                 $i = 1;
                 foreach($user_history as $history){
                     echo '<tr>';
-                    echo '<td class="center">'.$i.'</td>';
-                    echo '<td>'.$history->programme_name.'</td>';
-	                echo '<td>'.$org->name.'</td>';
-	                echo '<td class="center">'. date('d/m/Y', $history->reg_date) .'</td>';
-	                echo '<td class="center">'.get_reg_approval_date($history->user_id, $history->programme_id).'</td>';
-                    echo '<td class="center">'.(($history->submit_date)? date('d/m/Y', $history->submit_date):'').'</td>';
-                    echo '<td class="center">'.get_submitted_evaluators($history->id).'/'.get_total_evaluators_by_attempt_id($history->id).'</td>';
-                    echo '<td class="center">'.get_report_pdf($history).'</td>';
+                    echo '<td data-title="SN">'.$i.'</td>';
+                    echo '<td data-title="Programme">'.$history->programme_name.'</td>';
+	                echo '<td data-title="Organisation">'.$org->name.'</td>';
+	                echo '<td data-title="Reg Request">'. date('d/m/Y', $history->reg_date) .'</td>';
+	                echo '<td data-title="Reg Approved">'.get_reg_approval_date($history->user_id, $history->programme_id).'</td>';
+                    echo '<td data-title="Self-Assessment">'.(($history->submit_date)? date('d/m/Y', $history->submit_date):'').'</td>';
+                    echo '<td data-title="Evaluators">'.get_submitted_evaluators($history->id).'/'.get_total_evaluators_by_attempt_id($history->id).'</td>';
+                    echo '<td data-title="Report">'.get_report_pdf($history).'</td>';
                     echo '</tr>';
                     $i++;
                 }
