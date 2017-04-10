@@ -135,31 +135,20 @@ $(function(){
             $('#client_activation').html('de-activate');
         }
 
-        $( "#dialog-confirm" ).removeClass('hide').dialog({
-            resizable: false,
-            modal: true,
-            title: "<div class='widget-header'><h4 class='smaller'><i class='ace-icon fa fa-exclamation-triangle red'></i> Institute Activation!</h4></div>",
-            title_html: true,
-            buttons: [
-                {
-                    html: "<i class='glyphicon glyphicon-ok'></i>&nbsp; Proceed",
-                    "class" : "btn btn-danger btn-xs",
-                    click: function() {
-                        $( this ).dialog( "close" );
-                        $body = $("body");
-                        $body.addClass("loading");
-                        window.location.href = base_url + 'index.php/survey/update_client_status/' + client_id + '/' + active;
-                    }
-                }
-                ,
-                {
-                    html: "<i class='ace-icon fa fa-times bigger-110'></i>&nbsp; Cancel",
-                    "class" : "btn btn-xs",
-                    click: function() {
-                        $( this ).dialog( "close" );
-                    }
-                }
-            ]
+        swal({
+            title: "Are you sure?",
+            text: "You are about to "+ (active=='0' ? 'activate' : 'de-activate' ) + " an institute",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#DD6B55",
+            confirmButtonText: "Yes!",
+            showLoaderOnConfirm: true,
+            closeOnConfirm: false
+        },
+        function(){
+            $body = $("body");
+            $body.addClass("loading");
+            window.location.href = base_url + 'index.php/survey/update_client_status/' + client_id + '/' + active;
         });
 
     });
