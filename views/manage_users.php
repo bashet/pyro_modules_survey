@@ -69,7 +69,7 @@
                     <tbody></tbody>
                 </table>
             </div>
-            <div id="non-active_users" class="tab-pane fade">
+            <div id="non-active_users" class="tab-pane fade table-responsive">
                 <table id="tbl_non_active_users" class="table table-bordered table-hover" style="width:100%">
                     <thead>
                     <tr>
@@ -90,7 +90,7 @@
                 </table>
             </div>
 
-            <div id="archived_users" class="tab-pane fade">
+            <div id="archived_users" class="tab-pane fade table-responsive">
                 <table id="table_archived_users" class="table table-bordered table-hover" style="width:100%">
                     <thead>
                     <tr>
