@@ -12,8 +12,6 @@
 
 
     <div class="alert alert-block alert-info">
-        <p>Please find below all diagnostics for {{ if user:group == 'user' }}you {{ else }}<?php echo $user->first_name . ' ' . $user->last_name; ?>{{endif}}</p>
-
         <p><strong>NB: Please avoid opening multiple diagnostics simultaneously</strong></p>
     </div>
     <div id="no-more-tables" class="">

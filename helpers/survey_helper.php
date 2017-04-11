@@ -588,7 +588,7 @@ if(! function_exists('get_report_pdf')){
                             target="_blank"
                         >
                         <span class="glyphicon glyphicon-list-alt"></span>
-                        &nbsp;&nbsp;&nbsp;View this report
+                        &nbsp;&nbsp;&nbsp;View
                         </a>';
         }else{
             //if($ci->current_user->group != 'user'){
@@ -596,12 +596,12 @@ if(! function_exists('get_report_pdf')){
                             href="{{ url:site }}survey/report_viewer/'.$data->id.'"
                             target="_blank"
                         >
-                        &nbsp;Generate report
+                        &nbsp;Publish
                         </a>';
                 if(get_submitted_evaluators($data->id) >= 3){
-                    $result = 'Report is not ready yet - '.$result;
+                    $result = 'Unavailable - '.$result;
                 }else{
-                    $result = 'Report is not ready yet';
+                    $result = 'Unavailable';
                 }
 
             //}else{
