@@ -1,5 +1,6 @@
 $(function(){
 
+    $('#tbl_evaluators').footable();
 
     $('button[copy_this]').click(function(e){
         e.preventDefault();

@@ -10,18 +10,18 @@
     </div>
 
     <form id="frm_save_evaluators" method="post" action="{{ url:site }}survey/update_evaluators">
-        <table class="table table-bordered table-hover ui-responsive table-stroke" data-role="table">
+        <table id="tbl_evaluators" class="table table-bordered table-hover ui-responsive table-stroke" data-role="table">
             <thead>
             <tr>
-                <th style="width: 10%">Evaluator</th>
+                <th data-breakpoints="xs">Evaluator</th>
                 <th>Name</th>
                 <th>Email</th>
-                <th style="width: 15%">Relationship</th>
-                <th>Progress</th>
-                <th>Email Sent</th>
-                <th>Send Email</th>
-                <th>delete</th>
-                <th>Copy Link</th>
+                <th data-breakpoints="xs sm md">Relationship</th>
+                <th data-breakpoints="xs sm">Progress</th>
+                <th data-breakpoints="xs sm">Email Sent</th>
+                <th data-breakpoints="xs sm">Send Email</th>
+                <th data-breakpoints="xs sm md">delete</th>
+                <th data-breakpoints="xs sm md">Copy Link</th>
             </tr>
             </thead>
             <tbody>
@@ -31,14 +31,14 @@
                     foreach($evaluators as $e){
                         $i++;
                         echo    '<tr>';
-                        echo    '<td style="text-align:center">'.$i.'</td>';
+                        echo    '<td class="center">'.$i.'</td>';
                         echo    '<td>'.$e->name.'</td>';
                         echo    '<td>'.$e->email.'</td>';
-                        echo    '<td style="text-align:center">'.$e->relation.'</td>';
+                        echo    '<td class="center">'.$e->relation.'</td>';
                         if($e->start_date == 0){
-                            echo    '<td>Not started</td>';
+                            echo    '<td class="center">Not started</td>';
                         }elseif($e->submitted){
-                            echo    '<td>Submitted</td>';
+                            echo    '<td class="center">Submitted</td>';
                         }elseif($e->finished){
                             echo    '<td class="center">'.get_evaluator_progress($e->id).', but not submitted </td>';
                         }else{
@@ -46,29 +46,29 @@
                         }
 
                         if($e->re_email_sent){
-                            echo    '<td style="text-align:center; color: #428bca"><i class="fa fa-check"></i></td>';
+                            echo    '<td class="center" style="color: #428bca"><i class="fa fa-check"></i></td>';
                         }else{
-                            echo    '<td style="text-align:center; color: #428bca"><i class="fa fa-times"></i></td>';
+                            echo    '<td class="center" style="color: #428bca"><i class="fa fa-times"></i></td>';
                         }
                         $link        = $this->config->base_url().'index.php/survey/evaluator_response/'.$e->link_md5;
-                        echo    '<td style="text-align:center"><a href="{{ url:site }}survey/send_email_to_single_evaluator/'.$e->link_md5.'" class="btn btn-link" style="text-decoration: none"><i class="fa fa-envelope"></i></a></td>';
-                        echo    '<td style="text-align:center"><button delete_evaluator type="button" '.(($e->start_date)?'disabled':'').' id="'.$e->id.'-'.$e->name.'" class="btn btn-link" style="text-decoration: none;"><i class="fa fa-trash-o" '.((!$e->start_date)?'style="color:red"':'').'></i></button></td>';
+                        echo    '<td class="center"><a href="{{ url:site }}survey/send_email_to_single_evaluator/'.$e->link_md5.'" class="btn btn-link" style="text-decoration: none"><i class="fa fa-envelope"></i></a></td>';
+                        echo    '<td class="center"><button delete_evaluator type="button" '.(($e->start_date)?'disabled':'').' id="'.$e->id.'-'.$e->name.'" class="btn btn-link" style="text-decoration: none;"><i class="fa fa-trash-o" '.((!$e->start_date)?'style="color:red"':'').'></i></button></td>';
                         //echo    '<td style="text-align:center"><button type="button" copy_link id="copy_link-'.$e->id.'" class="btn btn-link z-clip" style="text-decoration: none"><span class="glyphicon glyphicon-link"></span></button></td>';
                         //echo    '<td style="text-align:center"><a style="text-decoration: none" copy_this href="'.$link.'"><span class="glyphicon glyphicon-link"></span></a></td>';
-                        echo    '<td style="text-align:center"><button copy_this id="'.$e->link_md5.'" class="btn btn-sm" value="'.$link.'" data-toggle="popover" data-trigger="focus" data-content="Link copied to clipboard!"><span class="glyphicon glyphicon-link"></span></button></td>';
+                        echo    '<td class="center"><button copy_this id="'.$e->link_md5.'" class="btn btn-sm" value="'.$link.'" data-toggle="popover" data-trigger="focus" data-content="Link copied to clipboard!"><span class="glyphicon glyphicon-link"></span></button></td>';
                         echo    '<input id="link-'.$e->id.'" type="hidden" value="'.$link.'">';
                         echo    '</tr>';
                     }
                 }else{
                     echo    '<tr>';
-                    echo    '<td style="text-align:center">'.$i.'</td>';
+                    echo    '<td class="center">'.$i.'</td>';
                     echo    '<td><input type="text" name="name_'.$i.'" id="evaluators_name-'.$i.'" class="form-control"></td>';
                     echo    '<td>
                                 <div class="form-group" id="email-'.$i.'">
                                     <input type="text" name="email_'.$i.'" id="evaluators_email-'.$i.'" class="form-control">
                                 </div>
                             </td>';
-                    echo    '<td style="text-align:center">
+                    echo    '<td class="center">
                                 <select name="relation_'.$i.'" id="relation_'.$i.'" class="form-control">
                                     <option value="">Please select</option>
                                     <option value="Line Manager">Line Manager</option>
