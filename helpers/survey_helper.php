@@ -591,23 +591,13 @@ if(! function_exists('get_report_pdf')){
                         &nbsp;&nbsp;&nbsp;View
                         </a>';
         }else{
-            //if($ci->current_user->group != 'user'){
-                $result = '<a class="btn btn-inverse btn-xs report_publish"
-                            href="{{ url:site }}survey/report_viewer/'.$data->id.'"
-                            target="_blank"
-                        >
-                        &nbsp;Publish
-                        </a>';
-                if(get_submitted_evaluators($data->id) >= 3){
-                    $result = 'Unavailable - '.$result;
-                }else{
-                    $result = 'Unavailable';
-                }
+	        $result = '<a class="btn btn-inverse btn-xs report_publish" href="{{ url:site }}survey/report_viewer/'.$data->id.'" target="_blank">&nbsp;Publish</a>';
 
-            //}else{
-            //    $result = 'Report is not ready yet';
-            //}
-
+	        if(get_submitted_evaluators($data->id) >= 3 && $data->submitted){
+                $result = 'Unavailable - '.$result;
+            }else{
+                $result = 'Unavailable';
+            }
         }
         return $result;
     }
