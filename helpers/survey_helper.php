@@ -592,7 +592,7 @@ if(! function_exists('get_report_pdf')){
                         </a>';
         }else{
             //if($ci->current_user->group != 'user'){
-                $result = '<a class="btn btn-inverse btn-xs"
+                $result = '<a class="btn btn-inverse btn-xs report_publish"
                             href="{{ url:site }}survey/report_viewer/'.$data->id.'"
                             target="_blank"
                         >

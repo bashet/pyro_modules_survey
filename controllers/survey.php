@@ -1749,6 +1749,7 @@ class Survey extends Public_Controller {
             ->set('user', $user)
             ->set('org', $org)
             ->append_css('module::convert_table_to_block.css')
+            ->append_js('module::history.js')
             ->build('history');
     }
 
